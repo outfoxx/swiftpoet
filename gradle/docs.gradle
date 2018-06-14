@@ -1,0 +1,35 @@
+
+apply plugin: 'org.jetbrains.dokka'
+
+
+dokka {
+
+  outputFormat 'html'
+  outputDirectory "$buildDir/javadoc"
+
+}
+
+
+gitPublish {
+
+  repoUri = 'git@github.com:outfoxx/swiftpoet.git'
+  
+  branch = 'gh-pages'
+  
+  contents {
+  
+    from(dokka) {
+      into "$project.version"
+    }
+  
+  }
+  
+  preserve {
+    include '**'
+  }
+  
+  commitMessage = 'Publishing documentation [ci skip]'
+}
+
+
+gitPublishPush.dependsOn dokka

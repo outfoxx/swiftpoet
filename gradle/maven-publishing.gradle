@@ -1,0 +1,147 @@
+
+// Maven publishing
+
+apply plugin: 'maven-publish'
+apply plugin: 'signing'
+
+
+ext {
+  repositoryUrl = project.version.endsWith('-SNAPSHOT') ?
+      'https://oss.sonatype.org/content/repositories/snapshots/' :
+      'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
+}
+
+
+task sourceJar(type: Jar) {
+  from sourceSets.main.allSource
+}
+
+
+task javadocJar(type: Jar, dependsOn: dokka) {
+  from dokka.outputDirectory
+}
+
+
+signing {
+  sign configurations.archives
+}
+
+
+pom {
+  
+  name 'Swift Poet'
+  
+  url 'https://github.com/outfoxx/swiftpoet'
+  organization {
+    name 'Outfox, Inc.'
+    url 'https://outfoxx.io'
+  }
+  issueManagement {
+    system 'GitHub'
+    url 'https://github.com/outfoxx/swiftpoet/issues'
+  }
+  licenses {
+    license {
+      name 'Apache License 2.0'
+      url 'https://raw.githubusercontent.com/outfoxx/swiftpoet/master/LICENSE.txt'
+      distribution 'repo'
+    }
+  }
+  scm {
+    url 'https://github.com/outfoxx/swiftpoet'
+    connection 'scm:https://github.com/outfoxx/swiftpoet.git'
+    developerConnection 'scm:git@github.com:outfoxx/swiftpoet.git'
+  }
+  developers {
+    developer {
+      id 'kdubb'
+      name 'Kevin Wooten'
+      email 'kevin@outfoxx.io'
+    }
+  }
+  
+}
+
+
+publishing {
+  
+  publications {
+    
+    mavenJavaSigned(MavenPublication) {
+      from components.java
+  
+      // create the sign pom artifact
+      pom.withXml {
+        
+        def pomFile = file("${project.buildDir}/generated-pom.xml")
+        writeTo(pomFile)
+        
+        def pomAscFile = signing.sign(pomFile).signatureFiles[0]
+        artifact(pomAscFile) {
+          classifier = null
+          extension = 'pom.asc'
+        }
+        
+      }
+  
+      artifact sourceJar {
+        classifier "sources"
+      }
+  
+      artifact javadocJar {
+        classifier 'javadoc'
+      }
+      
+      // create the signed artifacts
+      project.tasks.signArchives.signatureFiles.each {
+        artifact(it) {
+          def matcher = it.file =~ /-(sources|javadoc)\.jar\.asc$/
+          if (matcher.find()) {
+            classifier = matcher.group(1)
+          } else {
+            classifier = null
+          }
+          extension = 'jar.asc'
+        }
+      }
+    }
+  
+    mavenJava(MavenPublication) {
+      from components.java
+  
+      artifact sourceJar {
+        classifier "sources"
+      }
+    
+      artifact javadocJar {
+        classifier 'javadoc'
+      }
+      
+    }
+  
+  }
+  
+  repositories {
+    maven {
+      url repositoryUrl
+      credentials {
+        username project.findProperty('ossrhUsername') ?: ''
+        password project.findProperty('ossrhPassword') ?: ''
+      }
+    }
+  }
+  
+}
+
+
+model {
+  tasks.generatePomFileForMavenJavaPublication {
+    destination = file("$buildDir/generated-pom.xml")
+  }
+  tasks.publishMavenJavaSignedPublicationToMavenLocal {
+    dependsOn project.tasks.signArchives
+  }
+  tasks.publishMavenJavaSignedPublicationToMavenRepository {
+    dependsOn project.tasks.signArchives
+  }
+}

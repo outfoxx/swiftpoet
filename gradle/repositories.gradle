@@ -1,0 +1,8 @@
+
+repositories {
+  
+  mavenLocal()
+  mavenCentral()
+  jcenter()
+  
+}

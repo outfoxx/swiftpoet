@@ -1,0 +1,31 @@
+
+// Jacoco
+
+apply plugin: 'jacoco'
+
+
+jacoco {
+  toolVersion = '0.8.0'
+}
+
+test {
+  jacoco {
+    append = false
+  }
+}
+
+
+jacocoTestReport {
+  
+  executionData "${buildDir}/jacoco/test.exec"
+  
+  reports {
+    html.enabled true
+    xml.enabled true
+    xml.destination file("${buildDir}/coverage-results/all-tests.jacoco.xml")
+  }
+  
+  dependsOn test
+}
+
+build.dependsOn jacocoTestReport
