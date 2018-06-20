@@ -64,6 +64,10 @@ class TypeVariableName private constructor(
       return Bound(constraint, name)
     }
 
+    fun bound(constraint: Bound.Constraint, typeName: TypeName): Bound {
+      return Bound(constraint, typeName)
+    }
+
     fun bound(type: TypeName): Bound {
       return Bound(type)
     }

@@ -32,9 +32,8 @@ import java.io.StringWriter
  * Defining new types
  * ------------------
  *
- * Create new reference types like `MyModule.HelloWorld` with [ClassName.bestGuess]. To build composite
- * types like `Set<Long>`, use the factory methods on [ParameterizedTypeName], [TypeVariableName],
- * and [WildcardTypeName].
+ * Create new reference types like `MyModule.HelloWorld` with [DeclaredTypeName.typeName]. To build composite
+ * types like `Set<Long>`, use the factory methods on [ParameterizedTypeName] and [TypeVariableName].
  */
 abstract class TypeName internal constructor() {
 
@@ -46,8 +45,13 @@ abstract class TypeName internal constructor() {
     }
   }
 
-  open fun wrapOptional() = OPTIONAL.parameterizedBy(this)
-  open fun unwrapOptional() = this
+  open val optional: Boolean = false
+
+  open fun makeOptional(): ParameterizedTypeName = wrapOptional()
+  open fun makeNonOptional(): TypeName = unwrapOptional()
+
+  open fun wrapOptional(): ParameterizedTypeName = OPTIONAL.parameterizedBy(this)
+  open fun unwrapOptional(): TypeName = this
 
   open val name: String
     get() {

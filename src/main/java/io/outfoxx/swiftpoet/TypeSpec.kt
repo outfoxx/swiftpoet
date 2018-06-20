@@ -364,16 +364,16 @@ class TypeSpec private constructor(
 
     @JvmStatic fun classBuilder(className: DeclaredTypeName) = classBuilder(className.simpleName)
 
-    @JvmStatic fun structBuilder(name: String) = Builder(Kind.Class(), name)
+    @JvmStatic fun structBuilder(name: String) = Builder(Kind.Struct(), name)
 
-    @JvmStatic fun structBuilder(className: DeclaredTypeName) = classBuilder(className.simpleName)
+    @JvmStatic fun structBuilder(structName: DeclaredTypeName) = structBuilder(structName.simpleName)
 
     @JvmStatic fun protocolBuilder(name: String) = Builder(Kind.Protocol(), name)
 
-    @JvmStatic fun protocolBuilder(className: DeclaredTypeName) = protocolBuilder(className.simpleName)
+    @JvmStatic fun protocolBuilder(protocolName: DeclaredTypeName) = protocolBuilder(protocolName.simpleName)
 
     @JvmStatic fun enumBuilder(name: String) = Builder(Kind.Enum(), name)
 
-    @JvmStatic fun enumBuilder(className: DeclaredTypeName) = enumBuilder(className.simpleName)
+    @JvmStatic fun enumBuilder(enumName: DeclaredTypeName) = enumBuilder(enumName.simpleName)
   }
 }

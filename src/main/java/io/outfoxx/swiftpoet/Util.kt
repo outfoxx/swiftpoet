@@ -198,7 +198,6 @@ private val KEYWORDS = setOf(
    "while",
 
    "as",
-   "Any",
    "catch",
    "false",
    "is",

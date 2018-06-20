@@ -22,13 +22,13 @@ class DeclaredTypeName internal constructor(
 ) : TypeName(), Comparable<DeclaredTypeName> {
 
   /**
-   * Returns a class name created from the given parts. For example, calling this with module name
-   * `"Swift"` and simple names `"Array"`, `"Iterator"` yields [Swift.Array.Iterator].
+   * Returns a type name created from the given parts. For example, calling this with module name
+   * `"Swift"` and simple names `"Array"`, `"Iterator"` yields `Swift.Array.Iterator`.
    */
   constructor(moduleName: String, simpleName: String, vararg simpleNames: String)
       : this(listOf(moduleName, simpleName, *simpleNames))
 
-  /** From top to bottom. This will be `["Swift", "Array", "Iterator"]` for [Swift.Array.Iterator].  */
+  /** From top to bottom. This will be `["Swift", "Array", "Iterator"]` for `Swift.Array.Iterator`.  */
   private val names = names.toImmutableList()
   val canonicalName = if (names[0].isEmpty())
     names.subList(1, names.size).joinToString(".") else
@@ -37,9 +37,11 @@ class DeclaredTypeName internal constructor(
   /** Module name, like `"Swift"` for `Array.Iterator`.  */
   val moduleName get() = names[0]
 
-  /** Simple name of this class, like `"Iterator"` for [Swift.Array.Iterator].  */
+  /** Simple name of this type, like `"Iterator"` for `Swift.Array.Iterator`.  */
   val simpleName get() = names[names.size - 1]
   val simpleNames get() = names.subList(1, names.size)
+
+  val compoundName get() = simpleNames.joinToString("") { it.capitalize() }
 
   init {
     for (i in 1 until names.size) {
@@ -48,8 +50,8 @@ class DeclaredTypeName internal constructor(
   }
 
   /**
-   * Returns the enclosing class, like [Map] for `Map.Entry`. Returns null if this class
-   * is not nested in another class.
+   * Returns the enclosing type, like [Map] for `Map.Entry`. Returns null if this type
+   * is not nested in another type.
    */
   fun enclosingTypeName(): DeclaredTypeName? {
     return if (names.size != 2)
@@ -58,23 +60,23 @@ class DeclaredTypeName internal constructor(
   }
 
   /**
-   * Returns the top class in this nesting group. Equivalent to chained calls to
-   * [DeclaredTypeName.enclosingClassName] until the result's enclosing class is null.
+   * Returns the top type in this nesting group. Equivalent to chained calls to
+   * [DeclaredTypeName.enclosingTypeName] until the result's enclosing type is null.
    */
-  fun topLevelClassName() = DeclaredTypeName(names.subList(0, 2))
+  fun topLevelTypeName() = DeclaredTypeName(names.subList(0, 2))
 
   /**
    * Returns a new [DeclaredTypeName] instance for the specified `name` as nested inside this
-   * class.
+   * type.
    */
-  fun nestedClass(name: String) = DeclaredTypeName(names + name)
+  fun nestedType(name: String) = DeclaredTypeName(names + name)
 
   /**
-   * Returns a class that shares the same enclosing package or class. If this class is enclosed by
-   * another class, this is equivalent to `enclosingClassName().nestedClass(name)`. Otherwise
+   * Returns a type that shares the same enclosing package or type. If this type is enclosed by
+   * another type, this is equivalent to `enclosingTypeName().nestedType(name)`. Otherwise
    * it is equivalent to `get(packageName(), name)`.
    */
-  fun peerClass(name: String): DeclaredTypeName {
+  fun peerType(name: String): DeclaredTypeName {
     val result = names.toMutableList()
     result[result.size - 1] = name
     return DeclaredTypeName(result)
@@ -124,3 +126,5 @@ class DeclaredTypeName internal constructor(
 @JvmField val DICTIONARY = DeclaredTypeName.typeName("Swift.Dictionary")
 
 @JvmField val CASE_ITERABLE = DeclaredTypeName.typeName("Swift.CaseIterable")
+
+@JvmField val DATA = DeclaredTypeName.typeName("Foundation.Data")

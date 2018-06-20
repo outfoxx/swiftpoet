@@ -29,42 +29,58 @@ class ParameterizedTypeName internal constructor(
     }
   }
 
-  override fun wrapOptional() =
-          if (rawType == OPTIONAL)
-            this
-          else
-            ParameterizedTypeName(enclosingType, rawType, typeArguments)
+  override val optional get() = rawType == OPTIONAL
+
+  override fun makeOptional() =
+     if (optional)
+       this
+     else
+       wrapOptional()
+
+  override fun makeNonOptional() =
+     if (optional)
+       typeArguments[0].makeNonOptional()
+     else
+       this
 
   override fun unwrapOptional() =
-          if (rawType == OPTIONAL)
-            typeArguments[0]
-          else
-            this
+     if (optional)
+       typeArguments[0]
+     else
+       this
 
   override fun emit(out: CodeWriter): CodeWriter {
-    if (enclosingType != null) {
-      enclosingType.emit(out)
-      out.emit("." + rawType.simpleName)
-    } else {
-      rawType.emit(out)
-    }
-    if (typeArguments.isNotEmpty()) {
-      out.emit("<")
-      typeArguments.forEachIndexed { index, parameter ->
-        if (index > 0) out.emit(", ")
-        parameter.emit(out)
+    when (rawType) {
+      OPTIONAL -> out.emitCode("%T?", typeArguments[0])
+      ARRAY -> out.emitCode("[%T]", typeArguments[0])
+      DICTIONARY -> out.emitCode("[%T : %T]", typeArguments[0], typeArguments[1])
+      else -> {
+        if (enclosingType != null) {
+          enclosingType.emit(out)
+          out.emit("." + rawType.simpleName)
+        }
+        else {
+          rawType.emit(out)
+        }
+        if (typeArguments.isNotEmpty()) {
+          out.emit("<")
+          typeArguments.forEachIndexed { index, parameter ->
+            if (index > 0) out.emit(", ")
+            parameter.emit(out)
+          }
+          out.emit(">")
+        }
       }
-      out.emit(">")
     }
     return out
   }
 
   /**
    * Returns a new [ParameterizedTypeName] instance for the specified `name` as nested inside this
-   * class, with the specified `typeArguments`.
+   * type, with the specified `typeArguments`.
    */
-  fun nestedClass(name: String, typeArguments: List<TypeName>)
-      = ParameterizedTypeName(this, rawType.nestedClass(name), typeArguments)
+  fun nestedType(name: String, typeArguments: List<TypeName>)
+      = ParameterizedTypeName(this, rawType.nestedType(name), typeArguments)
 
   companion object {
     /** Returns a parameterized type, applying `typeArguments` to `rawType`.  */

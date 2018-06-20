@@ -23,7 +23,8 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
   val kdoc = builder.kdoc.build()
   val extendedType = builder.extendedType
   val modifiers = builder.modifiers.toImmutableSet()
-  val typeVariables = builder.typeVariables.toImmutableList()
+  val superTypes = builder.superTypes.toImmutableSet()
+  val conditionalConstraints = builder.conditionalConstraints.toImmutableList()
   val propertySpecs = builder.propertySpecs.toImmutableList()
   val funSpecs = builder.functionSpecs.toImmutableList()
   val typeSpecs = builder.typeSpecs.toImmutableList()
@@ -31,7 +32,7 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
   fun toBuilder(): Builder {
     val builder = Builder(extendedType)
     builder.kdoc.add(kdoc)
-    builder.typeVariables += typeVariables
+    builder.conditionalConstraints += conditionalConstraints
     builder.propertySpecs += propertySpecs
     builder.functionSpecs += funSpecs
     builder.typeSpecs += typeSpecs
@@ -49,11 +50,17 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
       codeWriter.emitModifiers(modifiers, setOf(INTERNAL))
       codeWriter.emit("extension")
       codeWriter.emitCode(" %T", extendedType)
-      codeWriter.emitWhereBlock(typeVariables)
+
+      val superTypes = superTypes.map { type -> CodeBlock.of("%T", type) }
+
+      if (superTypes.isNotEmpty()) {
+        codeWriter.emitCode(superTypes.joinToCode(separator = ",%W", prefix = " : "))
+      }
+
+      codeWriter.emitWhereBlock(conditionalConstraints, true)
       codeWriter.emit(" {\n")
 
-      // TODO figure out type to push
-      // codeWriter.pushType(this.extendedType)
+      codeWriter.pushType(extendedType)
 
       codeWriter.indent()
       var firstMember = true
@@ -109,10 +116,11 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
 
   override fun toString() = buildString { emit(CodeWriter(this)) }
 
-  class Builder internal constructor(internal val extendedType: TypeName) {
+  class Builder internal constructor(internal val extendedType: TypeSpec) {
     internal val kdoc = CodeBlock.builder()
     internal val modifiers = mutableSetOf<Modifier>()
-    internal val typeVariables = mutableListOf<TypeVariableName>()
+    internal val superTypes = mutableListOf<TypeName>()
+    internal val conditionalConstraints = mutableListOf<TypeVariableName>()
     internal val propertySpecs = mutableListOf<PropertySpec>()
     internal val functionSpecs = mutableListOf<FunctionSpec>()
     internal val typeSpecs = mutableListOf<TypeSpec>()
@@ -129,12 +137,16 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
       this.modifiers += modifiers
     }
 
-    fun addTypeVariables(typeVariables: Iterable<TypeVariableName>) = apply {
-      this.typeVariables += typeVariables
+    fun addSuperType(superType: TypeName) = apply {
+      superTypes += superType
     }
 
-    fun addTypeVariable(typeVariable: TypeVariableName) = apply {
-      typeVariables += typeVariable
+    fun addConditionalConstraints(typeVariables: Iterable<TypeVariableName>) = apply {
+      this.conditionalConstraints += typeVariables
+    }
+
+    fun addConditionalConstraint(typeVariable: TypeVariableName) = apply {
+      conditionalConstraints += typeVariable
     }
 
     fun addProperties(propertySpecs: Iterable<PropertySpec>) = apply {
@@ -171,6 +183,7 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
   }
 
   companion object {
-    @JvmStatic fun builder(extendedType: TypeName) = Builder(extendedType)
+    @JvmStatic fun builder(extendedType: TypeSpec) = Builder(extendedType)
+    @JvmStatic fun builder(extendedType: TypeName) = Builder(TypeSpec.classBuilder(extendedType.name).build())
   }
 }

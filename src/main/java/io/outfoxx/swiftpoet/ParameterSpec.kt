@@ -58,15 +58,16 @@ class ParameterSpec private constructor(
 
   override fun toString() = buildString { emit(CodeWriter(this)) }
 
-  fun toBuilder(argumentLabel: String? = this.argumentLabel, parameterName: String = this.parameterName, type: TypeName = this.type): Builder {
-    val builder = Builder(argumentLabel, parameterName, type)
-    builder.modifiers += modifiers
-    builder.defaultValue = defaultValue
-    return builder
+  fun toBuilder(type: TypeName): Builder {
+    return toBuilder(argumentLabel, parameterName, type)
   }
 
-  fun toBuilder(labelAndName: String = this.parameterName, type: TypeName = this.type): Builder {
-    val builder = Builder(labelAndName, labelAndName, type)
+  fun toBuilder(labelAndName: String, type: TypeName): Builder {
+    return toBuilder(labelAndName, labelAndName, type)
+  }
+
+  fun toBuilder(argumentLabel: String?, parameterName: String, type: TypeName): Builder {
+    val builder = Builder(argumentLabel, parameterName, type)
     builder.modifiers += modifiers
     builder.defaultValue = defaultValue
     return builder

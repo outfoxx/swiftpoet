@@ -27,7 +27,7 @@ internal class CodeWriter constructor(
   out: Appendable,
   private val indent: String = DEFAULT_INDENT,
   internal val importedTypes: Map<String, DeclaredTypeName> = emptyMap(),
-  internal val importedModules: Set<String> = emptySet()
+  private val importedModules: Set<String> = emptySet()
 ) {
   private val out = LineWrapper(out, indent, 100)
   private var indentLevel = 0
@@ -156,11 +156,11 @@ internal class CodeWriter constructor(
    * Emit a `where` block containing type bounds for each type variable that has at least two
    * bounds.
    */
-  fun emitWhereBlock(typeVariables: List<TypeVariableName>) {
+  fun emitWhereBlock(typeVariables: List<TypeVariableName>, forceOutput: Boolean = false) {
     if (typeVariables.isEmpty()) return
 
     typeVariables.forEachIndexed { index, typeVariable ->
-      if (typeVariables.size > 2 || typeVariables.any { it.bounds.size > 1 }) {
+      if (forceOutput || typeVariables.size > 2 || typeVariables.any { it.bounds.size > 1 }) {
         for (bound in typeVariable.bounds) {
           if (index > 0) emitCode(",%W") else emitCode("%Wwhere ")
           emitCode("%T", typeVariable)
@@ -264,12 +264,12 @@ internal class CodeWriter constructor(
       return typeName.canonicalName
     }
 
-    // If the class is in the same module, we're done.
+    // If the type is in the same module, we're done.
     if (moduleName == typeName.moduleName) {
       return typeName.simpleNames.joinToString(".")
     }
 
-    // If the class is in a manually imported module and doesn't clash, use an unqualified type
+    // If the type is in a manually imported module and doesn't clash, use an unqualified type
     if (importedModules.contains(typeName.moduleName) && !importableTypes.containsKey(typeName.simpleName)) {
       return typeName.simpleName
     }
@@ -286,30 +286,30 @@ internal class CodeWriter constructor(
     if (typeName.moduleName.isEmpty()) {
       return
     }
-    val topLevelClassName = typeName.topLevelClassName()
-    val simpleName = topLevelClassName.simpleName
-    val replaced = importableTypes.put(simpleName, topLevelClassName)
+    val topLevelTypeName = typeName.topLevelTypeName()
+    val simpleName = topLevelTypeName.simpleName
+    val replaced = importableTypes.put(simpleName, topLevelTypeName)
     if (replaced != null) {
       importableTypes[simpleName] = replaced // On collision, prefer the first inserted.
     }
   }
 
   /**
-   * Returns the class referenced by `simpleName`, using the current nesting context.
+   * Returns the type referenced by `simpleName`, using the current nesting context.
    */
-  // TODO(jwilson): also honor superclass members when resolving names.
+  // TODO(jwilson): also honor supertype members when resolving names.
   private fun resolve(simpleName: String): DeclaredTypeName? {
-    // Match a child of the current (potentially nested) class.
+    // Match a child of the current (potentially nested) type.
     for (i in typeSpecStack.indices.reversed()) {
       val typeSpec = typeSpecStack[i]
       for (visibleChild in typeSpec.typeSpecs) {
         if (visibleChild.name == simpleName) {
-          return stackClassName(i, simpleName)
+          return stackTypeName(i, simpleName)
         }
       }
     }
 
-    // Match the top-level class.
+    // Match the top-level type.
     if (typeSpecStack.size > 0 && typeSpecStack[0].name == simpleName) {
       return DeclaredTypeName(moduleName, simpleName)
     }
@@ -322,13 +322,13 @@ internal class CodeWriter constructor(
     return null
   }
 
-  /** Returns the class named `simpleName` when nested in the class at `stackDepth`.  */
-  private fun stackClassName(stackDepth: Int, simpleName: String): DeclaredTypeName {
-    var className = DeclaredTypeName(moduleName, typeSpecStack[0].name)
+  /** Returns the type named `simpleName` when nested in the type at `stackDepth`.  */
+  private fun stackTypeName(stackDepth: Int, simpleName: String): DeclaredTypeName {
+    var typeName = DeclaredTypeName(moduleName, typeSpecStack[0].name)
     for (i in 1..stackDepth) {
-      className = className.nestedClass(typeSpecStack[i].name)
+      typeName = typeName.nestedType(typeSpecStack[i].name)
     }
-    return className.nestedClass(simpleName)
+    return typeName.nestedType(simpleName)
   }
 
   /**

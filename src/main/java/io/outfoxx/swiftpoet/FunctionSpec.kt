@@ -26,6 +26,8 @@ class FunctionSpec private constructor(
   val typeVariables = builder.typeVariables.toImmutableList()
   val returnType = builder.returnType
   val parameters = builder.parameters.toImmutableList()
+  val throws = builder.throws
+  val failable = builder.failable
   val body = if (builder.abstract) CodeBlock.ABSTRACT else builder.body.build()
 
   init {
@@ -64,6 +66,9 @@ class FunctionSpec private constructor(
   private fun emitSignature(codeWriter: CodeWriter, enclosingName: String?) {
     if (isConstructor) {
       codeWriter.emitCode(CONSTRUCTOR, enclosingName)
+      if (failable) {
+        codeWriter.emit("?")
+      }
     } else if (name == GETTER) {
       codeWriter.emitCode(GETTER)
       return
@@ -82,6 +87,10 @@ class FunctionSpec private constructor(
 
     parameters.emit(codeWriter) { param ->
       param.emit(codeWriter, includeType = name != SETTER)
+    }
+
+    if (throws) {
+      codeWriter.emit(" throws")
     }
 
     if (returnType != null && returnType != VOID) {
@@ -125,6 +134,8 @@ class FunctionSpec private constructor(
     internal val typeVariables = mutableListOf<TypeVariableName>()
     internal var returnType: TypeName? = null
     internal val parameters = mutableListOf<ParameterSpec>()
+    internal var throws = false
+    internal var failable = false
     internal val body: CodeBlock.Builder = CodeBlock.builder()
     internal var abstract = false
 
@@ -192,6 +203,15 @@ class FunctionSpec private constructor(
     fun abstract(value: Boolean) = apply {
       check(body.isEmpty()) { "function with code cannot be abstract" }
       abstract = value
+    }
+
+    fun failable(value: Boolean) = apply {
+      check(name.isConstructor) { "only constructors can be failable" }
+      failable = value
+    }
+
+    fun throws(value: Boolean) = apply {
+      throws = value
     }
 
     fun addNamedCode(format: String, args: Map<String, *>) = apply {

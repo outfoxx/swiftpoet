@@ -336,6 +336,7 @@ class CodeBlock private constructor(
 
     private fun argToType(o: Any?) = when (o) {
       is TypeName -> o
+      is TypeSpec -> DeclaredTypeName(listOf("", o.name))
       else -> throw IllegalArgumentException("expected type but was " + o)
     }
 

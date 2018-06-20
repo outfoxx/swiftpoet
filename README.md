@@ -5,7 +5,7 @@ SwiftPoet
 [![CircleCI branch](https://img.shields.io/circleci/project/github/outfoxx/swiftpoet/develop.svg)]()
 [![Maven Central](https://img.shields.io/maven-central/v/io.outfoxx/swiftpoet.svg)][dl]
 [![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/oss.sonatype.org/io.outfoxx/swiftpoet.svg)][snap]
-[![codebeat badge](https://codebeat.co/badges/70f7939d-185e-42d7-b7a8-ea240840a121)](https://codebeat.co/projects/github-com-outfoxx-swiftpoet-master)
+[![codebeat badge](https://codebeat.co/badges/b6f3870d-84b8-4149-9fbd-b328bfb0302b)](https://codebeat.co/projects/github-com-outfoxx-swiftpoet-develop)
 
 `SwiftPoet` is a Kotlin and Java API for generating `.swift` source files.
 
