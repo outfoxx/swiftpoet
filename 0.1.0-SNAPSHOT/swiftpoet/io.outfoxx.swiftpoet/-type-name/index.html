@@ -17,9 +17,8 @@ collections, or even that it accepts a single type parameter.</p>
 <p>Instances of this class are immutable value objects that implement <code>equals()</code> and <code>hashCode()</code>
 properly.</p>
 Defining new types
-<p>Create new reference types like <code>MyModule.HelloWorld</code> with <a href="#">ClassName.bestGuess</a>. To build composite
-types like <code>Set&lt;Long&gt;</code>, use the factory methods on <a href="../-parameterized-type-name/index.html">ParameterizedTypeName</a>, <a href="../-type-variable-name/index.html">TypeVariableName</a>,
-and <a href="#">WildcardTypeName</a>.</p>
+<p>Create new reference types like <code>MyModule.HelloWorld</code> with <a href="../-declared-type-name/type-name.html">DeclaredTypeName.typeName</a>. To build composite
+types like <code>Set&lt;Long&gt;</code>, use the factory methods on <a href="../-parameterized-type-name/index.html">ParameterizedTypeName</a> and <a href="../-type-variable-name/index.html">TypeVariableName</a>.</p>
 <h3>Properties</h3>
 <table>
 <tbody>
@@ -28,6 +27,12 @@ and <a href="#">WildcardTypeName</a>.</p>
 <a href="name.html">name</a></td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="optional.html">optional</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">optional</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -45,6 +50,18 @@ and <a href="#">WildcardTypeName</a>.</p>
 <a href="hash-code.html">hashCode</a></td>
 <td>
 <code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">hashCode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="make-non-optional.html">makeNonOptional</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">makeNonOptional</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">TypeName</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="make-optional.html">makeOptional</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">makeOptional</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-parameterized-type-name/index.html"><span class="identifier">ParameterizedTypeName</span></a></code></td>
 </tr>
 <tr>
 <td>
