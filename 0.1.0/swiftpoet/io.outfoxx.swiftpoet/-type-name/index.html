@@ -1,0 +1,130 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TypeName - swiftpoet</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">swiftpoet</a>&nbsp;/&nbsp;<a href="../index.html">io.outfoxx.swiftpoet</a>&nbsp;/&nbsp;<a href=".">TypeName</a><br/>
+<br/>
+<h1>TypeName</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">TypeName</span></code>
+<p>Any type in Swift's type system. This class identifies simple types like <code>Int</code> and <code>String</code>,
+composite types like <code>Optional&lt;String&gt;</code> and <code>Set&lt;String&gt;</code>, and unassignable types like <code>Void</code>.</p>
+<p>Type names are dumb identifiers only and do not model the values they name. For example, the
+type name for <code>Swift.Array</code> doesn't know about the <code>count</code> property, the fact that arrays are
+collections, or even that it accepts a single type parameter.</p>
+<p>Instances of this class are immutable value objects that implement <code>equals()</code> and <code>hashCode()</code>
+properly.</p>
+Defining new types
+<p>Create new reference types like <code>MyModule.HelloWorld</code> with <a href="../-declared-type-name/type-name.html">DeclaredTypeName.typeName</a>. To build composite
+types like <code>Set&lt;Long&gt;</code>, use the factory methods on <a href="../-parameterized-type-name/index.html">ParameterizedTypeName</a> and <a href="../-type-variable-name/index.html">TypeVariableName</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="name.html">name</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="optional.html">optional</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">optional</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="equals.html">equals</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">equals</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.TypeName$equals(kotlin.Any)/other">other</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="hash-code.html">hashCode</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">hashCode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Int</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="make-non-optional.html">makeNonOptional</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">makeNonOptional</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">TypeName</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="make-optional.html">makeOptional</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">makeOptional</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-parameterized-type-name/index.html"><span class="identifier">ParameterizedTypeName</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="to-string.html">toString</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">toString</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="unwrap-optional.html">unwrapOptional</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">unwrapOptional</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">TypeName</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="wrap-optional.html">wrapOptional</a></td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">wrapOptional</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-parameterized-type-name/index.html"><span class="identifier">ParameterizedTypeName</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="../-composed-type-name/index.html">ComposedTypeName</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ComposedTypeName</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">TypeName</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="../-declared-type-name/index.html">DeclaredTypeName</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">DeclaredTypeName</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">TypeName</span><span class="symbol">, </span><span class="identifier">Comparable</span><span class="symbol">&lt;</span><a href="../-declared-type-name/index.html"><span class="identifier">DeclaredTypeName</span></a><span class="symbol">&gt;</span></code>
+<p>A fully-qualified type name for top-level and member types.</p>
+</td>
+</tr>
+<tr>
+<td>
+<a href="../-function-type-name/index.html">FunctionTypeName</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">FunctionTypeName</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">TypeName</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="../-parameterized-type-name/index.html">ParameterizedTypeName</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ParameterizedTypeName</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">TypeName</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="../-tuple-type-name/index.html">TupleTypeName</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TupleTypeName</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">TypeName</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="../-type-variable-name/index.html">TypeVariableName</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TypeVariableName</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">TypeName</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
