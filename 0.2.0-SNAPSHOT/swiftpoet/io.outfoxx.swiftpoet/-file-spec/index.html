@@ -1,0 +1,118 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FileSpec - swiftpoet</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">swiftpoet</a>&nbsp;/&nbsp;<a href="../index.html">io.outfoxx.swiftpoet</a>&nbsp;/&nbsp;<a href=".">FileSpec</a><br/>
+<br/>
+<h1>FileSpec</h1>
+<code><span class="keyword">class </span><span class="identifier">FileSpec</span></code>
+<p>A Kotlin file containing top level objects like classes, objects, functions, properties, and type
+aliases.</p>
+<p>Items are output in the following order:</p>
+<ul><li>Comment</li>
+<li>Annotations</li>
+<li>Package</li>
+<li>Imports</li>
+<li>Members</li>
+</ul>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="-builder/index.html">Builder</a></td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Builder</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="comment.html">comment</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">comment</span><span class="symbol">: </span><a href="../-code-block/index.html"><span class="identifier">CodeBlock</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="members.html">members</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">members</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="module-name.html">moduleName</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">moduleName</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="name.html">name</a></td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><span class="identifier">String</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="equals.html">equals</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">equals</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.FileSpec$equals(kotlin.Any)/other">other</span><span class="symbol">:</span>&nbsp;<span class="identifier">Any</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Boolean</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="hash-code.html">hashCode</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">hashCode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="to-builder.html">toBuilder</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">toBuilder</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="-builder/index.html"><span class="identifier">Builder</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="to-string.html">toString</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">toString</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">&lt;ERROR CLASS&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<a href="write-to.html">writeTo</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">writeTo</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.FileSpec$writeTo(java.lang.Appendable)/out">out</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/lang/Appendable.html"><span class="identifier">Appendable</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code><code><span class="keyword">fun </span><span class="identifier">writeTo</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.FileSpec$writeTo(java.nio.file.Path)/directory">directory</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/nio/file/Path.html"><span class="identifier">Path</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">writeTo</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.FileSpec$writeTo(java.io.File)/directory">directory</span><span class="symbol">:</span>&nbsp;<a href="http://docs.oracle.com/javase/6/docs/api/java/io/File.html"><span class="identifier">File</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Unit</span></code>
+<p>Writes this to <code>directory</code> as UTF-8 using the standard directory structure.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<a href="builder.html">builder</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">builder</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.FileSpec.Companion$builder(kotlin.String, kotlin.String)/moduleName">moduleName</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="io.outfoxx.swiftpoet.FileSpec.Companion$builder(kotlin.String, kotlin.String)/fileName">fileName</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><a href="-builder/index.html"><span class="identifier">Builder</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">builder</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.FileSpec.Companion$builder(kotlin.String)/fileName">fileName</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">)</span><span class="symbol">: </span><a href="-builder/index.html"><span class="identifier">Builder</span></a></code></td>
+</tr>
+<tr>
+<td>
+<a href="get.html">get</a></td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">get</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.FileSpec.Companion$get(kotlin.String, io.outfoxx.swiftpoet.TypeSpec)/moduleName">moduleName</span><span class="symbol">:</span>&nbsp;<span class="identifier">String</span><span class="symbol">, </span><span class="identifier" id="io.outfoxx.swiftpoet.FileSpec.Companion$get(kotlin.String, io.outfoxx.swiftpoet.TypeSpec)/typeSpec">typeSpec</span><span class="symbol">:</span>&nbsp;<a href="../-type-spec/index.html"><span class="identifier">TypeSpec</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">FileSpec</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
