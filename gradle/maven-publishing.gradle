@@ -6,7 +6,7 @@ apply plugin: 'signing'
 
 
 ext {
-  repositoryUrl = project.version.endsWith('-SNAPSHOT') ?
+  repositoryUrl = isSnapshotVersion ?
       'https://oss.sonatype.org/content/repositories/snapshots/' :
       'https://oss.sonatype.org/service/local/staging/deploy/maven2/'
 }
@@ -19,11 +19,6 @@ task sourceJar(type: Jar) {
 
 task javadocJar(type: Jar, dependsOn: dokka) {
   from dokka.outputDirectory
-}
-
-
-signing {
-  sign configurations.archives
 }
 
 
@@ -67,52 +62,13 @@ publishing {
   
   publications {
     
-    mavenJavaSigned(MavenPublication) {
-      from components.java
-  
-      // create the sign pom artifact
-      pom.withXml {
-        
-        def pomFile = file("${project.buildDir}/generated-pom.xml")
-        writeTo(pomFile)
-        
-        def pomAscFile = signing.sign(pomFile).signatureFiles[0]
-        artifact(pomAscFile) {
-          classifier = null
-          extension = 'pom.asc'
-        }
-        
-      }
-  
-      artifact sourceJar {
-        classifier "sources"
-      }
-  
-      artifact javadocJar {
-        classifier 'javadoc'
-      }
-      
-      // create the signed artifacts
-      project.tasks.signArchives.signatureFiles.each {
-        artifact(it) {
-          def matcher = it.file =~ /-(sources|javadoc)\.jar\.asc$/
-          if (matcher.find()) {
-            classifier = matcher.group(1)
-          } else {
-            classifier = null
-          }
-          extension = 'jar.asc'
-        }
-      }
-    }
-  
     mavenJava(MavenPublication) {
       from components.java
   
       artifact sourceJar {
         classifier "sources"
       }
-    
+  
       artifact javadocJar {
         classifier 'javadoc'
       }
@@ -134,14 +90,7 @@ publishing {
 }
 
 
-model {
-  tasks.generatePomFileForMavenJavaPublication {
-    destination = file("$buildDir/generated-pom.xml")
-  }
-  tasks.publishMavenJavaSignedPublicationToMavenLocal {
-    dependsOn project.tasks.signArchives
-  }
-  tasks.publishMavenJavaSignedPublicationToMavenRepository {
-    dependsOn project.tasks.signArchives
-  }
+signing {
+  required { isReleaseVersion && gradle.taskGraph.hasTask('publishMavenJavaPublicationToMavenRepository') }
+  sign publishing.publications.mavenJava
 }

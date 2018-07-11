@@ -34,6 +34,8 @@ plugins {
 group 'io.outfoxx'
 version '0.1.0'
 description 'A Kotlin/Java API for generating .swift source files.'
+ext.isSnapshotVersion = version.endsWith('SNAPSHOT')
+ext.isReleaseVersion = !isSnapshotVersion
 
 license {
   header = file('HEADER.txt')
