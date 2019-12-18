@@ -31,7 +31,7 @@ plugins {
 //
 
 group 'io.outfoxx'
-version '0.2.0-SNAPSHOT'
+version '0.2.0'
 description 'A Kotlin/Java API for generating .swift source files.'
 ext.isSnapshotVersion = version.endsWith('SNAPSHOT')
 ext.isReleaseVersion = !isSnapshotVersion
