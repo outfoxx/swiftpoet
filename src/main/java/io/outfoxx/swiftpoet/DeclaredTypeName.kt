@@ -99,6 +99,8 @@ class DeclaredTypeName internal constructor(
 
 @JvmField val OPTIONAL = DeclaredTypeName.typeName("Swift.Optional")
 @JvmField val ANY = DeclaredTypeName.typeName("Swift.Any")
+@JvmField val ANY_OBJECT = DeclaredTypeName.typeName("Swift.AnyObject")
+@JvmField val ANY_CLASS = DeclaredTypeName.typeName("Swift.AnyClass")
 @JvmField val VOID = DeclaredTypeName.typeName("Swift.Void")
 
 @JvmField val INT = DeclaredTypeName.typeName("Swift.Int")
