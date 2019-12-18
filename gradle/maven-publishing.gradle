@@ -12,49 +12,15 @@ ext {
 }
 
 
-task sourceJar(type: Jar) {
-  from sourceSets.main.allSource
+java {
+  withSourcesJar()
 }
 
 
-task javadocJar(type: Jar, dependsOn: dokka) {
-  from dokka.outputDirectory
-}
-
-
-pom {
-  
-  name 'Swift Poet'
-  
-  url 'https://github.com/outfoxx/swiftpoet'
-  organization {
-    name 'Outfox, Inc.'
-    url 'https://outfoxx.io'
+javadoc {
+  if(JavaVersion.current().isJava9Compatible()) {
+    options.addBooleanOption('html5', true)
   }
-  issueManagement {
-    system 'GitHub'
-    url 'https://github.com/outfoxx/swiftpoet/issues'
-  }
-  licenses {
-    license {
-      name 'Apache License 2.0'
-      url 'https://raw.githubusercontent.com/outfoxx/swiftpoet/master/LICENSE.txt'
-      distribution 'repo'
-    }
-  }
-  scm {
-    url 'https://github.com/outfoxx/swiftpoet'
-    connection 'scm:https://github.com/outfoxx/swiftpoet.git'
-    developerConnection 'scm:git@github.com:outfoxx/swiftpoet.git'
-  }
-  developers {
-    developer {
-      id 'kdubb'
-      name 'Kevin Wooten'
-      email 'kevin@outfoxx.io'
-    }
-  }
-  
 }
 
 
@@ -65,12 +31,38 @@ publishing {
     mavenJava(MavenPublication) {
       from components.java
   
-      artifact sourceJar {
-        classifier "sources"
-      }
-  
-      artifact javadocJar {
-        classifier 'javadoc'
+      pom {
+    
+        name = 'Swift Poet'
+    
+        url = 'https://github.com/outfoxx/swiftpoet'
+        organization {
+          name = 'Outfox, Inc.'
+          url = 'https://outfoxx.io'
+        }
+        issueManagement {
+          system = 'GitHub'
+          url = 'https://github.com/outfoxx/swiftpoet/issues'
+        }
+        licenses {
+          license {
+            name = 'Apache License 2.0'
+            url = 'https://raw.githubusercontent.com/outfoxx/swiftpoet/master/LICENSE.txt'
+            distribution = 'repo'
+          }
+        }
+        scm {
+          url = 'https://github.com/outfoxx/swiftpoet'
+          connection = 'scm:https://github.com/outfoxx/swiftpoet.git'
+          developerConnection = 'scm:git@github.com:outfoxx/swiftpoet.git'
+        }
+        developers {
+          developer {
+            id = 'kdubb'
+            name = 'Kevin Wooten'
+            email = 'kevin@outfoxx.io'
+          }
+        }
       }
       
     }
