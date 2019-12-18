@@ -65,7 +65,13 @@ class TypeSpec private constructor(
       codeWriter.emitCode(" %L", escapeIfNecessary(name))
       codeWriter.emitTypeVariables(typeVariables)
 
-      val superTypes = superTypes.map { type -> CodeBlock.of("%T", type) }
+      val superTypes =
+         if (superTypes.contains(CLASS)) {
+           listOf(CodeBlock.of("%T", CLASS)) + superTypes.filterNot { it == CLASS }.map { type -> CodeBlock.of("%T", type) }
+         }
+         else {
+           superTypes.map { type -> CodeBlock.of("%T", type) }
+         }
 
       if (superTypes.isNotEmpty()) {
         codeWriter.emitCode(superTypes.joinToCode(separator = ",%W", prefix = " : "))
@@ -277,6 +283,11 @@ class TypeSpec private constructor(
       typeVariables += typeVariable
     }
 
+    fun constrainToClass() = apply {
+      check(isProtocol) { "${this.name} is not a protocol" }
+      this.superTypes.add(CLASS)
+    }
+
     fun addSuperTypes(superTypes: Iterable<TypeName>) = apply {
       this.superTypes += superTypes
     }
@@ -377,3 +388,11 @@ class TypeSpec private constructor(
     @JvmStatic fun enumBuilder(enumName: DeclaredTypeName) = enumBuilder(enumName.simpleName)
   }
 }
+
+
+private object CLASS : TypeName() {
+  override fun emit(out: CodeWriter): CodeWriter {
+    return out.emit("class")
+  }
+}
+

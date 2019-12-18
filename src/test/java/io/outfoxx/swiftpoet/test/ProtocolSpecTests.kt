@@ -158,6 +158,30 @@ class ProtocolSpecTests {
   }
 
   @Test
+  @DisplayName("Generates super types, constrained to class")
+  fun testGenSuperTypesWithClassFirst() {
+    val testProto = TypeSpec.protocolBuilder("Test")
+       .addSuperType(typeName(".Test2"))
+       .addSuperType(typeName(".Test3"))
+       .constrainToClass()
+       .build()
+
+    val out = StringWriter()
+    testProto.emit(CodeWriter(out))
+
+    assertThat(
+       out.toString(),
+       equalTo(
+          """
+            protocol Test : class, Test2, Test3 {
+            }
+
+          """.trimIndent()
+       )
+    )
+  }
+
+  @Test
   @DisplayName("Generates type vars & super interfaces properly formatted")
   fun testGenTypeVarsAndSuperInterfacesFormatted() {
     val testProto = TypeSpec.protocolBuilder("Test")
