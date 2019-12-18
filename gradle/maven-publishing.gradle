@@ -14,10 +14,12 @@ ext {
 
 java {
   withSourcesJar()
+  withJavadocJar()
 }
 
 
 javadoc {
+  dependsOn dokka
   if(JavaVersion.current().isJava9Compatible()) {
     options.addBooleanOption('html5', true)
   }
@@ -35,6 +37,8 @@ publishing {
     
         name = 'Swift Poet'
     
+        description = 'SwiftPoet is a Kotlin and Java API for generating .swift source files.'
+        
         url = 'https://github.com/outfoxx/swiftpoet'
         organization {
           name = 'Outfox, Inc.'
