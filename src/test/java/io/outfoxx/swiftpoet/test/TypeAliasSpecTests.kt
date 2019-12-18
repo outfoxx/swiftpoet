@@ -101,7 +101,7 @@ class TypeAliasSpecTests {
   @DisplayName("Generates generic alias")
   fun testGenericAlias() {
     val typeVar = typeVariable("A", bound(typeName(".Test")))
-    val testAlias = TypeAliasSpec.builder("StringDict", DICTIONARY.parameterizedBy(STRING, typeVar))
+    val testAlias = TypeAliasSpec.builder("StringSet", SET.parameterizedBy(STRING, typeVar))
        .addTypeVariable(typeVar)
        .build()
 
@@ -112,7 +112,7 @@ class TypeAliasSpecTests {
        out.toString(),
        equalTo(
           """
-            typealias StringDict<A : Test> = Swift.Dictionary<Swift.String, A>
+            typealias StringSet<A : Test> = Swift.Set<Swift.String, A>
 
           """.trimIndent()
        )

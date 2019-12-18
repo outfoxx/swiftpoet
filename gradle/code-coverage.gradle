@@ -5,10 +5,12 @@ apply plugin: 'jacoco'
 
 
 jacoco {
-  toolVersion = '0.8.0'
+  toolVersion = '0.8.5'
 }
 
 test {
+  useJUnitPlatform()
+  
   jacoco {
   }
 }

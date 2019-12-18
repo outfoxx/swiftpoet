@@ -135,8 +135,8 @@ class ProtocolSpecTests {
   }
 
   @Test
-  @DisplayName("Generates super interfaces")
-  fun testGenMixins() {
+  @DisplayName("Generates super types")
+  fun testGenSuperTypes() {
     val testProto = TypeSpec.protocolBuilder("Test")
        .addSuperType(typeName(".Test2"))
        .addSuperType(typeName(".Test3"))

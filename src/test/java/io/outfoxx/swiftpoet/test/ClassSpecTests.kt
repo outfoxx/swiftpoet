@@ -163,7 +163,7 @@ class ClassSpecTests {
   @Test
   @DisplayName("Generates super types")
   fun testGenSuperClass() {
-    val testClass = TypeSpec.structBuilder("Test")
+    val testClass = TypeSpec.classBuilder("Test")
        .addSuperType(typeName(".Test2"))
        .build()
 

@@ -145,7 +145,7 @@ class FunctionSpecTests {
        out.toString(),
        equalTo(
           """
-            func test(): Value {
+            func test() -> Value {
             }
 
           """.trimIndent()
