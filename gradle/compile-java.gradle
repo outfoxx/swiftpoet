@@ -1,14 +1,15 @@
 
 // Java compiler options
 
+java {
+  sourceCompatibility = JavaVersion.VERSION_1_8
+  targetCompatibility = JavaVersion.VERSION_1_8
+}
+
 compileJava {
-  sourceCompatibility = 1.8
-  targetCompatibility = 1.8
   options.compilerArgs += '-parameters'
 }
 
 compileTestJava {
-  sourceCompatibility = 1.8
-  targetCompatibility = 1.8
   options.compilerArgs += '-parameters'
 }
