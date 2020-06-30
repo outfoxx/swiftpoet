@@ -28,6 +28,29 @@ import java.io.StringWriter
 @DisplayName("(enum) TypeSpec Tests")
 class EnumSpecTests {
 
+  @Test
+  @DisplayName("Escapes names which are keywords")
+  fun escapeName() {
+    val testClass = TypeSpec.enumBuilder("Test")
+            .addEnumCase("extension")
+            .build()
+    val out = StringWriter()
+    testClass.emit(CodeWriter(out))
+
+    assertThat(
+            out.toString(),
+            equalTo(
+                    """
+            enum Test {
+
+              case `extension`
+
+            }
+
+          """.trimIndent()
+      )
+    )
+  }
 
   @Test
   @DisplayName("Generates JavaDoc at before class definition")

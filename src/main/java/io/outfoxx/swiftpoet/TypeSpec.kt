@@ -102,7 +102,7 @@ class TypeSpec private constructor(
         while (i.hasNext()) {
           val enumCase = i.next()
           val enumCaseValue = enumCase.value
-          codeWriter.emitCode("case %L", enumCase.key)
+          codeWriter.emitCode("case %L", escapeIfKeyword(enumCase.key))
           when (enumCaseValue) {
             is String -> codeWriter.emitCode(" = %L", enumCaseValue)
             is TupleTypeName -> enumCaseValue.emit(codeWriter)
@@ -298,27 +298,23 @@ class TypeSpec private constructor(
 
     fun addEnumCase(name: String, type: TupleTypeName) = apply {
       check(isEnum) { "${this.name} is not an enum" }
-      require(name.isName) { "not a valid enum case: $name" }
       enumCases[name] = type
     }
 
     fun addEnumCase(name: String, type: TypeName) = apply {
       check(isEnum) { "${this.name} is not an enum" }
-      require(name.isName) { "not a valid enum case: $name" }
       enumCases[name] = TupleTypeName.of("" to type)
     }
 
     fun addEnumCase(name: String, constant: String) = apply {
-      check(isEnum) { "${this.name} is not enum" }
-      require(name.isName) { "not a valid enum constant: $name" }
+      check(isEnum) { "${this.name} is not an enum" }
       enumCases[name] = constant
     }
 
     fun addEnumCase(
        name: String
     ) = apply {
-      check(isEnum) { "${this.name} is not enum" }
-      require(name.isName) { "not a valid enum constant: $name" }
+      check(isEnum) { "${this.name} is not an enum" }
       enumCases[name] = null
     }
 
