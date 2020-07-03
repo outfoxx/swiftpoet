@@ -32,4 +32,10 @@ class PropertySpecTests {
     assertThat(property.toString(), equalTo("let `extension`: Swift.String"))
   }
 
+  @Test
+  @DisplayName("Escapes types which are keywords")
+  fun escapeType() {
+    val property = PropertySpec.builder("type", DeclaredTypeName(listOf("Foo", "Type"))).build()
+    assertThat(property.toString(), equalTo("let type: Foo.`Type`"))
+  }
 }

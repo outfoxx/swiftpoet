@@ -57,6 +57,26 @@ class ClassSpecTests {
   }
 
   @Test
+  @DisplayName("Escapes reserved type names")
+  fun testGenReservedClassName() {
+    val testClass = TypeSpec.classBuilder("Type").build()
+
+    val out = StringWriter()
+    testClass.emit(CodeWriter(out))
+
+    assertThat(
+        out.toString(),
+        equalTo(
+        """
+        class `Type` {
+        }
+
+        """.trimIndent()
+        )
+    )
+  }
+
+  @Test
   @DisplayName("Generates modifiers in order")
   fun testGenModifiersInOrder() {
     val testClass = TypeSpec.classBuilder("Test")
