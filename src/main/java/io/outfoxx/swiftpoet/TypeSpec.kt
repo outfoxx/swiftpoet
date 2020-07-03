@@ -251,10 +251,6 @@ class TypeSpec private constructor(
     internal val isStruct = kind is Kind.Struct
     internal val isProtocol = kind is Kind.Protocol
 
-    init {
-      require(name.isName) { "not a valid name: $name" }
-    }
-
     fun addKdoc(format: String, vararg args: Any) = apply {
       kdoc.add(format, *args)
     }
