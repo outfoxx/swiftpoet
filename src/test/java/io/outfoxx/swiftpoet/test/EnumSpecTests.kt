@@ -207,4 +207,24 @@ class EnumSpecTests {
     assertThat(testEnumBldr.enumCases.keys, hasItems("A"))
   }
 
+  @Test
+  @DisplayName("Allow enums with no cases")
+  fun testNoCases() {
+    val testClass = TypeSpec.enumBuilder("Test")
+      .build()
+    val out = StringWriter()
+    testClass.emit(CodeWriter(out))
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            enum Test {
+            }
+
+          """.trimIndent()
+      )
+    )
+  }
+
 }

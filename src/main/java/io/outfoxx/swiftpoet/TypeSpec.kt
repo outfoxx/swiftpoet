@@ -354,10 +354,6 @@ class TypeSpec private constructor(
     }
 
     fun build(): TypeSpec {
-      require(!isEnum || enumCases.isNotEmpty()) {
-        "at least one enum constant is required for $name"
-      }
-
       return TypeSpec(this)
     }
   }
