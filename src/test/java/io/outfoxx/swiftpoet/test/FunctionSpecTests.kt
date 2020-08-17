@@ -85,7 +85,7 @@ class FunctionSpecTests {
   @DisplayName("Generates modifiers in order")
   fun testGenModifiersInOrder() {
     val testClass = FunctionSpec.builder("test")
-       .addModifiers(Modifier.PRIVATE)
+       .addModifiers(Modifier.PRIVATE, Modifier.MUTATING, Modifier.FINAL)
        .addCode("")
        .build()
 
@@ -96,7 +96,7 @@ class FunctionSpecTests {
        out.toString(),
        equalTo(
           """
-            private func test() {
+            private mutating final func test() {
             }
 
           """.trimIndent()
