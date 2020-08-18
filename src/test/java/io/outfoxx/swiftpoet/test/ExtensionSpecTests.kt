@@ -19,6 +19,7 @@ package io.outfoxx.swiftpoet.test
 import io.outfoxx.swiftpoet.CodeWriter
 import io.outfoxx.swiftpoet.DeclaredTypeName
 import io.outfoxx.swiftpoet.ExtensionSpec
+import io.outfoxx.swiftpoet.TypeAliasSpec
 import io.outfoxx.swiftpoet.TypeVariableName.Bound.Constraint.CONFORMS_TO
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.bound
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.typeVariable
@@ -93,6 +94,29 @@ class ExtensionSpecTests {
        CoreMatchers.equalTo(
           """
             extension Swift.Array : Swift.Encodable where Element : Swift.Encodable {
+            }
+
+          """.trimIndent()
+       )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates nested type alias")
+  fun testNestedTypeAlias() {
+    val testExt = ExtensionSpec.builder(DeclaredTypeName.typeName("Swift.Array"))
+        .addTypeAlias(TypeAliasSpec.builder("Keys", DeclaredTypeName.typeName("Other.Keys")).build())
+       .build()
+
+    val out = StringWriter()
+    testExt.emit(CodeWriter(out))
+
+    MatcherAssert.assertThat(
+       out.toString(),
+       CoreMatchers.equalTo(
+          """
+            extension Swift.Array {
+              typealias Keys = Other.Keys
             }
 
           """.trimIndent()

@@ -20,8 +20,10 @@ import io.outfoxx.swiftpoet.*
 import io.outfoxx.swiftpoet.ComposedTypeName.Companion.composed
 import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
 import io.outfoxx.swiftpoet.TypeVariableName.Bound.Constraint.SAME_TYPE
+import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.hasItems
+import org.hamcrest.MatcherAssert
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -361,6 +363,33 @@ class ClassSpecTests {
     assertThat(testClassBlder.superTypes, hasItems<TypeName>(typeName(".Test2")))
     assertThat(testClassBlder.propertySpecs.map { it.name }, hasItems("value", "value2"))
     assertThat(testClassBlder.functionSpecs.map { it.name }, hasItems("test1"))
+  }
+
+
+
+  @Test
+  @DisplayName("Generates nested type alias")
+  fun testNestedTypeAlias() {
+    val testExt = TypeSpec.classBuilder("MyClass")
+        .addTypeAlias(TypeAliasSpec.builder("Keys", typeName("Other.Keys")).build())
+        .build()
+
+    val out = StringWriter()
+    testExt.emit(CodeWriter(out))
+
+    assertThat(
+        out.toString(),
+        equalTo(
+            """
+            class MyClass {
+
+              typealias Keys = Other.Keys
+
+            }
+
+          """.trimIndent()
+        )
+    )
   }
 
 }
