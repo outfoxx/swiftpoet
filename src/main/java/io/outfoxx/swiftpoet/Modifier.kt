@@ -30,6 +30,9 @@ enum class Modifier(
   CLASS("class", Target.FUNCTION, Target.PROPERTY),
   STATIC("static", Target.FUNCTION, Target.PROPERTY),
 
+  MUTATING("mutating", Target.FUNCTION, Target.PROPERTY),
+  NONMUTATING("nonmutating", Target.FUNCTION, Target.PROPERTY),
+
   FINAL("final", Target.CLASS, Target.FUNCTION),
   OVERRIDE("override", Target.FUNCTION, Target.PROPERTY),
 
