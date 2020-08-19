@@ -309,6 +309,11 @@ class ClassSpecTests {
              .setter(FunctionSpec.setterBuilder().addCode("%[value2 = newValue / 6\n%]").build())
              .build()
        )
+       .addProperty(
+          PropertySpec.builder("getterBy7", INT)
+             .getter(FunctionSpec.getterBuilder().addCode("%[return value * 7\n%]").build())
+             .build()
+       )
        .build()
 
     val out = StringWriter()
@@ -339,6 +344,9 @@ class ClassSpecTests {
                 set {
                   value2 = newValue / 6
                 }
+              }
+              var getterBy7: Swift.Int {
+                return value * 7
               }
 
             }
