@@ -18,8 +18,10 @@ package io.outfoxx.swiftpoet.test
 
 import io.outfoxx.swiftpoet.ComposedTypeName.Companion.composed
 import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
+import io.outfoxx.swiftpoet.FileMemberSpec
 import io.outfoxx.swiftpoet.FileSpec
 import io.outfoxx.swiftpoet.INT
+import io.outfoxx.swiftpoet.ImportSpec
 import io.outfoxx.swiftpoet.TypeSpec
 import io.outfoxx.swiftpoet.TypeVariableName
 import org.hamcrest.CoreMatchers
@@ -97,6 +99,135 @@ class FileSpecTests {
 
             }
 
+          """.trimIndent()
+       )
+    )
+
+  }
+
+  @Test
+  @DisplayName("Generates guarded imports")
+  fun testGenGuardedImports() {
+
+    val testFile = FileSpec.builder("Test", "Test")
+       .addImport(
+          ImportSpec.builder("SomeKit")
+             .addGuard("canImport(SomeKit)")
+             .build()
+       )
+       .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+       out.toString(),
+       CoreMatchers.equalTo(
+          """ 
+            #if canImport(SomeKit)
+            import SomeKit
+            #endif
+            
+            
+          """.trimIndent()
+       )
+    )
+
+  }
+
+  @Test
+  @DisplayName("Generates documented imports")
+  fun testGenDocumentedImports() {
+
+    val testFile = FileSpec.builder("Test", "Test")
+       .addImport(
+          ImportSpec.builder("SomeKit")
+             .addKdoc("this is a comment\n")
+             .build()
+       )
+       .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+       out.toString(),
+       CoreMatchers.equalTo(
+          """ 
+            /**
+             * this is a comment
+             */
+            import SomeKit
+            
+            
+          """.trimIndent()
+       )
+    )
+
+  }
+
+  @Test
+  @DisplayName("Generates guarded members")
+  fun testGenGuardedMembers() {
+
+    val testFile = FileSpec.builder("Test", "Test")
+       .addMember(
+          FileMemberSpec.builder(TypeSpec.classBuilder("Test").build())
+             .addGuard("DEBUG")
+             .build()
+       )
+       .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+       out.toString(),
+       CoreMatchers.equalTo(
+          """
+            #if DEBUG
+            class Test {
+            }
+            #endif
+
+          """.trimIndent()
+       )
+    )
+
+  }
+
+  @Test
+  @DisplayName("Generates documented members")
+  fun testGenDocumentedMembers() {
+
+    val testClass = TypeSpec.classBuilder("Test")
+       .addKdoc("this is a type comment\n")
+       .build()
+
+    val testFile = FileSpec.builder("Test", "Test")
+       .addMember(
+          FileMemberSpec.builder(testClass)
+             .addKdoc("this is a member comment\n")
+             .build()
+       )
+       .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+       out.toString(),
+       CoreMatchers.equalTo(
+          """
+            /**
+             * this is a member comment
+             */
+            /**
+             * this is a type comment
+             */
+            class Test {
+            }
+ 
           """.trimIndent()
        )
     )
