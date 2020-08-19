@@ -142,7 +142,7 @@ class FileSpecTests {
     val testFile = FileSpec.builder("Test", "Test")
        .addImport(
           ImportSpec.builder("SomeKit")
-             .addKdoc("this is a comment\n")
+             .addDoc("this is a comment\n")
              .build()
        )
        .build()
@@ -201,13 +201,13 @@ class FileSpecTests {
   fun testGenDocumentedMembers() {
 
     val testClass = TypeSpec.classBuilder("Test")
-       .addKdoc("this is a type comment\n")
+       .addDoc("this is a type comment\n")
        .build()
 
     val testFile = FileSpec.builder("Test", "Test")
        .addMember(
           FileMemberSpec.builder(testClass)
-             .addKdoc("this is a member comment\n")
+             .addDoc("this is a member comment\n")
              .build()
        )
        .build()

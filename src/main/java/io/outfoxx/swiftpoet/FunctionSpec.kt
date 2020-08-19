@@ -21,7 +21,7 @@ class FunctionSpec private constructor(
    builder: Builder
 ) : AttributedSpec(builder.attributes) {
   val name = builder.name
-  val kdoc = builder.kdoc.build()
+  val doc = builder.doc.build()
   val modifiers = builder.modifiers.toImmutableSet()
   val typeVariables = builder.typeVariables.toImmutableList()
   val returnType = builder.returnType
@@ -44,12 +44,12 @@ class FunctionSpec private constructor(
     implicitModifiers: Set<Modifier>,
     conciseGetter: Boolean = false
   ) {
-    if (name == GETTER && conciseGetter && kdoc.isEmpty() && attributes.isEmpty() && modifiers.isEmpty()) {
+    if (name == GETTER && conciseGetter && doc.isEmpty() && attributes.isEmpty() && modifiers.isEmpty()) {
       codeWriter.emitCode(body)
       return
     }
 
-    codeWriter.emitKdoc(kdoc)
+    codeWriter.emitDoc(doc)
     codeWriter.emitAttributes(attributes)
     codeWriter.emitModifiers(modifiers, implicitModifiers)
 
@@ -123,7 +123,7 @@ class FunctionSpec private constructor(
 
   fun toBuilder(): Builder {
     val builder = Builder(name)
-    builder.kdoc.add(kdoc)
+    builder.doc.add(doc)
     builder.attributes += attributes
     builder.modifiers += modifiers
     builder.typeVariables += typeVariables
@@ -134,7 +134,7 @@ class FunctionSpec private constructor(
   }
 
   class Builder internal constructor(internal val name: String) {
-    internal val kdoc = CodeBlock.builder()
+    internal val doc = CodeBlock.builder()
     internal val attributes = mutableListOf<AttributeSpec>()
     internal val modifiers = mutableListOf<Modifier>()
     internal val typeVariables = mutableListOf<TypeVariableName>()
@@ -145,12 +145,12 @@ class FunctionSpec private constructor(
     internal val body: CodeBlock.Builder = CodeBlock.builder()
     internal var abstract = false
 
-    fun addKdoc(format: String, vararg args: Any) = apply {
-      kdoc.add(format, *args)
+    fun addDoc(format: String, vararg args: Any) = apply {
+      doc.add(format, *args)
     }
 
-    fun addKdoc(block: CodeBlock) = apply {
-      kdoc.add(block)
+    fun addDoc(block: CodeBlock) = apply {
+      doc.add(block)
     }
 
     fun addAttribute(attribute: AttributeSpec) = apply {

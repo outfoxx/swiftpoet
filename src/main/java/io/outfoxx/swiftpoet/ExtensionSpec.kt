@@ -20,7 +20,7 @@ import io.outfoxx.swiftpoet.Modifier.INTERNAL
 
 /** A generated class, protocol, or enum declaration.  */
 class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
-  val kdoc = builder.kdoc.build()
+  val doc = builder.doc.build()
   val extendedType = builder.extendedType
   val modifiers = builder.modifiers.toImmutableSet()
   val superTypes = builder.superTypes.toImmutableSet()
@@ -32,7 +32,7 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
 
   fun toBuilder(): Builder {
     val builder = Builder(extendedType)
-    builder.kdoc.add(kdoc)
+    builder.doc.add(doc)
     builder.conditionalConstraints += conditionalConstraints
     builder.propertySpecs += propertySpecs
     builder.functionSpecs += funSpecs
@@ -48,7 +48,7 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
     codeWriter.statementLine = -1
 
     try {
-      codeWriter.emitKdoc(kdoc)
+      codeWriter.emitDoc(doc)
       codeWriter.emitModifiers(modifiers, setOf(INTERNAL))
       codeWriter.emit("extension")
       codeWriter.emitCode(" %T", extendedType)
@@ -126,7 +126,7 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
   override fun toString() = buildString { emit(CodeWriter(this)) }
 
   class Builder internal constructor(internal val extendedType: TypeSpec) {
-    internal val kdoc = CodeBlock.builder()
+    internal val doc = CodeBlock.builder()
     internal val modifiers = mutableSetOf<Modifier>()
     internal val superTypes = mutableListOf<TypeName>()
     internal val conditionalConstraints = mutableListOf<TypeVariableName>()
@@ -135,12 +135,12 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
     internal val typeSpecs = mutableListOf<TypeSpec>()
     internal val typeAliasSpecs = mutableListOf<TypeAliasSpec>()
 
-    fun addKdoc(format: String, vararg args: Any) = apply {
-      kdoc.add(format, *args)
+    fun addDoc(format: String, vararg args: Any) = apply {
+      doc.add(format, *args)
     }
 
-    fun addKdoc(block: CodeBlock) = apply {
-      kdoc.add(block)
+    fun addDoc(block: CodeBlock) = apply {
+      doc.add(block)
     }
 
     fun addModifiers(vararg modifiers: Modifier) = apply {

@@ -34,10 +34,10 @@ import java.io.StringWriter
 class FunctionSpecTests {
 
   @Test
-  @DisplayName("Generates JavaDoc before function definition")
-  fun testGenJavaDoc() {
+  @DisplayName("Generates documentation before function definition")
+  fun testGenDoc() {
     val testFunc = FunctionSpec.builder("test")
-       .addKdoc("this is a comment\n")
+       .addDoc("this is a comment\n")
        .build()
 
     val out = StringWriter()
@@ -301,7 +301,7 @@ class FunctionSpecTests {
   @DisplayName("toBuilder copies all fields")
   fun testToBuilder() {
     val testFuncBlder = FunctionSpec.builder("Test")
-       .addKdoc("this is a comment\n")
+       .addDoc("this is a comment\n")
        .addAttribute(DISCARDABLE_RESULT)
        .addModifiers(Modifier.PUBLIC)
        .addTypeVariable(
@@ -313,7 +313,7 @@ class FunctionSpecTests {
        .build()
        .toBuilder()
 
-    assertThat(testFuncBlder.kdoc.formatParts, hasItems("this is a comment\n"))
+    assertThat(testFuncBlder.doc.formatParts, hasItems("this is a comment\n"))
     assertThat(testFuncBlder.attributes, hasItems(DISCARDABLE_RESULT))
     assertThat(testFuncBlder.modifiers.toImmutableSet(), equalTo(setOf(Modifier.PUBLIC)))
     assertThat(testFuncBlder.typeVariables, hasItems(typeVariable("X", bound(".Test2"))))

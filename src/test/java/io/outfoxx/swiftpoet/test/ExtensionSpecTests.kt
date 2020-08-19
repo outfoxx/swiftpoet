@@ -32,10 +32,10 @@ import java.io.StringWriter
 class ExtensionSpecTests {
 
   @Test
-  @DisplayName("Generates JavaDoc before extension definition")
+  @DisplayName("Generates documentation before extension definition")
   fun testGenDocs() {
     val testExt = ExtensionSpec.builder(DeclaredTypeName.typeName(".MyType"))
-       .addKdoc("this is a comment\n")
+       .addDoc("this is a comment\n")
        .build()
 
     val out = StringWriter()

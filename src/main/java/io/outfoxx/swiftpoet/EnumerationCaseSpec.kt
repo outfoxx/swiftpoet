@@ -6,18 +6,18 @@ class EnumerationCaseSpec private constructor(
 
   val name = builder.name
   val typeOrConstant = builder.typeOrConstant
-  val kdoc = builder.kdoc.build()
+  val doc = builder.doc.build()
 
   fun toBuilder(): Builder {
     val builder = Builder(name, typeOrConstant)
-    builder.kdoc.add(kdoc)
+    builder.doc.add(doc)
     builder.attributes += attributes
     return builder
   }
 
   internal fun emit(codeWriter: CodeWriter) {
 
-    codeWriter.emitKdoc(kdoc)
+    codeWriter.emitDoc(doc)
     codeWriter.emitAttributes(attributes)
     codeWriter.emitCode("case %L", escapeIfKeyword(name))
     when (typeOrConstant) {
@@ -34,14 +34,14 @@ class EnumerationCaseSpec private constructor(
   ) {
 
     internal val attributes = mutableListOf<AttributeSpec>()
-    internal val kdoc = CodeBlock.builder()
+    internal val doc = CodeBlock.builder()
 
-    fun addKdoc(format: String, vararg args: Any) = apply {
-      kdoc.add(format, *args)
+    fun addDoc(format: String, vararg args: Any) = apply {
+      doc.add(format, *args)
     }
 
-    fun addKdoc(block: CodeBlock) = apply {
-      kdoc.add(block)
+    fun addDoc(block: CodeBlock) = apply {
+      doc.add(block)
     }
 
     fun addAttribute(attribute: AttributeSpec) = apply {

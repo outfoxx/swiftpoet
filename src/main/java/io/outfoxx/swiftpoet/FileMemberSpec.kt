@@ -1,13 +1,13 @@
 package io.outfoxx.swiftpoet
 
 class FileMemberSpec internal constructor(builder: Builder) {
-  val kdoc = builder.kdoc.build()
+  val doc = builder.doc.build()
   val member = builder.member
   val guardTest = builder.guardTest.build()
 
   internal fun emit(out: CodeWriter): CodeWriter {
 
-    out.emitKdoc(kdoc)
+    out.emitDoc(doc)
 
     if (guardTest.isNotEmpty()) {
       out.emit("#if ")
@@ -33,15 +33,15 @@ class FileMemberSpec internal constructor(builder: Builder) {
   }
 
   class Builder internal constructor(internal val member: Any) {
-    internal val kdoc = CodeBlock.builder()
+    internal val doc = CodeBlock.builder()
     internal val guardTest = CodeBlock.builder()
 
-    fun addKdoc(format: String, vararg args: Any) = apply {
-      kdoc.add(format, *args)
+    fun addDoc(format: String, vararg args: Any) = apply {
+      doc.add(format, *args)
     }
 
-    fun addKdoc(block: CodeBlock) = apply {
-      kdoc.add(block)
+    fun addDoc(block: CodeBlock) = apply {
+      doc.add(block)
     }
 
     fun addGuard(test: CodeBlock) = apply {

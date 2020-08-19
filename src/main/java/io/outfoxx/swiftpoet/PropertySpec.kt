@@ -27,7 +27,7 @@ class PropertySpec private constructor(
   val mutable = builder.mutable
   val name = builder.name
   val type = builder.type
-  val kdoc = builder.kdoc.build()
+  val doc = builder.doc.build()
   val modifiers = builder.modifiers.toImmutableSet()
   val initializer = builder.initializer
   val getter = builder.getter
@@ -38,7 +38,7 @@ class PropertySpec private constructor(
     implicitModifiers: Set<Modifier>,
     withInitializer: Boolean = true
   ) {
-    codeWriter.emitKdoc(kdoc)
+    codeWriter.emitDoc(doc)
     codeWriter.emitAttributes(attributes)
     codeWriter.emitModifiers(modifiers, implicitModifiers)
     codeWriter.emit(if (mutable || getter != null || setter != null) "var " else "let ")
@@ -89,7 +89,7 @@ class PropertySpec private constructor(
   fun toBuilder(): Builder {
     val builder = Builder(name, type)
     builder.mutable = mutable
-    builder.kdoc.add(kdoc)
+    builder.doc.add(doc)
     builder.modifiers += modifiers
     builder.initializer = initializer
     builder.setter = setter
@@ -99,7 +99,7 @@ class PropertySpec private constructor(
 
   class Builder internal constructor(internal val name: String, internal val type: TypeName) {
     internal var mutable = false
-    internal val kdoc = CodeBlock.builder()
+    internal val doc = CodeBlock.builder()
     internal val attributes = mutableListOf<AttributeSpec>()
     internal val modifiers = mutableListOf<Modifier>()
     internal var initializer: CodeBlock? = null
@@ -110,12 +110,12 @@ class PropertySpec private constructor(
       this.mutable = mutable
     }
 
-    fun addKdoc(format: String, vararg args: Any) = apply {
-      kdoc.add(format, *args)
+    fun addDoc(format: String, vararg args: Any) = apply {
+      doc.add(format, *args)
     }
 
-    fun addKdoc(block: CodeBlock) = apply {
-      kdoc.add(block)
+    fun addDoc(block: CodeBlock) = apply {
+      doc.add(block)
     }
 
 

@@ -20,7 +20,7 @@ class ImportSpec internal constructor(
   builder: ImportSpec.Builder
 ) : AttributedSpec(builder.attributes.toImmutableList()), Comparable<ImportSpec> {
   val name = builder.name
-  val kdoc = builder.kdoc.build()
+  val doc = builder.doc.build()
   val guardTest = builder.guardTest.build()
 
   private val importString = buildString {
@@ -29,7 +29,7 @@ class ImportSpec internal constructor(
 
   internal fun emit(out: CodeWriter): CodeWriter {
 
-    out.emitKdoc(kdoc)
+    out.emitDoc(doc)
 
     if (guardTest.isNotEmpty()) {
       out.emit("#if ")
@@ -53,16 +53,16 @@ class ImportSpec internal constructor(
   override fun compareTo(other: ImportSpec) = importString.compareTo(other.importString)
 
   class Builder internal constructor(internal val name: String) {
-    internal val kdoc = CodeBlock.builder()
+    internal val doc = CodeBlock.builder()
     internal val attributes = mutableListOf<AttributeSpec>()
     internal val guardTest = CodeBlock.builder()
 
-    fun addKdoc(format: String, vararg args: Any) = apply {
-      kdoc.add(format, *args)
+    fun addDoc(format: String, vararg args: Any) = apply {
+      doc.add(format, *args)
     }
 
-    fun addKdoc(block: CodeBlock) = apply {
-      kdoc.add(block)
+    fun addDoc(block: CodeBlock) = apply {
+      doc.add(block)
     }
 
     fun addAttribute(attribute: AttributeSpec) = apply {
