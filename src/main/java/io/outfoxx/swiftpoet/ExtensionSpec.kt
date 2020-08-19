@@ -28,7 +28,6 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
   val propertySpecs = builder.propertySpecs.toImmutableList()
   val funSpecs = builder.functionSpecs.toImmutableList()
   val typeSpecs = builder.typeSpecs.toImmutableList()
-  val typeAliasSpecs = builder.typeAliasSpecs.toImmutableList()
 
   fun toBuilder(): Builder {
     val builder = Builder(extendedType)
@@ -37,7 +36,6 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
     builder.propertySpecs += propertySpecs
     builder.functionSpecs += funSpecs
     builder.typeSpecs += typeSpecs
-    builder.typeAliasSpecs += typeAliasSpecs
     return builder
   }
 
@@ -93,14 +91,7 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
       // Types.
       for (typeSpec in typeSpecs) {
         if (!firstMember) codeWriter.emit("\n")
-        typeSpec.emit(codeWriter, false)
-        firstMember = false
-      }
-
-      // Type aliases.
-      for (typeAliasSpec in typeAliasSpecs) {
-        if (!firstMember) codeWriter.emit("\n")
-        typeAliasSpec.emit(codeWriter)
+        typeSpec.emit(codeWriter)
         firstMember = false
       }
 
@@ -132,8 +123,7 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
     internal val conditionalConstraints = mutableListOf<TypeVariableName>()
     internal val propertySpecs = mutableListOf<PropertySpec>()
     internal val functionSpecs = mutableListOf<FunctionSpec>()
-    internal val typeSpecs = mutableListOf<TypeSpec>()
-    internal val typeAliasSpecs = mutableListOf<TypeAliasSpec>()
+    internal val typeSpecs = mutableListOf<AnyTypeSpec>()
 
     fun addDoc(format: String, vararg args: Any) = apply {
       doc.add(format, *args)
@@ -179,20 +169,12 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
       functionSpecs += functionSpec
     }
 
-    fun addTypes(typeSpecs: Iterable<TypeSpec>) = apply {
+    fun addTypes(typeSpecs: Iterable<AnyTypeSpec>) = apply {
       this.typeSpecs += typeSpecs
     }
 
-    fun addType(typeSpec: TypeSpec) = apply {
+    fun addType(typeSpec: AnyTypeSpec) = apply {
       typeSpecs += typeSpec
-    }
-
-    fun addTypeAliases(typeAliasSpecs: Iterable<TypeAliasSpec>) = apply {
-      this.typeAliasSpecs += typeAliasSpecs
-    }
-
-    fun addTypeAlias(typeAliasSpec: TypeAliasSpec) = apply {
-      typeAliasSpecs += typeAliasSpec
     }
 
     fun build(): ExtensionSpec {

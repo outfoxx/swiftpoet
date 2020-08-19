@@ -21,10 +21,9 @@ import io.outfoxx.swiftpoet.Modifier.INTERNAL
 /** A generated class, protocol, or enum declaration.  */
 class TypeSpec private constructor(
    builder: TypeSpec.Builder
-) : AttributedSpec(builder.attributes.toImmutableList()) {
+) : AnyTypeSpec(builder.name, builder.attributes.toImmutableList()) {
 
   val kind = builder.kind
-  val name = builder.name
   val doc = builder.doc.build()
   val modifiers = kind.modifiers.toImmutableSet()
   val typeVariables = builder.typeVariables.toImmutableList()
@@ -37,7 +36,6 @@ class TypeSpec private constructor(
   val propertySpecs = builder.propertySpecs.toImmutableList()
   val funSpecs = builder.functionSpecs.toImmutableList()
   val typeSpecs = builder.typeSpecs.toImmutableList()
-  val typeAliasSpecs = builder.typeAliasSpecs.toImmutableList()
 
   fun toBuilder(): Builder {
     val builder = Builder(kind, name)
@@ -49,12 +47,11 @@ class TypeSpec private constructor(
     builder.propertySpecs += propertySpecs
     builder.functionSpecs += funSpecs
     builder.typeSpecs += typeSpecs
-    builder.typeAliasSpecs += typeAliasSpecs
     builder.associatedTypes += associatedTypes
     return builder
   }
 
-  internal fun emit(codeWriter: CodeWriter, isNestedExternal: Boolean = false) {
+  override fun emit(codeWriter: CodeWriter) {
     // Nested classes interrupt wrapped line indentation. Stash the current wrapping state and put
     // it back afterwards when this type is complete.
     val previousStatementLine = codeWriter.statementLine
@@ -145,16 +142,7 @@ class TypeSpec private constructor(
         firstMember = false
         typeSpecs.forEach { typeSpec ->
           codeWriter.emit("\n")
-          typeSpec.emit(codeWriter, isNestedExternal)
-        }
-      }
-
-      // Type aliases.
-      if (typeAliasSpecs.isNotEmpty()) {
-        firstMember = false
-        typeAliasSpecs.forEach { typeAliasSpec ->
-          codeWriter.emit("\n")
-          typeAliasSpec.emit(codeWriter)
+          typeSpec.emit(codeWriter)
         }
       }
 
@@ -250,8 +238,7 @@ class TypeSpec private constructor(
     internal val enumCases = mutableListOf<EnumerationCaseSpec>()
     internal val propertySpecs = mutableListOf<PropertySpec>()
     internal val functionSpecs = mutableListOf<FunctionSpec>()
-    internal val typeSpecs = mutableListOf<TypeSpec>()
-    internal val typeAliasSpecs = mutableListOf<TypeAliasSpec>()
+    internal val typeSpecs = mutableListOf<AnyTypeSpec>()
     internal val associatedTypes = mutableListOf<TypeVariableName>()
     internal val isEnum get() = kind is Kind.Enum
     internal val isClass = kind is Kind.Class
@@ -353,24 +340,14 @@ class TypeSpec private constructor(
       functionSpecs += functionSpec
     }
 
-    fun addTypes(typeSpecs: Iterable<TypeSpec>) = apply {
+    fun addTypes(typeSpecs: Iterable<AnyTypeSpec>) = apply {
       check(!isProtocol) { "${this.name} is a protocol, it cannot contain nested types" }
       this.typeSpecs += typeSpecs
     }
 
-    fun addType(typeSpec: TypeSpec) = apply {
+    fun addType(typeSpec: AnyTypeSpec) = apply {
       check(!isProtocol) { "${this.name} is a protocol, it cannot contain nested types" }
       typeSpecs += typeSpec
-    }
-
-    fun addTypeAliases(typeAliasSpecs: Iterable<TypeAliasSpec>) = apply {
-      check(!isProtocol) { "${this.name} is a protocol, it cannot contain nested types" }
-      this.typeAliasSpecs += typeAliasSpecs
-    }
-
-    fun addTypeAlias(typeAliasSpec: TypeAliasSpec) = apply {
-      check(!isProtocol) { "${this.name} is a protocol, it cannot contain nested types" }
-      typeAliasSpecs += typeAliasSpec
     }
 
     fun addAssociatedType(typeVariable: TypeVariableName) = apply {

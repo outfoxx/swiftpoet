@@ -19,15 +19,18 @@ package io.outfoxx.swiftpoet
 import io.outfoxx.swiftpoet.Modifier.*
 
 /** A generated typealias declaration */
-class TypeAliasSpec private constructor(builder: TypeAliasSpec.Builder) {
-  val name = builder.name
+class TypeAliasSpec private constructor(
+  builder: TypeAliasSpec.Builder
+) : AnyTypeSpec(builder.name, builder.attributes.toImmutableList()) {
+
   val type = builder.type
   val modifiers = builder.modifiers.toImmutableSet()
   val typeVariables = builder.typeVariables.toImmutableList()
   val doc = builder.doc.build()
 
-  internal fun emit(codeWriter: CodeWriter) {
+  override fun emit(codeWriter: CodeWriter) {
     codeWriter.emitDoc(doc)
+    codeWriter.emitAttributes(attributes)
     codeWriter.emitModifiers(modifiers)
     codeWriter.emitCode("typealias %L", name)
     codeWriter.emitTypeVariables(typeVariables)
@@ -58,12 +61,29 @@ class TypeAliasSpec private constructor(builder: TypeAliasSpec.Builder) {
     internal val name: String,
     internal val type: TypeName
   ) {
+    internal val doc = CodeBlock.builder()
+    internal val attributes = mutableListOf<AttributeSpec>()
     internal val modifiers = mutableSetOf<Modifier>()
     internal val typeVariables = mutableSetOf<TypeVariableName>()
-    internal val doc = CodeBlock.builder()
 
     init {
       require(name.isName) { "not a valid name: $name" }
+    }
+
+    fun addDoc(format: String, vararg args: Any) = apply {
+      doc.add(format, *args)
+    }
+
+    fun addDoc(block: CodeBlock) = apply {
+      doc.add(block)
+    }
+
+    fun addAttribute(attribute: AttributeSpec) = apply {
+      this.attributes += attribute
+    }
+
+    fun addAttribute(name: String, vararg arguments: String) = apply {
+      this.attributes += AttributeSpec.builder(name).addArguments(arguments.toList()).build()
     }
 
     fun addModifiers(vararg modifiers: Modifier) = apply {
@@ -83,14 +103,6 @@ class TypeAliasSpec private constructor(builder: TypeAliasSpec.Builder) {
 
     fun addTypeVariable(typeVariable: TypeVariableName) = apply {
       typeVariables += typeVariable
-    }
-
-    fun addDoc(format: String, vararg args: Any) = apply {
-      doc.add(format, *args)
-    }
-
-    fun addDoc(block: CodeBlock) = apply {
-      doc.add(block)
     }
 
     fun build() = TypeAliasSpec(this)

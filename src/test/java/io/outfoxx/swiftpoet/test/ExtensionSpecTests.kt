@@ -105,7 +105,7 @@ class ExtensionSpecTests {
   @DisplayName("Generates nested type alias")
   fun testNestedTypeAlias() {
     val testExt = ExtensionSpec.builder(DeclaredTypeName.typeName("Swift.Array"))
-        .addTypeAlias(TypeAliasSpec.builder("Keys", DeclaredTypeName.typeName("Other.Keys")).build())
+        .addType(TypeAliasSpec.builder("Keys", DeclaredTypeName.typeName("Other.Keys")).build())
        .build()
 
     val out = StringWriter()

@@ -58,13 +58,11 @@ class FileMemberSpec internal constructor(builder: Builder) {
   }
 
   companion object {
-    @JvmStatic fun builder(member: TypeSpec) = Builder(member)
+    @JvmStatic fun builder(member: AnyTypeSpec) = Builder(member)
 
     @JvmStatic fun builder(member: FunctionSpec) = Builder(member)
 
     @JvmStatic fun builder(member: PropertySpec) = Builder(member)
-
-    @JvmStatic fun builder(member: TypeAliasSpec) = Builder(member)
 
     @JvmStatic fun builder(member: ExtensionSpec) = Builder(member)
   }

@@ -436,7 +436,7 @@ class ClassSpecTests {
   @DisplayName("Generates nested type alias")
   fun testNestedTypeAlias() {
     val testExt = TypeSpec.classBuilder("MyClass")
-        .addTypeAlias(TypeAliasSpec.builder("Keys", typeName("Other.Keys")).build())
+        .addType(TypeAliasSpec.builder("Keys", typeName("Other.Keys")).build())
         .build()
 
     val out = StringWriter()
