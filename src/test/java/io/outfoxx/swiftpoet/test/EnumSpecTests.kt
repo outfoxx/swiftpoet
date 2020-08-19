@@ -20,6 +20,7 @@ import io.outfoxx.swiftpoet.*
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.hasItems
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.jupiter.api.Assertions.assertThrows
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.io.StringWriter
@@ -53,20 +54,20 @@ class EnumSpecTests {
   }
 
   @Test
-  @DisplayName("Generates JavaDoc at before class definition")
-  fun testGenJavaDoc() {
-    val testClass = TypeSpec.enumBuilder("Test")
-       .addKdoc("this is a comment\n")
-       .addEnumCase("a")
-       .build()
+  @DisplayName("Generates doc before enum definition")
+  fun testGenDocs() {
+    val testEnum = TypeSpec.enumBuilder("Test")
+      .addKdoc("this is a comment\n")
+      .addEnumCase("a")
+      .build()
 
     val out = StringWriter()
-    testClass.emit(CodeWriter(out))
+    testEnum.emit(CodeWriter(out))
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             /**
              * this is a comment
              */
@@ -77,20 +78,113 @@ class EnumSpecTests {
             }
 
           """.trimIndent()
-       )
+      )
     )
   }
+
+
+  @Test
+  @DisplayName("Generates attributes before enum definition")
+  fun testGenAttrs() {
+    val testEnum = TypeSpec.enumBuilder("Test")
+      .addAttribute("available", "swift 5.1")
+      .addEnumCase("a")
+      .build()
+
+    val out = StringWriter()
+    testEnum.emit(CodeWriter(out))
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            @available(swift 5.1)
+            enum Test {
+
+              case a
+
+            }
+
+          """.trimIndent()
+      )
+    )
+  }
+
+
+  @Test
+  @DisplayName("Generates doc before enum case definitions")
+  fun testGenDocOnCases() {
+    val testEnum = TypeSpec.enumBuilder("Test")
+      .addEnumCase(
+        EnumerationCaseSpec.builder("a")
+          .addKdoc("this is a comment\n")
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testEnum.emit(CodeWriter(out))
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            enum Test {
+
+              /**
+               * this is a comment
+               */
+              case a
+
+            }
+
+          """.trimIndent()
+      )
+    )
+  }
+
+
+  @Test
+  @DisplayName("Generates attributes before enum case definition")
+  fun testGenAttrsOnCases() {
+    val testEnum = TypeSpec.enumBuilder("Test")
+      .addEnumCase(
+        EnumerationCaseSpec.builder("a")
+          .addAttribute("available", "swift 5.1")
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testEnum.emit(CodeWriter(out))
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            enum Test {
+
+              @available(swift 5.1)
+              case a
+
+            }
+
+          """.trimIndent()
+      )
+    )
+  }
+
 
   @Test
   @DisplayName("Generates modifiers in order")
   fun testGenModifiersInOrder() {
-    val testClass = TypeSpec.enumBuilder("Test")
+    val testEnum = TypeSpec.enumBuilder("Test")
        .addModifiers(Modifier.PUBLIC)
        .addEnumCase("a")
        .build()
 
     val out = StringWriter()
-    testClass.emit(CodeWriter(out))
+    testEnum.emit(CodeWriter(out))
 
     assertThat(
        out.toString(),
@@ -107,17 +201,18 @@ class EnumSpecTests {
     )
   }
 
+
   @Test
   @DisplayName("Generates formatted constants")
   fun testGenConstants() {
-    val testClass = TypeSpec.enumBuilder("Test")
-       .addEnumCase("A", "10")
-       .addEnumCase("B", "20")
-       .addEnumCase("C", "30")
+    val testEnum = TypeSpec.enumBuilder("Test")
+       .addEnumCase("A", 10)
+       .addEnumCase("B", 20)
+       .addEnumCase("C", 30)
        .build()
 
     val out = StringWriter()
-    testClass.emit(CodeWriter(out))
+    testEnum.emit(CodeWriter(out))
 
     assertThat(
        out.toString(),
@@ -140,14 +235,14 @@ class EnumSpecTests {
   @Test
   @DisplayName("Generates raw & interface")
   fun testGenRawInterfaces() {
-    val testClass = TypeSpec.enumBuilder("Test")
+    val testEnum = TypeSpec.enumBuilder("Test")
        .addSuperType(INT)
        .addSuperType(CASE_ITERABLE)
-       .addEnumCase("A", "10")
+       .addEnumCase("A", CodeBlock.of("10"))
        .build()
 
     val out = StringWriter()
-    testClass.emit(CodeWriter(out))
+    testEnum.emit(CodeWriter(out))
 
     assertThat(
        out.toString(),
@@ -168,18 +263,18 @@ class EnumSpecTests {
   @Test
   @DisplayName("Generates formatted associated values")
   fun testGenAssociatedValues() {
-    val testClass = TypeSpec.enumBuilder("Test")
-       .addEnumCase("A", TupleTypeName.of("value" to INT, "" to STRING))
-       .addEnumCase("B", INT)
-       .build()
+    val testEnum = TypeSpec.enumBuilder("Test")
+      .addEnumCase("A", TupleTypeName.of("value" to INT, "" to STRING))
+      .addEnumCase("B", INT)
+      .build()
 
     val out = StringWriter()
-    testClass.emit(CodeWriter(out))
+    testEnum.emit(CodeWriter(out))
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             enum Test {
 
               case A(value: Swift.Int, Swift.String)
@@ -188,23 +283,53 @@ class EnumSpecTests {
             }
 
           """.trimIndent()
-       )
+      )
     )
   }
+
+
+  @Test
+  @DisplayName("Disallows repeat enumeration case names")
+  fun testDisallowRepeatCases() {
+    assertThrows(IllegalArgumentException::class.java) {
+      TypeSpec.enumBuilder("Test")
+        .addEnumCase("A")
+        .addEnumCase("A")
+        .build()
+    }
+  }
+
+
   @Test
   @DisplayName("toBuilder copies all fields")
   fun testToBuilder() {
     val testEnumBldr = TypeSpec.enumBuilder("Test")
-       .addKdoc("this is a comment\n")
-       .addModifiers(Modifier.PRIVATE)
-       .addEnumCase("A", "10")
-       .build()
-       .toBuilder()
+      .addKdoc("this is a comment\n")
+      .addModifiers(Modifier.PRIVATE)
+      .addEnumCase("A", "10")
+      .build()
+      .toBuilder()
 
     assertThat(testEnumBldr.name, equalTo("Test"))
     assertThat(testEnumBldr.kdoc.formatParts, hasItems("this is a comment\n"))
     assertThat(testEnumBldr.kind.modifiers, hasItems(Modifier.PRIVATE))
-    assertThat(testEnumBldr.enumCases.keys, hasItems("A"))
+    assertThat(testEnumBldr.enumCases.map { it.name }, hasItems("A"))
+  }
+
+
+  @Test
+  @DisplayName("case toBuilder copies all fields")
+  fun testCaseToBuilder() {
+    val testEnumBldr = EnumerationCaseSpec.builder("A", "a-value")
+      .addKdoc("this is a comment\n")
+      .addAttribute("available", "swift 5.1")
+      .build()
+      .toBuilder()
+
+    assertThat(testEnumBldr.name, equalTo("A"))
+    assertThat(testEnumBldr.kdoc.formatParts, hasItems("this is a comment\n"))
+    assertThat(testEnumBldr.attributes.map { it.name }, hasItems("available"))
+    assertThat(testEnumBldr.typeOrConstant as? CodeBlock, equalTo(CodeBlock.of("%S", "a-value")))
   }
 
   @Test

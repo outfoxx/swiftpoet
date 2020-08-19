@@ -22,6 +22,7 @@ import io.outfoxx.swiftpoet.Modifier.INTERNAL
 class TypeSpec private constructor(
    builder: TypeSpec.Builder
 ) : AttributedSpec(builder.attributes.toImmutableList()) {
+
   val kind = builder.kind
   val name = builder.name
   val kdoc = builder.kdoc.build()
@@ -32,7 +33,7 @@ class TypeSpec private constructor(
   val isEnum = builder.isEnum
 
   val superTypes = builder.superTypes.toImmutableSet()
-  val enumCases = builder.enumCases.toImmutableMap()
+  val enumCases = builder.enumCases.toImmutableList()
   val propertySpecs = builder.propertySpecs.toImmutableList()
   val funSpecs = builder.functionSpecs.toImmutableList()
   val typeSpecs = builder.typeSpecs.toImmutableList()
@@ -100,15 +101,9 @@ class TypeSpec private constructor(
       if (enumCases.isNotEmpty()) {
         codeWriter.emit("\n")
         firstMember = false
-        val i = enumCases.entries.iterator()
+        val i = enumCases.iterator()
         while (i.hasNext()) {
-          val enumCase = i.next()
-          val enumCaseValue = enumCase.value
-          codeWriter.emitCode("case %L", escapeIfKeyword(enumCase.key))
-          when (enumCaseValue) {
-            is String -> codeWriter.emitCode(" = %L", enumCaseValue)
-            is TupleTypeName -> enumCaseValue.emit(codeWriter)
-          }
+          i.next().emit(codeWriter)
           codeWriter.emit("\n")
         }
       }
@@ -252,7 +247,7 @@ class TypeSpec private constructor(
     internal val attributes = mutableListOf<AttributeSpec>()
     internal val typeVariables = mutableListOf<TypeVariableName>()
     internal val superTypes = mutableSetOf<TypeName>()
-    internal val enumCases = mutableMapOf<String, Any?>()
+    internal val enumCases = mutableListOf<EnumerationCaseSpec>()
     internal val propertySpecs = mutableListOf<PropertySpec>()
     internal val functionSpecs = mutableListOf<FunctionSpec>()
     internal val typeSpecs = mutableListOf<TypeSpec>()
@@ -301,29 +296,37 @@ class TypeSpec private constructor(
     }
 
     fun addSuperType(superType: TypeName) = apply {
-        this.superTypes += superType
+      this.superTypes += superType
+    }
+
+    fun addEnumCase(enumerationCaseSpec: EnumerationCaseSpec) = apply {
+      check(isEnum) { "${this.name} is not an enum" }
+      require(enumCases.none { it.name == enumerationCaseSpec.name }) { "case already exists: ${enumerationCaseSpec.name}" }
+      enumCases.add(enumerationCaseSpec)
     }
 
     fun addEnumCase(name: String, type: TupleTypeName) = apply {
-      check(isEnum) { "${this.name} is not an enum" }
-      enumCases[name] = type
+      addEnumCase(EnumerationCaseSpec.builder(name, type).build())
     }
 
     fun addEnumCase(name: String, type: TypeName) = apply {
-      check(isEnum) { "${this.name} is not an enum" }
-      enumCases[name] = TupleTypeName.of("" to type)
+      addEnumCase(EnumerationCaseSpec.builder(name, type).build())
     }
 
     fun addEnumCase(name: String, constant: String) = apply {
-      check(isEnum) { "${this.name} is not an enum" }
-      enumCases[name] = constant
+      addEnumCase(EnumerationCaseSpec.builder(name, constant).build())
     }
 
-    fun addEnumCase(
-       name: String
-    ) = apply {
-      check(isEnum) { "${this.name} is not an enum" }
-      enumCases[name] = null
+    fun addEnumCase(name: String, constant: Int) = apply {
+      addEnumCase(EnumerationCaseSpec.builder(name, constant).build())
+    }
+
+    fun addEnumCase(name: String, constant: CodeBlock) = apply {
+      addEnumCase(EnumerationCaseSpec.builder(name, constant).build())
+    }
+
+    fun addEnumCase(name: String) = apply {
+      addEnumCase(EnumerationCaseSpec.builder(name).build())
     }
 
     fun addProperties(propertySpecs: Iterable<PropertySpec>) = apply {
@@ -405,4 +408,3 @@ private object CLASS : TypeName() {
     return out.emit("class")
   }
 }
-
