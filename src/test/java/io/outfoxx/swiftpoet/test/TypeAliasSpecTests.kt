@@ -32,7 +32,7 @@ import java.io.StringWriter
 class TypeAliasSpecTests {
 
   @Test
-  @DisplayName("Generates documentation before class definition")
+  @DisplayName("Generates documentation before type definition")
   fun testGenDoc() {
     val testAlias = TypeAliasSpec.builder("MyNumber", INT)
        .addDoc("this is a comment\n")
@@ -48,6 +48,28 @@ class TypeAliasSpecTests {
             /**
              * this is a comment
              */
+            typealias MyNumber = Swift.Int
+
+          """.trimIndent()
+       )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates attributes before type definition")
+  fun testGenAttrs() {
+    val testAlias = TypeAliasSpec.builder("MyNumber", INT)
+       .addAttribute("available", "swift 5.1")
+       .build()
+
+    val out = StringWriter()
+    testAlias.emit(CodeWriter(out))
+
+    assertThat(
+       out.toString(),
+       equalTo(
+          """
+            @available(swift 5.1)
             typealias MyNumber = Swift.Int
 
           """.trimIndent()

@@ -137,7 +137,7 @@ class FileSpec private constructor(builder: FileSpec.Builder) {
       members += memberSpec
     }
 
-    fun addType(typeSpec: TypeSpec) = apply {
+    fun addType(typeSpec: AnyTypeSpec) = apply {
       addMember(FileMemberSpec.builder(typeSpec).build())
     }
 
@@ -150,10 +150,6 @@ class FileSpec private constructor(builder: FileSpec.Builder) {
 
     fun addProperty(propertySpec: PropertySpec) = apply {
       addMember(FileMemberSpec.builder(propertySpec).build())
-    }
-
-    fun addTypeAlias(typeAliasSpec: TypeAliasSpec) = apply {
-      addMember(FileMemberSpec.builder(typeAliasSpec).build())
     }
 
     fun addExtension(extensionSpec: ExtensionSpec) = apply {
