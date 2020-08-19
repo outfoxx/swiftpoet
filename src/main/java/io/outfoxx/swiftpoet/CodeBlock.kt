@@ -349,6 +349,18 @@ class CodeBlock private constructor(
     }
 
     /**
+     * @param controlFlowName the control flow construct "if", "switch", "else if", etc.
+     * @param controlFlowCode code for control flow, such as "foo == 5"
+     *     Shouldn't contain braces or newline characters.
+     */
+    fun beginControlFlow(controlFlowName: String, controlFlowCode: String, vararg args: Any?) = apply {
+      add("$controlFlowName $controlFlowCode {\n", *args)
+      if (controlFlowName != "switch") {
+        indent()
+      }
+    }
+
+    /**
      * @param controlFlow the control flow construct and its code, such as "else if (foo == 10)".
      *     Shouldn't contain braces or newline characters.
      */
@@ -360,6 +372,13 @@ class CodeBlock private constructor(
 
     fun endControlFlow() = apply {
       unindent()
+      add("}\n")
+    }
+
+    fun endControlFlow(controlFlowName: String) = apply {
+      if (controlFlowName != "switch") {
+        unindent()
+      }
       add("}\n")
     }
 
