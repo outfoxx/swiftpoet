@@ -156,6 +156,45 @@ class ClassSpecTests {
   }
 
   @Test
+  @DisplayName("Generates attributes using type name")
+  fun testGenAttributesViaTypeName() {
+    val testClass = TypeSpec.classBuilder("Test")
+      .addType(
+        TypeSpec.structBuilder("Bar").build()
+      )
+      .addProperty(
+        PropertySpec.builder("a", STRING)
+          .addAttribute(
+            AttributeSpec.builder(typeName("Library.Bar"))
+              .build()
+          )
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testClass.emit(CodeWriter(out))
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            class Test {
+            
+              @Library.Bar
+              let a: Swift.String
+
+              struct Bar {
+              }
+            
+            }
+
+          """.trimIndent()
+      )
+    )
+  }
+
+  @Test
   @DisplayName("Generates type variables (concise)")
   fun testGenTypeVarsConcise() {
     val testClass = TypeSpec.classBuilder("Test")

@@ -328,7 +328,7 @@ class EnumSpecTests {
 
     assertThat(testEnumBldr.name, equalTo("A"))
     assertThat(testEnumBldr.kdoc.formatParts, hasItems("this is a comment\n"))
-    assertThat(testEnumBldr.attributes.map { it.name }, hasItems("available"))
+    assertThat(testEnumBldr.attributes.map { it.identifier.toString() }, hasItems("available"))
     assertThat(testEnumBldr.typeOrConstant as? CodeBlock, equalTo(CodeBlock.of("%S", "a-value")))
   }
 
