@@ -300,7 +300,7 @@ class ProtocolSpecTests {
        .toBuilder()
 
     assertThat(testProtoBldr.kdoc.formatParts, hasItems("this is a comment\n"))
-    assertThat(testProtoBldr.attributes.map { it.name }, hasItems("available"))
+    assertThat(testProtoBldr.attributes.map { it.identifier.toString() }, hasItems("available"))
     assertThat(testProtoBldr.kind.modifiers.toImmutableSet(), equalTo(setOf(Modifier.PUBLIC)))
     assertThat(testProtoBldr.typeVariables.size, equalTo(1))
     assertThat(testProtoBldr.superTypes, hasItems<TypeName>(typeName(".Test3")))
