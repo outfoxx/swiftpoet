@@ -28,6 +28,7 @@ class FunctionSpec private constructor(
   val parameters = builder.parameters.toImmutableList()
   val throws = builder.throws
   val failable = builder.failable
+  val localTypeSpecs = builder.localTypeSpecs
   val body = if (builder.abstract) CodeBlock.ABSTRACT else builder.body.build()
 
   init {
@@ -45,6 +46,7 @@ class FunctionSpec private constructor(
     conciseGetter: Boolean = false
   ) {
     if (name == GETTER && conciseGetter && doc.isEmpty() && attributes.isEmpty() && modifiers.isEmpty()) {
+      emitLocalTypes(codeWriter)
       codeWriter.emitCode(body)
       return
     }
@@ -63,10 +65,24 @@ class FunctionSpec private constructor(
     if (body !== CodeBlock.ABSTRACT) {
       codeWriter.emit(" {\n")
       codeWriter.indent()
+      emitLocalTypes(codeWriter)
       codeWriter.emitCode(body)
       codeWriter.unindent()
       codeWriter.emit("}\n")
     }
+  }
+
+  private fun emitLocalTypes(codeWriter: CodeWriter) {
+    if (localTypeSpecs.isEmpty()) {
+      return
+    }
+
+    localTypeSpecs.forEach { typeSpec ->
+      codeWriter.emit("\n")
+      typeSpec.emit(codeWriter)
+    }
+
+    codeWriter.emit("\n")
   }
 
   private fun emitSignature(codeWriter: CodeWriter, enclosingName: String?) {
@@ -142,6 +158,7 @@ class FunctionSpec private constructor(
     internal val parameters = mutableListOf<ParameterSpec>()
     internal var throws = false
     internal var failable = false
+    internal val localTypeSpecs = mutableListOf<AnyTypeSpec>()
     internal val body: CodeBlock.Builder = CodeBlock.builder()
     internal var abstract = false
 
@@ -218,6 +235,15 @@ class FunctionSpec private constructor(
 
     fun throws(value: Boolean) = apply {
       throws = value
+    }
+
+    fun addLocalTypes(typeSpecs: Iterable<AnyTypeSpec>) = apply {
+      check(!abstract) { "abstract functions cannot have local types" }
+      this.localTypeSpecs += typeSpecs
+    }
+
+    fun addLocalType(typeSpec: AnyTypeSpec) = apply {
+      localTypeSpecs += typeSpec
     }
 
     fun addNamedCode(format: String, args: Map<String, *>) = apply {

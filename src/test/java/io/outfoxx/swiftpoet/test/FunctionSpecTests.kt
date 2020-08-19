@@ -34,6 +34,33 @@ import java.io.StringWriter
 class FunctionSpecTests {
 
   @Test
+  @DisplayName("Generates local type definitions before code")
+  fun testGenLocalTypes() {
+    val testFunc = FunctionSpec.builder("test")
+       .addLocalType(TypeAliasSpec.builder("LocalData", typeName("Swift.Data")).build())
+       .addStatement("print(%S)", "local types")
+       .build()
+
+    val out = StringWriter()
+    testFunc.emit(CodeWriter(out), null, setOf())
+
+    assertThat(
+       out.toString(),
+       equalTo(
+          """
+            func test() {
+
+              typealias LocalData = Swift.Data
+
+              print("local types")
+            }
+
+          """.trimIndent()
+       )
+    )
+  }
+
+  @Test
   @DisplayName("Generates documentation before function definition")
   fun testGenDoc() {
     val testFunc = FunctionSpec.builder("test")
