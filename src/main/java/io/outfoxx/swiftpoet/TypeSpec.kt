@@ -25,7 +25,7 @@ class TypeSpec private constructor(
 
   val kind = builder.kind
   val name = builder.name
-  val kdoc = builder.kdoc.build()
+  val doc = builder.doc.build()
   val modifiers = kind.modifiers.toImmutableSet()
   val typeVariables = builder.typeVariables.toImmutableList()
   val associatedTypes = builder.associatedTypes.toImmutableList()
@@ -41,7 +41,7 @@ class TypeSpec private constructor(
 
   fun toBuilder(): Builder {
     val builder = Builder(kind, name)
-    builder.kdoc.add(kdoc)
+    builder.doc.add(doc)
     builder.attributes += attributes
     builder.typeVariables += typeVariables
     builder.superTypes += superTypes
@@ -61,7 +61,7 @@ class TypeSpec private constructor(
     codeWriter.statementLine = -1
 
     try {
-      codeWriter.emitKdoc(kdoc)
+      codeWriter.emitDoc(doc)
       codeWriter.emitAttributes(attributes)
       codeWriter.emitModifiers(kind.modifiers, setOf(INTERNAL))
       codeWriter.emit(kind.declarationKeyword)
@@ -243,7 +243,7 @@ class TypeSpec private constructor(
     internal var kind: Kind,
     internal val name: String
   ) {
-    internal val kdoc = CodeBlock.builder()
+    internal val doc = CodeBlock.builder()
     internal val attributes = mutableListOf<AttributeSpec>()
     internal val typeVariables = mutableListOf<TypeVariableName>()
     internal val superTypes = mutableSetOf<TypeName>()
@@ -258,12 +258,12 @@ class TypeSpec private constructor(
     internal val isStruct = kind is Kind.Struct
     internal val isProtocol = kind is Kind.Protocol
 
-    fun addKdoc(format: String, vararg args: Any) = apply {
-      kdoc.add(format, *args)
+    fun addDoc(format: String, vararg args: Any) = apply {
+      doc.add(format, *args)
     }
 
-    fun addKdoc(block: CodeBlock) = apply {
-      kdoc.add(block)
+    fun addDoc(block: CodeBlock) = apply {
+      doc.add(block)
     }
 
     fun addAttribute(attribute: AttributeSpec) = apply {

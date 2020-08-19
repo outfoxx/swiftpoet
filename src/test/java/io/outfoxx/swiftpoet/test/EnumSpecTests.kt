@@ -57,7 +57,7 @@ class EnumSpecTests {
   @DisplayName("Generates doc before enum definition")
   fun testGenDocs() {
     val testEnum = TypeSpec.enumBuilder("Test")
-      .addKdoc("this is a comment\n")
+      .addDoc("this is a comment\n")
       .addEnumCase("a")
       .build()
 
@@ -117,7 +117,7 @@ class EnumSpecTests {
     val testEnum = TypeSpec.enumBuilder("Test")
       .addEnumCase(
         EnumerationCaseSpec.builder("a")
-          .addKdoc("this is a comment\n")
+          .addDoc("this is a comment\n")
           .build()
       )
       .build()
@@ -304,14 +304,14 @@ class EnumSpecTests {
   @DisplayName("toBuilder copies all fields")
   fun testToBuilder() {
     val testEnumBldr = TypeSpec.enumBuilder("Test")
-      .addKdoc("this is a comment\n")
+      .addDoc("this is a comment\n")
       .addModifiers(Modifier.PRIVATE)
       .addEnumCase("A", "10")
       .build()
       .toBuilder()
 
     assertThat(testEnumBldr.name, equalTo("Test"))
-    assertThat(testEnumBldr.kdoc.formatParts, hasItems("this is a comment\n"))
+    assertThat(testEnumBldr.doc.formatParts, hasItems("this is a comment\n"))
     assertThat(testEnumBldr.kind.modifiers, hasItems(Modifier.PRIVATE))
     assertThat(testEnumBldr.enumCases.map { it.name }, hasItems("A"))
   }
@@ -321,13 +321,13 @@ class EnumSpecTests {
   @DisplayName("case toBuilder copies all fields")
   fun testCaseToBuilder() {
     val testEnumBldr = EnumerationCaseSpec.builder("A", "a-value")
-      .addKdoc("this is a comment\n")
+      .addDoc("this is a comment\n")
       .addAttribute("available", "swift 5.1")
       .build()
       .toBuilder()
 
     assertThat(testEnumBldr.name, equalTo("A"))
-    assertThat(testEnumBldr.kdoc.formatParts, hasItems("this is a comment\n"))
+    assertThat(testEnumBldr.doc.formatParts, hasItems("this is a comment\n"))
     assertThat(testEnumBldr.attributes.map { it.identifier.toString() }, hasItems("available"))
     assertThat(testEnumBldr.typeOrConstant as? CodeBlock, equalTo(CodeBlock.of("%S", "a-value")))
   }

@@ -32,10 +32,10 @@ import java.io.StringWriter
 class TypeAliasSpecTests {
 
   @Test
-  @DisplayName("Generates JavaDoc at before class definition")
-  fun testGenJavaDoc() {
+  @DisplayName("Generates documentation before class definition")
+  fun testGenDoc() {
     val testAlias = TypeAliasSpec.builder("MyNumber", INT)
-       .addKdoc("this is a comment\n")
+       .addDoc("this is a comment\n")
        .build()
 
     val out = StringWriter()
@@ -123,7 +123,7 @@ class TypeAliasSpecTests {
   @DisplayName("toBuilder copies all fields")
   fun testToBuilder() {
     val testAliasBldr = TypeAliasSpec.builder("Test", INT)
-       .addKdoc("this is a comment\n")
+       .addDoc("this is a comment\n")
        .addModifiers(Modifier.PUBLIC)
        .addTypeVariable(typeVariable("A", bound(typeName(".Test"))))
        .build()
@@ -131,7 +131,7 @@ class TypeAliasSpecTests {
 
     assertThat(testAliasBldr.name, equalTo("Test"))
     assertThat(testAliasBldr.type, equalTo<TypeName>(INT))
-    assertThat(testAliasBldr.kdoc.formatParts, hasItems("this is a comment\n"))
+    assertThat(testAliasBldr.doc.formatParts, hasItems("this is a comment\n"))
     assertThat(testAliasBldr.modifiers, hasItems(Modifier.PUBLIC))
     assertThat(testAliasBldr.typeVariables.map { it.name }, hasItems("A"))
   }

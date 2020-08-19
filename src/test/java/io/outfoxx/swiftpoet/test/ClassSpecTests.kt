@@ -20,10 +20,8 @@ import io.outfoxx.swiftpoet.*
 import io.outfoxx.swiftpoet.ComposedTypeName.Companion.composed
 import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
 import io.outfoxx.swiftpoet.TypeVariableName.Bound.Constraint.SAME_TYPE
-import org.hamcrest.CoreMatchers
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.hasItems
-import org.hamcrest.MatcherAssert
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -34,10 +32,10 @@ import java.io.StringWriter
 class ClassSpecTests {
 
   @Test
-  @DisplayName("Generates JavaDoc at before class definition")
-  fun testGenJavaDoc() {
+  @DisplayName("Generates documentation at before class definition")
+  fun testGenDoc() {
     val testClass = TypeSpec.classBuilder("Test")
-       .addKdoc("this is a comment\n")
+       .addDoc("this is a comment\n")
        .build()
 
     val out = StringWriter()
@@ -401,7 +399,7 @@ class ClassSpecTests {
   @DisplayName("toBuilder copies all fields")
   fun testToBuilder() {
     val testClassBlder = TypeSpec.classBuilder("Test")
-       .addKdoc("this is a comment\n")
+       .addDoc("this is a comment\n")
        .addAttribute(AttributeSpec.DISCARDABLE_RESULT)
        .addModifiers(Modifier.PUBLIC)
        .addTypeVariable(
@@ -423,7 +421,7 @@ class ClassSpecTests {
        .build()
        .toBuilder()
 
-    assertThat(testClassBlder.kdoc.formatParts, hasItems("this is a comment\n"))
+    assertThat(testClassBlder.doc.formatParts, hasItems("this is a comment\n"))
     assertThat(testClassBlder.attributes, hasItems(AttributeSpec.DISCARDABLE_RESULT))
     assertThat(testClassBlder.kind.modifiers.toImmutableSet(), equalTo(setOf(Modifier.PUBLIC)))
     assertThat(testClassBlder.typeVariables, hasItems(TypeVariableName.typeVariable("X", TypeVariableName.Bound(".Test2"))))

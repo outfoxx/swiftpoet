@@ -32,7 +32,7 @@ internal class CodeWriter constructor(
   private val out = LineWrapper(out, indent, 100)
   private var indentLevel = 0
 
-  private var kdoc = false
+  private var doc = false
   private var comment = false
   private var moduleName = NO_MODULE
   private val typeSpecStack = mutableListOf<TypeSpec>()
@@ -84,15 +84,15 @@ internal class CodeWriter constructor(
     }
   }
 
-  fun emitKdoc(kdocCodeBlock: CodeBlock) {
-    if (kdocCodeBlock.isEmpty()) return
+  fun emitDoc(docCodeBlock: CodeBlock) {
+    if (docCodeBlock.isEmpty()) return
 
     emit("/**\n")
-    kdoc = true
+    doc = true
     try {
-      emitCode(kdocCodeBlock)
+      emitCode(docCodeBlock)
     } finally {
-      kdoc = false
+      doc = false
     }
     emit(" */\n")
   }
@@ -275,7 +275,7 @@ internal class CodeWriter constructor(
     }
 
     // We'll have to use the fully-qualified name. Mark the type as importable for a future pass.
-    if (!kdoc) {
+    if (!doc) {
       importableType(typeName)
     }
 
@@ -339,11 +339,11 @@ internal class CodeWriter constructor(
   fun emit(s: String) = apply {
     var first = true
     for (line in s.split('\n')) {
-      // Emit a newline character. Make sure blank lines in KDoc & comments look good.
+      // Emit a newline character. Make sure blank lines in doc & comments look good.
       if (!first) {
-        if ((kdoc || comment) && trailingNewline) {
+        if ((doc || comment) && trailingNewline) {
           emitIndentation()
-          out.append(if (kdoc) " *" else "//")
+          out.append(if (doc) " *" else "//")
         }
         out.append("\n")
         trailingNewline = true
@@ -361,7 +361,7 @@ internal class CodeWriter constructor(
       // Emit indentation and comment prefix if necessary.
       if (trailingNewline) {
         emitIndentation()
-        if (kdoc) {
+        if (doc) {
           out.append(" * ")
         } else if (comment) {
           out.append("// ")

@@ -35,10 +35,10 @@ import java.io.StringWriter
 class ProtocolSpecTests {
 
   @Test
-  @DisplayName("Generates JavaDoc at before protocol definition")
-  fun testGenJavaDoc() {
+  @DisplayName("Generates documentation at before protocol definition")
+  fun testGenDoc() {
     val testProto = TypeSpec.protocolBuilder("Test")
-       .addKdoc("this is a comment\n")
+       .addDoc("this is a comment\n")
        .build()
 
     val out = StringWriter()
@@ -283,7 +283,7 @@ class ProtocolSpecTests {
   @DisplayName("toBuilder copies all fields")
   fun testToBuilder() {
     val testProtoBldr = TypeSpec.protocolBuilder("Test")
-       .addKdoc("this is a comment\n")
+       .addDoc("this is a comment\n")
        .addAttribute(available("iOS" to "9"))
        .addModifiers(Modifier.PUBLIC)
        .addTypeVariable(
@@ -299,7 +299,7 @@ class ProtocolSpecTests {
        .build()
        .toBuilder()
 
-    assertThat(testProtoBldr.kdoc.formatParts, hasItems("this is a comment\n"))
+    assertThat(testProtoBldr.doc.formatParts, hasItems("this is a comment\n"))
     assertThat(testProtoBldr.attributes.map { it.identifier.toString() }, hasItems("available"))
     assertThat(testProtoBldr.kind.modifiers.toImmutableSet(), equalTo(setOf(Modifier.PUBLIC)))
     assertThat(testProtoBldr.typeVariables.size, equalTo(1))
