@@ -2,7 +2,7 @@
 SwiftPoet
 ==========
 
-[![CircleCI branch](https://img.shields.io/circleci/project/github/outfoxx/swiftpoet/develop.svg)]()
+[![GitHub Workflow Status](https://img.shields.io/github/workflow/status/outfoxx/swiftpoet/Publish)][action]
 [![Maven Central](https://img.shields.io/maven-central/v/io.outfoxx/swiftpoet.svg)][dl]
 [![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/https/oss.sonatype.org/io.outfoxx/swiftpoet.svg)][snap]
 [![codebeat badge](https://codebeat.co/badges/b6f3870d-84b8-4149-9fbd-b328bfb0302b)](https://codebeat.co/projects/github-com-outfoxx-swiftpoet-develop)
@@ -109,6 +109,7 @@ License
     limitations under the License.
 
 
+ [action]: https://github.com/outfoxx/swiftpoet/actions?query=branch%3Adevelop
  [dl]: https://search.maven.org/remote_content?g=io.outfoxx&a=swiftpoet&v=LATEST
  [snap]: https://oss.sonatype.org/content/repositories/snapshots/io/outfoxx/swiftpoet/
  [kdoc]: https://outfoxx.github.io/swiftpoet/1.0.0/swiftpoet/io.outfoxx.swiftpoet/
