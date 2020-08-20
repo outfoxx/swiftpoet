@@ -72,5 +72,4 @@ abstract class TypeName internal constructor() {
   override fun toString() = cachedString
 
   internal abstract fun emit(out: CodeWriter): CodeWriter
-
 }

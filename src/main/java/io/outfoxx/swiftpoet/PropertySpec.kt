@@ -22,7 +22,7 @@ import io.outfoxx.swiftpoet.FunctionSpec.Companion.SETTER
 
 /** A generated property declaration.  */
 class PropertySpec private constructor(
-   builder: Builder
+  builder: Builder
 ) : AttributedSpec(builder.attributes) {
   val mutable = builder.mutable
   val name = builder.name
@@ -51,7 +51,8 @@ class PropertySpec private constructor(
 
       // Support concise syntax (e.g. "{ get set }") for protocol property declarations
       if ((getter == null || getter.body == ABSTRACT) &&
-         (setter == null || setter.body == ABSTRACT)) {
+        (setter == null || setter.body == ABSTRACT)
+      ) {
         codeWriter.emit(" { ")
         if (getter != null) codeWriter.emit("${getter.name} ")
         if (setter != null) codeWriter.emit("${setter.name} ")
@@ -118,7 +119,6 @@ class PropertySpec private constructor(
       doc.add(block)
     }
 
-
     fun addAttribute(attribute: AttributeSpec) = apply {
       this.attributes += attribute
     }
@@ -165,19 +165,19 @@ class PropertySpec private constructor(
   companion object {
     @JvmStatic fun builder(name: String, type: TypeName, vararg modifiers: Modifier): Builder {
       return Builder(name, type)
-          .addModifiers(*modifiers)
+        .addModifiers(*modifiers)
     }
 
     @JvmStatic fun varBuilder(name: String, type: TypeName, vararg modifiers: Modifier): Builder {
       return Builder(name, type)
-          .mutable(true)
-          .addModifiers(*modifiers)
+        .mutable(true)
+        .addModifiers(*modifiers)
     }
 
     @JvmStatic fun abstractBuilder(name: String, type: TypeName, vararg modifiers: Modifier): Builder {
       return Builder(name, type)
-         .mutable(true)
-         .addModifiers(*modifiers)
+        .mutable(true)
+        .addModifiers(*modifiers)
     }
   }
 }

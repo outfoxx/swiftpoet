@@ -86,5 +86,4 @@ class EnumerationCaseSpec private constructor(
 
     @JvmStatic fun builder(name: String, constant: Int) = Builder(name, CodeBlock.of("%L", constant.toString()))
   }
-
 }

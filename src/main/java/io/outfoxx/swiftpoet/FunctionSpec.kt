@@ -18,7 +18,7 @@ package io.outfoxx.swiftpoet
 
 /** A generated function declaration.  */
 class FunctionSpec private constructor(
-   builder: Builder
+  builder: Builder
 ) : AttributedSpec(builder.attributes) {
   val name = builder.name
   val doc = builder.doc.build()
@@ -213,11 +213,11 @@ class FunctionSpec private constructor(
       parameters += parameterSpec
     }
 
-    fun addParameter(name: String, type: TypeName, vararg modifiers: Modifier)
-       = addParameter(ParameterSpec.builder(name, type, *modifiers).build())
+    fun addParameter(name: String, type: TypeName, vararg modifiers: Modifier) =
+      addParameter(ParameterSpec.builder(name, type, *modifiers).build())
 
-    fun addParameter(label: String, name: String, type: TypeName, vararg modifiers: Modifier)
-       = addParameter(ParameterSpec.builder(label, name, type, *modifiers).build())
+    fun addParameter(label: String, name: String, type: TypeName, vararg modifiers: Modifier) =
+      addParameter(ParameterSpec.builder(label, name, type, *modifiers).build())
 
     fun addCode(format: String, vararg args: Any) = apply {
       body.add(format, *args)

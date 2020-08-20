@@ -17,5 +17,5 @@
 package io.outfoxx.swiftpoet
 
 open class AttributedSpec(
-   val attributes: List<AttributeSpec> = listOf()
+  val attributes: List<AttributeSpec> = listOf()
 )

@@ -16,17 +16,23 @@
 
 package io.outfoxx.swiftpoet.test
 
-import io.outfoxx.swiftpoet.*
+import io.outfoxx.swiftpoet.CodeWriter
 import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
+import io.outfoxx.swiftpoet.INT
+import io.outfoxx.swiftpoet.Modifier
+import io.outfoxx.swiftpoet.SET
+import io.outfoxx.swiftpoet.STRING
+import io.outfoxx.swiftpoet.TypeAliasSpec
+import io.outfoxx.swiftpoet.TypeName
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.bound
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.typeVariable
+import io.outfoxx.swiftpoet.parameterizedBy
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.hasItems
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.io.StringWriter
-
 
 @DisplayName("TypeAliasSpec Tests")
 class TypeAliasSpecTests {
@@ -35,23 +41,23 @@ class TypeAliasSpecTests {
   @DisplayName("Generates documentation before type definition")
   fun testGenDoc() {
     val testAlias = TypeAliasSpec.builder("MyNumber", INT)
-       .addDoc("this is a comment\n")
-       .build()
+      .addDoc("this is a comment\n")
+      .build()
 
     val out = StringWriter()
     testAlias.emit(CodeWriter(out))
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             /**
              * this is a comment
              */
             typealias MyNumber = Swift.Int
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -59,21 +65,21 @@ class TypeAliasSpecTests {
   @DisplayName("Generates attributes before type definition")
   fun testGenAttrs() {
     val testAlias = TypeAliasSpec.builder("MyNumber", INT)
-       .addAttribute("available", "swift 5.1")
-       .build()
+      .addAttribute("available", "swift 5.1")
+      .build()
 
     val out = StringWriter()
     testAlias.emit(CodeWriter(out))
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             @available(swift 5.1)
             typealias MyNumber = Swift.Int
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -81,41 +87,40 @@ class TypeAliasSpecTests {
   @DisplayName("Generates modifiers in order")
   fun testGenModifiersInOrder() {
     val testAlias = TypeAliasSpec.builder("MyNumber", INT)
-       .addModifiers(Modifier.PUBLIC)
-       .build()
+      .addModifiers(Modifier.PUBLIC)
+      .build()
 
     val out = StringWriter()
     testAlias.emit(CodeWriter(out))
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             public typealias MyNumber = Swift.Int
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
-
 
   @Test
   @DisplayName("Generates simple alias")
   fun testSimpleAlias() {
     val testAlias = TypeAliasSpec.builder("MyNumber", INT)
-       .build()
+      .build()
 
     val out = StringWriter()
     testAlias.emit(CodeWriter(out))
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             typealias MyNumber = Swift.Int
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -124,20 +129,20 @@ class TypeAliasSpecTests {
   fun testGenericAlias() {
     val typeVar = typeVariable("A", bound(typeName(".Test")))
     val testAlias = TypeAliasSpec.builder("StringSet", SET.parameterizedBy(STRING, typeVar))
-       .addTypeVariable(typeVar)
-       .build()
+      .addTypeVariable(typeVar)
+      .build()
 
     val out = StringWriter()
     testAlias.emit(CodeWriter(out))
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             typealias StringSet<A : Test> = Swift.Set<Swift.String, A>
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -145,11 +150,11 @@ class TypeAliasSpecTests {
   @DisplayName("toBuilder copies all fields")
   fun testToBuilder() {
     val testAliasBldr = TypeAliasSpec.builder("Test", INT)
-       .addDoc("this is a comment\n")
-       .addModifiers(Modifier.PUBLIC)
-       .addTypeVariable(typeVariable("A", bound(typeName(".Test"))))
-       .build()
-       .toBuilder()
+      .addDoc("this is a comment\n")
+      .addModifiers(Modifier.PUBLIC)
+      .addTypeVariable(typeVariable("A", bound(typeName(".Test"))))
+      .build()
+      .toBuilder()
 
     assertThat(testAliasBldr.name, equalTo("Test"))
     assertThat(testAliasBldr.type, equalTo<TypeName>(INT))
@@ -157,5 +162,4 @@ class TypeAliasSpecTests {
     assertThat(testAliasBldr.modifiers, hasItems(Modifier.PUBLIC))
     assertThat(testAliasBldr.typeVariables.map { it.name }, hasItems("A"))
   }
-
 }

@@ -24,12 +24,11 @@ import io.outfoxx.swiftpoet.INT
 import io.outfoxx.swiftpoet.ImportSpec
 import io.outfoxx.swiftpoet.TypeSpec
 import io.outfoxx.swiftpoet.TypeVariableName
-import org.hamcrest.CoreMatchers
+import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.io.StringWriter
-
 
 @DisplayName("FileSpec Tests")
 class FileSpecTests {
@@ -39,37 +38,36 @@ class FileSpecTests {
   fun testImportsAndShortensTypes() {
 
     val testClass = TypeSpec.classBuilder("Test")
-       .addTypeVariable(
-          TypeVariableName.typeVariable("X", TypeVariableName.Bound(INT))
-       )
-       .addTypeVariable(
-          TypeVariableName.typeVariable("Y", TypeVariableName.Bound(composed("Foundation.Test3", "Swift.Test4")))
-       )
-       .addTypeVariable(
-          TypeVariableName.typeVariable("Z", TypeVariableName.Bound(TypeVariableName.Bound.Constraint.SAME_TYPE, "Test.Test5"))
-       )
-       .build()
+      .addTypeVariable(
+        TypeVariableName.typeVariable("X", TypeVariableName.Bound(INT))
+      )
+      .addTypeVariable(
+        TypeVariableName.typeVariable("Y", TypeVariableName.Bound(composed("Foundation.Test3", "Swift.Test4")))
+      )
+      .addTypeVariable(
+        TypeVariableName.typeVariable("Z", TypeVariableName.Bound(TypeVariableName.Bound.Constraint.SAME_TYPE, "Test.Test5"))
+      )
+      .build()
 
     val testFile = FileSpec.builder("Test", "Test")
-       .addType(testClass)
-       .build()
+      .addType(testClass)
+      .build()
 
     val out = StringWriter()
     testFile.writeTo(out)
 
     assertThat(
-       out.toString(),
-       CoreMatchers.equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             import Foundation
 
             class Test<X, Y, Z> where X : Int, Y : Test3 & Test4, Z == Test5 {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
-
   }
 
   @Test
@@ -77,21 +75,21 @@ class FileSpecTests {
   fun testCorrectImportsWithConflicts() {
 
     val testClass = TypeSpec.classBuilder("Test")
-       .addProperty("a", typeName("Swift.Array"))
-       .addProperty("b", typeName("Foundation.Array"))
-       .build()
+      .addProperty("a", typeName("Swift.Array"))
+      .addProperty("b", typeName("Foundation.Array"))
+      .build()
 
     val testFile = FileSpec.builder("Test", "Test")
-       .addType(testClass)
-       .build()
+      .addType(testClass)
+      .build()
 
     val out = StringWriter()
     testFile.writeTo(out)
 
     assertThat(
-       out.toString(),
-       CoreMatchers.equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             class Test {
 
               let a: Array
@@ -99,10 +97,9 @@ class FileSpecTests {
 
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
-
   }
 
   @Test
@@ -110,29 +107,28 @@ class FileSpecTests {
   fun testGenGuardedImports() {
 
     val testFile = FileSpec.builder("Test", "Test")
-       .addImport(
-          ImportSpec.builder("SomeKit")
-             .addGuard("canImport(SomeKit)")
-             .build()
-       )
-       .build()
+      .addImport(
+        ImportSpec.builder("SomeKit")
+          .addGuard("canImport(SomeKit)")
+          .build()
+      )
+      .build()
 
     val out = StringWriter()
     testFile.writeTo(out)
 
     assertThat(
-       out.toString(),
-       CoreMatchers.equalTo(
-          """ 
+      out.toString(),
+      equalTo(
+        """ 
             #if canImport(SomeKit)
             import SomeKit
             #endif
             
             
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
-
   }
 
   @Test
@@ -140,30 +136,29 @@ class FileSpecTests {
   fun testGenDocumentedImports() {
 
     val testFile = FileSpec.builder("Test", "Test")
-       .addImport(
-          ImportSpec.builder("SomeKit")
-             .addDoc("this is a comment\n")
-             .build()
-       )
-       .build()
+      .addImport(
+        ImportSpec.builder("SomeKit")
+          .addDoc("this is a comment\n")
+          .build()
+      )
+      .build()
 
     val out = StringWriter()
     testFile.writeTo(out)
 
     assertThat(
-       out.toString(),
-       CoreMatchers.equalTo(
-          """ 
+      out.toString(),
+      equalTo(
+        """ 
             /**
              * this is a comment
              */
             import SomeKit
             
             
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
-
   }
 
   @Test
@@ -171,29 +166,28 @@ class FileSpecTests {
   fun testGenGuardedMembers() {
 
     val testFile = FileSpec.builder("Test", "Test")
-       .addMember(
-          FileMemberSpec.builder(TypeSpec.classBuilder("Test").build())
-             .addGuard("DEBUG")
-             .build()
-       )
-       .build()
+      .addMember(
+        FileMemberSpec.builder(TypeSpec.classBuilder("Test").build())
+          .addGuard("DEBUG")
+          .build()
+      )
+      .build()
 
     val out = StringWriter()
     testFile.writeTo(out)
 
     assertThat(
-       out.toString(),
-       CoreMatchers.equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             #if DEBUG
             class Test {
             }
             #endif
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
-
   }
 
   @Test
@@ -201,24 +195,24 @@ class FileSpecTests {
   fun testGenDocumentedMembers() {
 
     val testClass = TypeSpec.classBuilder("Test")
-       .addDoc("this is a type comment\n")
-       .build()
+      .addDoc("this is a type comment\n")
+      .build()
 
     val testFile = FileSpec.builder("Test", "Test")
-       .addMember(
-          FileMemberSpec.builder(testClass)
-             .addDoc("this is a member comment\n")
-             .build()
-       )
-       .build()
+      .addMember(
+        FileMemberSpec.builder(testClass)
+          .addDoc("this is a member comment\n")
+          .build()
+      )
+      .build()
 
     val out = StringWriter()
     testFile.writeTo(out)
 
     assertThat(
-       out.toString(),
-       CoreMatchers.equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             /**
              * this is a member comment
              */
@@ -228,10 +222,8 @@ class FileSpecTests {
             class Test {
             }
  
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
-
   }
-
 }

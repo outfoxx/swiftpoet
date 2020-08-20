@@ -17,14 +17,14 @@
 package io.outfoxx.swiftpoet.test
 
 import io.outfoxx.swiftpoet.CodeWriter
-import io.outfoxx.swiftpoet.DeclaredTypeName
+import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
 import io.outfoxx.swiftpoet.ExtensionSpec
 import io.outfoxx.swiftpoet.TypeAliasSpec
 import io.outfoxx.swiftpoet.TypeVariableName.Bound.Constraint.CONFORMS_TO
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.bound
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.typeVariable
-import org.hamcrest.CoreMatchers
-import org.hamcrest.MatcherAssert
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.io.StringWriter
@@ -34,94 +34,93 @@ class ExtensionSpecTests {
   @Test
   @DisplayName("Generates documentation before extension definition")
   fun testGenDocs() {
-    val testExt = ExtensionSpec.builder(DeclaredTypeName.typeName(".MyType"))
-       .addDoc("this is a comment\n")
-       .build()
+    val testExt = ExtensionSpec.builder(typeName(".MyType"))
+      .addDoc("this is a comment\n")
+      .build()
 
     val out = StringWriter()
     testExt.emit(CodeWriter(out))
 
-    MatcherAssert.assertThat(
-       out.toString(),
-       CoreMatchers.equalTo(
-          """
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
             /**
              * this is a comment
              */
             extension MyType {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
   @Test
   @DisplayName("Generates inheritance clause")
   fun testGenInheritance() {
-    val testExt = ExtensionSpec.builder(DeclaredTypeName.typeName(".MyType"))
-       .addSuperType(DeclaredTypeName.typeName("Swift.Encodable"))
-       .build()
+    val testExt = ExtensionSpec.builder(typeName(".MyType"))
+      .addSuperType(typeName("Swift.Encodable"))
+      .build()
 
     val out = StringWriter()
     testExt.emit(CodeWriter(out))
 
-    MatcherAssert.assertThat(
-       out.toString(),
-       CoreMatchers.equalTo(
-          """
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
             extension MyType : Swift.Encodable {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
   @Test
   @DisplayName("Generates conditional conformance")
   fun testGenConditionalConformance() {
-    val testExt = ExtensionSpec.builder(DeclaredTypeName.typeName("Swift.Array"))
-       .addSuperType(DeclaredTypeName.typeName("Swift.Encodable"))
-       .addConditionalConstraint(typeVariable("Element", bound(CONFORMS_TO, "Swift.Encodable")))
-       .build()
+    val testExt = ExtensionSpec.builder(typeName("Swift.Array"))
+      .addSuperType(typeName("Swift.Encodable"))
+      .addConditionalConstraint(typeVariable("Element", bound(CONFORMS_TO, "Swift.Encodable")))
+      .build()
 
     val out = StringWriter()
     testExt.emit(CodeWriter(out))
 
-    MatcherAssert.assertThat(
-       out.toString(),
-       CoreMatchers.equalTo(
-          """
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
             extension Swift.Array : Swift.Encodable where Element : Swift.Encodable {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
   @Test
   @DisplayName("Generates nested type alias")
   fun testNestedTypeAlias() {
-    val testExt = ExtensionSpec.builder(DeclaredTypeName.typeName("Swift.Array"))
-        .addType(TypeAliasSpec.builder("Keys", DeclaredTypeName.typeName("Other.Keys")).build())
-       .build()
+    val testExt = ExtensionSpec.builder(typeName("Swift.Array"))
+      .addType(TypeAliasSpec.builder("Keys", typeName("Other.Keys")).build())
+      .build()
 
     val out = StringWriter()
     testExt.emit(CodeWriter(out))
 
-    MatcherAssert.assertThat(
-       out.toString(),
-       CoreMatchers.equalTo(
-          """
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
             extension Swift.Array {
               typealias Keys = Other.Keys
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
-
 }

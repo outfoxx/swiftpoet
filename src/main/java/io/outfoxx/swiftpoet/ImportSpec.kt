@@ -89,5 +89,4 @@ class ImportSpec internal constructor(
   companion object {
     @JvmStatic fun builder(name: String) = Builder(name)
   }
-
 }

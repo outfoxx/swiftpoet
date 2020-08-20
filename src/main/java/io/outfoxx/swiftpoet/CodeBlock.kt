@@ -133,7 +133,7 @@ class CodeBlock private constructor(
    * placeholders don't match their arguments.
    */
   internal fun replaceAll(oldValue: String, newValue: String) =
-      CodeBlock(formatParts.map { it.replace(oldValue, newValue) }, args)
+    CodeBlock(formatParts.map { it.replace(oldValue, newValue) }, args)
 
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
@@ -282,8 +282,10 @@ class CodeBlock private constructor(
         }
 
         require(index >= 0 && index < args.size) {
-          "index ${index + 1} for '${format.substring(indexStart - 1,
-              indexEnd + 1)}' not in range (received ${args.size} arguments)"
+          "index ${index + 1} for '${format.substring(
+            indexStart - 1,
+            indexEnd + 1
+          )}' not in range (received ${args.size} arguments)"
         }
         require(!hasIndexed || !hasRelative) { "cannot mix indexed and positional parameters" }
 
@@ -316,7 +318,8 @@ class CodeBlock private constructor(
         'S' -> this.args += argToString(arg)
         'T' -> this.args += argToType(arg)
         else -> throw IllegalArgumentException(
-            String.format("invalid format string: '%s'", format))
+          String.format("invalid format string: '%s'", format)
+        )
       }
     }
 

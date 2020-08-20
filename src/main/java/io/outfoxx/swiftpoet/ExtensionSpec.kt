@@ -99,7 +99,6 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
       codeWriter.popType()
 
       codeWriter.emit("}\n")
-
     } finally {
       codeWriter.statementLine = previousStatementLine
     }
@@ -157,8 +156,8 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
       propertySpecs += propertySpec
     }
 
-    fun addProperty(name: String, type: TypeName, vararg modifiers: Modifier)
-        = addProperty(PropertySpec.builder(name, type, *modifiers).build())
+    fun addProperty(name: String, type: TypeName, vararg modifiers: Modifier) =
+      addProperty(PropertySpec.builder(name, type, *modifiers).build())
 
     fun addFunctions(functionSpecs: Iterable<FunctionSpec>) = apply {
       functionSpecs.forEach { addFunction(it) }

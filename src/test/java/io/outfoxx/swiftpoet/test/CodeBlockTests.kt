@@ -18,14 +18,13 @@ package io.outfoxx.swiftpoet.test
 
 import io.outfoxx.swiftpoet.CodeBlock
 import io.outfoxx.swiftpoet.CodeWriter
-import io.outfoxx.swiftpoet.DeclaredTypeName
 import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
 import io.outfoxx.swiftpoet.FileSpec
 import io.outfoxx.swiftpoet.FunctionSpec
 import io.outfoxx.swiftpoet.TypeAliasSpec
 import io.outfoxx.swiftpoet.TypeSpec
-import org.hamcrest.CoreMatchers
-import org.hamcrest.MatcherAssert
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.io.StringWriter
@@ -36,22 +35,22 @@ class CodeBlockTests {
   @DisplayName("Generates correct types names for any type spec")
   fun testGenCorrectTypeNames() {
     val code = CodeBlock.builder()
-       .addStatement("let alias: %N", TypeAliasSpec.builder("TestAlias", typeName("Foundation.Data")).build())
-       .addStatement("let struct: %N", TypeSpec.structBuilder("TestStruct").build())
-       .build()
+      .addStatement("let alias: %N", TypeAliasSpec.builder("TestAlias", typeName("Foundation.Data")).build())
+      .addStatement("let struct: %N", TypeSpec.structBuilder("TestStruct").build())
+      .build()
 
     val out = StringWriter()
     CodeWriter(out).emitCode(code)
 
-    MatcherAssert.assertThat(
-       out.toString(),
-       CoreMatchers.equalTo(
-          """
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
             let alias: TestAlias
             let struct: TestStruct
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -66,14 +65,14 @@ class CodeBlockTests {
     val out = StringWriter()
     CodeWriter(out).emitCode(code)
 
-    MatcherAssert.assertThat(
+    assertThat(
       out.toString(),
-      CoreMatchers.equalTo(
+      equalTo(
         """
             let alias: TestAlias
             let struct: TestStruct
 
-          """.trimIndent()
+        """.trimIndent()
       )
     )
   }
@@ -84,18 +83,18 @@ class CodeBlockTests {
     val dataTypeName = typeName("Foundation.Data")
 
     val testFunc = FunctionSpec.builder("test")
-       .addCode("%L", TypeAliasSpec.builder("TestAlias", dataTypeName).build())
-       .addCode("%L", TypeSpec.structBuilder("TestStruct").addProperty("data", dataTypeName).build())
-       .build()
+      .addCode("%L", TypeAliasSpec.builder("TestAlias", dataTypeName).build())
+      .addCode("%L", TypeSpec.structBuilder("TestStruct").addProperty("data", dataTypeName).build())
+      .build()
 
     val testFile = FileSpec.builder("tesfile")
-       .addFunction(testFunc)
-       .build()
+      .addFunction(testFunc)
+      .build()
 
-    MatcherAssert.assertThat(
-       buildString { testFile.writeTo(this) },
-       CoreMatchers.equalTo(
-          """
+    assertThat(
+      buildString { testFile.writeTo(this) },
+      equalTo(
+        """
             import Foundation
             
             func test() {
@@ -107,8 +106,8 @@ class CodeBlockTests {
               }
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -117,24 +116,24 @@ class CodeBlockTests {
   fun testGenIfControlFlowWithIndent() {
 
     val code = CodeBlock.builder()
-       .beginControlFlow("if", "x == %L", 5)
-       .addStatement("print(\"It's five!\")")
-       .endControlFlow("if")
-       .build()
+      .beginControlFlow("if", "x == %L", 5)
+      .addStatement("print(\"It's five!\")")
+      .endControlFlow("if")
+      .build()
 
     val out = StringWriter()
     CodeWriter(out).emitCode(code)
 
-    MatcherAssert.assertThat(
-       out.toString(),
-       CoreMatchers.equalTo(
-          """
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
             if x == 5 {
               print("It's five!")
             }
             
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -143,25 +142,24 @@ class CodeBlockTests {
   fun testGenSwitchControlFlowWithoutIndent() {
 
     val code = CodeBlock.builder()
-       .beginControlFlow("switch", "x")
-       .addStatement("case %L: print(\"It's five!\")", 5)
-       .endControlFlow("switch")
-       .build()
+      .beginControlFlow("switch", "x")
+      .addStatement("case %L: print(\"It's five!\")", 5)
+      .endControlFlow("switch")
+      .build()
 
     val out = StringWriter()
     CodeWriter(out).emitCode(code)
 
-    MatcherAssert.assertThat(
-       out.toString(),
-       CoreMatchers.equalTo(
-          """
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
             switch x {
             case 5: print("It's five!")
             }
             
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
-
 }

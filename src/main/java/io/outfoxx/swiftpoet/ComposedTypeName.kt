@@ -41,6 +41,5 @@ class ComposedTypeName private constructor(
     internal fun composed(vararg types: String): ComposedTypeName {
       return ComposedTypeName(types.map { DeclaredTypeName.typeName(it) })
     }
-
   }
 }

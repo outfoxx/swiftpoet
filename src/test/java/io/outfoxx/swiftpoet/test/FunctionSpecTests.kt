@@ -16,19 +16,28 @@
 
 package io.outfoxx.swiftpoet.test
 
-import io.outfoxx.swiftpoet.*
+import io.outfoxx.swiftpoet.AttributeSpec
 import io.outfoxx.swiftpoet.AttributeSpec.Companion.DISCARDABLE_RESULT
+import io.outfoxx.swiftpoet.CodeWriter
 import io.outfoxx.swiftpoet.ComposedTypeName.Companion.composed
 import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
+import io.outfoxx.swiftpoet.FunctionSpec
+import io.outfoxx.swiftpoet.INT
+import io.outfoxx.swiftpoet.Modifier
+import io.outfoxx.swiftpoet.ParameterSpec
+import io.outfoxx.swiftpoet.STRING
+import io.outfoxx.swiftpoet.TypeAliasSpec
+import io.outfoxx.swiftpoet.TypeName
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.bound
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.typeVariable
+import io.outfoxx.swiftpoet.VOID
+import io.outfoxx.swiftpoet.toImmutableSet
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.hasItems
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.io.StringWriter
-
 
 @DisplayName("FunctionSpec Tests")
 class FunctionSpecTests {
@@ -37,17 +46,17 @@ class FunctionSpecTests {
   @DisplayName("Generates local type definitions before code")
   fun testGenLocalTypes() {
     val testFunc = FunctionSpec.builder("test")
-       .addLocalType(TypeAliasSpec.builder("LocalData", typeName("Swift.Data")).build())
-       .addStatement("print(%S)", "local types")
-       .build()
+      .addLocalType(TypeAliasSpec.builder("LocalData", typeName("Swift.Data")).build())
+      .addStatement("print(%S)", "local types")
+      .build()
 
     val out = StringWriter()
     testFunc.emit(CodeWriter(out), null, setOf())
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             func test() {
 
               typealias LocalData = Swift.Data
@@ -55,8 +64,8 @@ class FunctionSpecTests {
               print("local types")
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -64,24 +73,24 @@ class FunctionSpecTests {
   @DisplayName("Generates documentation before function definition")
   fun testGenDoc() {
     val testFunc = FunctionSpec.builder("test")
-       .addDoc("this is a comment\n")
-       .build()
+      .addDoc("this is a comment\n")
+      .build()
 
     val out = StringWriter()
     testFunc.emit(CodeWriter(out), null, setOf())
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             /**
              * this is a comment
              */
             func test() {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -89,22 +98,22 @@ class FunctionSpecTests {
   @DisplayName("Generates decorators formatted")
   fun testGenDecorators() {
     val testFunc = FunctionSpec.builder("test")
-       .addAttribute(AttributeSpec.DISCARDABLE_RESULT)
-       .build()
+      .addAttribute(AttributeSpec.DISCARDABLE_RESULT)
+      .build()
 
     val out = StringWriter()
     testFunc.emit(CodeWriter(out), null, setOf())
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             @discardableResult
             func test() {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -112,22 +121,22 @@ class FunctionSpecTests {
   @DisplayName("Generates modifiers in order")
   fun testGenModifiersInOrder() {
     val testClass = FunctionSpec.builder("test")
-       .addModifiers(Modifier.PRIVATE, Modifier.MUTATING, Modifier.FINAL)
-       .addCode("")
-       .build()
+      .addModifiers(Modifier.PRIVATE, Modifier.MUTATING, Modifier.FINAL)
+      .addCode("")
+      .build()
 
     val out = StringWriter()
     testClass.emit(CodeWriter(out), null, setOf())
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             private mutating final func test() {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -135,26 +144,26 @@ class FunctionSpecTests {
   @DisplayName("Generates type variables")
   fun testGenTypeVars() {
     val testClass = FunctionSpec.builder("test")
-       .addTypeVariable(
-          typeVariable("X", bound(".Test2"))
-       )
-       .addTypeVariable(
-          typeVariable("Y", bound(composed(".Test3", ".Test4")))
-       )
-       .build()
+      .addTypeVariable(
+        typeVariable("X", bound(".Test2"))
+      )
+      .addTypeVariable(
+        typeVariable("Y", bound(composed(".Test3", ".Test4")))
+      )
+      .build()
 
     val out = StringWriter()
     testClass.emit(CodeWriter(out), null, setOf())
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             func test<X : Test2, Y : Test3 & Test4>() {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -162,21 +171,21 @@ class FunctionSpecTests {
   @DisplayName("Generates return type")
   fun testGenReturnType() {
     val testClass = FunctionSpec.builder("test")
-       .returns(typeName(".Value"))
-       .build()
+      .returns(typeName(".Value"))
+      .build()
 
     val out = StringWriter()
     testClass.emit(CodeWriter(out), null, setOf())
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             func test() -> Value {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -184,21 +193,21 @@ class FunctionSpecTests {
   @DisplayName("Generates no return type when void")
   fun testGenNoReturnTypeForVoid() {
     val testClass = FunctionSpec.builder("test")
-       .returns(VOID)
-       .build()
+      .returns(VOID)
+      .build()
 
     val out = StringWriter()
     testClass.emit(CodeWriter(out), null, setOf())
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             func test() {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -206,20 +215,20 @@ class FunctionSpecTests {
   @DisplayName("Generates no return type when not set")
   fun testGenNoReturnType() {
     val testClass = FunctionSpec.builder("test")
-       .build()
+      .build()
 
     val out = StringWriter()
     testClass.emit(CodeWriter(out), null, setOf())
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             func test() {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -227,21 +236,21 @@ class FunctionSpecTests {
   @DisplayName("Generates parameters")
   fun testGenParameters() {
     val testClass = FunctionSpec.builder("test")
-       .addParameter("withB", "b", STRING)
-       .build()
+      .addParameter("withB", "b", STRING)
+      .build()
 
     val out = StringWriter()
     testClass.emit(CodeWriter(out), null, setOf())
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             func test(withB b: Swift.String) {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -249,26 +258,26 @@ class FunctionSpecTests {
   @DisplayName("Generates parameters with variadic parameter")
   fun testGenParametersRest() {
     val testClass = FunctionSpec.builder("test")
-       .addParameter("b", STRING)
-       .addParameter(
-          ParameterSpec.builder("c", STRING)
-             .variadic(true)
-             .build()
-       )
-       .build()
+      .addParameter("b", STRING)
+      .addParameter(
+        ParameterSpec.builder("c", STRING)
+          .variadic(true)
+          .build()
+      )
+      .build()
 
     val out = StringWriter()
     testClass.emit(CodeWriter(out), null, setOf())
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             func test(b: Swift.String, c: Swift.String...) {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -276,25 +285,25 @@ class FunctionSpecTests {
   @DisplayName("Generates parameters with default values")
   fun testGenParametersDefaults() {
     val testClass = FunctionSpec.builder("test")
-       .addParameter(
-          ParameterSpec.builder("withA", "a", INT)
-             .defaultValue("10")
-             .build()
-       )
-       .build()
+      .addParameter(
+        ParameterSpec.builder("withA", "a", INT)
+          .defaultValue("10")
+          .build()
+      )
+      .build()
 
     val out = StringWriter()
     testClass.emit(CodeWriter(out), null, setOf())
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             func test(withA a: Swift.Int = 10) {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -302,25 +311,25 @@ class FunctionSpecTests {
   @DisplayName("Generates parameter modifiers")
   fun testGenParameterDecorators() {
     val testClass = FunctionSpec.builder("test")
-       .addParameter(
-          ParameterSpec.builder("a", INT)
-             .addModifiers(Modifier.INOUT)
-             .build()
-       )
-       .build()
+      .addParameter(
+        ParameterSpec.builder("a", INT)
+          .addModifiers(Modifier.INOUT)
+          .build()
+      )
+      .build()
 
     val out = StringWriter()
     testClass.emit(CodeWriter(out), null, setOf())
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             func test(a: inout Swift.Int) {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -328,17 +337,17 @@ class FunctionSpecTests {
   @DisplayName("toBuilder copies all fields")
   fun testToBuilder() {
     val testFuncBlder = FunctionSpec.builder("Test")
-       .addDoc("this is a comment\n")
-       .addAttribute(DISCARDABLE_RESULT)
-       .addModifiers(Modifier.PUBLIC)
-       .addTypeVariable(
-          typeVariable("X", bound(".Test2"))
-       )
-       .addParameter("a", STRING)
-       .returns(STRING)
-       .addCode("val;\n")
-       .build()
-       .toBuilder()
+      .addDoc("this is a comment\n")
+      .addAttribute(DISCARDABLE_RESULT)
+      .addModifiers(Modifier.PUBLIC)
+      .addTypeVariable(
+        typeVariable("X", bound(".Test2"))
+      )
+      .addParameter("a", STRING)
+      .returns(STRING)
+      .addCode("val;\n")
+      .build()
+      .toBuilder()
 
     assertThat(testFuncBlder.doc.formatParts, hasItems("this is a comment\n"))
     assertThat(testFuncBlder.attributes, hasItems(DISCARDABLE_RESULT))
@@ -348,5 +357,4 @@ class FunctionSpecTests {
     assertThat(testFuncBlder.parameters, hasItems(ParameterSpec.builder("a", STRING).build()))
     assertThat(testFuncBlder.body.formatParts, hasItems("val;\n"))
   }
-
 }

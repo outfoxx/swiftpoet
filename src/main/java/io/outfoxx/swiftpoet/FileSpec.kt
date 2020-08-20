@@ -162,9 +162,9 @@ class FileSpec private constructor(builder: FileSpec.Builder) {
 
     fun addImport(moduleName: String, vararg attributes: AttributeSpec) = apply {
       addImport(
-         ImportSpec.builder(moduleName)
-            .apply { attributes.forEach { addAttribute(it) } }
-            .build()
+        ImportSpec.builder(moduleName)
+          .apply { attributes.forEach { addAttribute(it) } }
+          .build()
       )
     }
 

@@ -101,9 +101,9 @@ internal class CodeWriter constructor(
    * Emits `attributes` in declaration order.
    */
   fun emitAttributes(
-     attributes: List<AttributeSpec>,
-     separator: String = "\n",
-     suffix: String = "\n"
+    attributes: List<AttributeSpec>,
+    separator: String = "\n",
+    suffix: String = "\n"
   ) {
     if (attributes.isNotEmpty()) {
       var firstAttribute = true
@@ -187,9 +187,11 @@ internal class CodeWriter constructor(
         "%S" -> {
           val string = codeBlock.args[a++] as String?
           // Emit null as a literal null: no quotes.
-          emit(if (string != null)
-            stringLiteralWithQuotes(string) else
-            "null")
+          emit(
+            if (string != null)
+              stringLiteralWithQuotes(string) else
+              "null"
+          )
         }
 
         "%T" -> {

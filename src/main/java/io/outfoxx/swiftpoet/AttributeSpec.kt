@@ -47,8 +47,7 @@ class AttributeSpec internal constructor(builder: Builder) {
     }
 
     fun build(): AttributeSpec =
-       AttributeSpec(this)
-
+      AttributeSpec(this)
   }
 
   companion object {
@@ -66,5 +65,4 @@ class AttributeSpec internal constructor(builder: Builder) {
 
     val DISCARDABLE_RESULT = builder("discardableResult").build()
   }
-
 }

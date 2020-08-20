@@ -16,7 +16,11 @@
 
 package io.outfoxx.swiftpoet.test
 
-import io.outfoxx.swiftpoet.*
+import io.outfoxx.swiftpoet.CodeWriter
+import io.outfoxx.swiftpoet.OPTIONAL
+import io.outfoxx.swiftpoet.STRING
+import io.outfoxx.swiftpoet.TypeName
+import io.outfoxx.swiftpoet.parameterizedBy
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -79,5 +83,4 @@ class OptionalTests {
 
     assertThat(processedType, equalTo<TypeName>(STRING))
   }
-
 }

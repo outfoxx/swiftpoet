@@ -24,5 +24,4 @@ abstract class AnyTypeSpec(
   internal open val typeSpecs: List<AnyTypeSpec> = listOf()
 
   internal abstract fun emit(codeWriter: CodeWriter)
-
 }
