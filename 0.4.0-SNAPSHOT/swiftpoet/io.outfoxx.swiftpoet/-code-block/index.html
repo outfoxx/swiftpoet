@@ -15,8 +15,7 @@ assumes kotlinc will check correctness later!</p>
 <p>Code blocks support placeholders like <a href="https://docs.oracle.com/javase/6/docs/api/java/text/Format.html">java.text.Format</a>. This class uses a percent sign
 <code>%</code> but has its own set of permitted placeholders:</p>
 <ul><li><code>%L</code> emits a <em>literal</em> value with no escaping. Arguments for literals may be strings,
-    primitives, <a href="../-type-spec/index.html">type declarations</a>, <a href="#">annotations</a> and even other code
-    blocks.</li>
+    primitives, <a href="../-type-spec/index.html">type declarations</a> and even other code blocks.</li>
 <li><code>%N</code> emits a <em>name</em>, using name collision avoidance where necessary. Arguments for names may
     be strings (actually any <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html">character sequence</a>), <a href="../-parameter-spec/index.html">parameters</a>,
     <a href="../-property-spec/index.html">properties</a>, <a href="../-function-spec/index.html">functions</a>, and <a href="../-type-spec/index.html">types</a>.</li>
