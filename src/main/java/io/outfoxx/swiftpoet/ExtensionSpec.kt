@@ -116,7 +116,7 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
 
   override fun toString() = buildString { emit(CodeWriter(this)) }
 
-  class Builder internal constructor(internal val extendedType: TypeSpec) {
+  class Builder internal constructor(internal val extendedType: AnyTypeSpec) {
     internal val doc = CodeBlock.builder()
     internal val modifiers = mutableSetOf<Modifier>()
     internal val superTypes = mutableListOf<TypeName>()
@@ -183,7 +183,7 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
   }
 
   companion object {
-    @JvmStatic fun builder(extendedType: TypeSpec) = Builder(extendedType)
+    @JvmStatic fun builder(extendedType: AnyTypeSpec) = Builder(extendedType)
     @JvmStatic fun builder(extendedType: TypeName) = Builder(TypeSpec.classBuilder(extendedType.name).build())
   }
 }
