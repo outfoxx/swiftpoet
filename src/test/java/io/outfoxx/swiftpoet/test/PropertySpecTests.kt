@@ -16,7 +16,9 @@
 
 package io.outfoxx.swiftpoet.test
 
-import io.outfoxx.swiftpoet.*
+import io.outfoxx.swiftpoet.DeclaredTypeName
+import io.outfoxx.swiftpoet.PropertySpec
+import io.outfoxx.swiftpoet.STRING
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName

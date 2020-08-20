@@ -16,8 +16,7 @@
 
 package io.outfoxx.swiftpoet
 
-class SelfTypeName private constructor(
-) : TypeName() {
+class SelfTypeName private constructor() : TypeName() {
 
   override fun emit(out: CodeWriter): CodeWriter {
     out.emit("Self")

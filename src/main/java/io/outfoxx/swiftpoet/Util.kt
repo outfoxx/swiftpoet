@@ -17,9 +17,6 @@
 package io.outfoxx.swiftpoet
 
 import java.util.Collections
-import kotlin.collections.ArrayList
-import kotlin.collections.LinkedHashMap
-import kotlin.collections.LinkedHashSet
 
 internal object NullAppendable : Appendable {
   override fun append(charSequence: CharSequence) = this
@@ -28,16 +25,16 @@ internal object NullAppendable : Appendable {
 }
 
 internal fun <K, V> Map<K, V>.toImmutableMap(): Map<K, V> =
-    Collections.unmodifiableMap(LinkedHashMap(this))
+  Collections.unmodifiableMap(LinkedHashMap(this))
 
 internal fun <T> Collection<T>.toImmutableList(): List<T> =
-    Collections.unmodifiableList(ArrayList(this))
+  Collections.unmodifiableList(ArrayList(this))
 
 internal fun <T> Collection<T>.toImmutableSet(): Set<T> =
-    Collections.unmodifiableSet(LinkedHashSet(this))
+  Collections.unmodifiableSet(LinkedHashSet(this))
 
 internal inline fun <reified T : Enum<T>> Collection<T>.toEnumSet(): Set<T> =
-    enumValues<T>().filterTo(mutableSetOf(), this::contains)
+  enumValues<T>().filterTo(mutableSetOf(), this::contains)
 
 internal fun requireExactlyOneOf(modifiers: Set<Modifier>, vararg mutuallyExclusive: Modifier) {
   val count = mutuallyExclusive.count(modifiers::contains)
@@ -60,19 +57,19 @@ internal fun requireNoneOf(modifiers: Set<Modifier>, vararg forbidden: Modifier)
 }
 
 internal fun <T> T.isOneOf(t1: T, t2: T, t3: T? = null, t4: T? = null, t5: T? = null, t6: T? = null) =
-    this == t1 || this == t2 || this == t3 || this == t4 || this == t5 || this == t6
+  this == t1 || this == t2 || this == t3 || this == t4 || this == t5 || this == t6
 
 internal fun <T> Collection<T>.containsAnyOf(vararg t: T) = t.any(this::contains)
 
 // see https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.10.6
 internal fun characterLiteralWithoutSingleQuotes(c: Char) = when {
-  c == '\b' -> "\\b"   // \u0008: backspace (BS)
-  c == '\t' -> "\\t"   // \u0009: horizontal tab (HT)
-  c == '\n' -> "\\n"   // \u000a: linefeed (LF)
-  c == '\r' -> "\\r"   // \u000d: carriage return (CR)
-  c == '\"' -> "\""    // \u0022: double quote (")
-  c == '\'' -> "\\'"   // \u0027: single quote (')
-  c == '\\' -> "\\\\"  // \u005c: backslash (\)
+  c == '\b' -> "\\b" // \u0008: backspace (BS)
+  c == '\t' -> "\\t" // \u0009: horizontal tab (HT)
+  c == '\n' -> "\\n" // \u000a: linefeed (LF)
+  c == '\r' -> "\\r" // \u000d: carriage return (CR)
+  c == '\"' -> "\"" // \u0022: double quote (")
+  c == '\'' -> "\\'" // \u0027: single quote (')
+  c == '\\' -> "\\\\" // \u005c: backslash (\)
   c.isIsoControl -> String.format("\\u%04x", c.toInt())
   else -> Character.toString(c)
 }
@@ -131,8 +128,8 @@ internal fun stringLiteralWithQuotes(value: String): String {
   }
 }
 
-internal fun escapeKeywords(canonicalName: String)
-    = canonicalName.split('.').joinToString(".") { escapeIfKeyword(it) }
+internal fun escapeKeywords(canonicalName: String) =
+  canonicalName.split('.').joinToString(".") { escapeIfKeyword(it) }
 
 internal fun escapeIfKeyword(value: String) = if (value.isKeyword) "`$value`" else value
 
@@ -146,71 +143,73 @@ internal val String.isKeyword get() = KEYWORDS.contains(this)
 
 internal val String.isName get() = split("\\.").none { it.isKeyword }
 
-private val IDENTIFIER_REGEX
-    = ("((\\p{gc=Lu}+|\\p{gc=Ll}+|\\p{gc=Lt}+|\\p{gc=Lm}+|\\p{gc=Lo}+|\\p{gc=Nl}+)+" +
-    "\\d*" +
-    "\\p{gc=Lu}*\\p{gc=Ll}*\\p{gc=Lt}*\\p{gc=Lm}*\\p{gc=Lo}*\\p{gc=Nl}*)" +
-    "|" +
-    "(`[^\n\r`]+`)")
+private val IDENTIFIER_REGEX =
+  (
+    "((\\p{gc=Lu}+|\\p{gc=Ll}+|\\p{gc=Lt}+|\\p{gc=Lm}+|\\p{gc=Lo}+|\\p{gc=Nl}+)+" +
+      "\\d*" +
+      "\\p{gc=Lu}*\\p{gc=Ll}*\\p{gc=Lt}*\\p{gc=Lm}*\\p{gc=Lo}*\\p{gc=Nl}*)" +
+      "|" +
+      "(`[^\n\r`]+`)"
+    )
     .toRegex()
 
 // https://github.com/JetBrains/kotlin/blob/master/core/descriptors/src/org/jetbrains/kotlin/renderer/KeywordStringsGenerated.java
 private val KEYWORDS = setOf(
-   "associatedtype",
-   "class",
-   "deinit",
-   "enum",
-   "extension",
-   "fileprivate",
-   "func",
-   "import",
-   "init",
-   "inout",
-   "internal",
-   "let",
-   "open",
-   "operator",
-   "private",
-   "protocol",
-   "public",
-   "static",
-   "struct",
-   "subscript",
-   "typealias",
-   "var",
+  "associatedtype",
+  "class",
+  "deinit",
+  "enum",
+  "extension",
+  "fileprivate",
+  "func",
+  "import",
+  "init",
+  "inout",
+  "internal",
+  "let",
+  "open",
+  "operator",
+  "private",
+  "protocol",
+  "public",
+  "static",
+  "struct",
+  "subscript",
+  "typealias",
+  "var",
 
-   "break",
-   "case",
-   "continue",
-   "default",
-   "defer",
-   "do",
-   "else",
-   "fallthrough",
-   "for",
-   "guard",
-   "if",
-   "in",
-   "repeat",
-   "return",
-   "switch",
-   "where",
-   "while",
+  "break",
+  "case",
+  "continue",
+  "default",
+  "defer",
+  "do",
+  "else",
+  "fallthrough",
+  "for",
+  "guard",
+  "if",
+  "in",
+  "repeat",
+  "return",
+  "switch",
+  "where",
+  "while",
 
-   "as",
-   "catch",
-   "false",
-   "is",
-   "nil",
-   "rethrows",
-   "super",
-   "self",
-   "Self",
-   "throw",
-   "throws",
-   "true",
-   "try",
+  "as",
+  "catch",
+  "false",
+  "is",
+  "nil",
+  "rethrows",
+  "super",
+  "self",
+  "Self",
+  "throw",
+  "throws",
+  "true",
+  "try",
 
-   "Type",
-   "Self"
+  "Type",
+  "Self"
 )

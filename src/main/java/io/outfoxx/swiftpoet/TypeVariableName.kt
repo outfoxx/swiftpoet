@@ -25,14 +25,14 @@ class TypeVariableName private constructor(
 
   class Bound internal constructor(val constraint: Constraint? = null, val type: TypeName) {
 
-    constructor(type: TypeName)
-            : this(null, type)
+    constructor(type: TypeName) :
+      this(null, type)
 
-    constructor(constraint: Constraint, type: String)
-            : this(constraint, DeclaredTypeName.typeName(type))
+    constructor(constraint: Constraint, type: String) :
+      this(constraint, DeclaredTypeName.typeName(type))
 
-    constructor(type: String)
-            : this(null, DeclaredTypeName.typeName(type))
+    constructor(type: String) :
+      this(null, DeclaredTypeName.typeName(type))
 
     enum class Constraint {
       CONFORMS_TO,
@@ -40,8 +40,7 @@ class TypeVariableName private constructor(
     }
 
     internal fun emit(out: CodeWriter) =
-        out.emitCode(" %L %T", if (constraint == SAME_TYPE) "==" else ":", type)
-
+      out.emitCode(" %L %T", if (constraint == SAME_TYPE) "==" else ":", type)
   }
 
   fun withBounds(vararg bounds: Bound) = withBounds(bounds.toList())
@@ -79,11 +78,11 @@ class TypeVariableName private constructor(
     /** Returns type variable named `name` with `variance` and without bounds.  */
     @JvmStatic @JvmName("get")
     operator fun invoke(name: String) =
-        TypeVariableName.typeVariable(name, listOf())
+      TypeVariableName.typeVariable(name, listOf())
 
     /** Returns type variable named `name` with `variance` and `bounds`.  */
     @JvmStatic @JvmName("get")
     operator fun invoke(name: String, vararg bounds: Bound) =
-        TypeVariableName.typeVariable(name, bounds.toList())
+      TypeVariableName.typeVariable(name, bounds.toList())
   }
 }

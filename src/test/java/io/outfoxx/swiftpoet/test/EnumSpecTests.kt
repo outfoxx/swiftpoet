@@ -16,7 +16,15 @@
 
 package io.outfoxx.swiftpoet.test
 
-import io.outfoxx.swiftpoet.*
+import io.outfoxx.swiftpoet.CASE_ITERABLE
+import io.outfoxx.swiftpoet.CodeBlock
+import io.outfoxx.swiftpoet.CodeWriter
+import io.outfoxx.swiftpoet.EnumerationCaseSpec
+import io.outfoxx.swiftpoet.INT
+import io.outfoxx.swiftpoet.Modifier
+import io.outfoxx.swiftpoet.STRING
+import io.outfoxx.swiftpoet.TupleTypeName
+import io.outfoxx.swiftpoet.TypeSpec
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.hasItems
 import org.hamcrest.MatcherAssert.assertThat
@@ -25,7 +33,6 @@ import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.io.StringWriter
 
-
 @DisplayName("(enum) TypeSpec Tests")
 class EnumSpecTests {
 
@@ -33,22 +40,22 @@ class EnumSpecTests {
   @DisplayName("Escapes names which are keywords")
   fun escapeName() {
     val testClass = TypeSpec.enumBuilder("Test")
-            .addEnumCase("extension")
-            .build()
+      .addEnumCase("extension")
+      .build()
     val out = StringWriter()
     testClass.emit(CodeWriter(out))
 
     assertThat(
-            out.toString(),
-            equalTo(
-                    """
+      out.toString(),
+      equalTo(
+        """
             enum Test {
 
               case `extension`
 
             }
 
-          """.trimIndent()
+        """.trimIndent()
       )
     )
   }
@@ -77,11 +84,10 @@ class EnumSpecTests {
 
             }
 
-          """.trimIndent()
+        """.trimIndent()
       )
     )
   }
-
 
   @Test
   @DisplayName("Generates attributes before enum definition")
@@ -105,11 +111,10 @@ class EnumSpecTests {
 
             }
 
-          """.trimIndent()
+        """.trimIndent()
       )
     )
   }
-
 
   @Test
   @DisplayName("Generates doc before enum case definitions")
@@ -138,11 +143,10 @@ class EnumSpecTests {
 
             }
 
-          """.trimIndent()
+        """.trimIndent()
       )
     )
   }
-
 
   @Test
   @DisplayName("Generates attributes before enum case definition")
@@ -169,55 +173,53 @@ class EnumSpecTests {
 
             }
 
-          """.trimIndent()
+        """.trimIndent()
       )
     )
   }
-
 
   @Test
   @DisplayName("Generates modifiers in order")
   fun testGenModifiersInOrder() {
     val testEnum = TypeSpec.enumBuilder("Test")
-       .addModifiers(Modifier.PUBLIC)
-       .addEnumCase("a")
-       .build()
+      .addModifiers(Modifier.PUBLIC)
+      .addEnumCase("a")
+      .build()
 
     val out = StringWriter()
     testEnum.emit(CodeWriter(out))
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             public enum Test {
 
               case a
 
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
-
 
   @Test
   @DisplayName("Generates formatted constants")
   fun testGenConstants() {
     val testEnum = TypeSpec.enumBuilder("Test")
-       .addEnumCase("A", 10)
-       .addEnumCase("B", 20)
-       .addEnumCase("C", 30)
-       .build()
+      .addEnumCase("A", 10)
+      .addEnumCase("B", 20)
+      .addEnumCase("C", 30)
+      .build()
 
     val out = StringWriter()
     testEnum.emit(CodeWriter(out))
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             enum Test {
 
               case A = 10
@@ -226,39 +228,37 @@ class EnumSpecTests {
 
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
-
 
   @Test
   @DisplayName("Generates raw & interface")
   fun testGenRawInterfaces() {
     val testEnum = TypeSpec.enumBuilder("Test")
-       .addSuperType(INT)
-       .addSuperType(CASE_ITERABLE)
-       .addEnumCase("A", CodeBlock.of("10"))
-       .build()
+      .addSuperType(INT)
+      .addSuperType(CASE_ITERABLE)
+      .addEnumCase("A", CodeBlock.of("10"))
+      .build()
 
     val out = StringWriter()
     testEnum.emit(CodeWriter(out))
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             enum Test : Swift.Int, Swift.CaseIterable {
 
               case A = 10
 
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
-
 
   @Test
   @DisplayName("Generates formatted associated values")
@@ -282,11 +282,10 @@ class EnumSpecTests {
 
             }
 
-          """.trimIndent()
+        """.trimIndent()
       )
     )
   }
-
 
   @Test
   @DisplayName("Disallows repeat enumeration case names")
@@ -298,7 +297,6 @@ class EnumSpecTests {
         .build()
     }
   }
-
 
   @Test
   @DisplayName("toBuilder copies all fields")
@@ -315,7 +313,6 @@ class EnumSpecTests {
     assertThat(testEnumBldr.kind.modifiers, hasItems(Modifier.PRIVATE))
     assertThat(testEnumBldr.enumCases.map { it.name }, hasItems("A"))
   }
-
 
   @Test
   @DisplayName("case toBuilder copies all fields")
@@ -347,9 +344,8 @@ class EnumSpecTests {
             enum Test {
             }
 
-          """.trimIndent()
+        """.trimIndent()
       )
     )
   }
-
 }

@@ -16,7 +16,9 @@
 
 package io.outfoxx.swiftpoet
 
-import io.outfoxx.swiftpoet.Modifier.*
+import io.outfoxx.swiftpoet.Modifier.INTERNAL
+import io.outfoxx.swiftpoet.Modifier.PRIVATE
+import io.outfoxx.swiftpoet.Modifier.PUBLIC
 
 /** A generated typealias declaration */
 class TypeAliasSpec private constructor(

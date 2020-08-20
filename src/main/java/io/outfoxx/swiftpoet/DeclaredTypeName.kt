@@ -25,8 +25,8 @@ class DeclaredTypeName internal constructor(
    * Returns a type name created from the given parts. For example, calling this with module name
    * `"Swift"` and simple names `"Array"`, `"Iterator"` yields `Swift.Array.Iterator`.
    */
-  constructor(moduleName: String, simpleName: String, vararg simpleNames: String)
-      : this(listOf(moduleName, simpleName, *simpleNames))
+  constructor(moduleName: String, simpleName: String, vararg simpleNames: String) :
+    this(listOf(moduleName, simpleName, *simpleNames))
 
   /** From top to bottom. This will be `["Swift", "Array", "Iterator"]` for `Swift.Array.Iterator`.  */
   private val names = names.toImmutableList()

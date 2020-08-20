@@ -81,5 +81,4 @@ class FileMemberSpec internal constructor(builder: Builder) {
 
     @JvmStatic fun builder(member: ExtensionSpec) = Builder(member)
   }
-
 }

@@ -17,7 +17,6 @@
 package io.outfoxx.swiftpoet.test
 
 import io.outfoxx.swiftpoet.CodeWriter
-import io.outfoxx.swiftpoet.DeclaredTypeName
 import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
 import io.outfoxx.swiftpoet.ExtensionSpec
 import io.outfoxx.swiftpoet.TypeAliasSpec
@@ -36,24 +35,24 @@ class ExtensionSpecTests {
   @DisplayName("Generates documentation before extension definition")
   fun testGenDocs() {
     val testExt = ExtensionSpec.builder(typeName(".MyType"))
-       .addDoc("this is a comment\n")
-       .build()
+      .addDoc("this is a comment\n")
+      .build()
 
     val out = StringWriter()
     testExt.emit(CodeWriter(out))
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             /**
              * this is a comment
              */
             extension MyType {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -61,21 +60,21 @@ class ExtensionSpecTests {
   @DisplayName("Generates inheritance clause")
   fun testGenInheritance() {
     val testExt = ExtensionSpec.builder(typeName(".MyType"))
-       .addSuperType(typeName("Swift.Encodable"))
-       .build()
+      .addSuperType(typeName("Swift.Encodable"))
+      .build()
 
     val out = StringWriter()
     testExt.emit(CodeWriter(out))
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             extension MyType : Swift.Encodable {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -83,22 +82,22 @@ class ExtensionSpecTests {
   @DisplayName("Generates conditional conformance")
   fun testGenConditionalConformance() {
     val testExt = ExtensionSpec.builder(typeName("Swift.Array"))
-       .addSuperType(typeName("Swift.Encodable"))
-       .addConditionalConstraint(typeVariable("Element", bound(CONFORMS_TO, "Swift.Encodable")))
-       .build()
+      .addSuperType(typeName("Swift.Encodable"))
+      .addConditionalConstraint(typeVariable("Element", bound(CONFORMS_TO, "Swift.Encodable")))
+      .build()
 
     val out = StringWriter()
     testExt.emit(CodeWriter(out))
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             extension Swift.Array : Swift.Encodable where Element : Swift.Encodable {
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
 
@@ -106,23 +105,22 @@ class ExtensionSpecTests {
   @DisplayName("Generates nested type alias")
   fun testNestedTypeAlias() {
     val testExt = ExtensionSpec.builder(typeName("Swift.Array"))
-        .addType(TypeAliasSpec.builder("Keys", typeName("Other.Keys")).build())
-       .build()
+      .addType(TypeAliasSpec.builder("Keys", typeName("Other.Keys")).build())
+      .build()
 
     val out = StringWriter()
     testExt.emit(CodeWriter(out))
 
     assertThat(
-       out.toString(),
-       equalTo(
-          """
+      out.toString(),
+      equalTo(
+        """
             extension Swift.Array {
               typealias Keys = Other.Keys
             }
 
-          """.trimIndent()
-       )
+        """.trimIndent()
+      )
     )
   }
-
 }

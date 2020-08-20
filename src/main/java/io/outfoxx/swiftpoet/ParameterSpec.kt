@@ -18,7 +18,7 @@ package io.outfoxx.swiftpoet
 
 /** A generated parameter declaration.  */
 class ParameterSpec private constructor(
-   builder: ParameterSpec.Builder
+  builder: ParameterSpec.Builder
 ) : AttributedSpec(builder.attributes) {
   val argumentLabel = builder.argumentLabel
   val parameterName = builder.parameterName
@@ -120,7 +120,6 @@ class ParameterSpec private constructor(
     @JvmStatic fun unnamed(typeName: TypeName): ParameterSpec {
       return Builder("", "", typeName).build()
     }
-
   }
 }
 

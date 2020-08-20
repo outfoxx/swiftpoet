@@ -20,7 +20,7 @@ import io.outfoxx.swiftpoet.Modifier.INTERNAL
 
 /** A generated class, struct, enum or protocol declaration. */
 class TypeSpec private constructor(
-   builder: TypeSpec.Builder
+  builder: TypeSpec.Builder
 ) : AnyTypeSpec(builder.name, builder.attributes.toImmutableList()) {
 
   val kind = builder.kind
@@ -66,12 +66,11 @@ class TypeSpec private constructor(
       codeWriter.emitTypeVariables(typeVariables)
 
       val superTypes =
-         if (superTypes.contains(CLASS)) {
-           listOf(CodeBlock.of("%T", CLASS)) + superTypes.filterNot { it == CLASS }.map { type -> CodeBlock.of("%T", type) }
-         }
-         else {
-           superTypes.map { type -> CodeBlock.of("%T", type) }
-         }
+        if (superTypes.contains(CLASS)) {
+          listOf(CodeBlock.of("%T", CLASS)) + superTypes.filterNot { it == CLASS }.map { type -> CodeBlock.of("%T", type) }
+        } else {
+          superTypes.map { type -> CodeBlock.of("%T", type) }
+        }
 
       if (superTypes.isNotEmpty()) {
         codeWriter.emitCode(superTypes.joinToCode(separator = ",%W", prefix = " : "))
@@ -154,7 +153,6 @@ class TypeSpec private constructor(
       }
 
       codeWriter.emit("}\n")
-
     } finally {
       codeWriter.statementLine = previousStatementLine
     }
@@ -187,43 +185,47 @@ class TypeSpec private constructor(
     override fun toString() = javaClass.simpleName.toUpperCase()
 
     class Class(vararg modifiers: Modifier) : Kind(
-        "class",
-        setOf(INTERNAL),
-        setOf(INTERNAL),
-        modifiers.toSet()) {
+      "class",
+      setOf(INTERNAL),
+      setOf(INTERNAL),
+      modifiers.toSet()
+    ) {
 
       override fun plusModifiers(vararg modifiers: Modifier) =
         Class(*(this.modifiers.toTypedArray() + modifiers))
     }
 
     class Struct(vararg modifiers: Modifier) : Kind(
-        "struct",
-        setOf(INTERNAL),
-        setOf(INTERNAL),
-        modifiers.toSet()) {
+      "struct",
+      setOf(INTERNAL),
+      setOf(INTERNAL),
+      modifiers.toSet()
+    ) {
 
       override fun plusModifiers(vararg modifiers: Modifier) =
-              Struct(*(this.modifiers.toTypedArray() + modifiers))
+        Struct(*(this.modifiers.toTypedArray() + modifiers))
     }
 
-    class Protocol(vararg modifiers: Modifier): Kind(
-            "protocol",
-            setOf(INTERNAL),
-            setOf(INTERNAL),
-            modifiers.toSet()) {
+    class Protocol(vararg modifiers: Modifier) : Kind(
+      "protocol",
+      setOf(INTERNAL),
+      setOf(INTERNAL),
+      modifiers.toSet()
+    ) {
 
       override fun plusModifiers(vararg modifiers: Modifier) =
-              Protocol(*(this.modifiers.toTypedArray() + modifiers))
+        Protocol(*(this.modifiers.toTypedArray() + modifiers))
     }
 
-    class Enum(vararg modifiers: Modifier): Kind(
-            "enum",
-            setOf(INTERNAL),
-            setOf(INTERNAL),
-            modifiers.toSet()) {
+    class Enum(vararg modifiers: Modifier) : Kind(
+      "enum",
+      setOf(INTERNAL),
+      setOf(INTERNAL),
+      modifiers.toSet()
+    ) {
 
       override fun plusModifiers(vararg modifiers: Modifier) =
-              Enum(*(this.modifiers.toTypedArray() + modifiers))
+        Enum(*(this.modifiers.toTypedArray() + modifiers))
     }
   }
 
@@ -324,11 +326,11 @@ class TypeSpec private constructor(
       propertySpecs += propertySpec
     }
 
-    fun addProperty(name: String, type: TypeName, vararg modifiers: Modifier)
-       = addProperty(PropertySpec.builder(name, type, *modifiers).build())
+    fun addProperty(name: String, type: TypeName, vararg modifiers: Modifier) =
+      addProperty(PropertySpec.builder(name, type, *modifiers).build())
 
-    fun addMutableProperty(name: String, type: TypeName, vararg modifiers: Modifier)
-       = addProperty(PropertySpec.varBuilder(name, type, *modifiers).build())
+    fun addMutableProperty(name: String, type: TypeName, vararg modifiers: Modifier) =
+      addProperty(PropertySpec.varBuilder(name, type, *modifiers).build())
 
     fun addFunctions(functionSpecs: Iterable<FunctionSpec>) = apply {
       functionSpecs.forEach { addFunction(it) }
@@ -378,7 +380,6 @@ class TypeSpec private constructor(
     @JvmStatic fun enumBuilder(enumName: DeclaredTypeName) = enumBuilder(enumName.simpleName)
   }
 }
-
 
 private object CLASS : TypeName() {
   override fun emit(out: CodeWriter): CodeWriter {

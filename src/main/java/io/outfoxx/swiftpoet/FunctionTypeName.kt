@@ -54,8 +54,9 @@ class FunctionTypeName internal constructor(
       returnType: TypeName
     ): FunctionTypeName {
       return FunctionTypeName(
-          parameters.toList().map { ParameterSpec.unnamed(it) },
-          returnType)
+        parameters.toList().map { ParameterSpec.unnamed(it) },
+        returnType
+      )
     }
 
     /** Returns a lambda type with `returnType` and parameters listed in `parameters`. */

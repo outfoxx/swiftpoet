@@ -32,22 +32,22 @@ class ParameterizedTypeName internal constructor(
   override val optional get() = rawType == OPTIONAL
 
   override fun makeOptional() =
-     if (optional)
-       this
-     else
-       wrapOptional()
+    if (optional)
+      this
+    else
+      wrapOptional()
 
   override fun makeNonOptional() =
-     if (optional)
-       typeArguments[0].makeNonOptional()
-     else
-       this
+    if (optional)
+      typeArguments[0].makeNonOptional()
+    else
+      this
 
   override fun unwrapOptional() =
-     if (optional)
-       typeArguments[0]
-     else
-       this
+    if (optional)
+      typeArguments[0]
+    else
+      this
 
   override fun emit(out: CodeWriter): CodeWriter {
     when (rawType) {
@@ -58,8 +58,7 @@ class ParameterizedTypeName internal constructor(
         if (enclosingType != null) {
           enclosingType.emit(out)
           out.emit("." + rawType.simpleName)
-        }
-        else {
+        } else {
           rawType.emit(out)
         }
         if (typeArguments.isNotEmpty()) {
@@ -79,13 +78,13 @@ class ParameterizedTypeName internal constructor(
    * Returns a new [ParameterizedTypeName] instance for the specified `name` as nested inside this
    * type, with the specified `typeArguments`.
    */
-  fun nestedType(name: String, typeArguments: List<TypeName>)
-      = ParameterizedTypeName(this, rawType.nestedType(name), typeArguments)
+  fun nestedType(name: String, typeArguments: List<TypeName>) =
+    ParameterizedTypeName(this, rawType.nestedType(name), typeArguments)
 
   companion object {
     /** Returns a parameterized type, applying `typeArguments` to `rawType`.  */
   }
 }
 
-fun DeclaredTypeName.parameterizedBy(vararg typeArguments: TypeName)
-   = ParameterizedTypeName(null, this, typeArguments.toList())
+fun DeclaredTypeName.parameterizedBy(vararg typeArguments: TypeName) =
+  ParameterizedTypeName(null, this, typeArguments.toList())
