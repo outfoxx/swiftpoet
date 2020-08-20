@@ -1,0 +1,19 @@
+name: Build / Test
+
+on:
+  pull_request:
+    branches: [ develop ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: Build & Test
+      uses: burrunan/gradle-cache-action@v1
+      with:
+        job-id: jdk8-build-test
+        arguments: build
