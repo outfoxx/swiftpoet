@@ -18,14 +18,13 @@ package io.outfoxx.swiftpoet.test
 
 import io.outfoxx.swiftpoet.CodeBlock
 import io.outfoxx.swiftpoet.CodeWriter
-import io.outfoxx.swiftpoet.DeclaredTypeName
 import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
 import io.outfoxx.swiftpoet.FileSpec
 import io.outfoxx.swiftpoet.FunctionSpec
 import io.outfoxx.swiftpoet.TypeAliasSpec
 import io.outfoxx.swiftpoet.TypeSpec
-import org.hamcrest.CoreMatchers
-import org.hamcrest.MatcherAssert
+import org.hamcrest.CoreMatchers.equalTo
+import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
 import java.io.StringWriter
@@ -43,9 +42,9 @@ class CodeBlockTests {
     val out = StringWriter()
     CodeWriter(out).emitCode(code)
 
-    MatcherAssert.assertThat(
+    assertThat(
        out.toString(),
-       CoreMatchers.equalTo(
+       equalTo(
           """
             let alias: TestAlias
             let struct: TestStruct
@@ -66,9 +65,9 @@ class CodeBlockTests {
     val out = StringWriter()
     CodeWriter(out).emitCode(code)
 
-    MatcherAssert.assertThat(
+    assertThat(
       out.toString(),
-      CoreMatchers.equalTo(
+      equalTo(
         """
             let alias: TestAlias
             let struct: TestStruct
@@ -92,9 +91,9 @@ class CodeBlockTests {
        .addFunction(testFunc)
        .build()
 
-    MatcherAssert.assertThat(
+    assertThat(
        buildString { testFile.writeTo(this) },
-       CoreMatchers.equalTo(
+       equalTo(
           """
             import Foundation
             
@@ -125,9 +124,9 @@ class CodeBlockTests {
     val out = StringWriter()
     CodeWriter(out).emitCode(code)
 
-    MatcherAssert.assertThat(
+    assertThat(
        out.toString(),
-       CoreMatchers.equalTo(
+       equalTo(
           """
             if x == 5 {
               print("It's five!")
@@ -151,9 +150,9 @@ class CodeBlockTests {
     val out = StringWriter()
     CodeWriter(out).emitCode(code)
 
-    MatcherAssert.assertThat(
+    assertThat(
        out.toString(),
-       CoreMatchers.equalTo(
+       equalTo(
           """
             switch x {
             case 5: print("It's five!")

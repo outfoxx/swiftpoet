@@ -24,7 +24,7 @@ import io.outfoxx.swiftpoet.INT
 import io.outfoxx.swiftpoet.ImportSpec
 import io.outfoxx.swiftpoet.TypeSpec
 import io.outfoxx.swiftpoet.TypeVariableName
-import org.hamcrest.CoreMatchers
+import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
@@ -59,7 +59,7 @@ class FileSpecTests {
 
     assertThat(
        out.toString(),
-       CoreMatchers.equalTo(
+       equalTo(
           """
             import Foundation
 
@@ -90,7 +90,7 @@ class FileSpecTests {
 
     assertThat(
        out.toString(),
-       CoreMatchers.equalTo(
+       equalTo(
           """
             class Test {
 
@@ -122,7 +122,7 @@ class FileSpecTests {
 
     assertThat(
        out.toString(),
-       CoreMatchers.equalTo(
+       equalTo(
           """ 
             #if canImport(SomeKit)
             import SomeKit
@@ -152,7 +152,7 @@ class FileSpecTests {
 
     assertThat(
        out.toString(),
-       CoreMatchers.equalTo(
+       equalTo(
           """ 
             /**
              * this is a comment
@@ -183,7 +183,7 @@ class FileSpecTests {
 
     assertThat(
        out.toString(),
-       CoreMatchers.equalTo(
+       equalTo(
           """
             #if DEBUG
             class Test {
@@ -217,7 +217,7 @@ class FileSpecTests {
 
     assertThat(
        out.toString(),
-       CoreMatchers.equalTo(
+       equalTo(
           """
             /**
              * this is a member comment
