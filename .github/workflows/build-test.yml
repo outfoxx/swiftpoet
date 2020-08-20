@@ -17,3 +17,9 @@ jobs:
       with:
         job-id: jdk8-build-test
         arguments: build
+
+    - name: Updload Reports
+      uses: actions/upload-artifact@v2
+      with:
+        name: reports
+        path: build/reports
