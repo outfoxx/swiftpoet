@@ -210,6 +210,8 @@ publishing {
 
 
 signing {
-  isRequired = !isSnapshot && gradle.taskGraph.hasTask("publishMavenJavaPublicationToMavenRepository")
+  gradle.taskGraph.whenReady {
+    isRequired = hasTask("publishMavenJavaPublicationToMavenRepository")
+  }
   sign(publishing.publications["mavenJava"])
 }
