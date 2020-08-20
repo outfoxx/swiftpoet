@@ -5,14 +5,14 @@ apply plugin: 'org.jetbrains.dokka'
 dokka {
 
   outputFormat 'html'
-  outputDirectory "$buildDir/javadoc"
+  outputDirectory "$buildDir/javadoc/${project.version}"
 
 }
 
 
 gitPublish {
 
-  repoUri = 'git@github.com:outfoxx/swiftpoet.git'
+  repoUri = 'https://github.com/${{ github.repository }}.git'
   
   branch = 'gh-pages'
   
