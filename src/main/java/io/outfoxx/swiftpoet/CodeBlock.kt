@@ -340,26 +340,32 @@ class CodeBlock private constructor(
     }
 
     /**
-     * @param controlFlow the control flow construct and its code, such as "if (foo == 5)".
+     * @param controlFlowName the control flow construct (e.g. "if", "switch", etc.).
+     * @param controlFlowCode code for control flow, such as "foo == 5"
      *     Shouldn't contain braces or newline characters.
      */
-    fun beginControlFlow(controlFlow: String, vararg args: Any?) = apply {
-      add(controlFlow + " {\n", *args)
-      indent()
+    fun beginControlFlow(controlFlowName: String, controlFlowCode: String, vararg args: Any?) = apply {
+      add("$controlFlowName $controlFlowCode {\n", *args)
+      if (controlFlowName != "switch") {
+        indent()
+      }
     }
 
     /**
-     * @param controlFlow the control flow construct and its code, such as "else if (foo == 10)".
+     * @param controlFlowName the control flow construct (e.g. "else if").
+     * @param controlFlowCode the control flow construct and its code, such as "else if (foo == 10)".
      *     Shouldn't contain braces or newline characters.
      */
-    fun nextControlFlow(controlFlow: String, vararg args: Any?) = apply {
+    fun nextControlFlow(controlFlowName: String, controlFlowCode: String, vararg args: Any?) = apply {
       unindent()
-      add("} $controlFlow {\n", *args)
+      add("} $controlFlowName $controlFlowCode {\n", *args)
       indent()
     }
 
-    fun endControlFlow() = apply {
-      unindent()
+    fun endControlFlow(controlFlowName: String) = apply {
+      if (controlFlowName != "switch") {
+        unindent()
+      }
       add("}\n")
     }
 

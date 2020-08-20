@@ -261,23 +261,25 @@ class FunctionSpec private constructor(
     }
 
     /**
-     * @param controlFlow the control flow construct and its code, such as "if (foo == 5)".
-     * * Shouldn't contain braces or newline characters.
+     * @param controlFlowName the control flow construct (e.g. "if", "switch", etc.).
+     * @param controlFlowCode code for control flow, such as "foo == 5"
+     *     Shouldn't contain braces or newline characters.
      */
-    fun beginControlFlow(controlFlow: String, vararg args: Any) = apply {
-      body.beginControlFlow(controlFlow, *args)
+    fun beginControlFlow(controlFlowName: String, controlFlowCode: String, vararg args: Any) = apply {
+      body.beginControlFlow(controlFlowName, controlFlowCode, *args)
     }
 
     /**
-     * @param controlFlow the control flow construct and its code, such as "else if (foo == 10)".
-     * *     Shouldn't contain braces or newline characters.
+     * @param controlFlowName the control flow construct (e.g. "else if").
+     * @param controlFlowCode the control flow construct and its code, such as "else if (foo == 10)".
+     *     Shouldn't contain braces or newline characters.
      */
-    fun nextControlFlow(controlFlow: String, vararg args: Any) = apply {
-      body.nextControlFlow(controlFlow, *args)
+    fun nextControlFlow(controlFlowName: String, controlFlowCode: String, vararg args: Any?) = apply {
+      body.nextControlFlow(controlFlowName, controlFlowCode, *args)
     }
 
-    fun endControlFlow() = apply {
-      body.endControlFlow()
+    fun endControlFlow(controlFlowName: String) = apply {
+      body.endControlFlow(controlFlowName)
     }
 
     fun addStatement(format: String, vararg args: Any) = apply {
