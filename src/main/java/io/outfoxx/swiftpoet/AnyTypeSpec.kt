@@ -21,6 +21,8 @@ abstract class AnyTypeSpec(
   attributes: List<AttributeSpec> = listOf()
 ) : AttributedSpec(attributes.toImmutableList()) {
 
+  internal open val typeSpecs: List<AnyTypeSpec> = listOf()
+
   internal abstract fun emit(codeWriter: CodeWriter)
 
 }

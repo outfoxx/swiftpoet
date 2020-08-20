@@ -35,7 +35,7 @@ internal class CodeWriter constructor(
   private var doc = false
   private var comment = false
   private var moduleName = NO_MODULE
-  private val typeSpecStack = mutableListOf<TypeSpec>()
+  private val typeSpecStack = mutableListOf<AnyTypeSpec>()
   private val importableTypes = mutableMapOf<String, DeclaredTypeName>()
   private var trailingNewline = false
 
@@ -65,7 +65,7 @@ internal class CodeWriter constructor(
     this.moduleName = NO_MODULE
   }
 
-  fun pushType(type: TypeSpec) = apply {
+  fun pushType(type: AnyTypeSpec) = apply {
     this.typeSpecStack.add(type)
   }
 
@@ -229,7 +229,7 @@ internal class CodeWriter constructor(
 
   private fun emitLiteral(o: Any?) {
     when (o) {
-      is TypeSpec -> o.emit(this)
+      is AnyTypeSpec -> o.emit(this)
       is PropertySpec -> o.emit(this, emptySet())
       is CodeBlock -> emitCode(o)
       else -> emit(o.toString())

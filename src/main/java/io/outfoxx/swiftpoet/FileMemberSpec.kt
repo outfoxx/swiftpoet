@@ -32,10 +32,9 @@ class FileMemberSpec internal constructor(builder: Builder) {
     }
 
     when (member) {
-      is TypeSpec -> member.emit(out)
+      is AnyTypeSpec -> member.emit(out)
       is FunctionSpec -> member.emit(out, null, setOf(Modifier.PUBLIC))
       is PropertySpec -> member.emit(out, setOf(Modifier.PUBLIC))
-      is TypeAliasSpec -> member.emit(out)
       is ExtensionSpec -> member.emit(out)
       else -> throw AssertionError()
     }

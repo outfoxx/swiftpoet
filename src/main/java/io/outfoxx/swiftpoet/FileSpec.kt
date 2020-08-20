@@ -176,7 +176,7 @@ class FileSpec private constructor(builder: FileSpec.Builder) {
   }
 
   companion object {
-    @JvmStatic fun get(moduleName: String, typeSpec: TypeSpec): FileSpec {
+    @JvmStatic fun get(moduleName: String, typeSpec: AnyTypeSpec): FileSpec {
       return builder(moduleName, typeSpec.name).addType(typeSpec).build()
     }
 

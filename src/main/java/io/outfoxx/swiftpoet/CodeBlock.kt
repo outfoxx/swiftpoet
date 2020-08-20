@@ -325,7 +325,7 @@ class CodeBlock private constructor(
       is ParameterSpec -> o.parameterName
       is PropertySpec -> o.name
       is FunctionSpec -> o.name
-      is TypeSpec -> o.name
+      is AnyTypeSpec -> o.name
       else -> throw IllegalArgumentException("expected name but was " + o)
     }
 
@@ -335,7 +335,7 @@ class CodeBlock private constructor(
 
     private fun argToType(o: Any?) = when (o) {
       is TypeName -> o
-      is TypeSpec -> DeclaredTypeName(listOf("", o.name))
+      is AnyTypeSpec -> DeclaredTypeName(listOf("", o.name))
       else -> throw IllegalArgumentException("expected type but was " + o)
     }
 

@@ -18,7 +18,7 @@ package io.outfoxx.swiftpoet
 
 import io.outfoxx.swiftpoet.Modifier.INTERNAL
 
-/** A generated class, protocol, or enum declaration.  */
+/** A generated class, struct, enum or protocol declaration. */
 class TypeSpec private constructor(
    builder: TypeSpec.Builder
 ) : AnyTypeSpec(builder.name, builder.attributes.toImmutableList()) {
@@ -35,7 +35,7 @@ class TypeSpec private constructor(
   val enumCases = builder.enumCases.toImmutableList()
   val propertySpecs = builder.propertySpecs.toImmutableList()
   val funSpecs = builder.functionSpecs.toImmutableList()
-  val typeSpecs = builder.typeSpecs.toImmutableList()
+  override val typeSpecs = builder.typeSpecs.toImmutableList()
 
   fun toBuilder(): Builder {
     val builder = Builder(kind, name)
