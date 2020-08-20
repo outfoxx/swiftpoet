@@ -25,8 +25,7 @@ package io.outfoxx.swiftpoet
  * `%` but has its own set of permitted placeholders:
  *
  *  * `%L` emits a *literal* value with no escaping. Arguments for literals may be strings,
- *    primitives, [type declarations][TypeSpec], [annotations][AnnotationSpec] and even other code
- *    blocks.
+ *    primitives, [type declarations][TypeSpec] and even other code blocks.
  *  * `%N` emits a *name*, using name collision avoidance where necessary. Arguments for names may
  *    be strings (actually any [character sequence][CharSequence]), [parameters][ParameterSpec],
  *    [properties][PropertySpec], [functions][FunctionSpec], and [types][TypeSpec].
