@@ -1,0 +1,151 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TypeName - swiftpoet</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">swiftpoet</a>&nbsp;/&nbsp;<a href="../index.html">io.outfoxx.swiftpoet</a>&nbsp;/&nbsp;<a href="./index.html">TypeName</a><br/>
+<br/>
+<h1>TypeName</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">TypeName</span></code>
+<p>Any type in Swift's type system. This class identifies simple types like <code>Int</code> and <code>String</code>,
+composite types like <code>Optional&lt;String&gt;</code> and <code>Set&lt;String&gt;</code>, and unassignable types like <code>Void</code>.</p>
+<p>Type names are dumb identifiers only and do not model the values they name. For example, the
+type name for <code>Swift.Array</code> doesn't know about the <code>count</code> property, the fact that arrays are
+collections, or even that it accepts a single type parameter.</p>
+<p>Instances of this class are immutable value objects that implement <code>equals()</code> and <code>hashCode()</code>
+properly.</p>
+Defining new types
+<p>Create new reference types like <code>MyModule.HelloWorld</code> with <a href="../-declared-type-name/type-name.html">DeclaredTypeName.typeName</a>. To build composite
+types like <code>Set&lt;Long&gt;</code>, use the factory methods on <a href="../-parameterized-type-name/index.html">ParameterizedTypeName</a> and <a href="../-type-variable-name/index.html">TypeVariableName</a>.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="name.html">name</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="optional.html">optional</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">val </span><span class="identifier">optional</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="equals.html">equals</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">equals</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.TypeName$equals(kotlin.Any)/other">other</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="hash-code.html">hashCode</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">hashCode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="make-non-optional.html">makeNonOptional</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">makeNonOptional</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">TypeName</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="make-optional.html">makeOptional</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">makeOptional</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-parameterized-type-name/index.html"><span class="identifier">ParameterizedTypeName</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="to-string.html">toString</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">toString</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="unwrap-optional.html">unwrapOptional</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">unwrapOptional</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">TypeName</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="wrap-optional.html">wrapOptional</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">wrapOptional</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-parameterized-type-name/index.html"><span class="identifier">ParameterizedTypeName</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../-composed-type-name/index.html">ComposedTypeName</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ComposedTypeName</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">TypeName</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-declared-type-name/index.html">DeclaredTypeName</a></h4>
+</td>
+<td>
+<p>A fully-qualified type name for top-level and member types.</p>
+<code><span class="keyword">class </span><span class="identifier">DeclaredTypeName</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">TypeName</span></a><span class="symbol">, </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html"><span class="identifier">Comparable</span></a><span class="symbol">&lt;</span><a href="../-declared-type-name/index.html"><span class="identifier">DeclaredTypeName</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-function-type-name/index.html">FunctionTypeName</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">FunctionTypeName</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">TypeName</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-parameterized-type-name/index.html">ParameterizedTypeName</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ParameterizedTypeName</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">TypeName</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-self-type-name/index.html">SelfTypeName</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">SelfTypeName</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">TypeName</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-tuple-type-name/index.html">TupleTypeName</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TupleTypeName</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">TypeName</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-type-variable-name/index.html">TypeVariableName</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TypeVariableName</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">TypeName</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
