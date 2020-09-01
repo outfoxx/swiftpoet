@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TypeVariableName - swiftpoet</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">swiftpoet</a>&nbsp;/&nbsp;<a href="../index.html">io.outfoxx.swiftpoet</a>&nbsp;/&nbsp;<a href="./index.html">TypeVariableName</a><br/>
+<br/>
+<h1>TypeVariableName</h1>
+<code><span class="keyword">class </span><span class="identifier">TypeVariableName</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-type-name/index.html"><span class="identifier">TypeName</span></a></code>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-bound/index.html">Bound</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Bound</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="bounds.html">bounds</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">bounds</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><span class="identifier">Bound</span><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="name.html">name</a></h4>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">name</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="with-bounds.html">withBounds</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">withBounds</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="io.outfoxx.swiftpoet.TypeVariableName$withBounds(kotlin.Array((io.outfoxx.swiftpoet.TypeVariableName.Bound)))/bounds">bounds</span><span class="symbol">:</span>&nbsp;<span class="identifier">Bound</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">TypeVariableName</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">withBounds</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.TypeVariableName$withBounds(kotlin.collections.List((io.outfoxx.swiftpoet.TypeVariableName.Bound)))/bounds">bounds</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><span class="identifier">Bound</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">TypeVariableName</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="bound.html">bound</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">bound</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.TypeVariableName.Companion$bound(io.outfoxx.swiftpoet.TypeVariableName.Bound.Constraint, kotlin.String)/constraint">constraint</span><span class="symbol">:</span>&nbsp;<span class="identifier">Constraint</span><span class="symbol">, </span><span class="identifier" id="io.outfoxx.swiftpoet.TypeVariableName.Companion$bound(io.outfoxx.swiftpoet.TypeVariableName.Bound.Constraint, kotlin.String)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Bound</span></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">bound</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.TypeVariableName.Companion$bound(io.outfoxx.swiftpoet.TypeVariableName.Bound.Constraint, io.outfoxx.swiftpoet.TypeName)/constraint">constraint</span><span class="symbol">:</span>&nbsp;<span class="identifier">Constraint</span><span class="symbol">, </span><span class="identifier" id="io.outfoxx.swiftpoet.TypeVariableName.Companion$bound(io.outfoxx.swiftpoet.TypeVariableName.Bound.Constraint, io.outfoxx.swiftpoet.TypeName)/typeName">typeName</span><span class="symbol">:</span>&nbsp;<a href="../-type-name/index.html"><span class="identifier">TypeName</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Bound</span></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">bound</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.TypeVariableName.Companion$bound(io.outfoxx.swiftpoet.TypeName)/type">type</span><span class="symbol">:</span>&nbsp;<a href="../-type-name/index.html"><span class="identifier">TypeName</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Bound</span></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">bound</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.TypeVariableName.Companion$bound(kotlin.String)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Bound</span></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="invoke.html">invoke</a></h4>
+</td>
+<td>
+<p>Returns type variable named <code>name</code> with <code>variance</code> and without bounds.</p>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.TypeVariableName.Companion$invoke(kotlin.String)/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">TypeVariableName</span></a></code>
+<p>Returns type variable named <code>name</code> with <code>variance</code> and <code>bounds</code>.</p>
+<code><span class="keyword">operator</span> <span class="keyword">fun </span><span class="identifier">invoke</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.TypeVariableName.Companion$invoke(kotlin.String, kotlin.Array((io.outfoxx.swiftpoet.TypeVariableName.Bound)))/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="io.outfoxx.swiftpoet.TypeVariableName.Companion$invoke(kotlin.String, kotlin.Array((io.outfoxx.swiftpoet.TypeVariableName.Bound)))/bounds">bounds</span><span class="symbol">:</span>&nbsp;<span class="identifier">Bound</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">TypeVariableName</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="type-variable.html">typeVariable</a></h4>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">typeVariable</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.TypeVariableName.Companion$typeVariable(kotlin.String, kotlin.collections.List((io.outfoxx.swiftpoet.TypeVariableName.Bound)))/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="io.outfoxx.swiftpoet.TypeVariableName.Companion$typeVariable(kotlin.String, kotlin.collections.List((io.outfoxx.swiftpoet.TypeVariableName.Bound)))/bounds">bounds</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><span class="identifier">Bound</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">TypeVariableName</span></a></code><br/>
+<code><span class="keyword">fun </span><span class="identifier">typeVariable</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.TypeVariableName.Companion$typeVariable(kotlin.String, kotlin.Array((io.outfoxx.swiftpoet.TypeVariableName.Bound)))/name">name</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="io.outfoxx.swiftpoet.TypeVariableName.Companion$typeVariable(kotlin.String, kotlin.Array((io.outfoxx.swiftpoet.TypeVariableName.Bound)))/bounds">bounds</span><span class="symbol">:</span>&nbsp;<span class="identifier">Bound</span><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">TypeVariableName</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>
