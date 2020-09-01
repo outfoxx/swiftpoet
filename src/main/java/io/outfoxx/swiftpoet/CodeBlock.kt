@@ -359,9 +359,13 @@ class CodeBlock private constructor(
      * @param controlFlowCode the control flow construct and its code, such as "else if (foo == 10)".
      *     Shouldn't contain braces or newline characters.
      */
-    fun nextControlFlow(controlFlowName: String, controlFlowCode: String, vararg args: Any?) = apply {
+    fun nextControlFlow(controlFlowName: String, controlFlowCode: String = "", vararg args: Any?) = apply {
       unindent()
-      add("} $controlFlowName $controlFlowCode {\n", *args)
+      if (controlFlowCode.isEmpty()) {
+        add("} $controlFlowName {\n")
+      } else {
+        add("} $controlFlowName $controlFlowCode {\n", *args)
+      }
       indent()
     }
 

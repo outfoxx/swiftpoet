@@ -128,10 +128,40 @@ class CodeBlockTests {
       out.toString(),
       equalTo(
         """
-            if x == 5 {
-              print("It's five!")
-            }
-            
+          if x == 5 {
+            print("It's five!")
+          }
+          
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates 'else' control flow with correct spacing")
+  fun testGenElseControlFlowWithCorrectSpacing() {
+
+    val code = CodeBlock.builder()
+      .beginControlFlow("if", "x == %L", 5)
+      .addStatement("print(\"It's five!\")")
+      .nextControlFlow("else")
+      .addStatement("print(\"It's not five :(\")")
+      .endControlFlow("if")
+      .build()
+
+    val out = StringWriter()
+    CodeWriter(out).emitCode(code)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+          if x == 5 {
+            print("It's five!")
+          } else {
+            print("It's not five :(")
+          }
+          
         """.trimIndent()
       )
     )
