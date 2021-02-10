@@ -16,6 +16,9 @@
 
 package io.outfoxx.swiftpoet
 
+import kotlin.reflect.KClass
+
 open class AttributedSpec(
-  val attributes: List<AttributeSpec> = listOf()
-)
+  val attributes: List<AttributeSpec>,
+  tags: Map<KClass<*>, Any>
+) : Taggable(tags.toImmutableMap())

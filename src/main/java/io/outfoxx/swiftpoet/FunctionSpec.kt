@@ -19,7 +19,8 @@ package io.outfoxx.swiftpoet
 /** A generated function declaration.  */
 class FunctionSpec private constructor(
   builder: Builder
-) : AttributedSpec(builder.attributes) {
+) : AttributedSpec(builder.attributes.toImmutableList(), builder.tags) {
+
   val name = builder.name
   val doc = builder.doc.build()
   val modifiers = builder.modifiers.toImmutableSet()
@@ -149,7 +150,9 @@ class FunctionSpec private constructor(
     return builder
   }
 
-  class Builder internal constructor(internal val name: String) {
+  class Builder internal constructor(
+    internal val name: String
+  ) : Taggable.Builder<Builder>() {
     internal val doc = CodeBlock.builder()
     internal val attributes = mutableListOf<AttributeSpec>()
     internal val modifiers = mutableListOf<Modifier>()

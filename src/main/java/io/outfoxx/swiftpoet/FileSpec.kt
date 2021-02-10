@@ -34,7 +34,10 @@ import java.nio.file.Path
  * - Imports
  * - Members
  */
-class FileSpec private constructor(builder: FileSpec.Builder) {
+class FileSpec private constructor(
+  builder: Builder
+) : Taggable(builder.tags.toImmutableMap()) {
+
   val comment = builder.comment.build()
   val moduleName = builder.moduleName
   val name = builder.name
@@ -119,7 +122,7 @@ class FileSpec private constructor(builder: FileSpec.Builder) {
   class Builder internal constructor(
     val moduleName: String,
     val name: String
-  ) {
+  ) : Taggable.Builder<Builder>() {
     internal val comment = CodeBlock.builder()
     internal val moduleImports = sortedSetOf<ImportSpec>()
     internal var indent = DEFAULT_INDENT

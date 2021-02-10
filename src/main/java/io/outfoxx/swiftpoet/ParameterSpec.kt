@@ -18,8 +18,9 @@ package io.outfoxx.swiftpoet
 
 /** A generated parameter declaration.  */
 class ParameterSpec private constructor(
-  builder: ParameterSpec.Builder
-) : AttributedSpec(builder.attributes) {
+  builder: Builder
+) : AttributedSpec(builder.attributes.toImmutableList(), builder.tags) {
+
   val argumentLabel = builder.argumentLabel
   val parameterName = builder.parameterName
   val modifiers = builder.modifiers.toImmutableSet()
@@ -77,7 +78,7 @@ class ParameterSpec private constructor(
     internal val argumentLabel: String?,
     internal val parameterName: String,
     internal val type: TypeName
-  ) {
+  ) : Taggable.Builder<Builder>() {
     internal val attributes = mutableListOf<AttributeSpec>()
     internal val modifiers = mutableListOf<Modifier>()
     internal var variadic = false

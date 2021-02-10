@@ -20,8 +20,8 @@ import io.outfoxx.swiftpoet.Modifier.INTERNAL
 
 /** A generated class, struct, enum or protocol declaration. */
 class TypeSpec private constructor(
-  builder: TypeSpec.Builder
-) : AnyTypeSpec(builder.name, builder.attributes.toImmutableList()) {
+  builder: Builder
+) : AnyTypeSpec(builder.name, builder.attributes, builder.tags) {
 
   val kind = builder.kind
   val doc = builder.doc.build()
@@ -232,7 +232,7 @@ class TypeSpec private constructor(
   class Builder internal constructor(
     internal var kind: Kind,
     internal val name: String
-  ) {
+  ) : Taggable.Builder<Builder>() {
     internal val doc = CodeBlock.builder()
     internal val attributes = mutableListOf<AttributeSpec>()
     internal val typeVariables = mutableListOf<TypeVariableName>()

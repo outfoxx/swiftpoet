@@ -18,7 +18,7 @@ package io.outfoxx.swiftpoet
 
 class EnumerationCaseSpec private constructor(
   builder: Builder
-) : AttributedSpec(builder.attributes) {
+) : AttributedSpec(builder.attributes.toImmutableList(), builder.tags) {
 
   val name = builder.name
   val typeOrConstant = builder.typeOrConstant
@@ -47,7 +47,7 @@ class EnumerationCaseSpec private constructor(
   class Builder internal constructor(
     internal var name: String,
     internal var typeOrConstant: Any?
-  ) {
+  ) : Taggable.Builder<Builder>() {
 
     internal val attributes = mutableListOf<AttributeSpec>()
     internal val doc = CodeBlock.builder()
