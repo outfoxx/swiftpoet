@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Taggable.Builder - swiftpoet</title>
+<link rel="stylesheet" href="../../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">swiftpoet</a>&nbsp;/&nbsp;<a href="../../index.html">io.outfoxx.swiftpoet</a>&nbsp;/&nbsp;<a href="../index.html">Taggable</a>&nbsp;/&nbsp;<a href="./index.html">Builder</a><br/>
+<br/>
+<h1>Builder</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">Builder</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">B</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Builder</span><span class="symbol">&lt;</span><span class="identifier">B</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code>
+<p>The builder analogue to <a href="../index.html">Taggable</a> types.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>The builder analogue to <a href="../index.html">Taggable</a> types.</p>
+<code><span class="identifier">Builder</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="tags.html">tags</a></h4>
+</td>
+<td>
+<p>Mutable map of the current tags this builder contains.</p>
+<code><span class="keyword">val </span><span class="identifier">tags</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/index.html"><span class="identifier">MutableMap</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="tag.html">tag</a></h4>
+</td>
+<td>
+<p>Attaches <a href="tag.html#io.outfoxx.swiftpoet.Taggable.Builder$tag(java.lang.Class((io.outfoxx.swiftpoet.Taggable.Builder.tag.T)), io.outfoxx.swiftpoet.Taggable.Builder.tag.T)/tag">tag</a> to the request using <a href="tag.html#io.outfoxx.swiftpoet.Taggable.Builder$tag(java.lang.Class((io.outfoxx.swiftpoet.Taggable.Builder.tag.T)), io.outfoxx.swiftpoet.Taggable.Builder.tag.T)/type">type</a> as a key. Tags can be read from a
+request using <a href="../tag.html">Taggable.tag</a>. Use <code>null</code> to remove any existing tag assigned for
+<a href="tag.html#io.outfoxx.swiftpoet.Taggable.Builder$tag(java.lang.Class((io.outfoxx.swiftpoet.Taggable.Builder.tag.T)), io.outfoxx.swiftpoet.Taggable.Builder.tag.T)/type">type</a>.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">tag</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.Taggable.Builder$tag(java.lang.Class((io.outfoxx.swiftpoet.Taggable.Builder.tag.T)), io.outfoxx.swiftpoet.Taggable.Builder.tag.T)/type">type</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="io.outfoxx.swiftpoet.Taggable.Builder$tag(java.lang.Class((io.outfoxx.swiftpoet.Taggable.Builder.tag.T)), io.outfoxx.swiftpoet.Taggable.Builder.tag.T)/tag">tag</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">B</span></code><br/>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">tag</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.Taggable.Builder$tag(kotlin.reflect.KClass((io.outfoxx.swiftpoet.Taggable.Builder.tag.T)), io.outfoxx.swiftpoet.Taggable.Builder.tag.T)/type">type</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="io.outfoxx.swiftpoet.Taggable.Builder$tag(kotlin.reflect.KClass((io.outfoxx.swiftpoet.Taggable.Builder.tag.T)), io.outfoxx.swiftpoet.Taggable.Builder.tag.T)/tag">tag</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">B</span></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

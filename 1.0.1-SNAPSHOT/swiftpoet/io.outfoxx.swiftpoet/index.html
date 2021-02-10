@@ -23,14 +23,14 @@
 <h4><a href="-attributed-spec/index.html">AttributedSpec</a></h4>
 </td>
 <td>
-<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">AttributedSpec</span></code></td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">AttributedSpec</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-taggable/index.html"><span class="identifier">Taggable</span></a></code></td>
 </tr>
 <tr>
 <td>
 <h4><a href="-attribute-spec/index.html">AttributeSpec</a></h4>
 </td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">AttributeSpec</span></code></td>
+<code><span class="keyword">class </span><span class="identifier">AttributeSpec</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-taggable/index.html"><span class="identifier">Taggable</span></a></code></td>
 </tr>
 <tr>
 <td>
@@ -70,14 +70,14 @@ assumes kotlinc will check correctness later!</p>
 </td>
 <td>
 <p>A generated class, protocol, or enum declaration.</p>
-<code><span class="keyword">class </span><span class="identifier">ExtensionSpec</span></code></td>
+<code><span class="keyword">class </span><span class="identifier">ExtensionSpec</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-taggable/index.html"><span class="identifier">Taggable</span></a></code></td>
 </tr>
 <tr>
 <td>
 <h4><a href="-file-member-spec/index.html">FileMemberSpec</a></h4>
 </td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">FileMemberSpec</span></code></td>
+<code><span class="keyword">class </span><span class="identifier">FileMemberSpec</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-taggable/index.html"><span class="identifier">Taggable</span></a></code></td>
 </tr>
 <tr>
 <td>
@@ -86,7 +86,7 @@ assumes kotlinc will check correctness later!</p>
 <td>
 <p>A Kotlin file containing top level objects like classes, objects, functions, properties, and type
 aliases.</p>
-<code><span class="keyword">class </span><span class="identifier">FileSpec</span></code></td>
+<code><span class="keyword">class </span><span class="identifier">FileSpec</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-taggable/index.html"><span class="identifier">Taggable</span></a></code></td>
 </tr>
 <tr>
 <td>
@@ -146,6 +146,14 @@ aliases.</p>
 </td>
 <td>
 <code><span class="keyword">class </span><span class="identifier">SelfTypeName</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-type-name/index.html"><span class="identifier">TypeName</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="-taggable/index.html">Taggable</a></h4>
+</td>
+<td>
+<p>A type that can be tagged with extra metadata of the user's choice.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">Taggable</span></code></td>
 </tr>
 <tr>
 <td>
@@ -396,6 +404,28 @@ composite types like <code>Optional&lt;String&gt;</code> and <code>Set&lt;String
 </td>
 <td>
 <code><span class="keyword">fun </span><a href="-declared-type-name/index.html"><span class="identifier">DeclaredTypeName</span></a><span class="symbol">.</span><span class="identifier">parameterizedBy</span><span class="symbol">(</span><span class="keyword">vararg</span> <span class="identifier" id="io.outfoxx.swiftpoet$parameterizedBy(io.outfoxx.swiftpoet.DeclaredTypeName, kotlin.Array((io.outfoxx.swiftpoet.TypeName)))/typeArguments">typeArguments</span><span class="symbol">:</span>&nbsp;<a href="-type-name/index.html"><span class="identifier">TypeName</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-parameterized-type-name/index.html"><span class="identifier">ParameterizedTypeName</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="tag.html">tag</a></h4>
+</td>
+<td>
+<p>Returns the tag attached with <a href="tag.html#T">T</a> as a key, or null if no tag is attached with that key.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="-taggable/index.html"><span class="identifier">Taggable</span></a><span class="symbol">.</span><span class="identifier">tag</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span><span class="symbol">?</span></code>
+<p>Attaches <a href="tag.html#io.outfoxx.swiftpoet$tag(io.outfoxx.swiftpoet.AttributeSpec.Builder, io.outfoxx.swiftpoet.tag.T)/tag">tag</a> to the request using <a href="tag.html#T">T</a> as a key. Tags can be read from a
+request using <a href="-taggable/tag.html">Taggable.tag</a>. Use <code>null</code> to remove any existing tag assigned for
+<a href="tag.html#T">T</a>.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">Builder</span><span class="symbol">.</span><span class="identifier">tag</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet$tag(io.outfoxx.swiftpoet.AttributeSpec.Builder, io.outfoxx.swiftpoet.tag.T)/tag">tag</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code><br/>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">Builder</span><span class="symbol">.</span><span class="identifier">tag</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet$tag(io.outfoxx.swiftpoet.EnumerationCaseSpec.Builder, io.outfoxx.swiftpoet.tag.T)/tag">tag</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code><br/>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">Builder</span><span class="symbol">.</span><span class="identifier">tag</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet$tag(io.outfoxx.swiftpoet.ExtensionSpec.Builder, io.outfoxx.swiftpoet.tag.T)/tag">tag</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code><br/>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">Builder</span><span class="symbol">.</span><span class="identifier">tag</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet$tag(io.outfoxx.swiftpoet.FileMemberSpec.Builder, io.outfoxx.swiftpoet.tag.T)/tag">tag</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code><br/>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">Builder</span><span class="symbol">.</span><span class="identifier">tag</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet$tag(io.outfoxx.swiftpoet.FileSpec.Builder, io.outfoxx.swiftpoet.tag.T)/tag">tag</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code><br/>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">Builder</span><span class="symbol">.</span><span class="identifier">tag</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet$tag(io.outfoxx.swiftpoet.FunctionSpec.Builder, io.outfoxx.swiftpoet.tag.T)/tag">tag</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code><br/>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">Builder</span><span class="symbol">.</span><span class="identifier">tag</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet$tag(io.outfoxx.swiftpoet.ImportSpec.Builder, io.outfoxx.swiftpoet.tag.T)/tag">tag</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code><br/>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">Builder</span><span class="symbol">.</span><span class="identifier">tag</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet$tag(io.outfoxx.swiftpoet.ParameterSpec.Builder, io.outfoxx.swiftpoet.tag.T)/tag">tag</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code><br/>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">Builder</span><span class="symbol">.</span><span class="identifier">tag</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet$tag(io.outfoxx.swiftpoet.PropertySpec.Builder, io.outfoxx.swiftpoet.tag.T)/tag">tag</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code><br/>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">Builder</span><span class="symbol">.</span><span class="identifier">tag</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet$tag(io.outfoxx.swiftpoet.TypeAliasSpec.Builder, io.outfoxx.swiftpoet.tag.T)/tag">tag</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code><br/>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">Builder</span><span class="symbol">.</span><span class="identifier">tag</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet$tag(io.outfoxx.swiftpoet.TypeSpec.Builder, io.outfoxx.swiftpoet.tag.T)/tag">tag</span><span class="symbol">:</span>&nbsp;<span class="identifier">T</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code></td>
 </tr>
 </tbody>
 </table>

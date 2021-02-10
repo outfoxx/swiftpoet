@@ -1,0 +1,123 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Taggable - swiftpoet</title>
+<link rel="stylesheet" href="../../../style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">swiftpoet</a>&nbsp;/&nbsp;<a href="../index.html">io.outfoxx.swiftpoet</a>&nbsp;/&nbsp;<a href="./index.html">Taggable</a><br/>
+<br/>
+<h1>Taggable</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">Taggable</span></code>
+<p>A type that can be tagged with extra metadata of the user's choice.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-builder/index.html">Builder</a></h4>
+</td>
+<td>
+<p>The builder analogue to <a href="./index.html">Taggable</a> types.</p>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">Builder</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">B</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Builder</span><span class="symbol">&lt;</span><span class="identifier">B</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="-init-.html">&lt;init&gt;</a></h4>
+</td>
+<td>
+<p>A type that can be tagged with extra metadata of the user's choice.</p>
+<code><span class="identifier">Taggable</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.Taggable$<init>(kotlin.collections.Map((kotlin.reflect.KClass((kotlin.Any)), )))/tags">tags</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="tags.html">tags</a></h4>
+</td>
+<td>
+<p>all tags.</p>
+<code><span class="keyword">val </span><span class="identifier">tags</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="tag.html">tag</a></h4>
+</td>
+<td>
+<p>Returns the tag attached with <a href="tag.html#io.outfoxx.swiftpoet.Taggable$tag(kotlin.reflect.KClass((io.outfoxx.swiftpoet.Taggable.tag.T)))/type">type</a> as a key, or null if no tag is attached with that key.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">tag</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.Taggable$tag(kotlin.reflect.KClass((io.outfoxx.swiftpoet.Taggable.tag.T)))/type">type</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span><span class="symbol">?</span></code><br/>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">tag</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.Taggable$tag(java.lang.Class((io.outfoxx.swiftpoet.Taggable.tag.T)))/type">type</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span><span class="symbol">?</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../tag.html">tag</a></h4>
+</td>
+<td>
+<p>Returns the tag attached with <a href="../tag.html#T">T</a> as a key, or null if no tag is attached with that key.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">Taggable</span></a><span class="symbol">.</span><span class="identifier">tag</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span><span class="symbol">?</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../-attributed-spec/index.html">AttributedSpec</a></h4>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">AttributedSpec</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Taggable</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-attribute-spec/index.html">AttributeSpec</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">AttributeSpec</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Taggable</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-extension-spec/index.html">ExtensionSpec</a></h4>
+</td>
+<td>
+<p>A generated class, protocol, or enum declaration.</p>
+<code><span class="keyword">class </span><span class="identifier">ExtensionSpec</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Taggable</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-file-member-spec/index.html">FileMemberSpec</a></h4>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">FileMemberSpec</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Taggable</span></a></code></td>
+</tr>
+<tr>
+<td>
+<h4><a href="../-file-spec/index.html">FileSpec</a></h4>
+</td>
+<td>
+<p>A Kotlin file containing top level objects like classes, objects, functions, properties, and type
+aliases.</p>
+<code><span class="keyword">class </span><span class="identifier">FileSpec</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Taggable</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

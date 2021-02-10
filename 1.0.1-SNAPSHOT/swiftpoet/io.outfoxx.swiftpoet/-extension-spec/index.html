@@ -8,7 +8,7 @@
 <a href="../../index.html">swiftpoet</a>&nbsp;/&nbsp;<a href="../index.html">io.outfoxx.swiftpoet</a>&nbsp;/&nbsp;<a href="./index.html">ExtensionSpec</a><br/>
 <br/>
 <h1>ExtensionSpec</h1>
-<code><span class="keyword">class </span><span class="identifier">ExtensionSpec</span></code>
+<code><span class="keyword">class </span><span class="identifier">ExtensionSpec</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-taggable/index.html"><span class="identifier">Taggable</span></a></code>
 <p>A generated class, protocol, or enum declaration.</p>
 <h3>Types</h3>
 <table>
@@ -18,7 +18,7 @@
 <h4><a href="-builder/index.html">Builder</a></h4>
 </td>
 <td>
-<code><span class="keyword">class </span><span class="identifier">Builder</span></code></td>
+<code><span class="keyword">class </span><span class="identifier">Builder</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Builder</span><span class="symbol">&lt;</span><span class="identifier">Builder</span><span class="symbol">&gt;</span></code></td>
 </tr>
 </tbody>
 </table>
@@ -126,6 +126,19 @@
 <td>
 <code><span class="keyword">fun </span><span class="identifier">builder</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.ExtensionSpec.Companion$builder(io.outfoxx.swiftpoet.AnyTypeSpec)/extendedType">extendedType</span><span class="symbol">:</span>&nbsp;<a href="../-any-type-spec/index.html"><span class="identifier">AnyTypeSpec</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code><br/>
 <code><span class="keyword">fun </span><span class="identifier">builder</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.ExtensionSpec.Companion$builder(io.outfoxx.swiftpoet.TypeName)/extendedType">extendedType</span><span class="symbol">:</span>&nbsp;<a href="../-type-name/index.html"><span class="identifier">TypeName</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<h4><a href="../tag.html">tag</a></h4>
+</td>
+<td>
+<p>Returns the tag attached with <a href="../tag.html#T">T</a> as a key, or null if no tag is attached with that key.</p>
+<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="../-taggable/index.html"><span class="identifier">Taggable</span></a><span class="symbol">.</span><span class="identifier">tag</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span><span class="symbol">?</span></code></td>
 </tr>
 </tbody>
 </table>
