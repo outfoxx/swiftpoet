@@ -1,0 +1,26 @@
+name: Publish
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build-test-publish:
+    runs-on: ubuntu-latest
+
+    steps:
+
+    - uses: actions/checkout@v2
+
+    - name: Build Docs
+      uses: burrunan/gradle-cache-action@v1
+      with:
+        job-id: jdk8-build-test
+        arguments: dokka
+
+    - name: Publish Documentation
+      uses: JamesIves/github-pages-deploy-action@4.0.0
+      with:
+        branch: gh-pages
+        clean: false
+        folder: build/javadoc
