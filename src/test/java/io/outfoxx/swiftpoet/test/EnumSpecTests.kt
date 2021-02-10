@@ -25,6 +25,7 @@ import io.outfoxx.swiftpoet.Modifier
 import io.outfoxx.swiftpoet.STRING
 import io.outfoxx.swiftpoet.TupleTypeName
 import io.outfoxx.swiftpoet.TypeSpec
+import io.outfoxx.swiftpoet.tag
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.hasItems
 import org.hamcrest.MatcherAssert.assertThat
@@ -35,6 +36,18 @@ import java.io.StringWriter
 
 @DisplayName("(enum) TypeSpec Tests")
 class EnumSpecTests {
+
+  @Test
+  @DisplayName("Tags on builders can be retrieved on builders and built specs")
+  fun testTags() {
+    val testEnumBuilder = TypeSpec.enumBuilder("Test")
+      .tag(5)
+      .addEnumCase("test")
+    val testEnum = testEnumBuilder.build()
+
+    assertThat(testEnumBuilder.tags[Integer::class] as? Int, equalTo(5))
+    assertThat(testEnum.tag(), equalTo(5))
+  }
 
   @Test
   @DisplayName("Escapes names which are keywords")

@@ -29,6 +29,7 @@ import io.outfoxx.swiftpoet.TypeName
 import io.outfoxx.swiftpoet.TypeSpec
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.bound
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.typeVariable
+import io.outfoxx.swiftpoet.tag
 import io.outfoxx.swiftpoet.toImmutableSet
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.hasItems
@@ -39,6 +40,17 @@ import java.io.StringWriter
 
 @DisplayName("(protocol) TypeSpec Tests")
 class ProtocolSpecTests {
+
+  @Test
+  @DisplayName("Tags on builders can be retrieved on builders and built specs")
+  fun testTags() {
+    val testProtoBuilder = TypeSpec.protocolBuilder("Test")
+      .tag(5)
+    val testProto = testProtoBuilder.build()
+
+    assertThat(testProtoBuilder.tags[Integer::class] as? Int, equalTo(5))
+    assertThat(testProto.tag(), equalTo(5))
+  }
 
   @Test
   @DisplayName("Generates documentation at before protocol definition")

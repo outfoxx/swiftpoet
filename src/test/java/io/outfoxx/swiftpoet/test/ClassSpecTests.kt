@@ -32,6 +32,7 @@ import io.outfoxx.swiftpoet.TypeName
 import io.outfoxx.swiftpoet.TypeSpec
 import io.outfoxx.swiftpoet.TypeVariableName
 import io.outfoxx.swiftpoet.TypeVariableName.Bound.Constraint.SAME_TYPE
+import io.outfoxx.swiftpoet.tag
 import io.outfoxx.swiftpoet.toImmutableSet
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.hasItems
@@ -42,6 +43,17 @@ import java.io.StringWriter
 
 @DisplayName("(class) TypeSpec Tests")
 class ClassSpecTests {
+
+  @Test
+  @DisplayName("Tags on builders can be retrieved on builders and built specs")
+  fun testTags() {
+    val testClassBuilder = TypeSpec.classBuilder("Test")
+      .tag(5)
+    val testClass = testClassBuilder.build()
+
+    assertThat(testClassBuilder.tags[Integer::class] as? Int, equalTo(5))
+    assertThat(testClass.tag(), equalTo(5))
+  }
 
   @Test
   @DisplayName("Generates documentation at before class definition")

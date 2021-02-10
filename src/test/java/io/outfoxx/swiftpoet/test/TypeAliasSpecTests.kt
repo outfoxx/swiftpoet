@@ -27,6 +27,7 @@ import io.outfoxx.swiftpoet.TypeName
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.bound
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.typeVariable
 import io.outfoxx.swiftpoet.parameterizedBy
+import io.outfoxx.swiftpoet.tag
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.hasItems
 import org.hamcrest.MatcherAssert.assertThat
@@ -36,6 +37,17 @@ import java.io.StringWriter
 
 @DisplayName("TypeAliasSpec Tests")
 class TypeAliasSpecTests {
+
+  @Test
+  @DisplayName("Tags on builders can be retrieved on builders and built specs")
+  fun testTags() {
+    val testAliasBuilder = TypeAliasSpec.builder("Test", STRING)
+      .tag(5)
+    val testAlias = testAliasBuilder.build()
+
+    assertThat(testAliasBuilder.tags[Integer::class] as? Int, equalTo(5))
+    assertThat(testAlias.tag(), equalTo(5))
+  }
 
   @Test
   @DisplayName("Generates documentation before type definition")

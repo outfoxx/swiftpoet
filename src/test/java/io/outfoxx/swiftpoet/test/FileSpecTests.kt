@@ -24,6 +24,7 @@ import io.outfoxx.swiftpoet.INT
 import io.outfoxx.swiftpoet.ImportSpec
 import io.outfoxx.swiftpoet.TypeSpec
 import io.outfoxx.swiftpoet.TypeVariableName
+import io.outfoxx.swiftpoet.tag
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -32,6 +33,17 @@ import java.io.StringWriter
 
 @DisplayName("FileSpec Tests")
 class FileSpecTests {
+
+  @Test
+  @DisplayName("Tags on builders can be retrieved on builders and built specs")
+  fun testTags() {
+    val testFileBuilder = FileSpec.builder("Test")
+      .tag(5)
+    val testFile = testFileBuilder.build()
+
+    assertThat(testFileBuilder.tags[Integer::class] as? Int, equalTo(5))
+    assertThat(testFile.tag(), equalTo(5))
+  }
 
   @Test
   @DisplayName("Generates correct imports & shortens used types")

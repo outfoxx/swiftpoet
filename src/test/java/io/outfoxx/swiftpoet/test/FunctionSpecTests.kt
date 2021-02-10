@@ -31,6 +31,7 @@ import io.outfoxx.swiftpoet.TypeName
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.bound
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.typeVariable
 import io.outfoxx.swiftpoet.VOID
+import io.outfoxx.swiftpoet.tag
 import io.outfoxx.swiftpoet.toImmutableSet
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.hasItems
@@ -41,6 +42,17 @@ import java.io.StringWriter
 
 @DisplayName("FunctionSpec Tests")
 class FunctionSpecTests {
+
+  @Test
+  @DisplayName("Tags on builders can be retrieved on builders and built specs")
+  fun testTags() {
+    val testFuncBuilder = FunctionSpec.builder("Test")
+      .tag(5)
+    val testFunc = testFuncBuilder.build()
+
+    assertThat(testFuncBuilder.tags[Integer::class] as? Int, equalTo(5))
+    assertThat(testFunc.tag(), equalTo(5))
+  }
 
   @Test
   @DisplayName("Generates local type definitions before code")

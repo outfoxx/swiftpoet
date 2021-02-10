@@ -19,10 +19,12 @@ package io.outfoxx.swiftpoet.test
 import io.outfoxx.swiftpoet.CodeWriter
 import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
 import io.outfoxx.swiftpoet.ExtensionSpec
+import io.outfoxx.swiftpoet.STRING
 import io.outfoxx.swiftpoet.TypeAliasSpec
 import io.outfoxx.swiftpoet.TypeVariableName.Bound.Constraint.CONFORMS_TO
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.bound
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.typeVariable
+import io.outfoxx.swiftpoet.tag
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -30,6 +32,17 @@ import org.junit.jupiter.api.Test
 import java.io.StringWriter
 
 class ExtensionSpecTests {
+
+  @Test
+  @DisplayName("Tags on builders can be retrieved on builders and built specs")
+  fun testTags() {
+    val testExtBuilder = ExtensionSpec.builder(STRING)
+      .tag(5)
+    val testExt = testExtBuilder.build()
+
+    assertThat(testExtBuilder.tags[Integer::class] as? Int, equalTo(5))
+    assertThat(testExt.tag(), equalTo(5))
+  }
 
   @Test
   @DisplayName("Generates documentation before extension definition")

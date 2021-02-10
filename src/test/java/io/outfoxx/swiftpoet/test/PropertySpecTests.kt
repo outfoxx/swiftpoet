@@ -19,6 +19,7 @@ package io.outfoxx.swiftpoet.test
 import io.outfoxx.swiftpoet.DeclaredTypeName
 import io.outfoxx.swiftpoet.PropertySpec
 import io.outfoxx.swiftpoet.STRING
+import io.outfoxx.swiftpoet.tag
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
@@ -26,6 +27,17 @@ import org.junit.jupiter.api.Test
 
 @DisplayName("PropertySpec tests")
 class PropertySpecTests {
+
+  @Test
+  @DisplayName("Tags on builders can be retrieved on builders and built specs")
+  fun testTags() {
+    val testPropertyBuilder = PropertySpec.builder("Test", STRING)
+      .tag(5)
+    val testProperty = testPropertyBuilder.build()
+
+    assertThat(testPropertyBuilder.tags[Integer::class] as? Int, equalTo(5))
+    assertThat(testProperty.tag(), equalTo(5))
+  }
 
   @Test
   @DisplayName("Escapes names which are keywords")
