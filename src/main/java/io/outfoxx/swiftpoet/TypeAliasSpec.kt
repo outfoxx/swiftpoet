@@ -22,8 +22,8 @@ import io.outfoxx.swiftpoet.Modifier.PUBLIC
 
 /** A generated typealias declaration */
 class TypeAliasSpec private constructor(
-  builder: TypeAliasSpec.Builder
-) : AnyTypeSpec(builder.name, builder.attributes.toImmutableList()) {
+  builder: Builder
+) : AnyTypeSpec(builder.name, builder.attributes, builder.tags) {
 
   val type = builder.type
   val modifiers = builder.modifiers.toImmutableSet()
@@ -62,7 +62,7 @@ class TypeAliasSpec private constructor(
   class Builder internal constructor(
     internal val name: String,
     internal val type: TypeName
-  ) {
+  ) : Taggable.Builder<Builder>() {
     internal val doc = CodeBlock.builder()
     internal val attributes = mutableListOf<AttributeSpec>()
     internal val modifiers = mutableSetOf<Modifier>()

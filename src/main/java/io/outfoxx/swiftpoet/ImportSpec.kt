@@ -17,8 +17,9 @@
 package io.outfoxx.swiftpoet
 
 class ImportSpec internal constructor(
-  builder: ImportSpec.Builder
-) : AttributedSpec(builder.attributes.toImmutableList()), Comparable<ImportSpec> {
+  builder: Builder
+) : AttributedSpec(builder.attributes.toImmutableList(), builder.tags), Comparable<ImportSpec> {
+
   val name = builder.name
   val doc = builder.doc.build()
   val guardTest = builder.guardTest.build()
@@ -52,7 +53,9 @@ class ImportSpec internal constructor(
 
   override fun compareTo(other: ImportSpec) = importString.compareTo(other.importString)
 
-  class Builder internal constructor(internal val name: String) {
+  class Builder internal constructor(
+    internal val name: String
+  ) : Taggable.Builder<Builder>() {
     internal val doc = CodeBlock.builder()
     internal val attributes = mutableListOf<AttributeSpec>()
     internal val guardTest = CodeBlock.builder()

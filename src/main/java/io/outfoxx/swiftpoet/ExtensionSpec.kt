@@ -19,7 +19,10 @@ package io.outfoxx.swiftpoet
 import io.outfoxx.swiftpoet.Modifier.INTERNAL
 
 /** A generated class, protocol, or enum declaration.  */
-class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
+class ExtensionSpec private constructor(
+  builder: Builder
+) : Taggable(builder.tags.toImmutableMap()) {
+
   val doc = builder.doc.build()
   val extendedType = builder.extendedType
   val modifiers = builder.modifiers.toImmutableSet()
@@ -115,7 +118,9 @@ class ExtensionSpec private constructor(builder: ExtensionSpec.Builder) {
 
   override fun toString() = buildString { emit(CodeWriter(this)) }
 
-  class Builder internal constructor(internal val extendedType: AnyTypeSpec) {
+  class Builder internal constructor(
+    internal val extendedType: AnyTypeSpec
+  ) : Taggable.Builder<Builder>() {
     internal val doc = CodeBlock.builder()
     internal val modifiers = mutableSetOf<Modifier>()
     internal val superTypes = mutableListOf<TypeName>()

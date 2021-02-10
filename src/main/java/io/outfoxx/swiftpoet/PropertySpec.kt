@@ -23,7 +23,8 @@ import io.outfoxx.swiftpoet.FunctionSpec.Companion.SETTER
 /** A generated property declaration.  */
 class PropertySpec private constructor(
   builder: Builder
-) : AttributedSpec(builder.attributes) {
+) : AttributedSpec(builder.attributes.toImmutableList(), builder.tags) {
+
   val mutable = builder.mutable
   val name = builder.name
   val type = builder.type
@@ -98,7 +99,10 @@ class PropertySpec private constructor(
     return builder
   }
 
-  class Builder internal constructor(internal val name: String, internal val type: TypeName) {
+  class Builder internal constructor(
+    internal val name: String,
+    internal val type: TypeName
+  ) : Taggable.Builder<Builder>() {
     internal var mutable = false
     internal val doc = CodeBlock.builder()
     internal val attributes = mutableListOf<AttributeSpec>()
