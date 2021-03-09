@@ -24,7 +24,7 @@ abstract class AnyTypeSpec(
   tags: Map<KClass<*>, Any>
 ) : AttributedSpec(attributes.toImmutableList(), tags) {
 
-  internal open val typeSpecs: List<AnyTypeSpec> = listOf()
+  open val typeSpecs: List<AnyTypeSpec> = listOf()
 
   internal abstract fun emit(codeWriter: CodeWriter)
 }
