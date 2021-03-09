@@ -16,7 +16,7 @@ jobs:
       uses: burrunan/gradle-cache-action@v1
       with:
         job-id: jdk8-build-test
-        arguments: dokka
+        arguments: dokkaHtml
 
     - name: Publish Documentation
       uses: JamesIves/github-pages-deploy-action@4.0.0

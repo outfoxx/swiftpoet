@@ -6,11 +6,11 @@ plugins {
   `maven-publish`
   signing
 
-  kotlin("jvm") version "1.3.72"
-  id("org.jetbrains.dokka") version "0.10.1"
+  kotlin("jvm") version "1.4.30"
+  id("org.jetbrains.dokka") version "1.4.20"
 
   id("net.minecrell.licenser") version "0.4.1"
-  id("org.jmailen.kotlinter") version "2.4.1"
+  id("org.jmailen.kotlinter") version "3.3.0"
 }
 
 
@@ -112,13 +112,12 @@ tasks {
 //
 
 tasks {
-  dokka {
-    outputFormat = "html"
-    outputDirectory = "$buildDir/javadoc/${project.version}"
+  dokkaHtml {
+    outputDirectory.set(file("$buildDir/javadoc/${project.version}"))
   }
 
   javadoc {
-    dependsOn(dokka)
+    dependsOn(dokkaHtml)
   }
 }
 
