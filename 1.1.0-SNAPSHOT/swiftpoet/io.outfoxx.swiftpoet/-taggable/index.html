@@ -1,123 +1,241 @@
-<HTML>
-<HEAD>
-<meta charset="UTF-8">
-<title>Taggable - swiftpoet</title>
-<link rel="stylesheet" href="../../../style.css">
-</HEAD>
-<BODY>
-<a href="../../index.html">swiftpoet</a>&nbsp;/&nbsp;<a href="../index.html">io.outfoxx.swiftpoet</a>&nbsp;/&nbsp;<a href="./index.html">Taggable</a><br/>
-<br/>
-<h1>Taggable</h1>
-<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">Taggable</span></code>
-<p>A type that can be tagged with extra metadata of the user's choice.</p>
-<h3>Types</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<h4><a href="-builder/index.html">Builder</a></h4>
-</td>
-<td>
-<p>The builder analogue to <a href="./index.html">Taggable</a> types.</p>
-<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">Builder</span><span class="symbol">&lt;</span><span class="keyword">out</span>&nbsp;<span class="identifier">B</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Builder</span><span class="symbol">&lt;</span><span class="identifier">B</span><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
-</tr>
-</tbody>
-</table>
-<h3>Constructors</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<h4><a href="-init-.html">&lt;init&gt;</a></h4>
-</td>
-<td>
-<p>A type that can be tagged with extra metadata of the user's choice.</p>
-<code><span class="identifier">Taggable</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.Taggable$<init>(kotlin.collections.Map((kotlin.reflect.KClass((kotlin.Any)), )))/tags">tags</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code></td>
-</tr>
-</tbody>
-</table>
-<h3>Properties</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<h4><a href="tags.html">tags</a></h4>
-</td>
-<td>
-<p>all tags.</p>
-<code><span class="keyword">val </span><span class="identifier">tags</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span></code></td>
-</tr>
-</tbody>
-</table>
-<h3>Functions</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<h4><a href="tag.html">tag</a></h4>
-</td>
-<td>
-<p>Returns the tag attached with <a href="tag.html#io.outfoxx.swiftpoet.Taggable$tag(kotlin.reflect.KClass((io.outfoxx.swiftpoet.Taggable.tag.T)))/type">type</a> as a key, or null if no tag is attached with that key.</p>
-<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">tag</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.Taggable$tag(kotlin.reflect.KClass((io.outfoxx.swiftpoet.Taggable.tag.T)))/type">type</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html"><span class="identifier">KClass</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span><span class="symbol">?</span></code><br/>
-<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <span class="identifier">tag</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.Taggable$tag(java.lang.Class((io.outfoxx.swiftpoet.Taggable.tag.T)))/type">type</span><span class="symbol">:</span>&nbsp;<a href="https://docs.oracle.com/javase/6/docs/api/java/lang/Class.html"><span class="identifier">Class</span></a><span class="symbol">&lt;</span><span class="identifier">T</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span><span class="symbol">?</span></code></td>
-</tr>
-</tbody>
-</table>
-<h3>Extension Functions</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<h4><a href="../tag.html">tag</a></h4>
-</td>
-<td>
-<p>Returns the tag attached with <a href="../tag.html#T">T</a> as a key, or null if no tag is attached with that key.</p>
-<code><span class="keyword">fun </span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">&gt;</span> <a href="./index.html"><span class="identifier">Taggable</span></a><span class="symbol">.</span><span class="identifier">tag</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">T</span><span class="symbol">?</span></code></td>
-</tr>
-</tbody>
-</table>
-<h3>Inheritors</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<h4><a href="../-attributed-spec/index.html">AttributedSpec</a></h4>
-</td>
-<td>
-<code><span class="keyword">open</span> <span class="keyword">class </span><span class="identifier">AttributedSpec</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Taggable</span></a></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="../-attribute-spec/index.html">AttributeSpec</a></h4>
-</td>
-<td>
-<code><span class="keyword">class </span><span class="identifier">AttributeSpec</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Taggable</span></a></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="../-extension-spec/index.html">ExtensionSpec</a></h4>
-</td>
-<td>
-<p>A generated class, protocol, or enum declaration.</p>
-<code><span class="keyword">class </span><span class="identifier">ExtensionSpec</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Taggable</span></a></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="../-file-member-spec/index.html">FileMemberSpec</a></h4>
-</td>
-<td>
-<code><span class="keyword">class </span><span class="identifier">FileMemberSpec</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Taggable</span></a></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="../-file-spec/index.html">FileSpec</a></h4>
-</td>
-<td>
-<p>A Kotlin file containing top level objects like classes, objects, functions, properties, and type
-aliases.</p>
-<code><span class="keyword">class </span><span class="identifier">FileSpec</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Taggable</span></a></code></td>
-</tr>
-</tbody>
-</table>
-</BODY>
-</HTML>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Taggable</title>
+    <link href="../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../";</script>
+    <script type="text/javascript" src="../../../scripts/sourceset_dependencies.js" async="async"></script>
+    <link href="../../../styles/style.css" rel="Stylesheet">
+    <link href="../../../styles/logo-styles.css" rel="Stylesheet">
+    <link href="../../../styles/jetbrains-mono.css" rel="Stylesheet">
+    <link href="../../../styles/main.css" rel="Stylesheet">
+    <script type="text/javascript" src="../../../scripts/clipboard.js" async="async"></script>
+    <script type="text/javascript" src="../../../scripts/navigation-loader.js" async="async"></script>
+    <script type="text/javascript" src="../../../scripts/platform-content-handler.js" async="async"></script>
+    <script type="text/javascript" src="../../../scripts/main.js" async="async"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="leftColumn">
+        <div id="logo"></div>
+        <div id="paneSearch"></div>
+        <div id="sideMenu"></div>
+      </div>
+      <div id="main">
+        <div id="leftToggler"><span class="icon-toggler"></span></div>
+        <script type="text/javascript" src="../../../scripts/pages.js"></script>
+        <script type="text/javascript" src="../../../scripts/main.js"></script>
+        <div class="main-content" id="content" pageIds="io.outfoxx.swiftpoet/Taggable///PointingToDeclaration//2128930553">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../index.html">swiftpoet</a>/<a href="../index.html">io.outfoxx.swiftpoet</a>/<a href="index.html">Taggable</a></div>
+            <div class="pull-right d-flex">
+              <div id="searchBar"></div>
+            </div>
+          </div>
+          <div class="cover ">
+            <h1 class="cover"><span>Taggable</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">abstract class <a href="index.html">Taggable</a>(tags: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html">KClass</a>&lt;*&gt;, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt;)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><p class="paragraph">A type that can be tagged with extra metadata of the user's choice.</p></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Types">Types</button><button class="section-tab" data-togglable="Constructors">Constructors</button><button class="section-tab" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button><button class="section-tab" data-togglable="Extensions">Extensions</button><button class="section-tab" data-togglable="Inheritors">Inheritors</button></div>
+            <div class="tabs-section-body">
+              <h2 class="tabbedcontent">Constructors</h2>
+              <div class="table" data-togglable="Constructors"><a data-name="%5Bio.outfoxx.swiftpoet%2FTaggable%2FTaggable%2F%23kotlin.collections.Map%5Bkotlin.reflect.KClass%5B*%5D%2Ckotlin.Any%5D%2FPointingToDeclaration%2F%5D%2FConstructors%2F2128930553" anchor-label="Taggable" id="%5Bio.outfoxx.swiftpoet%2FTaggable%2FTaggable%2F%23kotlin.collections.Map%5Bkotlin.reflect.KClass%5B*%5D%2Ckotlin.Any%5D%2FPointingToDeclaration%2F%5D%2FConstructors%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue TabbedContent">
+                    <div class=""><span class="inline-flex"><a href="-taggable.html">Taggable</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FTaggable%2FTaggable%2F%23kotlin.collections.Map%5Bkotlin.reflect.KClass%5B*%5D%2Ckotlin.Any%5D%2FPointingToDeclaration%2F%5D%2FConstructors%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="-taggable.html">Taggable</a>(tags: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html">KClass</a>&lt;*&gt;, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt;)<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Types</h2>
+              <div class="table" data-togglable="Types"><a data-name="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F2128930553" anchor-label="Builder" id="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="-builder/index.html">Builder</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">abstract class <a href="-builder/index.html">Builder</a>&lt;out <a href="-builder/index.html">B</a> : <a href="-builder/index.html">Taggable.Builder</a>&lt;<a href="-builder/index.html">B</a>&gt;&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F2128930553" anchor-label="Builder" id="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F2128930553" data-filterable-set=":dokkaHtml/main"></a><div class="brief "><a data-name="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F2128930553" anchor-label="Builder" id="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2F%2F%2FPointingToDeclaration%2F%5D%2FClasslikes%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>The builder analogue to <a href="index.html">Taggable</a> types.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="equals" id="%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../-type-variable-name/-companion/index.html#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553">equals</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">open operator fun <a href="../-type-variable-name/-companion/index.html#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553">equals</a>(other: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>?): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="hashCode" id="%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../-type-variable-name/-companion/index.html#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553">hashCode</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">open fun <a href="../-type-variable-name/-companion/index.html#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553">hashCode</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftag%2F%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FTaggable%2Ftag%2F%23kotlin.reflect.KClass%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="tag" id="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftag%2F%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FTaggable%2Ftag%2F%23kotlin.reflect.KClass%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="tag.html">tag</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftag%2F%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FTaggable%2Ftag%2F%23kotlin.reflect.KClass%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">inline fun &lt;<a href="tag.html">T</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="tag.html">tag</a>(type: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html">Class</a>&lt;<a href="tag.html">T</a>&gt;): <a href="tag.html">T</a>?<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftag%2F%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="tag" id="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftag%2F%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a><div class="brief "><a data-name="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftag%2F%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="tag" id="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftag%2F%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>Returns the tag attached with <span data-unresolved-link="io.outfoxx.swiftpoet/Taggable/type/#/PointingToCallableParameters(-1)/">type</span> as a key, or null if no tag is attached with that key.</div></div>
+<div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">inline fun &lt;<a href="tag.html">T</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="tag.html">tag</a>(type: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html">KClass</a>&lt;<a href="tag.html">T</a>&gt;): <a href="tag.html">T</a>?<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftag%2F%23kotlin.reflect.KClass%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="tag" id="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftag%2F%23kotlin.reflect.KClass%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a><div class="brief "><a data-name="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftag%2F%23kotlin.reflect.KClass%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="tag" id="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftag%2F%23kotlin.reflect.KClass%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>Returns the tag attached with <span data-unresolved-link="io.outfoxx.swiftpoet/Taggable/type/#/PointingToCallableParameters(-1)/">type</span> as a key, or null if no tag is attached with that key.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="toString" id="%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../-type-variable-name/-companion/index.html#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553">toString</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">open fun <a href="../-type-variable-name/-companion/index.html#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553">toString</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Properties</h2>
+              <div class="table" data-togglable="Properties"><a data-name="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftags%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F2128930553" anchor-label="tags" id="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftags%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="tags.html">tags</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftags%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title">
+                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftags%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F2128930553" anchor-label="tags" id="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftags%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F2128930553" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace">val <a href="tags.html">tags</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html">KClass</a>&lt;*&gt;, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftags%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F2128930553" anchor-label="tags" id="%5Bio.outfoxx.swiftpoet%2FTaggable%2Ftags%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>all tags.</div></div></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="">Inheritors</h2>
+              <div class="table" data-togglable="Inheritors"><a data-name="%5Bio.outfoxx.swiftpoet%2FAttributeSpec%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F2128930553" anchor-label="AttributeSpec" id="%5Bio.outfoxx.swiftpoet%2FAttributeSpec%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../-attribute-spec/index.html">AttributeSpec</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FAttributeSpec%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div></div>
+                  </div>
+                </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FAttributedSpec%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F2128930553" anchor-label="AttributedSpec" id="%5Bio.outfoxx.swiftpoet%2FAttributedSpec%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../-attributed-spec/index.html">AttributedSpec</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FAttributedSpec%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div></div>
+                  </div>
+                </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FExtensionSpec%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F2128930553" anchor-label="ExtensionSpec" id="%5Bio.outfoxx.swiftpoet%2FExtensionSpec%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../-extension-spec/index.html">ExtensionSpec</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FExtensionSpec%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div></div>
+                  </div>
+                </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FFileMemberSpec%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F2128930553" anchor-label="FileMemberSpec" id="%5Bio.outfoxx.swiftpoet%2FFileMemberSpec%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../-file-member-spec/index.html">FileMemberSpec</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FFileMemberSpec%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div></div>
+                  </div>
+                </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FFileSpec%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F2128930553" anchor-label="FileSpec" id="%5Bio.outfoxx.swiftpoet%2FFileSpec%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../-file-spec/index.html">FileSpec</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FFileSpec%2F%2F%2FPointingToDeclaration%2F%5D%2FInheritors%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div></div>
+                  </div>
+                </div>
+              </div>
+              <h2 class="tabbedcontent">Extensions</h2>
+              <div class="table" data-togglable="Extensions"><a data-name="%5Bio.outfoxx.swiftpoet%2F%2Ftag%2Fio.outfoxx.swiftpoet.Taggable%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F2128930553" anchor-label="tag" id="%5Bio.outfoxx.swiftpoet%2F%2Ftag%2Fio.outfoxx.swiftpoet.Taggable%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../tag.html">tag</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2F%2Ftag%2Fio.outfoxx.swiftpoet.Taggable%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">inline fun &lt;<a href="../tag.html">T</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="index.html">Taggable</a>.<a href="../tag.html">tag</a>(): <a href="../tag.html">T</a>?<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2F%2Ftag%2Fio.outfoxx.swiftpoet.Taggable%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F2128930553" anchor-label="tag" id="%5Bio.outfoxx.swiftpoet%2F%2Ftag%2Fio.outfoxx.swiftpoet.Taggable%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a><div class="brief "><a data-name="%5Bio.outfoxx.swiftpoet%2F%2Ftag%2Fio.outfoxx.swiftpoet.Taggable%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F2128930553" anchor-label="tag" id="%5Bio.outfoxx.swiftpoet%2F%2Ftag%2Fio.outfoxx.swiftpoet.Taggable%23%2FPointingToDeclaration%2F%5D%2FExtensions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>Returns the tag attached with <a href="../tag.html">T</a> as a key, or null if no tag is attached with that key.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2020 Copyright</span><span class="pull-right"><span>Sponsored and developed by dokka</span><a href="https://github.com/Kotlin/dokka"><span class="padded-icon"></span></a></span></div>
+      </div>
+    </div>
+  </body>
+</html>
+

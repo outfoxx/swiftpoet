@@ -1,4 +1,5 @@
-$dokka.format:html
+$dokka.format:html-v1
 $dokka.linkExtension:html
-$dokka.location:io.outfoxx.swiftpoet$joinToCode(kotlin.collections.Collection((io.outfoxx.swiftpoet.CodeBlock)), kotlin.CharSequence, kotlin.CharSequence, kotlin.CharSequence)io.outfoxx.swiftpoet/kotlin.collections.-collection/join-to-code.html
+
 io.outfoxx.swiftpoet
+

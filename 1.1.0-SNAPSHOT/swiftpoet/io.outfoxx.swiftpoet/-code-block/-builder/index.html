@@ -1,109 +1,296 @@
-<HTML>
-<HEAD>
-<meta charset="UTF-8">
-<title>CodeBlock.Builder - swiftpoet</title>
-<link rel="stylesheet" href="../../../../style.css">
-</HEAD>
-<BODY>
-<a href="../../../index.html">swiftpoet</a>&nbsp;/&nbsp;<a href="../../index.html">io.outfoxx.swiftpoet</a>&nbsp;/&nbsp;<a href="../index.html">CodeBlock</a>&nbsp;/&nbsp;<a href="./index.html">Builder</a><br/>
-<br/>
-<h1>Builder</h1>
-<code><span class="keyword">class </span><span class="identifier">Builder</span></code>
-<h3>Constructors</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<h4><a href="-init-.html">&lt;init&gt;</a></h4>
-</td>
-<td>
-<code><span class="identifier">Builder</span><span class="symbol">(</span><span class="symbol">)</span></code></td>
-</tr>
-</tbody>
-</table>
-<h3>Functions</h3>
-<table>
-<tbody>
-<tr>
-<td>
-<h4><a href="add.html">add</a></h4>
-</td>
-<td>
-<p>Add code with positional or relative arguments.</p>
-<code><span class="keyword">fun </span><span class="identifier">add</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.CodeBlock.Builder$add(kotlin.String, kotlin.Array((kotlin.Any)))/format">format</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="io.outfoxx.swiftpoet.CodeBlock.Builder$add(kotlin.String, kotlin.Array((kotlin.Any)))/args">args</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code><code><span class="keyword">fun </span><span class="identifier">add</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.CodeBlock.Builder$add(io.outfoxx.swiftpoet.CodeBlock)/codeBlock">codeBlock</span><span class="symbol">:</span>&nbsp;<a href="../index.html"><span class="identifier">CodeBlock</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="add-named.html">addNamed</a></h4>
-</td>
-<td>
-<p>Adds code using named arguments.</p>
-<code><span class="keyword">fun </span><span class="identifier">addNamed</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.CodeBlock.Builder$addNamed(kotlin.String, kotlin.collections.Map((kotlin.String, kotlin.Any)))/format">format</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="io.outfoxx.swiftpoet.CodeBlock.Builder$addNamed(kotlin.String, kotlin.collections.Map((kotlin.String, kotlin.Any)))/arguments">arguments</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html"><span class="identifier">Map</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">,</span>&nbsp;<span class="identifier">*</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="add-statement.html">addStatement</a></h4>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">addStatement</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.CodeBlock.Builder$addStatement(kotlin.String, kotlin.Array((kotlin.Any)))/format">format</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="io.outfoxx.swiftpoet.CodeBlock.Builder$addStatement(kotlin.String, kotlin.Array((kotlin.Any)))/args">args</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="begin-control-flow.html">beginControlFlow</a></h4>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">beginControlFlow</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.CodeBlock.Builder$beginControlFlow(kotlin.String, kotlin.String, kotlin.Array((kotlin.Any)))/controlFlowName">controlFlowName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="io.outfoxx.swiftpoet.CodeBlock.Builder$beginControlFlow(kotlin.String, kotlin.String, kotlin.Array((kotlin.Any)))/controlFlowCode">controlFlowCode</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="io.outfoxx.swiftpoet.CodeBlock.Builder$beginControlFlow(kotlin.String, kotlin.String, kotlin.Array((kotlin.Any)))/args">args</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="build.html">build</a></h4>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">build</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../index.html"><span class="identifier">CodeBlock</span></a></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="end-control-flow.html">endControlFlow</a></h4>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">endControlFlow</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.CodeBlock.Builder$endControlFlow(kotlin.String)/controlFlowName">controlFlowName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="indent.html">indent</a></h4>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">indent</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="is-empty.html">isEmpty</a></h4>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">isEmpty</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="is-not-empty.html">isNotEmpty</a></h4>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">isNotEmpty</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="next-control-flow.html">nextControlFlow</a></h4>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">nextControlFlow</span><span class="symbol">(</span><span class="identifier" id="io.outfoxx.swiftpoet.CodeBlock.Builder$nextControlFlow(kotlin.String, kotlin.String, kotlin.Array((kotlin.Any)))/controlFlowName">controlFlowName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="io.outfoxx.swiftpoet.CodeBlock.Builder$nextControlFlow(kotlin.String, kotlin.String, kotlin.Array((kotlin.Any)))/controlFlowCode">controlFlowCode</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a>&nbsp;<span class="symbol">=</span>&nbsp;""<span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="io.outfoxx.swiftpoet.CodeBlock.Builder$nextControlFlow(kotlin.String, kotlin.String, kotlin.Array((kotlin.Any)))/args">args</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code></td>
-</tr>
-<tr>
-<td>
-<h4><a href="unindent.html">unindent</a></h4>
-</td>
-<td>
-<code><span class="keyword">fun </span><span class="identifier">unindent</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">Builder</span></code></td>
-</tr>
-</tbody>
-</table>
-</BODY>
-</HTML>
+<html>
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
+    <title>Builder</title>
+    <link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../../";</script>
+    <script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script>
+    <link href="../../../../styles/style.css" rel="Stylesheet">
+    <link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+    <link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet">
+    <link href="../../../../styles/main.css" rel="Stylesheet">
+    <script type="text/javascript" src="../../../../scripts/clipboard.js" async="async"></script>
+    <script type="text/javascript" src="../../../../scripts/navigation-loader.js" async="async"></script>
+    <script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script>
+    <script type="text/javascript" src="../../../../scripts/main.js" async="async"></script>
+  </head>
+  <body>
+    <div id="container">
+      <div id="leftColumn">
+        <div id="logo"></div>
+        <div id="paneSearch"></div>
+        <div id="sideMenu"></div>
+      </div>
+      <div id="main">
+        <div id="leftToggler"><span class="icon-toggler"></span></div>
+        <script type="text/javascript" src="../../../../scripts/pages.js"></script>
+        <script type="text/javascript" src="../../../../scripts/main.js"></script>
+        <div class="main-content" id="content" pageIds="io.outfoxx.swiftpoet/CodeBlock.Builder///PointingToDeclaration//2128930553">
+          <div class="navigation-wrapper" id="navigation-wrapper">
+            <div class="breadcrumbs"><a href="../../../index.html">swiftpoet</a>/<a href="../../index.html">io.outfoxx.swiftpoet</a>/<a href="../index.html">CodeBlock</a>/<a href="index.html">Builder</a></div>
+            <div class="pull-right d-flex">
+              <div id="searchBar"></div>
+            </div>
+          </div>
+          <div class="cover ">
+            <h1 class="cover"><span>Builder</span></h1>
+            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">class <a href="index.html">Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+          </div>
+          <div class="tabbedcontent">
+            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button></div>
+            <div class="tabs-section-body">
+              <h2 class="">Functions</h2>
+              <div class="table" data-togglable="Functions"><a data-name="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2Fadd%2F%23io.outfoxx.swiftpoet.CodeBlock%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FCodeBlock.Builder%2Fadd%2F%23kotlin.String%23kotlin.Array%5Bkotlin.Any%3F%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="add" id="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2Fadd%2F%23io.outfoxx.swiftpoet.CodeBlock%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FCodeBlock.Builder%2Fadd%2F%23kotlin.String%23kotlin.Array%5Bkotlin.Any%3F%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="add.html">add</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2Fadd%2F%23io.outfoxx.swiftpoet.CodeBlock%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FCodeBlock.Builder%2Fadd%2F%23kotlin.String%23kotlin.Array%5Bkotlin.Any%3F%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="add.html">add</a>(codeBlock: <a href="../index.html">CodeBlock</a>): <a href="index.html">CodeBlock.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+<div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="add.html">add</a>(format: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, vararg args: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>?): <a href="index.html">CodeBlock.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2Fadd%2F%23kotlin.String%23kotlin.Array%5Bkotlin.Any%3F%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="add" id="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2Fadd%2F%23kotlin.String%23kotlin.Array%5Bkotlin.Any%3F%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a><div class="brief "><a data-name="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2Fadd%2F%23kotlin.String%23kotlin.Array%5Bkotlin.Any%3F%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="add" id="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2Fadd%2F%23kotlin.String%23kotlin.Array%5Bkotlin.Any%3F%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>Add code with positional or relative arguments.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FaddNamed%2F%23kotlin.String%23kotlin.collections.Map%5Bkotlin.String%2C*%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="addNamed" id="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FaddNamed%2F%23kotlin.String%23kotlin.collections.Map%5Bkotlin.String%2C*%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="add-named.html">addNamed</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FaddNamed%2F%23kotlin.String%23kotlin.collections.Map%5Bkotlin.String%2C*%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="add-named.html">addNamed</a>(format: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, arguments: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-map/index.html">Map</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, *&gt;): <a href="index.html">CodeBlock.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FaddNamed%2F%23kotlin.String%23kotlin.collections.Map%5Bkotlin.String%2C*%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="addNamed" id="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FaddNamed%2F%23kotlin.String%23kotlin.collections.Map%5Bkotlin.String%2C*%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a><div class="brief "><a data-name="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FaddNamed%2F%23kotlin.String%23kotlin.collections.Map%5Bkotlin.String%2C*%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="addNamed" id="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FaddNamed%2F%23kotlin.String%23kotlin.collections.Map%5Bkotlin.String%2C*%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>Adds code using named arguments.</div></div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FaddStatement%2F%23kotlin.String%23kotlin.Array%5Bkotlin.Any%3F%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="addStatement" id="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FaddStatement%2F%23kotlin.String%23kotlin.Array%5Bkotlin.Any%3F%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="add-statement.html">addStatement</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FaddStatement%2F%23kotlin.String%23kotlin.Array%5Bkotlin.Any%3F%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="add-statement.html">addStatement</a>(format: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, vararg args: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>?): <a href="index.html">CodeBlock.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FbeginControlFlow%2F%23kotlin.String%23kotlin.String%23kotlin.Array%5Bkotlin.Any%3F%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="beginControlFlow" id="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FbeginControlFlow%2F%23kotlin.String%23kotlin.String%23kotlin.Array%5Bkotlin.Any%3F%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="begin-control-flow.html">beginControlFlow</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FbeginControlFlow%2F%23kotlin.String%23kotlin.String%23kotlin.Array%5Bkotlin.Any%3F%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="begin-control-flow.html">beginControlFlow</a>(controlFlowName: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, controlFlowCode: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, vararg args: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>?): <a href="index.html">CodeBlock.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2Fbuild%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="build" id="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2Fbuild%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="build.html">build</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2Fbuild%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="build.html">build</a>(): <a href="../index.html">CodeBlock</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FendControlFlow%2F%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="endControlFlow" id="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FendControlFlow%2F%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="end-control-flow.html">endControlFlow</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FendControlFlow%2F%23kotlin.String%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="end-control-flow.html">endControlFlow</a>(controlFlowName: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="index.html">CodeBlock.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="equals" id="%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../-type-variable-name/-companion/index.html#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553">equals</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">open operator fun <a href="../../-type-variable-name/-companion/index.html#%5Bkotlin%2FAny%2Fequals%2F%23kotlin.Any%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553">equals</a>(other: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>?): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="hashCode" id="%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../-type-variable-name/-companion/index.html#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553">hashCode</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">open fun <a href="../../-type-variable-name/-companion/index.html#%5Bkotlin%2FAny%2FhashCode%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553">hashCode</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html">Int</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2Findent%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="indent" id="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2Findent%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="indent.html">indent</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2Findent%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="indent.html">indent</a>(): <a href="index.html">CodeBlock.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FisEmpty%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="isEmpty" id="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FisEmpty%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="is-empty.html">isEmpty</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FisEmpty%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="is-empty.html">isEmpty</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FisNotEmpty%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="isNotEmpty" id="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FisNotEmpty%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="is-not-empty.html">isNotEmpty</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FisNotEmpty%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="is-not-empty.html">isNotEmpty</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FnextControlFlow%2F%23kotlin.String%23kotlin.String%23kotlin.Array%5Bkotlin.Any%3F%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="nextControlFlow" id="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FnextControlFlow%2F%23kotlin.String%23kotlin.String%23kotlin.Array%5Bkotlin.Any%3F%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="next-control-flow.html">nextControlFlow</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2FnextControlFlow%2F%23kotlin.String%23kotlin.String%23kotlin.Array%5Bkotlin.Any%3F%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="next-control-flow.html">nextControlFlow</a>(controlFlowName: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, controlFlowCode: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a> = &quot;&quot;, vararg args: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>?): <a href="index.html">CodeBlock.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="toString" id="%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="../../-type-variable-name/-companion/index.html#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553">toString</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">open fun <a href="../../-type-variable-name/-companion/index.html#%5Bkotlin%2FAny%2FtoString%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553">toString</a>(): <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+<a data-name="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2Funindent%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" anchor-label="unindent" id="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2Funindent%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553" data-filterable-set=":dokkaHtml/main"></a>
+                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+                  <div class="main-subrow keyValue ">
+                    <div class=""><span class="inline-flex"><a href="unindent.html">unindent</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FCodeBlock.Builder%2Funindent%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F2128930553"></span>
+                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                        </span></span></div>
+                    <div>
+                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
+
+  <div>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="unindent.html">unindent</a>(): <a href="index.html">CodeBlock.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+  </div>
+</div>
+</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2020 Copyright</span><span class="pull-right"><span>Sponsored and developed by dokka</span><a href="https://github.com/Kotlin/dokka"><span class="padded-icon"></span></a></span></div>
+      </div>
+    </div>
+  </body>
+</html>
+
