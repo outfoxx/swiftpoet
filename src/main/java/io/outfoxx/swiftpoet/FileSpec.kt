@@ -128,10 +128,6 @@ class FileSpec private constructor(
     internal var indent = DEFAULT_INDENT
     internal val members = mutableListOf<FileMemberSpec>()
 
-    init {
-      require(name.isName) { "not a valid file name: $name" }
-    }
-
     fun addComment(format: String, vararg args: Any) = apply {
       comment.add(format, *args)
     }
