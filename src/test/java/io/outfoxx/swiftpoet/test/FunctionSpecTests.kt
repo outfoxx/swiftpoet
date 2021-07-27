@@ -179,6 +179,37 @@ class FunctionSpecTests {
     )
   }
 
+    @Test
+    @DisplayName("Generates type variables with multiple bounds")
+    fun testGenTypeVarsWithMultipleBounds() {
+        val testClass = FunctionSpec.builder("test")
+            .addTypeVariable(
+                typeVariable("T", bound(".Test2"), bound(".Test3"))
+            )
+            .addTypeVariable(
+                typeVariable("X", bound(".Test2"))
+            )
+            .addTypeVariable(
+                typeVariable("Y", bound(composed(".Test3", ".Test4")))
+            )
+            .build()
+
+        val out = StringWriter()
+        testClass.emit(CodeWriter(out), null, setOf())
+
+        assertThat(
+            out.toString(),
+            equalTo(
+                """
+            func test<T, X, Y>() where T : Test2, T : Test3, X : Test2, Y : Test3 & Test4 {
+            }
+    
+        """.trimIndent()
+            )
+        )
+    }
+
+
   @Test
   @DisplayName("Generates return type")
   fun testGenReturnType() {

@@ -226,6 +226,36 @@ class ProtocolSpecTests {
   }
 
   @Test
+  @DisplayName("Generates type vars with multiple bounds & super interfaces properly formatted")
+  fun testGenTypeVarsWithMultipleBoundAndSuperInterfacesFormatted() {
+    val testProto = TypeSpec.protocolBuilder("Test")
+      .addTypeVariable(
+        typeVariable("X", bound(".Test4"), bound(".Test5"))
+      )
+      .addTypeVariable(
+        typeVariable("Y", bound(composed(".Test3", ".Test4")))
+      )
+      .addSuperType(typeName(".Test2"))
+      .addSuperType(typeName(".Test3"))
+      .addSuperType(typeName(".Test4"))
+      .build()
+
+    val out = StringWriter()
+    testProto.emit(CodeWriter(out))
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            protocol Test<X, Y> : Test2, Test3, Test4 where X : Test4, X : Test5, Y : Test3 & Test4 {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
   @DisplayName("Generates property declarations")
   fun testGenProperties() {
     val testProto = TypeSpec.protocolBuilder("Test")
