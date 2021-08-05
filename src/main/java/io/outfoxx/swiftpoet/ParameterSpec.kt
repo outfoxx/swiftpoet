@@ -30,9 +30,13 @@ class ParameterSpec private constructor(
 
   internal fun emit(codeWriter: CodeWriter, includeType: Boolean = true) {
     argumentLabel?.let { codeWriter.emitCode("%L ", escapeIfNecessary(it)) }
-    codeWriter.emitCode("%L", escapeIfNecessary(parameterName))
+    if(parameterName.isNotBlank()) {
+      codeWriter.emitCode("%L", escapeIfNecessary(parameterName))
+    }
     if (includeType) {
-      codeWriter.emit(": ")
+      if(parameterName.isNotBlank()) {
+        codeWriter.emit(": ")
+      }
       codeWriter.emitModifiers(modifiers)
       codeWriter.emitCode("%T", type)
       if (variadic) {
@@ -119,7 +123,7 @@ class ParameterSpec private constructor(
     }
 
     @JvmStatic fun unnamed(typeName: TypeName): ParameterSpec {
-      return Builder("", "", typeName).build()
+      return Builder(null, "", typeName).build()
     }
   }
 }
