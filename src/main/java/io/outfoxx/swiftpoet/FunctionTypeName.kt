@@ -41,6 +41,14 @@ class FunctionTypeName internal constructor(
     return out
   }
 
+  fun makeEscaping(): FunctionTypeName {
+    return FunctionTypeName(
+      parameters = parameters,
+      returnType = returnType,
+      escaping = true
+    )
+  }
+
   companion object {
     /** Returns a lambda type with `returnType` and parameters listed in `parameters`. */
     @JvmStatic fun get(
