@@ -9,7 +9,7 @@ plugins {
   kotlin("jvm") version "1.4.30"
   id("org.jetbrains.dokka") version "1.4.20"
 
-  id("net.minecrell.licenser") version "0.4.1"
+  id("org.cadixdev.licenser") version "0.6.1"
   id("org.jmailen.kotlinter") version "3.3.0"
 }
 
@@ -131,7 +131,7 @@ kotlinter {
 }
 
 license {
-  header = file("HEADER.txt")
+  setHeader(file("HEADER.txt"))
   include("**/*.kt")
 }
 
