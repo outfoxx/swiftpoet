@@ -30,11 +30,11 @@ class ParameterSpec private constructor(
 
   internal fun emit(codeWriter: CodeWriter, includeType: Boolean = true) {
     argumentLabel?.let { codeWriter.emitCode("%L ", escapeIfNecessary(it)) }
-    if(parameterName.isNotBlank()) {
+    if (parameterName.isNotBlank()) {
       codeWriter.emitCode("%L", escapeIfNecessary(parameterName))
     }
     if (includeType) {
-      if(parameterName.isNotBlank()) {
+      if (parameterName.isNotBlank()) {
         codeWriter.emit(": ")
       }
       codeWriter.emitModifiers(modifiers)
