@@ -56,7 +56,7 @@ class FunctionSpec private constructor(
     codeWriter.emitAttributes(attributes)
     codeWriter.emitModifiers(modifiers, implicitModifiers)
 
-    if (!isConstructor && !name.isAccessor) {
+    if (!isConstructor && !isDeinitializer && !name.isAccessor) {
       codeWriter.emit("func ")
     }
 
@@ -92,6 +92,9 @@ class FunctionSpec private constructor(
       if (failable) {
         codeWriter.emit("?")
       }
+    } else if (isDeinitializer) {
+      codeWriter.emitCode(DEINITIALIZER, enclosingName)
+      return
     } else if (name == GETTER) {
       codeWriter.emitCode(GETTER)
       return
@@ -122,6 +125,8 @@ class FunctionSpec private constructor(
   }
 
   val isConstructor get() = name.isConstructor
+
+  val isDeinitializer get() = name.isDeinitializer
 
   val isAccessor get() = name.isAccessor
 
@@ -294,10 +299,12 @@ class FunctionSpec private constructor(
 
   companion object {
     private const val CONSTRUCTOR = "init"
+    private const val DEINITIALIZER = "deinit"
     internal const val GETTER = "get"
     internal const val SETTER = "set"
 
     internal val String.isConstructor get() = this == CONSTRUCTOR
+    internal val String.isDeinitializer get() = this == DEINITIALIZER
     internal val String.isAccessor get() = this.isOneOf(GETTER, SETTER)
 
     @JvmStatic fun builder(name: String) = Builder(name)
@@ -305,6 +312,8 @@ class FunctionSpec private constructor(
     @JvmStatic fun abstractBuilder(name: String) = Builder(name).abstract(true)
 
     @JvmStatic fun constructorBuilder() = Builder(CONSTRUCTOR)
+
+    @JvmStatic fun deinitializerBuilder() = Builder(DEINITIALIZER)
 
     @JvmStatic fun getterBuilder() = Builder(GETTER)
 
