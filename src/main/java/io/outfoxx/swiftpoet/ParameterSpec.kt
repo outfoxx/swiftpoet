@@ -82,8 +82,7 @@ class ParameterSpec private constructor(
     internal val argumentLabel: String?,
     internal val parameterName: String,
     internal val type: TypeName
-  ) : Taggable.Builder<Builder>() {
-    internal val attributes = mutableListOf<AttributeSpec>()
+  ) : AttributedSpec.Builder<Builder>() {
     internal val modifiers = mutableListOf<Modifier>()
     internal var variadic = false
     internal var defaultValue: CodeBlock? = null

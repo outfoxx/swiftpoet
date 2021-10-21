@@ -157,9 +157,8 @@ class FunctionSpec private constructor(
 
   class Builder internal constructor(
     internal val name: String
-  ) : Taggable.Builder<Builder>() {
+  ) : AttributedSpec.Builder<Builder>() {
     internal val doc = CodeBlock.builder()
-    internal val attributes = mutableListOf<AttributeSpec>()
     internal val modifiers = mutableListOf<Modifier>()
     internal val typeVariables = mutableListOf<TypeVariableName>()
     internal var returnType: TypeName? = null
@@ -176,14 +175,6 @@ class FunctionSpec private constructor(
 
     fun addDoc(block: CodeBlock) = apply {
       doc.add(block)
-    }
-
-    fun addAttribute(attribute: AttributeSpec) = apply {
-      this.attributes += attribute
-    }
-
-    fun addAttribute(name: String, vararg arguments: String) = apply {
-      this.attributes += AttributeSpec.builder(name).addArguments(arguments.toList()).build()
     }
 
     fun addModifiers(vararg modifiers: Modifier) = apply {

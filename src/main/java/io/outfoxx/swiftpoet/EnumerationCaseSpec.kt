@@ -47,9 +47,8 @@ class EnumerationCaseSpec private constructor(
   class Builder internal constructor(
     internal var name: String,
     internal var typeOrConstant: Any?
-  ) : Taggable.Builder<Builder>() {
+  ) : AttributedSpec.Builder<Builder>() {
 
-    internal val attributes = mutableListOf<AttributeSpec>()
     internal val doc = CodeBlock.builder()
 
     fun addDoc(format: String, vararg args: Any) = apply {
@@ -58,14 +57,6 @@ class EnumerationCaseSpec private constructor(
 
     fun addDoc(block: CodeBlock) = apply {
       doc.add(block)
-    }
-
-    fun addAttribute(attribute: AttributeSpec) = apply {
-      this.attributes += attribute
-    }
-
-    fun addAttribute(name: String, vararg arguments: String) = apply {
-      this.attributes += AttributeSpec.builder(name).addArguments(arguments.toList()).build()
     }
 
     fun build(): EnumerationCaseSpec {

@@ -55,9 +55,8 @@ class ImportSpec internal constructor(
 
   class Builder internal constructor(
     internal val name: String
-  ) : Taggable.Builder<Builder>() {
+  ) : AttributedSpec.Builder<Builder>() {
     internal val doc = CodeBlock.builder()
-    internal val attributes = mutableListOf<AttributeSpec>()
     internal val guardTest = CodeBlock.builder()
 
     fun addDoc(format: String, vararg args: Any) = apply {
@@ -66,14 +65,6 @@ class ImportSpec internal constructor(
 
     fun addDoc(block: CodeBlock) = apply {
       doc.add(block)
-    }
-
-    fun addAttribute(attribute: AttributeSpec) = apply {
-      this.attributes += attribute
-    }
-
-    fun addAttribute(name: String, vararg arguments: String) = apply {
-      this.attributes += AttributeSpec.builder(name).addArguments(arguments.toList()).build()
     }
 
     fun addGuard(test: CodeBlock) = apply {

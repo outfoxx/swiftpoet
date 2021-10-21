@@ -232,9 +232,8 @@ class TypeSpec private constructor(
   class Builder internal constructor(
     internal var kind: Kind,
     internal val name: String
-  ) : Taggable.Builder<Builder>() {
+  ) : AttributedSpec.Builder<Builder>() {
     internal val doc = CodeBlock.builder()
-    internal val attributes = mutableListOf<AttributeSpec>()
     internal val typeVariables = mutableListOf<TypeVariableName>()
     internal val superTypes = mutableSetOf<TypeName>()
     internal val enumCases = mutableListOf<EnumerationCaseSpec>()
@@ -253,14 +252,6 @@ class TypeSpec private constructor(
 
     fun addDoc(block: CodeBlock) = apply {
       doc.add(block)
-    }
-
-    fun addAttribute(attribute: AttributeSpec) = apply {
-      this.attributes += attribute
-    }
-
-    fun addAttribute(name: String, vararg arguments: String) = apply {
-      this.attributes += AttributeSpec.builder(name).addArguments(arguments.toList()).build()
     }
 
     fun addModifiers(vararg modifiers: Modifier) = apply {
