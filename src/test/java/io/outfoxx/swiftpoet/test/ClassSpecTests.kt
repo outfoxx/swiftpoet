@@ -333,7 +333,6 @@ class ClassSpecTests {
     )
   }
 
-
   @Test
   @DisplayName("Generates property declarations")
   fun testGenProperties() {
