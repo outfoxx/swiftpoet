@@ -127,6 +127,9 @@ class ClassSpecTests {
   fun testGenTypeVars() {
     val testClass = TypeSpec.classBuilder("Test")
       .addTypeVariable(
+        TypeVariableName.typeVariable("T", TypeVariableName.Bound(".Test6"), TypeVariableName.Bound(".Test7"))
+      )
+      .addTypeVariable(
         TypeVariableName.typeVariable("X", TypeVariableName.Bound(".Test2"))
       )
       .addTypeVariable(
@@ -144,7 +147,7 @@ class ClassSpecTests {
       out.toString(),
       equalTo(
         """
-            class Test<X, Y, Z> where X : Test2, Y : Test3 & Test4, Z == Test5 {
+            class Test<T, X, Y, Z> where T : Test6, T : Test7, X : Test2, Y : Test3 & Test4, Z == Test5 {
             }
 
         """.trimIndent()

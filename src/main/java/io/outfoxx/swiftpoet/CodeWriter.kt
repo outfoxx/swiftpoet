@@ -161,8 +161,8 @@ internal class CodeWriter constructor(
 
     typeVariables.forEachIndexed { index, typeVariable ->
       if (forceOutput || typeVariables.size > 2 || typeVariables.any { it.bounds.size > 1 }) {
-        for (bound in typeVariable.bounds) {
-          if (index > 0) emitCode(",%W") else emitCode("%Wwhere ")
+        for ((boundIndex, bound) in typeVariable.bounds.withIndex()) {
+          if (index > 0 || boundIndex > 0) emitCode(",%W") else emitCode("%Wwhere ")
           emitCode("%T", typeVariable)
           bound.emit(this)
         }
