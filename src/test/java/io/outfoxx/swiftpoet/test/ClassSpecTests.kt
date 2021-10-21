@@ -305,6 +305,36 @@ class ClassSpecTests {
   }
 
   @Test
+  @DisplayName("Generates deinitializer")
+  fun testGenDeinitializer() {
+    val testClass = TypeSpec.classBuilder("Test")
+      .addFunction(
+        FunctionSpec.deinitializerBuilder()
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testClass.emit(CodeWriter(out))
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            class Test {
+
+              deinit {
+              }
+
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+
+  @Test
   @DisplayName("Generates property declarations")
   fun testGenProperties() {
     val testClass = TypeSpec.classBuilder("Test")
