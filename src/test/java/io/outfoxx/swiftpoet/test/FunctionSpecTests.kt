@@ -47,7 +47,8 @@ class FunctionSpecTests {
   @Test
   @DisplayName("Generates correct closure parameters")
   fun testGenerateClosureParameters() {
-    val closureTypeName = FunctionTypeName.get(listOf(ParameterSpec.unnamed(STRING), ParameterSpec.unnamed(INT)), STRING)
+    val closureTypeName =
+      FunctionTypeName.get(listOf(ParameterSpec.unnamed(STRING), ParameterSpec.unnamed(INT)), STRING)
     val testFunc = FunctionSpec.builder("test")
       .addParameter(
         ParameterSpec.builder("closure", closureTypeName)
@@ -73,7 +74,8 @@ class FunctionSpecTests {
   @Test
   @DisplayName("Generates escaping closure parameters")
   fun testGenerateEscapingClosureParameters() {
-    val closureTypeName = FunctionTypeName.get(listOf(ParameterSpec.unnamed(STRING), ParameterSpec.unnamed(INT)), STRING)
+    val closureTypeName =
+      FunctionTypeName.get(listOf(ParameterSpec.unnamed(STRING), ParameterSpec.unnamed(INT)), STRING)
     val testFunc = FunctionSpec.builder("test")
       .addParameter(
         ParameterSpec.builder("closure", closureTypeName)
@@ -233,36 +235,35 @@ class FunctionSpecTests {
     )
   }
 
-    @Test
-    @DisplayName("Generates type variables with multiple bounds")
-    fun testGenTypeVarsWithMultipleBounds() {
-        val testClass = FunctionSpec.builder("test")
-            .addTypeVariable(
-                typeVariable("T", bound(".Test2"), bound(".Test3"))
-            )
-            .addTypeVariable(
-                typeVariable("X", bound(".Test2"))
-            )
-            .addTypeVariable(
-                typeVariable("Y", bound(composed(".Test3", ".Test4")))
-            )
-            .build()
+  @Test
+  @DisplayName("Generates type variables with multiple bounds")
+  fun testGenTypeVarsWithMultipleBounds() {
+    val testClass = FunctionSpec.builder("test")
+      .addTypeVariable(
+        typeVariable("T", bound(".Test2"), bound(".Test3"))
+      )
+      .addTypeVariable(
+        typeVariable("X", bound(".Test2"))
+      )
+      .addTypeVariable(
+        typeVariable("Y", bound(composed(".Test3", ".Test4")))
+      )
+      .build()
 
-        val out = StringWriter()
-        testClass.emit(CodeWriter(out), null, setOf())
+    val out = StringWriter()
+    testClass.emit(CodeWriter(out), null, setOf())
 
-        assertThat(
-            out.toString(),
-            equalTo(
-                """
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
             func test<T, X, Y>() where T : Test2, T : Test3, X : Test2, Y : Test3 & Test4 {
             }
     
         """.trimIndent()
-            )
-        )
-    }
-
+      )
+    )
+  }
 
   @Test
   @DisplayName("Generates return type")
