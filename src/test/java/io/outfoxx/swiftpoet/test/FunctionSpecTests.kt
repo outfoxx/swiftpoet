@@ -18,6 +18,7 @@ package io.outfoxx.swiftpoet.test
 
 import io.outfoxx.swiftpoet.AttributeSpec.Companion.DISCARDABLE_RESULT
 import io.outfoxx.swiftpoet.AttributeSpec.Companion.ESCAPING
+import io.outfoxx.swiftpoet.BOOL
 import io.outfoxx.swiftpoet.CodeWriter
 import io.outfoxx.swiftpoet.ComposedTypeName.Companion.composed
 import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
@@ -27,6 +28,7 @@ import io.outfoxx.swiftpoet.INT
 import io.outfoxx.swiftpoet.Modifier
 import io.outfoxx.swiftpoet.ParameterSpec
 import io.outfoxx.swiftpoet.STRING
+import io.outfoxx.swiftpoet.SelfTypeName
 import io.outfoxx.swiftpoet.TypeAliasSpec
 import io.outfoxx.swiftpoet.TypeName
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.bound
@@ -43,6 +45,34 @@ import java.io.StringWriter
 
 @DisplayName("FunctionSpec Tests")
 class FunctionSpecTests {
+
+  @Test
+  @DisplayName("Generates operator overload functions")
+  fun testOverloading() {
+    val testFunc =
+      FunctionSpec.operatorBuilder("==")
+        .addModifiers(Modifier.STATIC)
+        .addParameter(ParameterSpec.builder("lhs", SelfTypeName.INSTANCE).build())
+        .addParameter(ParameterSpec.builder("rhs", SelfTypeName.INSTANCE).build())
+        .returns(BOOL)
+        .addStatement("return true")
+        .build()
+
+    val out = StringWriter()
+    testFunc.emit(CodeWriter(out), null, setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            static func ==(lhs: Self, rhs: Self) -> Swift.Bool {
+              return true
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
 
   @Test
   @DisplayName("Generates correct closure parameters")
