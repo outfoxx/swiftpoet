@@ -28,11 +28,15 @@ class ParameterSpec private constructor(
   val variadic = builder.variadic
   val defaultValue = builder.defaultValue
 
-  internal fun emit(codeWriter: CodeWriter, includeType: Boolean = true) {
-    argumentLabel?.let { codeWriter.emitCode("%L ", escapeIfNecessary(it)) }
-    codeWriter.emitCode("%L", escapeIfNecessary(parameterName))
+  internal fun emit(codeWriter: CodeWriter, includeType: Boolean = true, includeNames: Boolean = true) {
+    if (includeNames) {
+      argumentLabel?.let { codeWriter.emitCode("%L ", escapeIfNecessary(it)) }
+      codeWriter.emitCode("%L", escapeIfNecessary(parameterName))
+    }
     if (includeType) {
-      codeWriter.emit(": ")
+      if (includeNames) {
+        codeWriter.emit(": ")
+      }
       codeWriter.emitModifiers(modifiers)
       codeWriter.emitCode("%T", type)
       if (variadic) {
@@ -127,7 +131,8 @@ class ParameterSpec private constructor(
 internal fun List<ParameterSpec>.emit(
   codeWriter: CodeWriter,
   forceNewLines: Boolean = false,
-  emitBlock: (ParameterSpec) -> Unit = { it.emit(codeWriter) }
+  includeNames: Boolean = true,
+  emitParameter: (ParameterSpec) -> Unit = { it.emit(codeWriter, includeNames = includeNames) }
 ) = with(codeWriter) {
   val params = this@emit
   emit("(")
@@ -137,17 +142,17 @@ internal fun List<ParameterSpec>.emit(
       indent(1)
       forEachIndexed { index, parameter ->
         if (index > 0) emit(",\n")
-        emitBlock(parameter)
+        emitParameter(parameter)
       }
       unindent(1)
       emit("\n")
     }
     size == 0 -> emit("")
-    size == 1 -> emitBlock(params[0])
+    size == 1 -> emitParameter(params[0])
     size == 2 -> {
-      emitBlock(params[0])
+      emitParameter(params[0])
       emit(", ")
-      emitBlock(params[1])
+      emitParameter(params[1])
     }
   }
   emit(")")

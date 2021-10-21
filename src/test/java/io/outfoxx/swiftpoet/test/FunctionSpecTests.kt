@@ -16,12 +16,12 @@
 
 package io.outfoxx.swiftpoet.test
 
-import io.outfoxx.swiftpoet.AttributeSpec
 import io.outfoxx.swiftpoet.AttributeSpec.Companion.DISCARDABLE_RESULT
 import io.outfoxx.swiftpoet.CodeWriter
 import io.outfoxx.swiftpoet.ComposedTypeName.Companion.composed
 import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
 import io.outfoxx.swiftpoet.FunctionSpec
+import io.outfoxx.swiftpoet.FunctionTypeName
 import io.outfoxx.swiftpoet.INT
 import io.outfoxx.swiftpoet.Modifier
 import io.outfoxx.swiftpoet.ParameterSpec
@@ -42,6 +42,32 @@ import java.io.StringWriter
 
 @DisplayName("FunctionSpec Tests")
 class FunctionSpecTests {
+
+  @Test
+  @DisplayName("Generates correct closure parameters")
+  fun testGenerateClosureParameters() {
+    val closureTypeName = FunctionTypeName.get(listOf(ParameterSpec.unnamed(STRING), ParameterSpec.unnamed(INT)), STRING)
+    val testFunc = FunctionSpec.builder("test")
+      .addParameter(
+        ParameterSpec.builder("closure", closureTypeName)
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testFunc.emit(CodeWriter(out), null, setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            func test(closure: (Swift.String, Swift.Int) -> Swift.String) {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
 
   @Test
   @DisplayName("Tags on builders can be retrieved on builders and built specs")
@@ -110,7 +136,7 @@ class FunctionSpecTests {
   @DisplayName("Generates decorators formatted")
   fun testGenDecorators() {
     val testFunc = FunctionSpec.builder("test")
-      .addAttribute(AttributeSpec.DISCARDABLE_RESULT)
+      .addAttribute(DISCARDABLE_RESULT)
       .build()
 
     val out = StringWriter()

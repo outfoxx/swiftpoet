@@ -35,20 +35,20 @@ class FunctionTypeName internal constructor(
       out.emit("@escaping ")
     }
 
-    parameters.emit(out)
+    parameters.emit(out, includeNames = false)
     out.emitCode(" -> %T", returnType)
 
     return out
   }
 
   companion object {
-    /** Returns a lambda type with `returnType` and parameters listed in `parameters`. */
+    /** Returns a function type with `returnType` and parameters listed in `parameters`. */
     @JvmStatic fun get(
       parameters: List<ParameterSpec> = emptyList(),
       returnType: TypeName
     ) = FunctionTypeName(parameters, returnType)
 
-    /** Returns a lambda type with `returnType` and parameters listed in `parameters`. */
+    /** Returns a function type with `returnType` and parameters listed in `parameters`. */
     @JvmStatic fun get(
       vararg parameters: TypeName = emptyArray(),
       returnType: TypeName
@@ -59,7 +59,7 @@ class FunctionTypeName internal constructor(
       )
     }
 
-    /** Returns a lambda type with `returnType` and parameters listed in `parameters`. */
+    /** Returns a function type with `returnType` and parameters listed in `parameters`. */
     @JvmStatic fun get(
       vararg parameters: ParameterSpec = emptyArray(),
       returnType: TypeName
