@@ -104,7 +104,12 @@ class FunctionSpec private constructor(
         return
       }
     } else {
-      codeWriter.emitCode("%L", escapeIfNecessary(name))
+      val name =
+        if (name.isOperator)
+          name.removePrefix(OPERATOR)
+        else
+          escapeIfNecessary(name)
+      codeWriter.emitCode("%L", name)
     }
 
     if (typeVariables.isNotEmpty()) {
@@ -291,12 +296,14 @@ class FunctionSpec private constructor(
   companion object {
     private const val CONSTRUCTOR = "init"
     private const val DEINITIALIZER = "deinit"
+    private const val OPERATOR = "op:"
     internal const val GETTER = "get"
     internal const val SETTER = "set"
 
     internal val String.isConstructor get() = this == CONSTRUCTOR
     internal val String.isDeinitializer get() = this == DEINITIALIZER
     internal val String.isAccessor get() = this.isOneOf(GETTER, SETTER)
+    internal val String.isOperator get() = this.startsWith(OPERATOR)
 
     @JvmStatic fun builder(name: String) = Builder(name)
 
@@ -309,5 +316,7 @@ class FunctionSpec private constructor(
     @JvmStatic fun getterBuilder() = Builder(GETTER)
 
     @JvmStatic fun setterBuilder() = Builder(SETTER)
+
+    @JvmStatic fun operatorBuilder(name: String) = Builder(OPERATOR + name)
   }
 }
