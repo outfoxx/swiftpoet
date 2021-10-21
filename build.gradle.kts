@@ -6,11 +6,11 @@ plugins {
   `maven-publish`
   signing
 
-  kotlin("jvm") version "1.4.30"
-  id("org.jetbrains.dokka") version "1.4.20"
+  kotlin("jvm") version "1.5.31"
+  id("org.jetbrains.dokka") version "1.4.30"
 
-  id("net.minecrell.licenser") version "0.4.1"
-  id("org.jmailen.kotlinter") version "3.3.0"
+  id("org.cadixdev.licenser") version "0.6.1"
+  id("org.jmailen.kotlinter") version "3.6.0"
 }
 
 
@@ -90,7 +90,7 @@ tasks {
 //
 
 jacoco {
-  toolVersion = "0.8.5"
+  toolVersion = "0.8.7"
 }
 
 tasks {
@@ -131,7 +131,7 @@ kotlinter {
 }
 
 license {
-  header = file("HEADER.txt")
+  header.set(resources.text.fromFile("HEADER.txt"))
   include("**/*.kt")
 }
 

@@ -41,7 +41,7 @@ class DeclaredTypeName internal constructor(
   val simpleName get() = names[names.size - 1]
   val simpleNames get() = names.subList(1, names.size)
 
-  val compoundName get() = simpleNames.joinToString("") { it.capitalize() }
+  val compoundName get() = simpleNames.joinToString("") { name -> name.replaceFirstChar { it.titlecase() } }
 
   /**
    * Returns the enclosing type, like [Map] for `Map.Entry`. Returns null if this type

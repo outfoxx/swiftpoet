@@ -182,7 +182,7 @@ class TypeSpec private constructor(
 
     abstract fun plusModifiers(vararg modifiers: Modifier): Kind
 
-    override fun toString() = javaClass.simpleName.toUpperCase()
+    override fun toString() = javaClass.simpleName.uppercase()
 
     class Class(vararg modifiers: Modifier) : Kind(
       "class",
