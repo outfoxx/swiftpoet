@@ -37,6 +37,7 @@ class ParameterSpec private constructor(
       if (includeNames) {
         codeWriter.emit(": ")
       }
+      codeWriter.emitAttributes(attributes, separator = " ", suffix = " ")
       codeWriter.emitModifiers(modifiers)
       codeWriter.emitCode("%T", type)
       if (variadic) {

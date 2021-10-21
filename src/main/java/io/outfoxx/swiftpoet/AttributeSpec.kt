@@ -69,5 +69,6 @@ class AttributeSpec internal constructor(
     }
 
     val DISCARDABLE_RESULT = builder("discardableResult").build()
+    val ESCAPING = builder("escaping").build()
   }
 }

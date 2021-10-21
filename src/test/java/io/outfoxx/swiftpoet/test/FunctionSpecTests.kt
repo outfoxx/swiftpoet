@@ -17,6 +17,7 @@
 package io.outfoxx.swiftpoet.test
 
 import io.outfoxx.swiftpoet.AttributeSpec.Companion.DISCARDABLE_RESULT
+import io.outfoxx.swiftpoet.AttributeSpec.Companion.ESCAPING
 import io.outfoxx.swiftpoet.CodeWriter
 import io.outfoxx.swiftpoet.ComposedTypeName.Companion.composed
 import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
@@ -62,6 +63,33 @@ class FunctionSpecTests {
       equalTo(
         """
             func test(closure: (Swift.String, Swift.Int) -> Swift.String) {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates escaping closure parameters")
+  fun testGenerateEscapingClosureParameters() {
+    val closureTypeName = FunctionTypeName.get(listOf(ParameterSpec.unnamed(STRING), ParameterSpec.unnamed(INT)), STRING)
+    val testFunc = FunctionSpec.builder("test")
+      .addParameter(
+        ParameterSpec.builder("closure", closureTypeName)
+          .addAttribute(ESCAPING)
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testFunc.emit(CodeWriter(out), null, setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            func test(closure: @escaping (Swift.String, Swift.Int) -> Swift.String) {
             }
 
         """.trimIndent()

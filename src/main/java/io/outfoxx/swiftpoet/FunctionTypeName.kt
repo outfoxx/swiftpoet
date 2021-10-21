@@ -19,7 +19,6 @@ package io.outfoxx.swiftpoet
 class FunctionTypeName internal constructor(
   parameters: List<ParameterSpec> = emptyList(),
   val returnType: TypeName = VOID,
-  val escaping: Boolean = false
 ) : TypeName() {
   val parameters = parameters.toImmutableList()
 
@@ -31,9 +30,6 @@ class FunctionTypeName internal constructor(
   }
 
   override fun emit(out: CodeWriter): CodeWriter {
-    if (escaping) {
-      out.emit("@escaping ")
-    }
 
     parameters.emit(out, includeNames = false)
     out.emitCode(" -> %T", returnType)
