@@ -227,6 +227,17 @@ class TypeSpec private constructor(
       override fun plusModifiers(vararg modifiers: Modifier) =
         Enum(*(this.modifiers.toTypedArray() + modifiers))
     }
+
+    class Actor(vararg modifiers: Modifier) : Kind(
+      "actor",
+      setOf(INTERNAL),
+      setOf(INTERNAL),
+      modifiers.toSet()
+    ) {
+
+      override fun plusModifiers(vararg modifiers: Modifier) =
+        Actor(*(this.modifiers.toTypedArray() + modifiers))
+    }
   }
 
   class Builder internal constructor(
@@ -369,6 +380,10 @@ class TypeSpec private constructor(
     @JvmStatic fun enumBuilder(name: String) = Builder(Kind.Enum(), name)
 
     @JvmStatic fun enumBuilder(enumName: DeclaredTypeName) = enumBuilder(enumName.simpleName)
+
+    @JvmStatic fun actorBuilder(name: String) = Builder(Kind.Actor(), name)
+
+    @JvmStatic fun actorBuilder(actorName: DeclaredTypeName) = actorBuilder(actorName.simpleName)
   }
 }
 

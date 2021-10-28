@@ -28,6 +28,7 @@ class FunctionSpec private constructor(
   val returnType = builder.returnType
   val parameters = builder.parameters.toImmutableList()
   val throws = builder.throws
+  val async = builder.async
   val failable = builder.failable
   val localTypeSpecs = builder.localTypeSpecs
   val body = if (builder.abstract) CodeBlock.ABSTRACT else builder.body.build()
@@ -37,8 +38,6 @@ class FunctionSpec private constructor(
       "$name must have zero or one parameter"
     }
   }
-
-  internal fun parameter(name: String) = parameters.firstOrNull { it.parameterName == name }
 
   internal fun emit(
     codeWriter: CodeWriter,
@@ -120,8 +119,17 @@ class FunctionSpec private constructor(
       param.emit(codeWriter, includeType = name != SETTER)
     }
 
+    val modifiers = mutableListOf<String>()
+
+    if (async) {
+      modifiers.add("async")
+    }
     if (throws) {
-      codeWriter.emit(" throws")
+      modifiers.add("throws")
+    }
+
+    if (modifiers.isNotEmpty()) {
+      codeWriter.emit(modifiers.joinToString(separator = " ", prefix = " "))
     }
 
     if (returnType != null && returnType != VOID) {
@@ -169,6 +177,7 @@ class FunctionSpec private constructor(
     internal var returnType: TypeName? = null
     internal val parameters = mutableListOf<ParameterSpec>()
     internal var throws = false
+    internal var async = false
     internal var failable = false
     internal val localTypeSpecs = mutableListOf<AnyTypeSpec>()
     internal val body: CodeBlock.Builder = CodeBlock.builder()
@@ -239,6 +248,10 @@ class FunctionSpec private constructor(
 
     fun throws(value: Boolean) = apply {
       throws = value
+    }
+
+    fun async(value: Boolean) = apply {
+      async = value
     }
 
     fun addLocalTypes(typeSpecs: Iterable<AnyTypeSpec>) = apply {
