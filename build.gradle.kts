@@ -27,7 +27,6 @@ val isSnapshot = "$version".endsWith("SNAPSHOT")
 
 // Versions
 
-val guavaVersion = "22.0"
 val junitJupiterVersion = "5.6.2"
 val hamcrestVersion = "1.3"
 
@@ -45,12 +44,6 @@ dependencies {
   // kotlin
   implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
   implementation("org.jetbrains.kotlin:kotlin-reflect")
-
-  //
-  // MISCELLANEOUS
-  //
-
-  implementation("com.google.guava:guava:$guavaVersion")
 
   //
   // TESTING
