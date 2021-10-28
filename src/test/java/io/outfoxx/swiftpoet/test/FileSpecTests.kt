@@ -17,11 +17,14 @@
 package io.outfoxx.swiftpoet.test
 
 import io.outfoxx.swiftpoet.ComposedTypeName.Companion.composed
+import io.outfoxx.swiftpoet.DATA
 import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
 import io.outfoxx.swiftpoet.FileMemberSpec
 import io.outfoxx.swiftpoet.FileSpec
 import io.outfoxx.swiftpoet.INT
 import io.outfoxx.swiftpoet.ImportSpec
+import io.outfoxx.swiftpoet.PropertySpec
+import io.outfoxx.swiftpoet.TupleTypeName
 import io.outfoxx.swiftpoet.TypeSpec
 import io.outfoxx.swiftpoet.TypeVariableName
 import io.outfoxx.swiftpoet.tag
@@ -77,6 +80,33 @@ class FileSpecTests {
             class Test<X, Y, Z> where X : Int, Y : Test3 & Test4, Z == Test5 {
             }
 
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates correct imports & shortens used types with tuple types")
+  fun testImportsAndShortensTupleTypes() {
+
+    val testFile = FileSpec.builder("Test", "Test")
+      .addProperty(
+        PropertySpec.builder("test", TupleTypeName.of("" to DATA, "" to typeName("Combine.Publisher")))
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            import Combine
+            import Foundation
+
+            let test: (Data, Publisher)
         """.trimIndent()
       )
     )
