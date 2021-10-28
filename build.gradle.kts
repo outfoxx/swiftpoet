@@ -15,7 +15,7 @@ plugins {
 
 
 group = "io.outfoxx"
-version = "1.3.0-SNAPSHOT"
+version = "1.3.0"
 description = "A Kotlin/Java API for generating .swift source files."
 
 val isSnapshot = "$version".endsWith("SNAPSHOT")
