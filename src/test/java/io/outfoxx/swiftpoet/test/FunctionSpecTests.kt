@@ -47,6 +47,76 @@ import java.io.StringWriter
 class FunctionSpecTests {
 
   @Test
+  @DisplayName("Generates throws functions")
+  fun testThrows() {
+    val testFunc =
+      FunctionSpec.operatorBuilder("test")
+        .throws(true)
+        .build()
+
+    val out = StringWriter()
+    testFunc.emit(CodeWriter(out), null, setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            func test() throws {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates async functions")
+  fun testAsyncs() {
+    val testFunc =
+      FunctionSpec.operatorBuilder("test")
+        .async(true)
+        .build()
+
+    val out = StringWriter()
+    testFunc.emit(CodeWriter(out), null, setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            func test() async {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates async throws functions")
+  fun testAsyncThrows() {
+    val testFunc =
+      FunctionSpec.operatorBuilder("test")
+        .async(true)
+        .throws(true)
+        .build()
+
+    val out = StringWriter()
+    testFunc.emit(CodeWriter(out), null, setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            func test() async throws {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
   @DisplayName("Generates operator overload functions")
   fun testOverloading() {
     val testFunc =
