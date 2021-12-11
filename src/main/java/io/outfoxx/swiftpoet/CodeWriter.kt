@@ -34,7 +34,7 @@ internal class CodeWriter constructor(
 
   private var doc = false
   private var comment = false
-  private var moduleName = NO_MODULE
+  private var moduleStack = mutableListOf(NO_MODULE)
   private val typeSpecStack = mutableListOf<AnyTypeSpec>()
   private val importableTypes = mutableMapOf<String, DeclaredTypeName>()
   private var trailingNewline = false
@@ -55,14 +55,15 @@ internal class CodeWriter constructor(
     indentLevel -= levels
   }
 
+  val currentModule: String get() = this.moduleStack.last()
+
   fun pushModule(moduleName: String) = apply {
-    require(this.moduleName === NO_MODULE) { "module already set: ${this.moduleName}" }
-    this.moduleName = moduleName
+    this.moduleStack.add(moduleName)
   }
 
   fun popModule() = apply {
-    require(this.moduleName !== NO_MODULE) { "module already set: ${this.moduleName}" }
-    this.moduleName = NO_MODULE
+    val lastModuleName = this.moduleStack.removeLast()
+    require(lastModuleName !== NO_MODULE) { "module stack imbalance" }
   }
 
   fun pushType(type: AnyTypeSpec) = apply {
@@ -267,7 +268,7 @@ internal class CodeWriter constructor(
     }
 
     // If the type is in the same module, we're done.
-    if (moduleName == typeName.moduleName) {
+    if (moduleStack.last() == typeName.moduleName) {
       return typeName.simpleNames.joinToString(".")
     }
 
@@ -303,6 +304,9 @@ internal class CodeWriter constructor(
     // Match a child of the current (potentially nested) type.
     for (i in typeSpecStack.indices.reversed()) {
       val typeSpec = typeSpecStack[i]
+      if (typeSpec is ExternalTypeSpec) {
+        return stackTypeName(i, simpleName)
+      }
       for (visibleChild in typeSpec.typeSpecs) {
         if (visibleChild.name == simpleName) {
           return stackTypeName(i, simpleName)
@@ -312,7 +316,7 @@ internal class CodeWriter constructor(
 
     // Match the top-level type.
     if (typeSpecStack.size > 0 && typeSpecStack[0].name == simpleName) {
-      return DeclaredTypeName(moduleName, simpleName)
+      return DeclaredTypeName(moduleStack.last(), simpleName)
     }
 
     // Match an imported type.
@@ -325,7 +329,7 @@ internal class CodeWriter constructor(
 
   /** Returns the type named `simpleName` when nested in the type at `stackDepth`.  */
   private fun stackTypeName(stackDepth: Int, simpleName: String): DeclaredTypeName {
-    var typeName = DeclaredTypeName(moduleName, typeSpecStack[0].name)
+    var typeName = DeclaredTypeName(moduleStack.last(), typeSpecStack[0].name)
     for (i in 1..stackDepth) {
       typeName = typeName.nestedType(typeSpecStack[i].name)
     }
