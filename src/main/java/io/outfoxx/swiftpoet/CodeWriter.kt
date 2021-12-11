@@ -20,8 +20,8 @@ package io.outfoxx.swiftpoet
 private val NO_MODULE = String()
 
 /**
- * Converts a [FileSpec] to a string suitable to both human- and kotlinc-consumption. This honors
- * imports, indentation, and deferred variable names.
+ * Converts a [FileSpec] to a string suitable to both human- and swiftc-consumption. This honors
+ * imports, indentation, and variable names.
  */
 internal class CodeWriter constructor(
   out: Appendable,
@@ -299,7 +299,6 @@ internal class CodeWriter constructor(
   /**
    * Returns the type referenced by `simpleName`, using the current nesting context.
    */
-  // TODO(jwilson): also honor supertype members when resolving names.
   private fun resolve(simpleName: String): DeclaredTypeName? {
     // Match a child of the current (potentially nested) type.
     for (i in typeSpecStack.indices.reversed()) {
