@@ -141,12 +141,12 @@ $dokka.location:io.outfoxx.swiftpoet/ExtensionSpec.Builder/addTypes/#kotlin.coll
 $dokka.location:io.outfoxx.swiftpoet/ExtensionSpec.Builder/build/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-extension-spec/-builder/build.html
 $dokka.location:io.outfoxx.swiftpoet/ExtensionSpec.Companion///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-extension-spec/-companion/index.html
 $dokka.location:io.outfoxx.swiftpoet/ExtensionSpec.Companion/builder/#io.outfoxx.swiftpoet.AnyTypeSpec/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-extension-spec/-companion/builder.html
-$dokka.location:io.outfoxx.swiftpoet/ExtensionSpec.Companion/builder/#io.outfoxx.swiftpoet.TypeName/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-extension-spec/-companion/builder.html
+$dokka.location:io.outfoxx.swiftpoet/ExtensionSpec.Companion/builder/#io.outfoxx.swiftpoet.DeclaredTypeName/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-extension-spec/-companion/builder.html
 $dokka.location:io.outfoxx.swiftpoet/ExtensionSpec///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-extension-spec/index.html
 $dokka.location:io.outfoxx.swiftpoet/ExtensionSpec/conditionalConstraints/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-extension-spec/conditional-constraints.html
 $dokka.location:io.outfoxx.swiftpoet/ExtensionSpec/doc/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-extension-spec/doc.html
 $dokka.location:io.outfoxx.swiftpoet/ExtensionSpec/equals/#kotlin.Any?/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-extension-spec/equals.html
-$dokka.location:io.outfoxx.swiftpoet/ExtensionSpec/extendedType/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-extension-spec/extended-type.html
+$dokka.location:io.outfoxx.swiftpoet/ExtensionSpec/extendedTypeOrName/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-extension-spec/extended-type-or-name.html
 $dokka.location:io.outfoxx.swiftpoet/ExtensionSpec/funSpecs/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-extension-spec/fun-specs.html
 $dokka.location:io.outfoxx.swiftpoet/ExtensionSpec/hashCode/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-extension-spec/hash-code.html
 $dokka.location:io.outfoxx.swiftpoet/ExtensionSpec/modifiers/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-extension-spec/modifiers.html
@@ -155,6 +155,8 @@ $dokka.location:io.outfoxx.swiftpoet/ExtensionSpec/superTypes/#/PointingToDeclar
 $dokka.location:io.outfoxx.swiftpoet/ExtensionSpec/toBuilder/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-extension-spec/to-builder.html
 $dokka.location:io.outfoxx.swiftpoet/ExtensionSpec/toString/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-extension-spec/to-string.html
 $dokka.location:io.outfoxx.swiftpoet/ExtensionSpec/typeSpecs/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-extension-spec/type-specs.html
+$dokka.location:io.outfoxx.swiftpoet/ExternalTypeSpec///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-external-type-spec/index.html
+$dokka.location:io.outfoxx.swiftpoet/ExternalTypeSpec/ExternalTypeSpec/#kotlin.String/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-external-type-spec/-external-type-spec.html
 $dokka.location:io.outfoxx.swiftpoet/FileMemberSpec.Builder///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-file-member-spec/-builder/index.html
 $dokka.location:io.outfoxx.swiftpoet/FileMemberSpec.Builder/addDoc/#io.outfoxx.swiftpoet.CodeBlock/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-file-member-spec/-builder/add-doc.html
 $dokka.location:io.outfoxx.swiftpoet/FileMemberSpec.Builder/addDoc/#kotlin.String#kotlin.Array[kotlin.Any]/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-file-member-spec/-builder/add-doc.html
