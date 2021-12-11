@@ -25,7 +25,9 @@ import io.outfoxx.swiftpoet.FileSpec
 import io.outfoxx.swiftpoet.FunctionSpec
 import io.outfoxx.swiftpoet.INT
 import io.outfoxx.swiftpoet.ImportSpec
+import io.outfoxx.swiftpoet.Modifier
 import io.outfoxx.swiftpoet.PropertySpec
+import io.outfoxx.swiftpoet.STRING
 import io.outfoxx.swiftpoet.TupleTypeName
 import io.outfoxx.swiftpoet.TypeSpec
 import io.outfoxx.swiftpoet.TypeVariableName
@@ -304,6 +306,126 @@ class FileSpecTests {
             class Test {
             }
  
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates global properties with open access")
+  fun testGeneratesPropertiesWithOpenAccess() {
+
+    val testFile = FileSpec.builder("Test", "Test")
+      .addProperty(
+        PropertySpec.builder("global", STRING, Modifier.OPEN)
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+          open let global: String
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates global properties with public access")
+  fun testGeneratesPropertiesWithPublicAccess() {
+
+    val testFile = FileSpec.builder("Test", "Test")
+      .addProperty(
+        PropertySpec.builder("global", STRING, Modifier.PUBLIC)
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+          public let global: String
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates global properties with internal access (as default)")
+  fun testGeneratesPropertiesWithInternalAccess() {
+
+    val testFile = FileSpec.builder("Test", "Test")
+      .addProperty(
+        PropertySpec.builder("global", STRING, Modifier.INTERNAL)
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+          let global: String
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates global properties with fileprivate access")
+  fun testGeneratesPropertiesWithFileprivateAccess() {
+
+    val testFile = FileSpec.builder("Test", "Test")
+      .addProperty(
+        PropertySpec.builder("global", STRING, Modifier.FILEPRIVATE)
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+          fileprivate let global: String
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates global properties with private access")
+  fun testGeneratesPropertiesWithPrivateAccess() {
+
+    val testFile = FileSpec.builder("Test", "Test")
+      .addProperty(
+        PropertySpec.builder("global", STRING, Modifier.PRIVATE)
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+          private let global: String
         """.trimIndent()
       )
     )
