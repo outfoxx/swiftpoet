@@ -19,8 +19,10 @@ package io.outfoxx.swiftpoet.test
 import io.outfoxx.swiftpoet.ComposedTypeName.Companion.composed
 import io.outfoxx.swiftpoet.DATA
 import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
+import io.outfoxx.swiftpoet.ExtensionSpec
 import io.outfoxx.swiftpoet.FileMemberSpec
 import io.outfoxx.swiftpoet.FileSpec
+import io.outfoxx.swiftpoet.FunctionSpec
 import io.outfoxx.swiftpoet.INT
 import io.outfoxx.swiftpoet.ImportSpec
 import io.outfoxx.swiftpoet.PropertySpec
@@ -46,6 +48,44 @@ class FileSpecTests {
 
     assertThat(testFileBuilder.tags[Integer::class] as? Int, equalTo(5))
     assertThat(testFile.tag(), equalTo(5))
+  }
+
+  @Test
+  @DisplayName("Generates correct imports for extension types")
+  fun testImportsAndShortensExtensionTypes() {
+
+    val obsElement = typeName("RxSwift.Observable.Element")
+
+    val extension =
+      ExtensionSpec.builder(obsElement.enclosingTypeName()!!)
+        .addFunction(
+          FunctionSpec.builder("test")
+            .returns(obsElement)
+            .build()
+        )
+        .build()
+
+    val testFile = FileSpec.builder("Test", "Test")
+      .addExtension(extension)
+      .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            import RxSwift
+
+            extension Observable {
+              func test() -> Element {
+              }
+            }
+
+        """.trimIndent()
+      )
+    )
   }
 
   @Test

@@ -24,7 +24,7 @@ class ExtensionSpec private constructor(
 ) : Taggable(builder.tags.toImmutableMap()) {
 
   val doc = builder.doc.build()
-  val extendedType = builder.extendedType
+  val extendedTypeOrName = builder.extendedTypeOrName
   val modifiers = builder.modifiers.toImmutableSet()
   val superTypes = builder.superTypes.toImmutableSet()
   val conditionalConstraints = builder.conditionalConstraints.toImmutableList()
@@ -33,7 +33,7 @@ class ExtensionSpec private constructor(
   val typeSpecs = builder.typeSpecs.toImmutableList()
 
   fun toBuilder(): Builder {
-    val builder = Builder(extendedType)
+    val builder = Builder(extendedTypeOrName)
     builder.doc.add(doc)
     builder.conditionalConstraints += conditionalConstraints
     builder.propertySpecs += propertySpecs
@@ -52,7 +52,7 @@ class ExtensionSpec private constructor(
       codeWriter.emitDoc(doc)
       codeWriter.emitModifiers(modifiers, setOf(INTERNAL))
       codeWriter.emit("extension")
-      codeWriter.emitCode(" %T", extendedType)
+      codeWriter.emitCode(" %T", extendedTypeOrName)
 
       val superTypes = superTypes.map { type -> CodeBlock.of("%T", type) }
 
@@ -63,7 +63,16 @@ class ExtensionSpec private constructor(
       codeWriter.emitWhereBlock(conditionalConstraints, true)
       codeWriter.emit(" {\n")
 
-      codeWriter.pushType(extendedType)
+      val typeName =
+        if (extendedTypeOrName is AnyTypeSpec) {
+          codeWriter.pushModule(codeWriter.currentModule)
+          extendedTypeOrName.name
+        } else {
+          extendedTypeOrName as DeclaredTypeName
+          codeWriter.pushModule(extendedTypeOrName.moduleName)
+          extendedTypeOrName.simpleName
+        }
+      codeWriter.pushType(ExternalTypeSpec(typeName))
 
       codeWriter.indent()
       var firstMember = true
@@ -79,7 +88,7 @@ class ExtensionSpec private constructor(
       for (funSpec in funSpecs) {
         if (!funSpec.isConstructor) continue
         if (!firstMember) codeWriter.emit("\n")
-        funSpec.emit(codeWriter, extendedType.name, setOf(INTERNAL))
+        funSpec.emit(codeWriter, typeName, setOf(INTERNAL))
         firstMember = false
       }
 
@@ -87,7 +96,7 @@ class ExtensionSpec private constructor(
       for (funSpec in funSpecs) {
         if (funSpec.isConstructor) continue
         if (!firstMember) codeWriter.emit("\n")
-        funSpec.emit(codeWriter, extendedType.name, setOf(INTERNAL))
+        funSpec.emit(codeWriter, typeName, setOf(INTERNAL))
         firstMember = false
       }
 
@@ -100,6 +109,7 @@ class ExtensionSpec private constructor(
 
       codeWriter.unindent()
       codeWriter.popType()
+      codeWriter.popModule()
 
       codeWriter.emit("}\n")
     } finally {
@@ -119,7 +129,7 @@ class ExtensionSpec private constructor(
   override fun toString() = buildString { emit(CodeWriter(this)) }
 
   class Builder internal constructor(
-    internal val extendedType: AnyTypeSpec
+    internal val extendedTypeOrName: Any
   ) : Taggable.Builder<Builder>() {
     internal val doc = CodeBlock.builder()
     internal val modifiers = mutableSetOf<Modifier>()
@@ -188,6 +198,6 @@ class ExtensionSpec private constructor(
 
   companion object {
     @JvmStatic fun builder(extendedType: AnyTypeSpec) = Builder(extendedType)
-    @JvmStatic fun builder(extendedType: TypeName) = Builder(TypeSpec.classBuilder(extendedType.name).build())
+    @JvmStatic fun builder(extendedType: DeclaredTypeName) = Builder(extendedType)
   }
 }
