@@ -18,6 +18,7 @@ package io.outfoxx.swiftpoet.test
 
 import io.outfoxx.swiftpoet.ComposedTypeName.Companion.composed
 import io.outfoxx.swiftpoet.DATA
+import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.qualifiedTypeName
 import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
 import io.outfoxx.swiftpoet.ExtensionSpec
 import io.outfoxx.swiftpoet.FileMemberSpec
@@ -48,6 +49,32 @@ class FileSpecTests {
 
     assertThat(testFileBuilder.tags[Integer::class] as? Int, equalTo(5))
     assertThat(testFile.tag(), equalTo(5))
+  }
+
+  @Test
+  @DisplayName("Generates fully qualified types for 'alwaysQualify' declared types")
+  fun testDeclaredAlwaysQualified() {
+
+    val explicitType = qualifiedTypeName("Special.Array")
+
+    val testFile = FileSpec.builder("Test", "Test")
+      .addProperty(
+        PropertySpec.builder("value", explicitType)
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            let value: Special.Array
+        """.trimIndent()
+      )
+    )
   }
 
   @Test
