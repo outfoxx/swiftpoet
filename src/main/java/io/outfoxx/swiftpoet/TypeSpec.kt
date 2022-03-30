@@ -350,7 +350,7 @@ class TypeSpec private constructor(
 
     fun addType(typeSpec: AnyTypeSpec) = apply {
       check(!isProtocol || typeSpec is TypeAliasSpec) {
-        "${this.name} is a protocol, it can only contain typealias as nested types"
+        "${this.name} is a protocol, it can only contain type aliases as nested types"
       }
       check(!(typeSpec is TypeSpec && typeSpec.kind is Kind.Protocol)) {
         "${typeSpec.name} is a protocol, it cannot be added as a nested type"

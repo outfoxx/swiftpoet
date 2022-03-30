@@ -16,13 +16,22 @@
 
 package io.outfoxx.swiftpoet.test
 
-import io.outfoxx.swiftpoet.*
 import io.outfoxx.swiftpoet.AttributeSpec.Companion.available
+import io.outfoxx.swiftpoet.CodeWriter
 import io.outfoxx.swiftpoet.ComposedTypeName.Companion.composed
 import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
 import io.outfoxx.swiftpoet.FunctionSpec.Companion.abstractBuilder
+import io.outfoxx.swiftpoet.INT
+import io.outfoxx.swiftpoet.Modifier
+import io.outfoxx.swiftpoet.PropertySpec
+import io.outfoxx.swiftpoet.STRING
+import io.outfoxx.swiftpoet.TypeAliasSpec
+import io.outfoxx.swiftpoet.TypeName
+import io.outfoxx.swiftpoet.TypeSpec
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.bound
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.typeVariable
+import io.outfoxx.swiftpoet.tag
+import io.outfoxx.swiftpoet.toImmutableSet
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.hasItems
 import org.hamcrest.MatcherAssert.assertThat
@@ -351,7 +360,7 @@ class ProtocolSpecTests {
 
   @Test
   @DisplayName("Protocols cannot contain nested types")
-  fun testAddNestedTypeTo() {
+  fun testAddNestedTypeToProtocol() {
     assertThrows<IllegalStateException> {
       TypeSpec.protocolBuilder("Test")
         .addType(TypeSpec.protocolBuilder("Nested").build())
