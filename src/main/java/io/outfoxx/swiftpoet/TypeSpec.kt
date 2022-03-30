@@ -23,7 +23,7 @@ class TypeSpec private constructor(
   builder: Builder
 ) : AnyTypeSpec(builder.name, builder.attributes, builder.tags) {
 
-  val kind = builder.kind
+  internal val kind = builder.kind
   val doc = builder.doc.build()
   val modifiers = kind.modifiers.toImmutableSet()
   val typeVariables = builder.typeVariables.toImmutableList()
@@ -345,12 +345,16 @@ class TypeSpec private constructor(
     }
 
     fun addTypes(typeSpecs: Iterable<AnyTypeSpec>) = apply {
-      check(!isProtocol) { "${this.name} is a protocol, it cannot contain nested types" }
-      this.typeSpecs += typeSpecs
+      typeSpecs.forEach(::addType)
     }
 
     fun addType(typeSpec: AnyTypeSpec) = apply {
-      check(!isProtocol) { "${this.name} is a protocol, it cannot contain nested types" }
+      check(!isProtocol || typeSpec is TypeAliasSpec) {
+        "${this.name} is a protocol, it can only contain typealias as nested types"
+      }
+      check(!(typeSpec is TypeSpec && typeSpec.kind is Kind.Protocol)) {
+        "${typeSpec.name} is a protocol, it cannot be added as a nested type"
+      }
       typeSpecs += typeSpec
     }
 
