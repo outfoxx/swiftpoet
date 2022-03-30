@@ -16,26 +16,19 @@
 
 package io.outfoxx.swiftpoet.test
 
+import io.outfoxx.swiftpoet.*
 import io.outfoxx.swiftpoet.AttributeSpec.Companion.available
-import io.outfoxx.swiftpoet.CodeWriter
 import io.outfoxx.swiftpoet.ComposedTypeName.Companion.composed
 import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
 import io.outfoxx.swiftpoet.FunctionSpec.Companion.abstractBuilder
-import io.outfoxx.swiftpoet.INT
-import io.outfoxx.swiftpoet.Modifier
-import io.outfoxx.swiftpoet.PropertySpec
-import io.outfoxx.swiftpoet.STRING
-import io.outfoxx.swiftpoet.TypeName
-import io.outfoxx.swiftpoet.TypeSpec
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.bound
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.typeVariable
-import io.outfoxx.swiftpoet.tag
-import io.outfoxx.swiftpoet.toImmutableSet
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.CoreMatchers.hasItems
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.assertThrows
 import java.io.StringWriter
 
 @DisplayName("(protocol) TypeSpec Tests")
@@ -354,5 +347,50 @@ class ProtocolSpecTests {
     assertThat(testProtoBldr.propertySpecs.map { it.name }, hasItems("value2"))
     assertThat(testProtoBldr.functionSpecs.map { it.name }, hasItems("test1"))
     assertThat(testProtoBldr.associatedTypes.map { it.name }, hasItems("Element"))
+  }
+
+  @Test
+  @DisplayName("Protocols cannot contain nested types")
+  fun testAddNestedTypeTo() {
+    assertThrows<IllegalStateException> {
+      TypeSpec.protocolBuilder("Test")
+        .addType(TypeSpec.protocolBuilder("Nested").build())
+        .build()
+    }
+  }
+
+  @Test
+  @DisplayName("Protocols cannot be added as nested types")
+  fun testAddProtocolAsNestedType() {
+    assertThrows<IllegalStateException> {
+      TypeSpec.structBuilder("Test")
+        .addType(TypeSpec.protocolBuilder("Nested").build())
+        .build()
+    }
+  }
+
+  @Test
+  @DisplayName("Type aliases can be added to protocols")
+  fun testAddTypeAliasToProtocol() {
+    val testProto = TypeSpec.protocolBuilder("Test")
+      .addType(TypeAliasSpec.builder("NestedAlias", STRING).build())
+      .build()
+
+    val out = StringWriter()
+    testProto.emit(CodeWriter(out))
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            protocol Test {
+
+              typealias NestedAlias = Swift.String
+
+            }
+
+        """.trimIndent()
+      )
+    )
   }
 }
