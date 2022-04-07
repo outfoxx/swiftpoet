@@ -361,21 +361,23 @@ class ProtocolSpecTests {
   @Test
   @DisplayName("Protocols cannot contain nested types")
   fun testAddNestedTypeToProtocol() {
-    assertThrows<IllegalStateException> {
+    val exception = assertThrows<IllegalStateException> {
       TypeSpec.protocolBuilder("Test")
         .addType(TypeSpec.protocolBuilder("Nested").build())
         .build()
     }
+    assertThat(exception.message, equalTo("Test is a protocol, it can only contain type aliases as nested types"))
   }
 
   @Test
   @DisplayName("Protocols cannot be added as nested types")
   fun testAddProtocolAsNestedType() {
-    assertThrows<IllegalStateException> {
+    val exception = assertThrows<IllegalStateException> {
       TypeSpec.structBuilder("Test")
         .addType(TypeSpec.protocolBuilder("Nested").build())
         .build()
     }
+    assertThat(exception.message, equalTo("Nested is a protocol, it cannot be added as a nested type"))
   }
 
   @Test
