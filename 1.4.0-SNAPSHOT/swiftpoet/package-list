@@ -14,6 +14,7 @@ $dokka.location:io.outfoxx.swiftpoet//FLOAT/#/PointingToDeclaration/swiftpoet/i
 $dokka.location:io.outfoxx.swiftpoet//FLOAT32/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-f-l-o-a-t32.html
 $dokka.location:io.outfoxx.swiftpoet//FLOAT64/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-f-l-o-a-t64.html
 $dokka.location:io.outfoxx.swiftpoet//FLOAT80/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-f-l-o-a-t80.html
+$dokka.location:io.outfoxx.swiftpoet//IMPLICIT/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-i-m-p-l-i-c-i-t.html
 $dokka.location:io.outfoxx.swiftpoet//INT/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-i-n-t.html
 $dokka.location:io.outfoxx.swiftpoet//INT16/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-i-n-t16.html
 $dokka.location:io.outfoxx.swiftpoet//INT32/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-i-n-t32.html
@@ -385,6 +386,9 @@ $dokka.location:io.outfoxx.swiftpoet/ParameterSpec/type/#/PointingToDeclaration/
 $dokka.location:io.outfoxx.swiftpoet/ParameterSpec/variadic/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-parameter-spec/variadic.html
 $dokka.location:io.outfoxx.swiftpoet/ParameterizedTypeName.Companion///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-parameterized-type-name/-companion/index.html
 $dokka.location:io.outfoxx.swiftpoet/ParameterizedTypeName///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-parameterized-type-name/index.html
+$dokka.location:io.outfoxx.swiftpoet/ParameterizedTypeName/implicit/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-parameterized-type-name/implicit.html
+$dokka.location:io.outfoxx.swiftpoet/ParameterizedTypeName/makeImplicit/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-parameterized-type-name/make-implicit.html
+$dokka.location:io.outfoxx.swiftpoet/ParameterizedTypeName/makeNonImplicit/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-parameterized-type-name/make-non-implicit.html
 $dokka.location:io.outfoxx.swiftpoet/ParameterizedTypeName/makeNonOptional/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-parameterized-type-name/make-non-optional.html
 $dokka.location:io.outfoxx.swiftpoet/ParameterizedTypeName/makeOptional/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-parameterized-type-name/make-optional.html
 $dokka.location:io.outfoxx.swiftpoet/ParameterizedTypeName/nestedType/#kotlin.String#kotlin.collections.List[io.outfoxx.swiftpoet.TypeName]/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-parameterized-type-name/nested-type.html
@@ -459,6 +463,9 @@ $dokka.location:io.outfoxx.swiftpoet/TypeAliasSpec/typeVariables/#/PointingToDec
 $dokka.location:io.outfoxx.swiftpoet/TypeName///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-type-name/index.html
 $dokka.location:io.outfoxx.swiftpoet/TypeName/equals/#kotlin.Any?/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-type-name/equals.html
 $dokka.location:io.outfoxx.swiftpoet/TypeName/hashCode/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-type-name/hash-code.html
+$dokka.location:io.outfoxx.swiftpoet/TypeName/implicit/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-type-name/implicit.html
+$dokka.location:io.outfoxx.swiftpoet/TypeName/makeImplicit/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-type-name/make-implicit.html
+$dokka.location:io.outfoxx.swiftpoet/TypeName/makeNonImplicit/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-type-name/make-non-implicit.html
 $dokka.location:io.outfoxx.swiftpoet/TypeName/makeNonOptional/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-type-name/make-non-optional.html
 $dokka.location:io.outfoxx.swiftpoet/TypeName/makeOptional/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-type-name/make-optional.html
 $dokka.location:io.outfoxx.swiftpoet/TypeName/name/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-type-name/name.html
