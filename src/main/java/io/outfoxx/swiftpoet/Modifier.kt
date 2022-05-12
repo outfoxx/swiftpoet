@@ -38,7 +38,12 @@ enum class Modifier(
 
   REQUIRED("required", Target.FUNCTION),
 
-  INOUT("inout", Target.PARAMETER);
+  INOUT("inout", Target.PARAMETER),
+
+  WEAK("weak", Target.PROPERTY),
+  UNOWNED("unowned", Target.PROPERTY),
+
+  ;
 
   internal enum class Target {
     CLASS,
