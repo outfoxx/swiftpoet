@@ -343,6 +343,16 @@ $dokka.location:io.outfoxx.swiftpoet/Modifier.STATIC/keyword/#/PointingToDeclara
 $dokka.location:io.outfoxx.swiftpoet/Modifier.STATIC/name/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-modifier/-s-t-a-t-i-c/name.html
 $dokka.location:io.outfoxx.swiftpoet/Modifier.STATIC/ordinal/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-modifier/-s-t-a-t-i-c/ordinal.html
 $dokka.location:io.outfoxx.swiftpoet/Modifier.STATIC/targets/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-modifier/-s-t-a-t-i-c/targets.html
+$dokka.location:io.outfoxx.swiftpoet/Modifier.UNOWNED///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-modifier/-u-n-o-w-n-e-d/index.html
+$dokka.location:io.outfoxx.swiftpoet/Modifier.UNOWNED/keyword/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-modifier/-u-n-o-w-n-e-d/keyword.html
+$dokka.location:io.outfoxx.swiftpoet/Modifier.UNOWNED/name/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-modifier/-u-n-o-w-n-e-d/name.html
+$dokka.location:io.outfoxx.swiftpoet/Modifier.UNOWNED/ordinal/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-modifier/-u-n-o-w-n-e-d/ordinal.html
+$dokka.location:io.outfoxx.swiftpoet/Modifier.UNOWNED/targets/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-modifier/-u-n-o-w-n-e-d/targets.html
+$dokka.location:io.outfoxx.swiftpoet/Modifier.WEAK///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-modifier/-w-e-a-k/index.html
+$dokka.location:io.outfoxx.swiftpoet/Modifier.WEAK/keyword/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-modifier/-w-e-a-k/keyword.html
+$dokka.location:io.outfoxx.swiftpoet/Modifier.WEAK/name/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-modifier/-w-e-a-k/name.html
+$dokka.location:io.outfoxx.swiftpoet/Modifier.WEAK/ordinal/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-modifier/-w-e-a-k/ordinal.html
+$dokka.location:io.outfoxx.swiftpoet/Modifier.WEAK/targets/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-modifier/-w-e-a-k/targets.html
 $dokka.location:io.outfoxx.swiftpoet/Modifier///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-modifier/index.html
 $dokka.location:io.outfoxx.swiftpoet/NameAllocator///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-name-allocator/index.html
 $dokka.location:io.outfoxx.swiftpoet/NameAllocator/NameAllocator/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-name-allocator/-name-allocator.html
