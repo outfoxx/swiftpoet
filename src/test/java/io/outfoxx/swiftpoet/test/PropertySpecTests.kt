@@ -16,7 +16,10 @@
 
 package io.outfoxx.swiftpoet.test
 
+import io.outfoxx.swiftpoet.CodeWriter
 import io.outfoxx.swiftpoet.DeclaredTypeName
+import io.outfoxx.swiftpoet.Modifier.UNOWNED
+import io.outfoxx.swiftpoet.Modifier.WEAK
 import io.outfoxx.swiftpoet.PropertySpec
 import io.outfoxx.swiftpoet.STRING
 import io.outfoxx.swiftpoet.tag
@@ -24,6 +27,7 @@ import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
 import org.junit.jupiter.api.DisplayName
 import org.junit.jupiter.api.Test
+import java.io.StringWriter
 
 @DisplayName("PropertySpec tests")
 class PropertySpecTests {
@@ -51,5 +55,45 @@ class PropertySpecTests {
   fun escapeType() {
     val property = PropertySpec.builder("type", DeclaredTypeName(listOf("Foo", "Type"))).build()
     assertThat(property.toString(), equalTo("let type: Foo.`Type`"))
+  }
+
+  @Test
+  @DisplayName("Adds weak modifier")
+  fun weakReferences() {
+    val testProperty =
+      PropertySpec.varBuilder("test", STRING, WEAK)
+        .build()
+
+    val out = StringWriter()
+    testProperty.emit(CodeWriter(out), setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+          weak var test: Swift.String
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Adds unowned modifier")
+  fun unownedReferences() {
+    val testProperty =
+      PropertySpec.varBuilder("test", STRING, UNOWNED)
+        .build()
+
+    val out = StringWriter()
+    testProperty.emit(CodeWriter(out), setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+          unowned var test: Swift.String
+        """.trimIndent()
+      )
+    )
   }
 }
