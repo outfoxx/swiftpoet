@@ -97,6 +97,7 @@ class DeclaredTypeName internal constructor(
 }
 
 @JvmField val OPTIONAL = DeclaredTypeName.typeName("Swift.Optional")
+@JvmField val IMPLICIT = DeclaredTypeName.typeName("Swift.ImplicitlyUnwrappedOptional")
 @JvmField val ANY = DeclaredTypeName.typeName("Swift.Any")
 @JvmField val ANY_OBJECT = DeclaredTypeName.typeName("Swift.AnyObject")
 @JvmField val ANY_CLASS = DeclaredTypeName.typeName("Swift.AnyClass")

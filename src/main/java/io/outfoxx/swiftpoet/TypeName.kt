@@ -53,6 +53,12 @@ abstract class TypeName internal constructor() {
   open fun wrapOptional(): ParameterizedTypeName = OPTIONAL.parameterizedBy(this)
   open fun unwrapOptional(): TypeName = this
 
+  open val implicit: Boolean = false
+
+  open fun makeImplicit(): ParameterizedTypeName = IMPLICIT.parameterizedBy(this)
+
+  open fun makeNonImplicit(): TypeName = this
+
   open val name: String
     get() {
       val out = StringWriter()
