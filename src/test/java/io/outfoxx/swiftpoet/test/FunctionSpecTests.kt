@@ -31,6 +31,8 @@ import io.outfoxx.swiftpoet.STRING
 import io.outfoxx.swiftpoet.SelfTypeName
 import io.outfoxx.swiftpoet.TypeAliasSpec
 import io.outfoxx.swiftpoet.TypeName
+import io.outfoxx.swiftpoet.TypeVariableName.Bound
+import io.outfoxx.swiftpoet.TypeVariableName.Bound.Constraint.SAME_TYPE
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.bound
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.typeVariable
 import io.outfoxx.swiftpoet.VOID
@@ -309,7 +311,7 @@ class FunctionSpecTests {
   }
 
   @Test
-  @DisplayName("Generates type variables")
+  @DisplayName("Generates type variables (concise)")
   fun testGenTypeVars() {
     val testClass = FunctionSpec.builder("test")
       .addTypeVariable(
@@ -336,9 +338,9 @@ class FunctionSpecTests {
   }
 
   @Test
-  @DisplayName("Generates type variables with multiple bounds")
+  @DisplayName("Generates type variables (multiple bounds)")
   fun testGenTypeVarsWithMultipleBounds() {
-    val testClass = FunctionSpec.builder("test")
+    val testFunc = FunctionSpec.builder("test")
       .addTypeVariable(
         typeVariable("T", bound(".Test2"), bound(".Test3"))
       )
@@ -351,7 +353,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testClass.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), null, setOf())
 
     assertThat(
       out.toString(),
@@ -360,6 +362,57 @@ class FunctionSpecTests {
             func test<T, X, Y>() where T : Test2, T : Test3, X : Test2, Y : Test3 & Test4 {
             }
     
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates type variables (same type triggers where clause)")
+  fun testGenTypeVarsConciseUnlessSameType() {
+    val testFunc = FunctionSpec.builder("test")
+      .addTypeVariable(
+        typeVariable("X", Bound(SAME_TYPE, ".Test2"))
+      )
+      .build()
+
+    val out = StringWriter()
+    testFunc.emit(CodeWriter(out), null, setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            func test<X>() where X == Test2 {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates boundless type variables")
+  fun testGenTypeVarsBoundless() {
+    val testClass = FunctionSpec.builder("test")
+      .addTypeVariable(
+        typeVariable("X")
+      )
+      .addTypeVariable(
+        typeVariable("Y")
+      )
+      .build()
+
+    val out = StringWriter()
+    testClass.emit(CodeWriter(out), null, setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            func test<X, Y>() {
+            }
+
         """.trimIndent()
       )
     )

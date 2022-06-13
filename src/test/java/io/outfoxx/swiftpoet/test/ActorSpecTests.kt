@@ -271,6 +271,30 @@ class ActorSpecTests {
   }
 
   @Test
+  @DisplayName("Generates type variables (boundless)")
+  fun testGenTypeVarsBoundless() {
+    val testClass = TypeSpec.actorBuilder("Test")
+      .addTypeVariable(
+        TypeVariableName.typeVariable("X")
+      )
+      .build()
+
+    val out = StringWriter()
+    testClass.emit(CodeWriter(out))
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            actor Test<X> {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
   @DisplayName("Generates super types")
   fun testGenSuperActor() {
     val testActor = TypeSpec.actorBuilder("Test")

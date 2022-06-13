@@ -140,31 +140,41 @@ internal class CodeWriter constructor(
       typeVariables.any { tv -> tv.name.contains(".") || tv.bounds.size > 1 || tv.bounds.any { it.constraint == SAME_TYPE } }
 
   /**
-   * Emit type variables with their bounds. If a type variable has more than a single bound - call
+   * Emit type variables declarations, possibly with their bounds.
+   *
+   * If there are too many type variables, or the type variable bounding information is too complex - call
    * [emitWhereBlock] with same input to produce an additional `where` block.
    *
-   * This should only be used when declaring type variables; everywhere else bounds are omitted.
+   * @see emitWhereBlock
+   *
+   * @param allTypeVariables All possible type variables and constraints
+   * @return Boolean determining if a where clause is required or not
    */
-  fun emitTypeVariables(allTypeVariables: List<TypeVariableName>) {
+  fun emitTypeVariables(allTypeVariables: List<TypeVariableName>): Boolean {
     val requiresWhere = requiresWhere(allTypeVariables)
     val declaringTypeVariables = allTypeVariables.filterNot { it.name.contains(".") }
 
-    if (declaringTypeVariables.isEmpty()) return
+    if (declaringTypeVariables.isEmpty()) return requiresWhere
 
     emit("<")
     declaringTypeVariables.forEachIndexed { index, typeVariable ->
       if (index > 0) emit(", ")
       emitCode("%L", typeVariable.name)
-      if (!requiresWhere) {
+      if (!requiresWhere && typeVariable.bounds.isNotEmpty()) {
         typeVariable.bounds[0].emit(this)
       }
     }
     emit(">")
+    return requiresWhere
   }
 
   /**
-   * Emit a `where` block containing type bounds for each type variable that has at least two
-   * bounds.
+   * Emit a `where` block containing complex type bounds and constraints.
+   *
+   * To be used with [emitTypeVariables], which will emit the accompanying type variable declarations
+   * and simple bound clauses.
+   *
+   * @see emitTypeVariables
    */
   fun emitWhereBlock(typeVariables: List<TypeVariableName>, forceOutput: Boolean = false) {
     val requiresWhere = requiresWhere(typeVariables)
