@@ -75,41 +75,40 @@ class ExtensionSpec private constructor(
       codeWriter.pushType(ExternalTypeSpec(typeName))
 
       codeWriter.indent()
-      var firstMember = true
+
+      // Types.
+      for (typeSpec in typeSpecs) {
+        codeWriter.emit("\n")
+        typeSpec.emit(codeWriter)
+      }
 
       // Properties.
       for (propertySpec in propertySpecs) {
-        if (!firstMember) codeWriter.emit("\n")
+        codeWriter.emit("\n")
         propertySpec.emit(codeWriter, setOf(INTERNAL))
-        firstMember = false
       }
 
       // Constructors.
       for (funSpec in funSpecs) {
         if (!funSpec.isConstructor) continue
-        if (!firstMember) codeWriter.emit("\n")
+        codeWriter.emit("\n")
         funSpec.emit(codeWriter, typeName, setOf(INTERNAL))
-        firstMember = false
       }
 
       // Functions.
       for (funSpec in funSpecs) {
         if (funSpec.isConstructor) continue
-        if (!firstMember) codeWriter.emit("\n")
+        codeWriter.emit("\n")
         funSpec.emit(codeWriter, typeName, setOf(INTERNAL))
-        firstMember = false
-      }
-
-      // Types.
-      for (typeSpec in typeSpecs) {
-        if (!firstMember) codeWriter.emit("\n")
-        typeSpec.emit(codeWriter)
-        firstMember = false
       }
 
       codeWriter.unindent()
       codeWriter.popType()
       codeWriter.popModule()
+
+      if (typeSpecs.isNotEmpty() || propertySpecs.isNotEmpty() || funSpecs.isNotEmpty()) {
+        codeWriter.emit("\n")
+      }
 
       codeWriter.emit("}\n")
     } finally {

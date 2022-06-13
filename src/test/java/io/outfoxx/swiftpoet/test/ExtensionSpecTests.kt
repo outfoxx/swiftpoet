@@ -129,7 +129,9 @@ class ExtensionSpecTests {
       equalTo(
         """
             extension Swift.Array {
+            
               typealias Keys = Other.Keys
+            
             }
 
         """.trimIndent()

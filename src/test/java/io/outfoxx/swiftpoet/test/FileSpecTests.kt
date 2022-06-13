@@ -108,8 +108,10 @@ class FileSpecTests {
             import RxSwift
 
             extension Observable {
+            
               func test() -> Element {
               }
+            
             }
 
         """.trimIndent()
