@@ -271,6 +271,30 @@ class ClassSpecTests {
   }
 
   @Test
+  @DisplayName("Generates type variables (boundless)")
+  fun testGenTypeVarsBoundless() {
+    val testClass = TypeSpec.classBuilder("Test")
+      .addTypeVariable(
+        TypeVariableName.typeVariable("X")
+      )
+      .build()
+
+    val out = StringWriter()
+    testClass.emit(CodeWriter(out))
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            class Test<X> {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
   @DisplayName("Generates super types")
   fun testGenSuperClass() {
     val testClass = TypeSpec.classBuilder("Test")
