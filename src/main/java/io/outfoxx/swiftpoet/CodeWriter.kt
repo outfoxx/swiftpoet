@@ -16,6 +16,8 @@
 
 package io.outfoxx.swiftpoet
 
+import io.outfoxx.swiftpoet.TypeVariableName.Bound.Constraint.SAME_TYPE
+
 /** Sentinel value that indicates that no user-provided package has been set.  */
 private val NO_MODULE = String()
 
@@ -133,20 +135,27 @@ internal class CodeWriter constructor(
     }
   }
 
+  private fun requiresWhere(typeVariables: List<TypeVariableName>): Boolean =
+    typeVariables.size > 2 ||
+      typeVariables.any { tv -> tv.name.contains(".") || tv.bounds.size > 1 || tv.bounds.any { it.constraint == SAME_TYPE } }
+
   /**
    * Emit type variables with their bounds. If a type variable has more than a single bound - call
    * [emitWhereBlock] with same input to produce an additional `where` block.
    *
    * This should only be used when declaring type variables; everywhere else bounds are omitted.
    */
-  fun emitTypeVariables(typeVariables: List<TypeVariableName>) {
-    if (typeVariables.isEmpty()) return
+  fun emitTypeVariables(allTypeVariables: List<TypeVariableName>) {
+    val requiresWhere = requiresWhere(allTypeVariables)
+    val declaringTypeVariables = allTypeVariables.filterNot { it.name.contains(".") }
+
+    if (declaringTypeVariables.isEmpty()) return
 
     emit("<")
-    typeVariables.forEachIndexed { index, typeVariable ->
+    declaringTypeVariables.forEachIndexed { index, typeVariable ->
       if (index > 0) emit(", ")
       emitCode("%L", typeVariable.name)
-      if (typeVariables.size <= 2 && typeVariables.all { it.bounds.size == 1 }) {
+      if (!requiresWhere) {
         typeVariable.bounds[0].emit(this)
       }
     }
@@ -158,14 +167,17 @@ internal class CodeWriter constructor(
    * bounds.
    */
   fun emitWhereBlock(typeVariables: List<TypeVariableName>, forceOutput: Boolean = false) {
+    val requiresWhere = requiresWhere(typeVariables)
     if (typeVariables.isEmpty()) return
 
-    typeVariables.forEachIndexed { index, typeVariable ->
-      if (forceOutput || typeVariables.size > 2 || typeVariables.any { it.bounds.size > 1 }) {
+    var index = 0
+    typeVariables.forEach { typeVariable ->
+      if (forceOutput || requiresWhere) {
         for ((boundIndex, bound) in typeVariable.bounds.withIndex()) {
           if (index > 0 || boundIndex > 0) emitCode(",%W") else emitCode("%Wwhere ")
           emitCode("%T", typeVariable)
           bound.emit(this)
+          ++index
         }
       }
     }

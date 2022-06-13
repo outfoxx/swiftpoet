@@ -227,7 +227,7 @@ class ClassSpecTests {
         TypeVariableName.typeVariable("X", TypeVariableName.Bound(".Test2"))
       )
       .addTypeVariable(
-        TypeVariableName.typeVariable("Z", TypeVariableName.Bound(SAME_TYPE, ".Test5"))
+        TypeVariableName.typeVariable("Z", TypeVariableName.Bound(".Test5"))
       )
       .build()
 
@@ -238,7 +238,31 @@ class ClassSpecTests {
       out.toString(),
       equalTo(
         """
-            class Test<X : Test2, Z == Test5> {
+            class Test<X : Test2, Z : Test5> {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates type variables (same type triggers where clause)")
+  fun testGenTypeVarsConciseUnlessSameType() {
+    val testClass = TypeSpec.classBuilder("Test")
+      .addTypeVariable(
+        TypeVariableName.typeVariable("X", TypeVariableName.Bound(SAME_TYPE, ".Test2"))
+      )
+      .build()
+
+    val out = StringWriter()
+    testClass.emit(CodeWriter(out))
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            class Test<X> where X == Test2 {
             }
 
         """.trimIndent()
