@@ -30,7 +30,11 @@ class ParameterSpec private constructor(
 
   internal fun emit(codeWriter: CodeWriter, includeType: Boolean = true, includeNames: Boolean = true) {
     if (includeNames) {
-      argumentLabel?.let { codeWriter.emitCode("%L ", escapeIfNecessary(it)) }
+      argumentLabel?.let { argLabel ->
+        if (argLabel != parameterName) {
+          codeWriter.emitCode("%L ", escapeIfNecessary(argLabel))
+        }
+      }
       codeWriter.emitCode("%L", escapeIfNecessary(parameterName))
     }
     if (includeType) {

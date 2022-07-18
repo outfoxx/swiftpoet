@@ -585,6 +585,28 @@ class FunctionSpecTests {
   }
 
   @Test
+  @DisplayName("Ignores duplicate parameter name")
+  fun testGenParameterIgnoresDuplicateName() {
+    val testClass = FunctionSpec.builder("test")
+      .addParameter("parameter", "parameter", STRING)
+      .build()
+
+    val out = StringWriter()
+    testClass.emit(CodeWriter(out), null, setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            func test(parameter: Swift.String) {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
   @DisplayName("toBuilder copies all fields")
   fun testToBuilder() {
     val testFuncBlder = FunctionSpec.builder("Test")
