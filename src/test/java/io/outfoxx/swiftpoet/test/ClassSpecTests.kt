@@ -389,6 +389,7 @@ class ClassSpecTests {
   fun testGenProperties() {
     val testClass = TypeSpec.classBuilder("Test")
       .addProperty("value", INT, Modifier.PRIVATE)
+      .addMutableProperty("private_set_value", INT, Modifier.PRIVATE_SET)
       .addMutableProperty("value2", STRING, Modifier.PUBLIC)
       .addProperty(
         PropertySpec.varBuilder("value3", BOOL, Modifier.INTERNAL)
@@ -403,6 +404,12 @@ class ClassSpecTests {
         PropertySpec.builder("valueBy5", INT)
           .getter(FunctionSpec.getterBuilder().addCode("%[return value * 5\n%]").build())
           .setter(FunctionSpec.setterBuilder().addParameter("newVal", INT).addCode("%[value2 = newVal / 5\n%]").build())
+          .build()
+      )
+      .addProperty(
+        PropertySpec.varBuilder("did_set_value", INT)
+          .didSet("value2 = did_set_value * 2")
+          .addModifiers()
           .build()
       )
       .addProperty(
@@ -428,6 +435,7 @@ class ClassSpecTests {
             class Test {
 
               private let value: Swift.Int
+              private(set) var private_set_value: Swift.Int
               public var value2: Swift.String
               var value3: Swift.Bool = true
               let value4: Swift.Int
@@ -437,6 +445,11 @@ class ClassSpecTests {
                 }
                 set(newVal) {
                   value2 = newVal / 5
+                }
+              }
+              var did_set_value: Swift.Int {
+                didSet {
+                  value2 = did_set_value * 2
                 }
               }
               var valueBy6: Swift.Int {

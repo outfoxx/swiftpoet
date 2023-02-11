@@ -102,6 +102,9 @@ class FunctionSpec private constructor(
       if (parameters.isEmpty()) {
         return
       }
+    } else if (name == DID_SET) {
+      codeWriter.emitCode(DID_SET)
+      return
     } else {
       val name =
         if (name.isOperator)
@@ -116,7 +119,7 @@ class FunctionSpec private constructor(
     }
 
     parameters.emit(codeWriter) { param ->
-      param.emit(codeWriter, includeType = name != SETTER)
+      param.emit(codeWriter, includeType = name != SETTER && name != DID_SET)
     }
 
     val modifiers = mutableListOf<String>()
@@ -222,6 +225,7 @@ class FunctionSpec private constructor(
 
     fun addParameter(parameterSpec: ParameterSpec) = apply {
       check(name != GETTER) { "$name cannot have parameters" }
+      check(name != DID_SET) { "$name cannot have parameters" }
       check(name != SETTER || parameters.size == 0) { "$name can have only one parameter" }
       parameters += parameterSpec
     }
@@ -312,10 +316,11 @@ class FunctionSpec private constructor(
     private const val OPERATOR = "op:"
     internal const val GETTER = "get"
     internal const val SETTER = "set"
+    internal const val DID_SET = "didSet"
 
     internal val String.isConstructor get() = this == CONSTRUCTOR
     internal val String.isDeinitializer get() = this == DEINITIALIZER
-    internal val String.isAccessor get() = this.isOneOf(GETTER, SETTER)
+    internal val String.isAccessor get() = this.isOneOf(GETTER, SETTER, DID_SET)
     internal val String.isOperator get() = this.startsWith(OPERATOR)
 
     @JvmStatic fun builder(name: String) = Builder(name)
@@ -329,6 +334,8 @@ class FunctionSpec private constructor(
     @JvmStatic fun getterBuilder() = Builder(GETTER)
 
     @JvmStatic fun setterBuilder() = Builder(SETTER)
+
+    @JvmStatic fun didSetBuilder() = Builder(DID_SET)
 
     @JvmStatic fun operatorBuilder(name: String) = Builder(OPERATOR + name)
   }

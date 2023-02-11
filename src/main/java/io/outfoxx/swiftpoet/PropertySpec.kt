@@ -17,6 +17,7 @@
 package io.outfoxx.swiftpoet
 
 import io.outfoxx.swiftpoet.CodeBlock.Companion.ABSTRACT
+import io.outfoxx.swiftpoet.FunctionSpec.Companion.DID_SET
 import io.outfoxx.swiftpoet.FunctionSpec.Companion.GETTER
 import io.outfoxx.swiftpoet.FunctionSpec.Companion.SETTER
 
@@ -33,6 +34,7 @@ class PropertySpec private constructor(
   val initializer = builder.initializer
   val getter = builder.getter
   val setter = builder.setter
+  val didSet = builder.didSet
 
   internal fun emit(
     codeWriter: CodeWriter,
@@ -42,17 +44,18 @@ class PropertySpec private constructor(
     codeWriter.emitDoc(doc)
     codeWriter.emitAttributes(attributes)
     codeWriter.emitModifiers(modifiers, implicitModifiers)
-    codeWriter.emit(if (mutable || getter != null || setter != null) "var " else "let ")
+    codeWriter.emit(if (mutable || getter != null || setter != null || didSet != null) "var " else "let ")
     codeWriter.emitCode("%L: %T", escapeIfNecessary(name), type)
     if (withInitializer && initializer != null) {
       codeWriter.emitCode(" = %[%L%]", initializer)
     }
 
-    if (getter != null || setter != null) {
+    if (getter != null || setter != null || didSet != null) {
 
       // Support concise syntax (e.g. "{ get set }") for protocol property declarations
       if ((getter == null || getter.body == ABSTRACT) &&
-        (setter == null || setter.body == ABSTRACT)
+        (setter == null || setter.body == ABSTRACT) &&
+        didSet == null
       ) {
         codeWriter.emit(" { ")
         if (getter != null) codeWriter.emit("${getter.name} ")
@@ -70,6 +73,11 @@ class PropertySpec private constructor(
       if (setter != null) {
         codeWriter.emitCode("%>")
         setter.emit(codeWriter, null, implicitModifiers)
+        codeWriter.emitCode("%<")
+      }
+      if (didSet != null) {
+        codeWriter.emitCode("%>")
+        didSet.emit(codeWriter, null, implicitModifiers)
         codeWriter.emitCode("%<")
       }
 
@@ -95,6 +103,7 @@ class PropertySpec private constructor(
     builder.modifiers += modifiers
     builder.initializer = initializer
     builder.setter = setter
+    builder.didSet = didSet
     builder.getter = getter
     return builder
   }
@@ -109,6 +118,7 @@ class PropertySpec private constructor(
     internal var initializer: CodeBlock? = null
     internal var getter: FunctionSpec? = null
     internal var setter: FunctionSpec? = null
+    internal var didSet: FunctionSpec? = null
 
     fun mutable(mutable: Boolean) = apply {
       this.mutable = mutable
@@ -146,6 +156,18 @@ class PropertySpec private constructor(
       this.setter = setter
     }
 
+    fun didSet(didSetter: FunctionSpec) = apply {
+      require(didSetter.name == DID_SET) { "${didSetter.name} is not a didSet" }
+      require(didSetter.parameters.isEmpty()) { "didSet takes no parameters" }
+      require(this.mutable) { "didSet may only be used on mutable variables" }
+      check(this.didSet == null) { "didSet was already set" }
+      this.didSet = didSetter
+    }
+
+    fun didSet(code: String) = apply {
+      this.didSet(FunctionSpec.didSetBuilder().addCode(code.withNewLine).build())
+    }
+
     fun abstractGetter() = apply {
       this.getter = FunctionSpec.getterBuilder().abstract(true).build()
     }
@@ -176,3 +198,6 @@ class PropertySpec private constructor(
     }
   }
 }
+
+private val String.withNewLine: String
+  get() = if (this.endsWith("\n")) this else "$this\n"

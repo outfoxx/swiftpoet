@@ -24,6 +24,7 @@ enum class Modifier(
   OPEN("open", Target.CLASS, Target.FUNCTION, Target.PROPERTY),
   PUBLIC("public", Target.CLASS, Target.FUNCTION, Target.PROPERTY),
   PRIVATE("private", Target.CLASS, Target.FUNCTION, Target.PROPERTY),
+  PRIVATE_SET("private(set)", Target.PROPERTY),
   FILEPRIVATE("fileprivate", Target.CLASS, Target.FUNCTION, Target.PROPERTY),
   INTERNAL("internal", Target.CLASS, Target.FUNCTION, Target.PROPERTY),
 
