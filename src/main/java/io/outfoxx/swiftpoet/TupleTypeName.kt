@@ -17,8 +17,9 @@
 package io.outfoxx.swiftpoet
 
 class TupleTypeName internal constructor(
-  internal val types: List<Pair<String, TypeName>>
+  types: List<Pair<String, TypeName>>
 ) : TypeName() {
+  val types = types.toImmutableList()
 
   override fun emit(out: CodeWriter): CodeWriter {
     out.emit("(")
