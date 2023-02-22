@@ -110,7 +110,7 @@ class DeclaredTypeName internal constructor(
 @JvmField val INT8 = DeclaredTypeName.typeName("Swift.Int8")
 @JvmField val UINT8 = DeclaredTypeName.typeName("Swift.UInt8")
 @JvmField val INT16 = DeclaredTypeName.typeName("Swift.Int16")
-@JvmField val UIN16 = DeclaredTypeName.typeName("Swift.UInt16")
+@JvmField val UINT16 = DeclaredTypeName.typeName("Swift.UInt16")
 @JvmField val INT32 = DeclaredTypeName.typeName("Swift.Int32")
 @JvmField val UINT32 = DeclaredTypeName.typeName("Swift.UInt32")
 @JvmField val INT64 = DeclaredTypeName.typeName("Swift.Int64")
