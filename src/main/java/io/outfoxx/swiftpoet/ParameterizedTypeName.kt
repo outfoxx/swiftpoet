@@ -102,3 +102,6 @@ class ParameterizedTypeName internal constructor(
 
 fun DeclaredTypeName.parameterizedBy(vararg typeArguments: TypeName) =
   ParameterizedTypeName(null, this, typeArguments.toList())
+
+fun DeclaredTypeName.parameterizedBy(typeArguments: List<TypeName>) =
+  ParameterizedTypeName(null, this, typeArguments)

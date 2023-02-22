@@ -16,7 +16,7 @@
 
 package io.outfoxx.swiftpoet
 
-class TupleTypeName internal constructor(
+class TupleTypeName constructor(
   types: List<Pair<String, TypeName>>
 ) : TypeName() {
   val types = types.toImmutableList()
