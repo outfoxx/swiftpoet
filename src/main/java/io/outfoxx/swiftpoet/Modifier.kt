@@ -26,6 +26,7 @@ enum class Modifier(
   PRIVATE("private", Target.CLASS, Target.FUNCTION, Target.PROPERTY),
   PRIVATE_SET("private(set)", Target.PROPERTY),
   FILEPRIVATE("fileprivate", Target.CLASS, Target.FUNCTION, Target.PROPERTY),
+  FILEPRIVATE_SET("fileprivate(set)", Target.PROPERTY),
   INTERNAL("internal", Target.CLASS, Target.FUNCTION, Target.PROPERTY),
 
   CLASS("class", Target.FUNCTION, Target.PROPERTY),
