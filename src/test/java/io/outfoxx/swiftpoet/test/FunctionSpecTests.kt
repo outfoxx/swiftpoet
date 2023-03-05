@@ -560,6 +560,31 @@ class FunctionSpecTests {
 
   @Test
   @DisplayName("Generates parameter modifiers")
+  fun testGenParameterDefault() {
+    val testClass = FunctionSpec.builder("test")
+      .addParameter(
+        ParameterSpec.builder("_ a", INT)
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testClass.emit(CodeWriter(out), null, setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            func test(_ a: Swift.Int) {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates parameter modifiers")
   fun testGenParameterDecorators() {
     val testClass = FunctionSpec.builder("test")
       .addParameter(

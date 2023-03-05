@@ -133,7 +133,15 @@ internal fun escapeKeywords(canonicalName: String) =
 
 internal fun escapeIfKeyword(value: String) = if (value.isKeyword) "`$value`" else value
 
-internal fun escapeIfNotJavaIdentifier(value: String) = if (value.isNotEmpty() && !Character.isJavaIdentifierStart(value.first()) || value.drop(1).any { !Character.isJavaIdentifierPart(it) }) "`$value`" else value
+internal fun escapeIfNotJavaIdentifier(value: String): String =
+  if (value.startsWith("_ ")) {
+    "_ ${escapeIfNotJavaIdentifier(value.drop(2))}"
+  }
+  else if (value.isNotEmpty() && !Character.isJavaIdentifierStart(value.first()) || value.drop(1).any { !Character.isJavaIdentifierPart(it) }) {
+    "`$value`"
+} else {
+    value
+}
 
 internal fun escapeIfNecessary(value: String) = escapeIfKeyword(escapeIfNotJavaIdentifier(value))
 
