@@ -43,6 +43,10 @@ class TupleTypeName constructor(
       return TupleTypeName(listOf(*types))
     }
 
+    fun of(typesList: List<Pair<String, TypeName>>): TupleTypeName {
+      return TupleTypeName(typesList)
+    }
+
     fun from(vararg types: Pair<String, String>): TupleTypeName {
       return TupleTypeName(listOf(*types).map { it.first to DeclaredTypeName.typeName(it.second) })
     }
