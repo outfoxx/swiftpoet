@@ -16,6 +16,14 @@
 
 package io.outfoxx.swiftpoet
 
+/**
+ * Compose a set of [TypeName]s (usually protocols) as a single [TypeName].
+ *
+ * Composition of types `A`, `B` and `C` is
+ * ```
+ *   A & B & C
+ * ```
+ */
 class ComposedTypeName private constructor(
   val types: List<DeclaredTypeName>
 ) : TypeName() {
@@ -30,14 +38,32 @@ class ComposedTypeName private constructor(
 
   companion object {
 
+    /**
+     * Compose a type name from multiple type names.
+     *
+     * @param types Type names to include.
+     * @return Composed type name consisting of all [types].
+     */
     fun composed(types: List<DeclaredTypeName>): ComposedTypeName {
       return ComposedTypeName(types)
     }
 
+    /**
+     * Compose a type name from multiple type names.
+     *
+     * @param types Type names to include.
+     * @return Composed type name consisting of all [types].
+     */
     fun composed(vararg types: DeclaredTypeName): ComposedTypeName {
       return ComposedTypeName(types.toList())
     }
 
+    /**
+     * Compose a type name from multiple type names.
+     *
+     * @param types Type names, mapped to [DeclaredTypeName]s, to include.
+     * @return Composed type name consisting of all [types].
+     */
     fun composed(vararg types: String): ComposedTypeName {
       return ComposedTypeName(types.map { DeclaredTypeName.typeName(it) })
     }
