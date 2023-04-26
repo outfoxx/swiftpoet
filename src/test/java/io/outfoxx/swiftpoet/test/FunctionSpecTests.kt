@@ -202,6 +202,34 @@ class FunctionSpecTests {
   }
 
   @Test
+  @DisplayName("Generates correct implicit closure parameters")
+  fun testGenerateImplicitClosureParameters() {
+    val closureTypeName =
+      FunctionTypeName.get(listOf(ParameterSpec.unnamed(STRING), ParameterSpec.unnamed(INT)), STRING)
+        .makeImplicit()
+    val testFunc = FunctionSpec.builder("test")
+      .addParameter(
+        ParameterSpec.builder("closure", closureTypeName)
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testFunc.emit(CodeWriter(out), null, setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            func test(closure: ((Swift.String, Swift.Int) -> Swift.String)!) {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
   @DisplayName("Generates correct closure optional return type")
   fun testGenerateClosureOptionalReturnType() {
     val closureTypeName =
@@ -221,6 +249,33 @@ class FunctionSpecTests {
       equalTo(
         """
             func test(closure: (Swift.String, Swift.Int) -> Swift.String?) {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates correct implicit optional return type")
+  fun testGenerateClosureImplicitReturnType() {
+    val closureTypeName =
+      FunctionTypeName.get(listOf(ParameterSpec.unnamed(STRING), ParameterSpec.unnamed(INT)), STRING.makeImplicit())
+    val testFunc = FunctionSpec.builder("test")
+      .addParameter(
+        ParameterSpec.builder("closure", closureTypeName)
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testFunc.emit(CodeWriter(out), null, setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            func test(closure: (Swift.String, Swift.Int) -> Swift.String!) {
             }
 
         """.trimIndent()
@@ -249,6 +304,34 @@ class FunctionSpecTests {
       equalTo(
         """
             func test(closure: ((Swift.String, Swift.Int) -> Swift.String?)?) {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates correct implicit closure parameters and implicit return type")
+  fun testGenerateImplicitClosureParametersAndImplicitReturnType() {
+    val closureTypeName =
+      FunctionTypeName.get(listOf(ParameterSpec.unnamed(STRING), ParameterSpec.unnamed(INT)), STRING.makeImplicit())
+        .makeImplicit()
+    val testFunc = FunctionSpec.builder("test")
+      .addParameter(
+        ParameterSpec.builder("closure", closureTypeName)
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testFunc.emit(CodeWriter(out), null, setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            func test(closure: ((Swift.String, Swift.Int) -> Swift.String!)!) {
             }
 
         """.trimIndent()

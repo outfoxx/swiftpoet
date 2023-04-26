@@ -62,23 +62,23 @@ class ParameterizedTypeName internal constructor(
     else
       this
 
-  override fun emit(out: CodeWriter): CodeWriter {
-    when (rawType) {
-      OPTIONAL -> {
-        typeArguments[0].apply {
-          when (this) {
-            is FunctionTypeName -> {
-              out.emitCode("(")
-              out.emitCode("%T", this)
-              out.emitCode(")?")
-            }
-            else -> {
-              out.emitCode("%T?", this)
-            }
-          }
+  private fun emitShorthand(suffix: String, out: CodeWriter) {
+    typeArguments[0].let {
+      when (it) {
+        is FunctionTypeName, is ComposedTypeName -> {
+          out.emitCode("(%T)%L", it, suffix)
+        }
+        else -> {
+          out.emitCode("%T%L", it, suffix)
         }
       }
-      IMPLICIT -> out.emitCode("%T!", typeArguments[0])
+    }
+  }
+
+  override fun emit(out: CodeWriter): CodeWriter {
+    when (rawType) {
+      OPTIONAL -> emitShorthand("?", out)
+      IMPLICIT -> emitShorthand("!", out)
       ARRAY -> out.emitCode("[%T]", typeArguments[0])
       DICTIONARY -> out.emitCode("[%T : %T]", typeArguments[0], typeArguments[1])
       else -> {
