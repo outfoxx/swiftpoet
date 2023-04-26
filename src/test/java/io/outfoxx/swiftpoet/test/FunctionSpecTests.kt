@@ -174,6 +174,89 @@ class FunctionSpecTests {
   }
 
   @Test
+  @DisplayName("Generates correct optional closure parameters")
+  fun testGenerateOptionalClosureParameters() {
+    val closureTypeName =
+      FunctionTypeName.get(listOf(ParameterSpec.unnamed(STRING), ParameterSpec.unnamed(INT)), STRING)
+        .makeOptional()
+    val testFunc = FunctionSpec.builder("test")
+      .addParameter(
+        ParameterSpec.builder("closure", closureTypeName)
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testFunc.emit(CodeWriter(out), null, setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            func test(closure: ((Swift.String, Swift.Int) -> Swift.String)?) {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates correct closure optional return type")
+  fun testGenerateClosureOptionalReturnType() {
+    val closureTypeName =
+      FunctionTypeName.get(listOf(ParameterSpec.unnamed(STRING), ParameterSpec.unnamed(INT)), STRING.makeOptional())
+    val testFunc = FunctionSpec.builder("test")
+      .addParameter(
+        ParameterSpec.builder("closure", closureTypeName)
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testFunc.emit(CodeWriter(out), null, setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            func test(closure: (Swift.String, Swift.Int) -> Swift.String?) {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates correct optional closure parameters and optional return type")
+  fun testGenerateOptionalClosureParametersAndOptionalReturnType() {
+    val closureTypeName =
+      FunctionTypeName.get(listOf(ParameterSpec.unnamed(STRING), ParameterSpec.unnamed(INT)), STRING.makeOptional())
+        .makeOptional()
+    val testFunc = FunctionSpec.builder("test")
+      .addParameter(
+        ParameterSpec.builder("closure", closureTypeName)
+          .build()
+      )
+      .build()
+
+    val out = StringWriter()
+    testFunc.emit(CodeWriter(out), null, setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            func test(closure: ((Swift.String, Swift.Int) -> Swift.String?)?) {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
   @DisplayName("Generates escaping closure parameters")
   fun testGenerateEscapingClosureParameters() {
     val closureTypeName =
