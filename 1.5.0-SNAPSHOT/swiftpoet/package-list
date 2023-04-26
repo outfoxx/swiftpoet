@@ -93,6 +93,9 @@ $dokka.location:io.outfoxx.swiftpoet/CodeBlock/isNotEmpty/#/PointingToDeclaratio
 $dokka.location:io.outfoxx.swiftpoet/CodeBlock/toBuilder/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-code-block/to-builder.html
 $dokka.location:io.outfoxx.swiftpoet/CodeBlock/toString/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-code-block/to-string.html
 $dokka.location:io.outfoxx.swiftpoet/ComposedTypeName.Companion///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-composed-type-name/-companion/index.html
+$dokka.location:io.outfoxx.swiftpoet/ComposedTypeName.Companion/composed/#kotlin.Array[io.outfoxx.swiftpoet.DeclaredTypeName]/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-composed-type-name/-companion/composed.html
+$dokka.location:io.outfoxx.swiftpoet/ComposedTypeName.Companion/composed/#kotlin.Array[kotlin.String]/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-composed-type-name/-companion/composed.html
+$dokka.location:io.outfoxx.swiftpoet/ComposedTypeName.Companion/composed/#kotlin.collections.List[io.outfoxx.swiftpoet.DeclaredTypeName]/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-composed-type-name/-companion/composed.html
 $dokka.location:io.outfoxx.swiftpoet/ComposedTypeName///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-composed-type-name/index.html
 $dokka.location:io.outfoxx.swiftpoet/ComposedTypeName/types/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-composed-type-name/types.html
 $dokka.location:io.outfoxx.swiftpoet/DeclaredTypeName.Companion///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-declared-type-name/-companion/index.html
