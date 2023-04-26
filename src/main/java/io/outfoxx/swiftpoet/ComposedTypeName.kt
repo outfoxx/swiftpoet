@@ -30,15 +30,15 @@ class ComposedTypeName private constructor(
 
   companion object {
 
-    internal fun composed(types: List<DeclaredTypeName>): ComposedTypeName {
+    fun composed(types: List<DeclaredTypeName>): ComposedTypeName {
       return ComposedTypeName(types)
     }
 
-    internal fun composed(vararg types: DeclaredTypeName): ComposedTypeName {
+    fun composed(vararg types: DeclaredTypeName): ComposedTypeName {
       return ComposedTypeName(types.toList())
     }
 
-    internal fun composed(vararg types: String): ComposedTypeName {
+    fun composed(vararg types: String): ComposedTypeName {
       return ComposedTypeName(types.map { DeclaredTypeName.typeName(it) })
     }
   }
