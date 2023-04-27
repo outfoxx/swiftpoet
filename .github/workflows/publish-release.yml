@@ -1,0 +1,67 @@
+name: Publish Release
+
+on:
+  push:
+    tags: [ "[0-9]+.[0-9]+.[0-9]+**" ]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-release-${{github.ref_name}}
+  cancel-in-progress: false
+
+jobs:
+
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: adopt
+
+    - name: Build Artifacts & Documentation
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: build -x test
+        properties: |
+          releaseVersion=${{ github.ref_name }}
+
+    - name: Publish Maven Release
+      uses: gradle/gradle-build-action@v2
+      env:
+        ORG_GRADLE_PROJECT_signingKeyId: ${{ secrets.OSSRH_GPG_SECRET_KEY_ID }}
+        ORG_GRADLE_PROJECT_signingKey: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+        ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+      with:
+        arguments: >-
+          publishToSonatype
+          closeAndReleaseSonatypeStagingRepository
+          -x test
+        properties: |
+          releaseVersion=${{ github.ref_name }}
+          sonatypeUsername=${{ secrets.OSSRH_USER }}
+          sonatypePassword=${{ secrets.OSSRH_PASS }}
+
+    - name: Publish Documentation
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages
+        clean: false
+        folder: build/dokka
+
+    - name: Publish GitHub Release
+      uses: gradle/gradle-build-action@v2
+      env:
+        ORG_GRADLE_PROJECT_signingKeyId: ${{ secrets.OSSRH_GPG_SECRET_KEY_ID }}
+        ORG_GRADLE_PROJECT_signingKey: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+        ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
+      with:
+        arguments: githubRelease -x test
+        properties: |
+          releaseVersion=${{ github.ref_name }}
+          github.token=${{ secrets.GITHUB_TOKEN }}
