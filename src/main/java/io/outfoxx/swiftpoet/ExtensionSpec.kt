@@ -92,14 +92,14 @@ class ExtensionSpec private constructor(
       for (funSpec in funSpecs) {
         if (!funSpec.isConstructor) continue
         codeWriter.emit("\n")
-        funSpec.emit(codeWriter, typeName, setOf(INTERNAL))
+        funSpec.emit(codeWriter, setOf(INTERNAL))
       }
 
       // Functions.
       for (funSpec in funSpecs) {
         if (funSpec.isConstructor) continue
         codeWriter.emit("\n")
-        funSpec.emit(codeWriter, typeName, setOf(INTERNAL))
+        funSpec.emit(codeWriter, setOf(INTERNAL))
       }
 
       codeWriter.unindent()
