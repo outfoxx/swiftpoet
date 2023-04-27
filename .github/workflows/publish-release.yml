@@ -33,12 +33,13 @@ jobs:
 
     - name: Publish Maven Release
       uses: gradle/gradle-build-action@v2
+      env:
+        ORG_GRADLE_PROJECT_signingKeyId: ${{ secrets.OSSRH_GPG_SECRET_KEY_ID }}
+        ORG_GRADLE_PROJECT_signingKey: ${{ secrets.OSSRH_GPG_SECRET_KEY }}
+        ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
       with:
         arguments: |
           -PreleaseVersion=${{ github.ref_name }}
-          -PsigningKeyId=${{ secrets.OSSRH_GPG_SECRET_KEY_ID }}
-          -PsigningKey=${{ secrets.OSSRH_GPG_SECRET_KEY }}
-          -PsigningPassword=${{ secrets.OSSRH_GPG_SECRET_KEY_PASSWORD }}
           -PsonatypeUsername=${{ secrets.OSSRH_USER }}
           -PsonatypePassword=${{ secrets.OSSRH_PASS }}
           publishToSonatype

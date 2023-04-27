@@ -193,6 +193,7 @@ signing {
   val signingKey: String? by project
   val signingPassword: String? by project
   useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+  sign(publishing.publications["mavenJava"])
 }
 
 tasks.withType<Sign>().configureEach {
