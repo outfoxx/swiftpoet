@@ -19,6 +19,10 @@ package io.outfoxx.swiftpoet
 import io.outfoxx.swiftpoet.CodeBlock.Companion.ABSTRACT
 import io.outfoxx.swiftpoet.FunctionSpec.Companion.GETTER
 import io.outfoxx.swiftpoet.FunctionSpec.Companion.SETTER
+import io.outfoxx.swiftpoet.Modifier.INTERNAL
+import io.outfoxx.swiftpoet.Modifier.OPEN
+import io.outfoxx.swiftpoet.Modifier.PRIVATE
+import io.outfoxx.swiftpoet.Modifier.PUBLIC
 
 /** A generated property declaration.  */
 class PropertySpec private constructor(
@@ -26,6 +30,7 @@ class PropertySpec private constructor(
 ) : AttributedSpec(builder.attributes.toImmutableList(), builder.tags) {
 
   val mutable = builder.mutable
+  val mutableVisibility = builder.mutableVisibility
   val simpleSpec = builder.simpleSpec
   val subscriptSpec = builder.subscriptSpec
   val doc = builder.doc.build()
@@ -51,9 +56,15 @@ class PropertySpec private constructor(
     codeWriter.emitDoc(doc)
     codeWriter.emitAttributes(attributes)
     codeWriter.emitModifiers(modifiers, implicitModifiers)
+
     if (subscriptSpec != null) {
       subscriptSpec.emit(codeWriter, "subscript")
     } else if (simpleSpec != null) {
+
+      if (mutable && mutableVisibility != null) {
+        codeWriter.emitCode("%L(set) ", mutableVisibility.keyword)
+      }
+
       val (name, type) = simpleSpec
       codeWriter.emit(if (mutable || getter != null || setter != null) "var " else "let ")
       codeWriter.emitCode("%L: %T", escapeIfNecessary(name), type)
@@ -118,6 +129,7 @@ class PropertySpec private constructor(
     internal var simpleSpec: Pair<String, TypeName>? = null
     internal var subscriptSpec: FunctionSignatureSpec? = null
     internal var mutable = false
+    internal var mutableVisibility: Modifier? = null
     internal val doc = CodeBlock.builder()
     internal val modifiers = mutableListOf<Modifier>()
     internal var initializer: CodeBlock? = null
@@ -135,6 +147,11 @@ class PropertySpec private constructor(
     fun mutable(mutable: Boolean) = apply {
       check(subscriptSpec == null) { "subscripts cannot be mutable" }
       this.mutable = mutable
+    }
+
+    fun mutableVisibility(modifier: Modifier) = apply {
+      check(listOf(OPEN, PUBLIC, PRIVATE, INTERNAL).contains(modifier)) { "mutable visibility must be open, public, internal, or private" }
+      this.mutableVisibility = modifier
     }
 
     fun addDoc(format: String, vararg args: Any) = apply {

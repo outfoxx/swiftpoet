@@ -22,6 +22,8 @@ import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
 import io.outfoxx.swiftpoet.FunctionSignatureSpec
 import io.outfoxx.swiftpoet.FunctionSpec
 import io.outfoxx.swiftpoet.INT
+import io.outfoxx.swiftpoet.Modifier.PRIVATE
+import io.outfoxx.swiftpoet.Modifier.PUBLIC
 import io.outfoxx.swiftpoet.Modifier.UNOWNED
 import io.outfoxx.swiftpoet.Modifier.WEAK
 import io.outfoxx.swiftpoet.PropertySpec
@@ -99,6 +101,48 @@ class PropertySpecTests {
       equalTo(
         """
           unowned var test: Swift.String
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Adds mutable visibility modifier")
+  fun addsMutableVisibility() {
+    val testProperty =
+      PropertySpec.varBuilder("test", STRING, PUBLIC)
+        .mutableVisibility(PRIVATE)
+        .build()
+
+    val out = StringWriter()
+    testProperty.emit(CodeWriter(out), setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+          public private(set) var test: Swift.String
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Standalone mutable visibility modifier")
+  fun standaloneMutableVisibility() {
+    val testProperty =
+      PropertySpec.varBuilder("test", STRING)
+        .mutableVisibility(PRIVATE)
+        .build()
+
+    val out = StringWriter()
+    testProperty.emit(CodeWriter(out), setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+          private(set) var test: Swift.String
         """.trimIndent()
       )
     )
