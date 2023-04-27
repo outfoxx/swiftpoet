@@ -32,10 +32,10 @@ jobs:
     - name: Publish Maven Artifacts (Snapshot)
       uses: gradle/gradle-build-action@v2
       with:
-        arguments: publish -x test
-        properties: |
-          sonatypeUsername=${{ secrets.OSSRH_USER }}
-          sonatypePassword=${{ secrets.OSSRH_PASS }}
+        arguments: |
+          -PsonatypeUsername=${{ secrets.OSSRH_USER }}
+          -PsonatypePassword=${{ secrets.OSSRH_PASS }}
+          publish -x test
 
     - name: Publish Documentation
       uses: JamesIves/github-pages-deploy-action@v4
