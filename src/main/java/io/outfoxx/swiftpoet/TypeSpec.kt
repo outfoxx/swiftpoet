@@ -120,7 +120,7 @@ class TypeSpec private constructor(
         firstMember = false
         constructors.forEachIndexed { index, funSpec ->
           codeWriter.emit("\n")
-          funSpec.emit(codeWriter, name, kind.implicitFunctionModifiers)
+          funSpec.emit(codeWriter, kind.implicitFunctionModifiers)
           if (index == constructors.size - 1 && funSpec.body === CodeBlock.ABSTRACT) codeWriter.emit("\n")
         }
       }
@@ -131,7 +131,7 @@ class TypeSpec private constructor(
         firstMember = false
         functions.forEachIndexed { index, funSpec ->
           codeWriter.emit("\n")
-          funSpec.emit(codeWriter, name, kind.implicitFunctionModifiers)
+          funSpec.emit(codeWriter, kind.implicitFunctionModifiers)
           if (index == functions.size - 1 && funSpec.body === CodeBlock.ABSTRACT) codeWriter.emit("\n")
         }
       }

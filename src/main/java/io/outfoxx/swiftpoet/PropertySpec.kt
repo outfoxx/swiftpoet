@@ -26,13 +26,22 @@ class PropertySpec private constructor(
 ) : AttributedSpec(builder.attributes.toImmutableList(), builder.tags) {
 
   val mutable = builder.mutable
-  val name = builder.name
-  val type = builder.type
+  val simpleSpec = builder.simpleSpec
+  val subscriptSpec = builder.subscriptSpec
   val doc = builder.doc.build()
   val modifiers = builder.modifiers.toImmutableSet()
   val initializer = builder.initializer
   val getter = builder.getter
   val setter = builder.setter
+  val name get() = simpleSpec?.first ?: "subscript"
+  val type get() = simpleSpec?.second ?: subscriptSpec?.returnType ?: VOID
+
+  init {
+    require(simpleSpec != null || subscriptSpec != null)
+    if (subscriptSpec != null) {
+      require(subscriptSpec.parameters.isNotEmpty()) { "subscripts require at least one parameter" }
+    }
+  }
 
   internal fun emit(
     codeWriter: CodeWriter,
@@ -42,10 +51,15 @@ class PropertySpec private constructor(
     codeWriter.emitDoc(doc)
     codeWriter.emitAttributes(attributes)
     codeWriter.emitModifiers(modifiers, implicitModifiers)
-    codeWriter.emit(if (mutable || getter != null || setter != null) "var " else "let ")
-    codeWriter.emitCode("%L: %T", escapeIfNecessary(name), type)
-    if (withInitializer && initializer != null) {
-      codeWriter.emitCode(" = %[%L%]", initializer)
+    if (subscriptSpec != null) {
+      subscriptSpec.emit(codeWriter, "subscript")
+    } else if (simpleSpec != null) {
+      val (name, type) = simpleSpec
+      codeWriter.emit(if (mutable || getter != null || setter != null) "var " else "let ")
+      codeWriter.emitCode("%L: %T", escapeIfNecessary(name), type)
+      if (withInitializer && initializer != null) {
+        codeWriter.emitCode(" = %[%L%]", initializer)
+      }
     }
 
     if (getter != null || setter != null) {
@@ -64,12 +78,12 @@ class PropertySpec private constructor(
       codeWriter.emit(" {\n")
       if (getter != null) {
         codeWriter.emitCode("%>")
-        getter.emit(codeWriter, null, implicitModifiers, setter == null)
+        getter.emit(codeWriter, implicitModifiers, setter == null)
         codeWriter.emitCode("%<")
       }
       if (setter != null) {
         codeWriter.emitCode("%>")
-        setter.emit(codeWriter, null, implicitModifiers)
+        setter.emit(codeWriter, implicitModifiers)
         codeWriter.emitCode("%<")
       }
 
@@ -89,7 +103,8 @@ class PropertySpec private constructor(
   override fun toString() = buildString { emit(CodeWriter(this), emptySet()) }
 
   fun toBuilder(): Builder {
-    val builder = Builder(name, type)
+    val builder = Builder()
+    builder.simpleSpec = simpleSpec
     builder.mutable = mutable
     builder.doc.add(doc)
     builder.modifiers += modifiers
@@ -99,10 +114,9 @@ class PropertySpec private constructor(
     return builder
   }
 
-  class Builder internal constructor(
-    internal val name: String,
-    internal val type: TypeName
-  ) : AttributedSpec.Builder<Builder>() {
+  class Builder internal constructor() : AttributedSpec.Builder<Builder>() {
+    internal var simpleSpec: Pair<String, TypeName>? = null
+    internal var subscriptSpec: FunctionSignatureSpec? = null
     internal var mutable = false
     internal val doc = CodeBlock.builder()
     internal val modifiers = mutableListOf<Modifier>()
@@ -110,7 +124,16 @@ class PropertySpec private constructor(
     internal var getter: FunctionSpec? = null
     internal var setter: FunctionSpec? = null
 
+    internal constructor(name: String, type: TypeName) : this() {
+      this.simpleSpec = name to type
+    }
+
+    internal constructor(subscriptSpec: FunctionSignatureSpec) : this() {
+      this.subscriptSpec = subscriptSpec
+    }
+
     fun mutable(mutable: Boolean) = apply {
+      check(subscriptSpec == null) { "subscripts cannot be mutable" }
       this.mutable = mutable
     }
 
@@ -131,6 +154,7 @@ class PropertySpec private constructor(
 
     fun initializer(codeBlock: CodeBlock) = apply {
       check(this.initializer == null) { "initializer was already set" }
+      check(subscriptSpec == null) { "subscripts cannot have an initializer" }
       this.initializer = codeBlock
     }
 
@@ -172,6 +196,11 @@ class PropertySpec private constructor(
     @JvmStatic fun abstractBuilder(name: String, type: TypeName, vararg modifiers: Modifier): Builder {
       return Builder(name, type)
         .mutable(true)
+        .addModifiers(*modifiers)
+    }
+
+    @JvmStatic fun subscriptBuilder(signature: FunctionSignatureSpec, vararg modifiers: Modifier): Builder {
+      return Builder(signature)
         .addModifiers(*modifiers)
     }
   }

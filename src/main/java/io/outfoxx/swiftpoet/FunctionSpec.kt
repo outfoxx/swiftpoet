@@ -24,24 +24,25 @@ class FunctionSpec private constructor(
   val name = builder.name
   val doc = builder.doc.build()
   val modifiers = builder.modifiers.toImmutableSet()
-  val typeVariables = builder.typeVariables.toImmutableList()
-  val returnType = builder.returnType
-  val parameters = builder.parameters.toImmutableList()
-  val throws = builder.throws
-  val async = builder.async
-  val failable = builder.failable
+  val signature = builder.signature.build()
   val localTypeSpecs = builder.localTypeSpecs
   val body = if (builder.abstract) CodeBlock.ABSTRACT else builder.body.build()
 
   init {
-    require(name != SETTER || parameters.size <= 1) {
+    require(name != SETTER || signature.parameters.size <= 1) {
       "$name must have zero or one parameter"
     }
   }
 
+  val typeVariables get() = signature.typeVariables.toImmutableList()
+  val returnType get() = signature.returnType
+  val parameters get() = signature.parameters.toImmutableList()
+  val throws get() = signature.throws
+  val async get() = signature.async
+  val failable get() = signature.failable
+
   internal fun emit(
     codeWriter: CodeWriter,
-    enclosingName: String?,
     implicitModifiers: Set<Modifier>,
     conciseGetter: Boolean = false
   ) {
@@ -59,8 +60,14 @@ class FunctionSpec private constructor(
       codeWriter.emit("func ")
     }
 
-    emitSignature(codeWriter, enclosingName)
-    codeWriter.emitWhereBlock(typeVariables)
+    val name =
+      if (isConstructor || isDeinitializer || name.isAccessor)
+        name
+      else if (name.isOperator)
+        name.removePrefix(OPERATOR)
+      else
+        escapeIfNecessary(name)
+    signature.emit(codeWriter, name, includeEmptyParameters = !name.isAccessor && !isDeinitializer)
 
     if (body !== CodeBlock.ABSTRACT) {
       codeWriter.emit(" {\n")
@@ -85,58 +92,6 @@ class FunctionSpec private constructor(
     codeWriter.emit("\n")
   }
 
-  private fun emitSignature(codeWriter: CodeWriter, enclosingName: String?) {
-    if (isConstructor) {
-      codeWriter.emitCode(CONSTRUCTOR, enclosingName)
-      if (failable) {
-        codeWriter.emit("?")
-      }
-    } else if (isDeinitializer) {
-      codeWriter.emitCode(DEINITIALIZER, enclosingName)
-      return
-    } else if (name == GETTER) {
-      codeWriter.emitCode(GETTER)
-      return
-    } else if (name == SETTER) {
-      codeWriter.emitCode(SETTER)
-      if (parameters.isEmpty()) {
-        return
-      }
-    } else {
-      val name =
-        if (name.isOperator)
-          name.removePrefix(OPERATOR)
-        else
-          escapeIfNecessary(name)
-      codeWriter.emitCode("%L", name)
-    }
-
-    if (typeVariables.isNotEmpty()) {
-      codeWriter.emitTypeVariables(typeVariables)
-    }
-
-    parameters.emit(codeWriter) { param ->
-      param.emit(codeWriter, includeType = name != SETTER)
-    }
-
-    val modifiers = mutableListOf<String>()
-
-    if (async) {
-      modifiers.add("async")
-    }
-    if (throws) {
-      modifiers.add("throws")
-    }
-
-    if (modifiers.isNotEmpty()) {
-      codeWriter.emit(modifiers.joinToString(separator = " ", prefix = " "))
-    }
-
-    if (returnType != null && returnType != VOID) {
-      codeWriter.emitCode(" -> %T", returnType)
-    }
-  }
-
   val isConstructor get() = name.isConstructor
 
   val isDeinitializer get() = name.isDeinitializer
@@ -153,7 +108,7 @@ class FunctionSpec private constructor(
   override fun hashCode() = toString().hashCode()
 
   override fun toString() = buildString {
-    emit(CodeWriter(this), "Constructor", TypeSpec.Kind.Class().implicitFunctionModifiers)
+    emit(CodeWriter(this), TypeSpec.Kind.Class().implicitFunctionModifiers)
   }
 
   fun toBuilder(): Builder {
@@ -161,9 +116,7 @@ class FunctionSpec private constructor(
     builder.doc.add(doc)
     builder.attributes += attributes
     builder.modifiers += modifiers
-    builder.typeVariables += typeVariables
-    builder.returnType = returnType
-    builder.parameters += parameters
+    builder.signature = signature.toBuilder()
     builder.body.add(body)
     return builder
   }
@@ -173,12 +126,7 @@ class FunctionSpec private constructor(
   ) : AttributedSpec.Builder<Builder>() {
     internal val doc = CodeBlock.builder()
     internal val modifiers = mutableListOf<Modifier>()
-    internal val typeVariables = mutableListOf<TypeVariableName>()
-    internal var returnType: TypeName? = null
-    internal val parameters = mutableListOf<ParameterSpec>()
-    internal var throws = false
-    internal var async = false
-    internal var failable = false
+    internal var signature = FunctionSignatureSpec.builder()
     internal val localTypeSpecs = mutableListOf<AnyTypeSpec>()
     internal val body: CodeBlock.Builder = CodeBlock.builder()
     internal var abstract = false
@@ -201,17 +149,17 @@ class FunctionSpec private constructor(
 
     fun addTypeVariables(typeVariables: Iterable<TypeVariableName>) = apply {
       check(!name.isAccessor) { "$name cannot have type variables" }
-      this.typeVariables += typeVariables
+      this.signature.typeVariables += typeVariables
     }
 
     fun addTypeVariable(typeVariable: TypeVariableName) = apply {
       check(!name.isAccessor) { "$name cannot have type variables" }
-      typeVariables += typeVariable
+      this.signature.typeVariables += typeVariable
     }
 
     fun returns(returnType: TypeName) = apply {
       check(!name.isConstructor && !name.isAccessor) { "$name cannot have a return type" }
-      this.returnType = returnType
+      this.signature.returnType = returnType
     }
 
     fun addParameters(parameterSpecs: Iterable<ParameterSpec>) = apply {
@@ -222,8 +170,8 @@ class FunctionSpec private constructor(
 
     fun addParameter(parameterSpec: ParameterSpec) = apply {
       check(name != GETTER) { "$name cannot have parameters" }
-      check(name != SETTER || parameters.size == 0) { "$name can have only one parameter" }
-      parameters += parameterSpec
+      check(name != SETTER || this.signature.parameters.size == 0) { "$name can have only one parameter" }
+      this.signature.parameters += parameterSpec
     }
 
     fun addParameter(name: String, type: TypeName, vararg modifiers: Modifier) =
@@ -243,15 +191,15 @@ class FunctionSpec private constructor(
 
     fun failable(value: Boolean) = apply {
       check(name.isConstructor) { "only constructors can be failable" }
-      failable = value
+      this.signature.failable = value
     }
 
     fun throws(value: Boolean) = apply {
-      throws = value
+      this.signature.throws = value
     }
 
     fun async(value: Boolean) = apply {
-      async = value
+      this.signature.async = value
     }
 
     fun addLocalTypes(typeSpecs: Iterable<AnyTypeSpec>) = apply {
@@ -274,7 +222,7 @@ class FunctionSpec private constructor(
     }
 
     fun addComment(format: String, vararg args: Any) = apply {
-      body.add("// " + format + "\n", *args)
+      body.add("// $format\n", *args)
     }
 
     /**

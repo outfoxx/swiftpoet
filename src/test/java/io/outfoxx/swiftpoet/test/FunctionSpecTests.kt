@@ -57,7 +57,7 @@ class FunctionSpecTests {
         .build()
 
     val out = StringWriter()
-    testFunc.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -80,7 +80,7 @@ class FunctionSpecTests {
         .build()
 
     val out = StringWriter()
-    testFunc.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -104,7 +104,7 @@ class FunctionSpecTests {
         .build()
 
     val out = StringWriter()
-    testFunc.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -131,7 +131,7 @@ class FunctionSpecTests {
         .build()
 
     val out = StringWriter()
-    testFunc.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -159,7 +159,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testFunc.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -187,7 +187,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testFunc.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -215,7 +215,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testFunc.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -242,7 +242,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testFunc.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -269,7 +269,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testFunc.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -297,7 +297,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testFunc.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -325,7 +325,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testFunc.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -353,7 +353,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testFunc.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -387,7 +387,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testFunc.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -413,7 +413,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testFunc.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -438,7 +438,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testFunc.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -462,7 +462,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testClass.emit(CodeWriter(out), null, setOf())
+    testClass.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -489,7 +489,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testClass.emit(CodeWriter(out), null, setOf())
+    testClass.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -519,7 +519,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testFunc.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -543,7 +543,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testFunc.emit(CodeWriter(out), null, setOf())
+    testFunc.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -570,7 +570,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testClass.emit(CodeWriter(out), null, setOf())
+    testClass.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -592,7 +592,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testClass.emit(CodeWriter(out), null, setOf())
+    testClass.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -614,7 +614,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testClass.emit(CodeWriter(out), null, setOf())
+    testClass.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -635,7 +635,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testClass.emit(CodeWriter(out), null, setOf())
+    testClass.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -657,7 +657,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testClass.emit(CodeWriter(out), null, setOf())
+    testClass.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -684,7 +684,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testClass.emit(CodeWriter(out), null, setOf())
+    testClass.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -710,7 +710,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testClass.emit(CodeWriter(out), null, setOf())
+    testClass.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -736,7 +736,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testClass.emit(CodeWriter(out), null, setOf())
+    testClass.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -758,7 +758,7 @@ class FunctionSpecTests {
       .build()
 
     val out = StringWriter()
-    testClass.emit(CodeWriter(out), null, setOf())
+    testClass.emit(CodeWriter(out), setOf())
 
     assertThat(
       out.toString(),
@@ -791,9 +791,9 @@ class FunctionSpecTests {
     assertThat(testFuncBlder.doc.formatParts, hasItems("this is a comment\n"))
     assertThat(testFuncBlder.attributes, hasItems(DISCARDABLE_RESULT))
     assertThat(testFuncBlder.modifiers.toImmutableSet(), equalTo(setOf(Modifier.PUBLIC)))
-    assertThat(testFuncBlder.typeVariables, hasItems(typeVariable("X", bound(".Test2"))))
-    assertThat(testFuncBlder.returnType, equalTo<TypeName>(STRING))
-    assertThat(testFuncBlder.parameters, hasItems(ParameterSpec.builder("a", STRING).build()))
+    assertThat(testFuncBlder.signature.typeVariables, hasItems(typeVariable("X", bound(".Test2"))))
+    assertThat(testFuncBlder.signature.returnType, equalTo<TypeName>(STRING))
+    assertThat(testFuncBlder.signature.parameters, hasItems(ParameterSpec.builder("a", STRING).build()))
     assertThat(testFuncBlder.body.formatParts, hasItems("val;\n"))
   }
 }
