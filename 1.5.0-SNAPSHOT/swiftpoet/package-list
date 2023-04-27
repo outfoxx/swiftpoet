@@ -435,6 +435,7 @@ $dokka.location:io.outfoxx.swiftpoet/PropertySpec.Builder/getter/#io.outfoxx.swi
 $dokka.location:io.outfoxx.swiftpoet/PropertySpec.Builder/initializer/#io.outfoxx.swiftpoet.CodeBlock/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-property-spec/-builder/initializer.html
 $dokka.location:io.outfoxx.swiftpoet/PropertySpec.Builder/initializer/#kotlin.String#kotlin.Array[kotlin.Any?]/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-property-spec/-builder/initializer.html
 $dokka.location:io.outfoxx.swiftpoet/PropertySpec.Builder/mutable/#kotlin.Boolean/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-property-spec/-builder/mutable.html
+$dokka.location:io.outfoxx.swiftpoet/PropertySpec.Builder/mutableVisibility/#io.outfoxx.swiftpoet.Modifier/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-property-spec/-builder/mutable-visibility.html
 $dokka.location:io.outfoxx.swiftpoet/PropertySpec.Builder/setter/#io.outfoxx.swiftpoet.FunctionSpec/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-property-spec/-builder/setter.html
 $dokka.location:io.outfoxx.swiftpoet/PropertySpec.Companion///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-property-spec/-companion/index.html
 $dokka.location:io.outfoxx.swiftpoet/PropertySpec.Companion/abstractBuilder/#kotlin.String#io.outfoxx.swiftpoet.TypeName#kotlin.Array[io.outfoxx.swiftpoet.Modifier]/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-property-spec/-companion/abstract-builder.html
@@ -449,6 +450,7 @@ $dokka.location:io.outfoxx.swiftpoet/PropertySpec/hashCode/#/PointingToDeclarati
 $dokka.location:io.outfoxx.swiftpoet/PropertySpec/initializer/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-property-spec/initializer.html
 $dokka.location:io.outfoxx.swiftpoet/PropertySpec/modifiers/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-property-spec/modifiers.html
 $dokka.location:io.outfoxx.swiftpoet/PropertySpec/mutable/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-property-spec/mutable.html
+$dokka.location:io.outfoxx.swiftpoet/PropertySpec/mutableVisibility/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-property-spec/mutable-visibility.html
 $dokka.location:io.outfoxx.swiftpoet/PropertySpec/name/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-property-spec/name.html
 $dokka.location:io.outfoxx.swiftpoet/PropertySpec/setter/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-property-spec/setter.html
 $dokka.location:io.outfoxx.swiftpoet/PropertySpec/simpleSpec/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-property-spec/simple-spec.html
