@@ -19,6 +19,7 @@ package io.outfoxx.swiftpoet
 import io.outfoxx.swiftpoet.CodeBlock.Companion.ABSTRACT
 import io.outfoxx.swiftpoet.FunctionSpec.Companion.GETTER
 import io.outfoxx.swiftpoet.FunctionSpec.Companion.SETTER
+import io.outfoxx.swiftpoet.Modifier.FILEPRIVATE
 import io.outfoxx.swiftpoet.Modifier.INTERNAL
 import io.outfoxx.swiftpoet.Modifier.OPEN
 import io.outfoxx.swiftpoet.Modifier.PRIVATE
@@ -150,7 +151,7 @@ class PropertySpec private constructor(
     }
 
     fun mutableVisibility(modifier: Modifier) = apply {
-      check(listOf(OPEN, PUBLIC, PRIVATE, INTERNAL).contains(modifier)) { "mutable visibility must be open, public, internal, or private" }
+      check(modifier.isOneOf(OPEN, PUBLIC, INTERNAL, FILEPRIVATE, PRIVATE)) { "mutable visibility must be open, public, internal, or private" }
       this.mutableVisibility = modifier
     }
 
