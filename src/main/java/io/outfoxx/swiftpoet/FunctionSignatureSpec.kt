@@ -16,6 +16,9 @@
 
 package io.outfoxx.swiftpoet
 
+import io.outfoxx.swiftpoet.FunctionSpec.Companion.isAccessor
+import io.outfoxx.swiftpoet.FunctionSpec.Companion.isObserver
+
 class FunctionSignatureSpec(builder: Builder) {
 
   val typeVariables = builder.typeVariables.toImmutableList()
@@ -37,7 +40,7 @@ class FunctionSignatureSpec(builder: Builder) {
 
     if (parameters.isNotEmpty() || includeEmptyParameters) {
       parameters.emit(codeWriter) { param ->
-        param.emit(codeWriter, includeType = name != FunctionSpec.SETTER)
+        param.emit(codeWriter, includeType = !name.isAccessor && !name.isObserver)
       }
     }
 

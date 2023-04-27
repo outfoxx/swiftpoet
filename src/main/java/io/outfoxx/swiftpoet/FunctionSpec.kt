@@ -56,18 +56,18 @@ class FunctionSpec private constructor(
     codeWriter.emitAttributes(attributes)
     codeWriter.emitModifiers(modifiers, implicitModifiers)
 
-    if (!isConstructor && !isDeinitializer && !name.isAccessor) {
+    if (!isConstructor && !isDeinitializer && !isAccessor && !isObserver) {
       codeWriter.emit("func ")
     }
 
     val name =
-      if (isConstructor || isDeinitializer || name.isAccessor)
+      if (isConstructor || isDeinitializer || isAccessor)
         name
       else if (name.isOperator)
         name.removePrefix(OPERATOR)
       else
         escapeIfNecessary(name)
-    signature.emit(codeWriter, name, includeEmptyParameters = !name.isAccessor && !isDeinitializer)
+    signature.emit(codeWriter, name, includeEmptyParameters = !isDeinitializer && !isAccessor && !isObserver)
 
     if (body !== CodeBlock.ABSTRACT) {
       codeWriter.emit(" {\n")
@@ -97,6 +97,8 @@ class FunctionSpec private constructor(
   val isDeinitializer get() = name.isDeinitializer
 
   val isAccessor get() = name.isAccessor
+
+  val isObserver get() = name.isObserver
 
   override fun equals(other: Any?): Boolean {
     if (this === other) return true
@@ -140,10 +142,12 @@ class FunctionSpec private constructor(
     }
 
     fun addModifiers(vararg modifiers: Modifier) = apply {
+      check(!name.isOneOf(WILL_SET, DID_SET)) { "observers cannot have modifiers" }
       this.modifiers += modifiers
     }
 
     fun addModifiers(modifiers: Iterable<Modifier>) = apply {
+      check(!name.isOneOf(WILL_SET, DID_SET)) { "observers cannot have modifiers" }
       this.modifiers += modifiers
     }
 
@@ -170,7 +174,7 @@ class FunctionSpec private constructor(
 
     fun addParameter(parameterSpec: ParameterSpec) = apply {
       check(name != GETTER) { "$name cannot have parameters" }
-      check(name != SETTER || this.signature.parameters.size == 0) { "$name can have only one parameter" }
+      check(!name.isOneOf(SETTER, WILL_SET, DID_SET) || this.signature.parameters.size == 0) { "$name can have only one parameter" }
       this.signature.parameters += parameterSpec
     }
 
@@ -260,10 +264,13 @@ class FunctionSpec private constructor(
     private const val OPERATOR = "op:"
     internal const val GETTER = "get"
     internal const val SETTER = "set"
+    internal const val WILL_SET = "willSet"
+    internal const val DID_SET = "didSet"
 
     internal val String.isConstructor get() = this == CONSTRUCTOR
     internal val String.isDeinitializer get() = this == DEINITIALIZER
     internal val String.isAccessor get() = this.isOneOf(GETTER, SETTER)
+    internal val String.isObserver get() = this.isOneOf(WILL_SET, DID_SET)
     internal val String.isOperator get() = this.startsWith(OPERATOR)
 
     @JvmStatic fun builder(name: String) = Builder(name)
@@ -277,6 +284,10 @@ class FunctionSpec private constructor(
     @JvmStatic fun getterBuilder() = Builder(GETTER)
 
     @JvmStatic fun setterBuilder() = Builder(SETTER)
+
+    @JvmStatic fun willSetBuilder() = Builder(WILL_SET)
+
+    @JvmStatic fun didSetBuilder() = Builder(DID_SET)
 
     @JvmStatic fun operatorBuilder(name: String) = Builder(OPERATOR + name)
   }

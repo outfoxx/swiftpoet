@@ -17,8 +17,10 @@
 package io.outfoxx.swiftpoet
 
 import io.outfoxx.swiftpoet.CodeBlock.Companion.ABSTRACT
+import io.outfoxx.swiftpoet.FunctionSpec.Companion.DID_SET
 import io.outfoxx.swiftpoet.FunctionSpec.Companion.GETTER
 import io.outfoxx.swiftpoet.FunctionSpec.Companion.SETTER
+import io.outfoxx.swiftpoet.FunctionSpec.Companion.WILL_SET
 import io.outfoxx.swiftpoet.Modifier.FILEPRIVATE
 import io.outfoxx.swiftpoet.Modifier.INTERNAL
 import io.outfoxx.swiftpoet.Modifier.OPEN
@@ -39,6 +41,8 @@ class PropertySpec private constructor(
   val initializer = builder.initializer
   val getter = builder.getter
   val setter = builder.setter
+  val willSet = builder.willSet
+  val didSet = builder.didSet
   val name get() = simpleSpec?.first ?: "subscript"
   val type get() = simpleSpec?.second ?: subscriptSpec?.returnType ?: VOID
 
@@ -74,7 +78,21 @@ class PropertySpec private constructor(
       }
     }
 
-    if (getter != null || setter != null) {
+    if (willSet != null || didSet != null) {
+      codeWriter.emit(" {\n")
+      if (willSet != null) {
+        codeWriter.emitCode("%>")
+        willSet.emit(codeWriter, implicitModifiers, setter == null)
+        codeWriter.emitCode("%<")
+      }
+      if (didSet != null) {
+        codeWriter.emitCode("%>")
+        didSet.emit(codeWriter, implicitModifiers)
+        codeWriter.emitCode("%<")
+      }
+
+      codeWriter.emit("}")
+    } else if (getter != null || setter != null) {
 
       // Support concise syntax (e.g. "{ get set }") for protocol property declarations
       if ((getter == null || getter.body == ABSTRACT) &&
@@ -136,6 +154,8 @@ class PropertySpec private constructor(
     internal var initializer: CodeBlock? = null
     internal var getter: FunctionSpec? = null
     internal var setter: FunctionSpec? = null
+    internal var willSet: FunctionSpec? = null
+    internal var didSet: FunctionSpec? = null
 
     internal constructor(name: String, type: TypeName) : this() {
       this.simpleSpec = name to type
@@ -178,14 +198,30 @@ class PropertySpec private constructor(
 
     fun getter(getter: FunctionSpec) = apply {
       require(getter.name == GETTER) { "${getter.name} is not a getter" }
+      require(willSet == null && didSet == null) { "accessors cannot be added to a property with observers" }
       check(this.getter == null) { "getter was already set" }
       this.getter = getter
     }
 
     fun setter(setter: FunctionSpec) = apply {
       require(setter.name == SETTER) { "${setter.name} is not a setter" }
+      require(willSet == null && didSet == null) { "accessors cannot be added to a property with observers" }
       check(this.setter == null) { "setter was already set" }
       this.setter = setter
+    }
+
+    fun willSet(willSet: FunctionSpec) = apply {
+      require(willSet.name == WILL_SET) { "${willSet.name} is not a willSet" }
+      require(setter == null && getter == null) { "observers cannot be added to computed property" }
+      check(this.willSet == null) { "willSet was already set" }
+      this.willSet = willSet
+    }
+
+    fun didSet(didSet: FunctionSpec) = apply {
+      require(didSet.name == DID_SET) { "${didSet.name} is not a didSet" }
+      require(setter == null && getter == null) { "observers cannot be added to computed property" }
+      check(this.didSet == null) { "didSet was already set" }
+      this.didSet = didSet
     }
 
     fun abstractGetter() = apply {

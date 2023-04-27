@@ -30,6 +30,7 @@ import io.outfoxx.swiftpoet.PropertySpec
 import io.outfoxx.swiftpoet.STRING
 import io.outfoxx.swiftpoet.TypeVariableName
 import io.outfoxx.swiftpoet.TypeVariableName.Companion.typeVariable
+import io.outfoxx.swiftpoet.VOID
 import io.outfoxx.swiftpoet.parameterizedBy
 import io.outfoxx.swiftpoet.tag
 import org.hamcrest.CoreMatchers.equalTo
@@ -272,6 +273,161 @@ class PropertySpecTests {
               "1"
             }
             set {
+            }
+          }
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates willSet observer")
+  fun willSetObserver() {
+    val testProperty =
+      PropertySpec.varBuilder("test", STRING)
+        .willSet(
+          FunctionSpec.willSetBuilder()
+            .addStatement("print(test)")
+            .build()
+        )
+        .build()
+
+    val out = StringWriter()
+    testProperty.emit(CodeWriter(out), setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+          var test: Swift.String {
+            willSet {
+              print(test)
+            }
+          }
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates willSet observer with parameter")
+  fun willSetObserverWithParam() {
+    val testProperty =
+      PropertySpec.varBuilder("test", STRING)
+        .willSet(
+          FunctionSpec.willSetBuilder()
+            .addParameter("newValue", VOID)
+            .addStatement("print(newValue, test)")
+            .build()
+        )
+        .build()
+
+    val out = StringWriter()
+    testProperty.emit(CodeWriter(out), setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+          var test: Swift.String {
+            willSet(newValue) {
+              print(newValue, test)
+            }
+          }
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates didSet observer")
+  fun didSetObserver() {
+    val testProperty =
+      PropertySpec.varBuilder("test", STRING)
+        .didSet(
+          FunctionSpec.didSetBuilder()
+            .addStatement("print(test)")
+            .build()
+        )
+        .build()
+
+    val out = StringWriter()
+    testProperty.emit(CodeWriter(out), setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+          var test: Swift.String {
+            didSet {
+              print(test)
+            }
+          }
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates didSet observer with parameter")
+  fun didSetObserverWithParam() {
+    val testProperty =
+      PropertySpec.varBuilder("test", STRING)
+        .didSet(
+          FunctionSpec.didSetBuilder()
+            .addParameter("newValue", VOID)
+            .addStatement("print(newValue, test)")
+            .build()
+        )
+        .build()
+
+    val out = StringWriter()
+    testProperty.emit(CodeWriter(out), setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+          var test: Swift.String {
+            didSet(newValue) {
+              print(newValue, test)
+            }
+          }
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates willSet & didSet observers together")
+  fun observers() {
+    val testProperty =
+      PropertySpec.varBuilder("test", STRING)
+        .didSet(
+          FunctionSpec.didSetBuilder()
+            .addStatement("print(test)")
+            .build()
+        )
+        .willSet(
+          FunctionSpec.willSetBuilder()
+            .addStatement("print(test)")
+            .build()
+        )
+        .build()
+
+    val out = StringWriter()
+    testProperty.emit(CodeWriter(out), setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+          var test: Swift.String {
+            willSet {
+              print(test)
+            }
+            didSet {
+              print(test)
             }
           }
         """.trimIndent()
