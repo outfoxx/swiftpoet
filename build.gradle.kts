@@ -207,7 +207,7 @@ tasks.withType<Sign>().configureEach {
 
 githubRelease {
   owner("outfoxx")
-  repo("sunday-generator")
+  repo("swiftpoet")
   tagName(releaseVersion)
   targetCommitish("main")
   releaseName("🚀 v$releaseVersion")
