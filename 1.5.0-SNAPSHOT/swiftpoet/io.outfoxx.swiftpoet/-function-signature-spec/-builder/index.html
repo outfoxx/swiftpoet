@@ -1,278 +1,288 @@
+<!DOCTYPE html>
 <html>
-  <head>
+<head>
     <meta name="viewport" content="width=device-width, initial-scale=1" charset="UTF-8">
     <title>Builder</title>
-<link href="../../../../../../../../images/logo-icon.svg" rel="icon" type="image/svg"><script>var pathToRoot = "../../../../";</script><script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script><link href="../../../../styles/style.css" rel="Stylesheet"><link href="../../../../styles/logo-styles.css" rel="Stylesheet"><link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet"><link href="../../../../styles/main.css" rel="Stylesheet"><script type="text/javascript" src="../../../../scripts/clipboard.js" async="async"></script><script type="text/javascript" src="../../../../scripts/navigation-loader.js" async="async"></script><script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script><script type="text/javascript" src="../../../../scripts/main.js" async="async"></script>  </head>
-  <body>
-    <div id="container">
-      <div id="leftColumn"><a href="../../../../index.html">
-          <div id="logo"></div>
-        </a>
-        <div id="paneSearch"></div>
+    <link href="../../../../images/logo-icon.svg" rel="icon" type="image/svg">
+    <script>var pathToRoot = "../../../../";</script>
+    <script>const storage = localStorage.getItem("dokka-dark-mode")
+    if (storage == null) {
+        const osDarkSchemePreferred = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches
+        if (osDarkSchemePreferred === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    } else {
+        const savedDarkMode = JSON.parse(storage)
+        if(savedDarkMode === true) {
+            document.getElementsByTagName("html")[0].classList.add("theme-dark")
+        }
+    }
+    </script>
+<script type="text/javascript" src="../../../../scripts/sourceset_dependencies.js" async="async"></script>
+<link href="../../../../styles/style.css" rel="Stylesheet">
+<link href="../../../../styles/jetbrains-mono.css" rel="Stylesheet">
+<link href="../../../../styles/main.css" rel="Stylesheet">
+<link href="../../../../styles/prism.css" rel="Stylesheet">
+<link href="../../../../styles/logo-styles.css" rel="Stylesheet">
+<script type="text/javascript" src="../../../../scripts/clipboard.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/navigation-loader.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/platform-content-handler.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/main.js" defer="defer"></script>
+<script type="text/javascript" src="../../../../scripts/prism.js" async="async"></script>
+<script type="text/javascript" src="../../../../scripts/symbol-parameters-wrapper_deferred.js" defer="defer"></script>
+</head>
+<body>
+<div class="navigation-wrapper" id="navigation-wrapper">
+    <div id="leftToggler"><span class="icon-toggler"></span></div>
+    <div class="library-name">
+            <a href="../../../../index.html">
+                    <span>swiftpoet</span>
+            </a>
+    </div>
+    <div>
+1.5.0-SNAPSHOT    </div>
+    <div class="pull-right d-flex">
+        <button id="theme-toggle-button"><span id="theme-toggle"></span></button>
+        <div id="searchBar"></div>
+    </div>
+</div>
+<div id="container">
+    <div id="leftColumn">
         <div id="sideMenu"></div>
-      </div>
-      <div id="main">
-        <div id="leftToggler"><span class="icon-toggler"></span></div>
-<script type="text/javascript" src="../../../../scripts/main.js"></script>        <div class="main-content" id="content" pageIds="swiftpoet::io.outfoxx.swiftpoet/FunctionSignatureSpec.Builder///PointingToDeclaration//-1315411364">
-          <div class="navigation-wrapper" id="navigation-wrapper">
-            <div class="breadcrumbs"><a href="../../../../index.html">swiftpoet</a>/<a href="../../index.html">io.outfoxx.swiftpoet</a>/<a href="../index.html">FunctionSignatureSpec</a>/<a href="index.html">Builder</a></div>
-            <div class="pull-right d-flex">
-              <div id="searchBar"></div>
-            </div>
-          </div>
-          <div class="cover ">
-            <h1 class="cover"><span>Builder</span></h1>
-            <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">class <a href="index.html">Builder</a> : <a href="../../-attributed-spec/-builder/index.html">AttributedSpec.Builder</a>&lt;<a href="index.html">FunctionSignatureSpec.Builder</a>&gt; <span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-          </div>
-          <div class="tabbedcontent">
-            <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button></div>
-            <div class="tabs-section-body">
-              <h2 class="">Functions</h2>
-              <div class="table" data-togglable="Functions"><a data-name="%5Bio.outfoxx.swiftpoet%2FAttributedSpec.Builder%2FaddAttribute%2F%23io.outfoxx.swiftpoet.AttributeSpec%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FAttributedSpec.Builder%2FaddAttribute%2F%23kotlin.String%23kotlin.Array%5Bkotlin.String%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" anchor-label="addAttribute" id="%5Bio.outfoxx.swiftpoet%2FAttributedSpec.Builder%2FaddAttribute%2F%23io.outfoxx.swiftpoet.AttributeSpec%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FAttributedSpec.Builder%2FaddAttribute%2F%23kotlin.String%23kotlin.Array%5Bkotlin.String%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../../-attributed-spec/-builder/add-attribute.html">addAttribute</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FAttributedSpec.Builder%2FaddAttribute%2F%23io.outfoxx.swiftpoet.AttributeSpec%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FAttributedSpec.Builder%2FaddAttribute%2F%23kotlin.String%23kotlin.Array%5Bkotlin.String%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="../../-attributed-spec/-builder/add-attribute.html">addAttribute</a>(attribute: <a href="../../-attribute-spec/index.html">AttributeSpec</a>): <a href="index.html">FunctionSignatureSpec.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">fun <a href="../../-attributed-spec/-builder/add-attribute.html">addAttribute</a>(name: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, vararg arguments: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>): <a href="index.html">FunctionSignatureSpec.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
+    </div>
+    <div id="main">
+<div class="main-content" id="content" pageIds="swiftpoet::io.outfoxx.swiftpoet/FunctionSignatureSpec.Builder///PointingToDeclaration//769193423">
+  <div class="breadcrumbs"><a href="../../../../index.html">swiftpoet</a><span class="delimiter">/</span><a href="../../index.html">io.outfoxx.swiftpoet</a><span class="delimiter">/</span><a href="../index.html">FunctionSignatureSpec</a><span class="delimiter">/</span><span class="current">Builder</span></div>
+  <div class="cover ">
+    <h1 class="cover"><span><span>Builder</span></span></h1>
+    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword">class </span><a href="index.html">Builder</a> : <a href="../../-attributed-spec/-builder/index.html">AttributedSpec.Builder</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="index.html">FunctionSignatureSpec.Builder</a><span class="token operator">&gt; </span></div></div></div>
   </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddCode%2F%23kotlin.String%23kotlin.Array%5Bkotlin.Any%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" anchor-label="addCode" id="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddCode%2F%23kotlin.String%23kotlin.Array%5Bkotlin.Any%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="add-code.html">addCode</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddCode%2F%23kotlin.String%23kotlin.Array%5Bkotlin.Any%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="add-code.html">addCode</a>(format: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, vararg args: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>): <a href="index.html">FunctionSignatureSpec.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddParameter%2F%23io.outfoxx.swiftpoet.ParameterSpec%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddParameter%2F%23kotlin.String%23io.outfoxx.swiftpoet.TypeName%23kotlin.Array%5Bio.outfoxx.swiftpoet.Modifier%5D%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddParameter%2F%23kotlin.String%23kotlin.String%23io.outfoxx.swiftpoet.TypeName%23kotlin.Array%5Bio.outfoxx.swiftpoet.Modifier%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" anchor-label="addParameter" id="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddParameter%2F%23io.outfoxx.swiftpoet.ParameterSpec%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddParameter%2F%23kotlin.String%23io.outfoxx.swiftpoet.TypeName%23kotlin.Array%5Bio.outfoxx.swiftpoet.Modifier%5D%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddParameter%2F%23kotlin.String%23kotlin.String%23io.outfoxx.swiftpoet.TypeName%23kotlin.Array%5Bio.outfoxx.swiftpoet.Modifier%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="add-parameter.html">addParameter</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddParameter%2F%23io.outfoxx.swiftpoet.ParameterSpec%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddParameter%2F%23kotlin.String%23io.outfoxx.swiftpoet.TypeName%23kotlin.Array%5Bio.outfoxx.swiftpoet.Modifier%5D%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddParameter%2F%23kotlin.String%23kotlin.String%23io.outfoxx.swiftpoet.TypeName%23kotlin.Array%5Bio.outfoxx.swiftpoet.Modifier%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="add-parameter.html">addParameter</a>(parameterSpec: <a href="../../-parameter-spec/index.html">ParameterSpec</a>): <a href="index.html">FunctionSignatureSpec.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">fun <a href="add-parameter.html">addParameter</a>(name: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, type: <a href="../../-type-name/index.html">TypeName</a>, vararg modifiers: <a href="../../-modifier/index.html">Modifier</a>): <a href="index.html">FunctionSignatureSpec.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="symbol monospace">fun <a href="add-parameter.html">addParameter</a>(label: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, name: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a>, type: <a href="../../-type-name/index.html">TypeName</a>, vararg modifiers: <a href="../../-modifier/index.html">Modifier</a>): <a href="index.html">FunctionSignatureSpec.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddParameters%2F%23kotlin.collections.Iterable%5Bio.outfoxx.swiftpoet.ParameterSpec%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" anchor-label="addParameters" id="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddParameters%2F%23kotlin.collections.Iterable%5Bio.outfoxx.swiftpoet.ParameterSpec%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="add-parameters.html">addParameters</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddParameters%2F%23kotlin.collections.Iterable%5Bio.outfoxx.swiftpoet.ParameterSpec%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="add-parameters.html">addParameters</a>(parameterSpecs: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>&lt;<a href="../../-parameter-spec/index.html">ParameterSpec</a>&gt;): <a href="index.html">FunctionSignatureSpec.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddTypeVariable%2F%23io.outfoxx.swiftpoet.TypeVariableName%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" anchor-label="addTypeVariable" id="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddTypeVariable%2F%23io.outfoxx.swiftpoet.TypeVariableName%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="add-type-variable.html">addTypeVariable</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddTypeVariable%2F%23io.outfoxx.swiftpoet.TypeVariableName%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="add-type-variable.html">addTypeVariable</a>(typeVariable: <a href="../../-type-variable-name/index.html">TypeVariableName</a>): <a href="index.html">FunctionSignatureSpec.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddTypeVariables%2F%23kotlin.collections.Iterable%5Bio.outfoxx.swiftpoet.TypeVariableName%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" anchor-label="addTypeVariables" id="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddTypeVariables%2F%23kotlin.collections.Iterable%5Bio.outfoxx.swiftpoet.TypeVariableName%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="add-type-variables.html">addTypeVariables</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2FaddTypeVariables%2F%23kotlin.collections.Iterable%5Bio.outfoxx.swiftpoet.TypeVariableName%5D%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="add-type-variables.html">addTypeVariables</a>(typeVariables: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a>&lt;<a href="../../-type-variable-name/index.html">TypeVariableName</a>&gt;): <a href="index.html">FunctionSignatureSpec.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fasync%2F%23kotlin.Boolean%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" anchor-label="async" id="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fasync%2F%23kotlin.Boolean%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="async.html">async</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fasync%2F%23kotlin.Boolean%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="async.html">async</a>(value: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>): <a href="index.html">FunctionSignatureSpec.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fbuild%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" anchor-label="build" id="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fbuild%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="build.html">build</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fbuild%2F%23%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="build.html">build</a>(): <a href="../index.html">FunctionSignatureSpec</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Ffailable%2F%23kotlin.Boolean%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" anchor-label="failable" id="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Ffailable%2F%23kotlin.Boolean%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="failable.html">failable</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Ffailable%2F%23kotlin.Boolean%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="failable.html">failable</a>(value: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>): <a href="index.html">FunctionSignatureSpec.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Freturns%2F%23io.outfoxx.swiftpoet.TypeName%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" anchor-label="returns" id="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Freturns%2F%23io.outfoxx.swiftpoet.TypeName%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="returns.html">returns</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Freturns%2F%23io.outfoxx.swiftpoet.TypeName%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="returns.html">returns</a>(returnType: <a href="../../-type-name/index.html">TypeName</a>): <a href="index.html">FunctionSignatureSpec.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2Ftag%2F%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%3F%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FTaggable.Builder%2Ftag%2F%23kotlin.reflect.KClass%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" anchor-label="tag" id="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2Ftag%2F%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%3F%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FTaggable.Builder%2Ftag%2F%23kotlin.reflect.KClass%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="../../-taggable/-builder/tag.html">tag</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2Ftag%2F%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%3F%2FPointingToDeclaration%2F%2C+io.outfoxx.swiftpoet%2FTaggable.Builder%2Ftag%2F%23kotlin.reflect.KClass%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun &lt;<a href="../../-taggable/-builder/tag.html">T</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="../../-taggable/-builder/tag.html">tag</a>(type: <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html">Class</a>&lt;<a href="../../-taggable/-builder/tag.html">T</a>&gt;, tag: <a href="../../-taggable/-builder/tag.html">T</a>?): <a href="index.html">FunctionSignatureSpec.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2Ftag%2F%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" anchor-label="tag" id="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2Ftag%2F%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a><div class="brief "><a data-name="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2Ftag%2F%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" anchor-label="tag" id="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2Ftag%2F%23java.lang.Class%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>Attaches <a href="../../-taggable/-builder/tag.html">tag</a> to the request using <a href="../../-taggable/-builder/tag.html">type</a> as a key.</div></div>
-<div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun &lt;<a href="../../-taggable/-builder/tag.html">T</a> : <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt; <a href="../../-taggable/-builder/tag.html">tag</a>(type: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html">KClass</a>&lt;<a href="../../-taggable/-builder/tag.html">T</a>&gt;, tag: <a href="../../-taggable/-builder/tag.html">T</a>?): <a href="index.html">FunctionSignatureSpec.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-<a data-name="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2Ftag%2F%23kotlin.reflect.KClass%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" anchor-label="tag" id="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2Ftag%2F%23kotlin.reflect.KClass%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a><div class="brief "><a data-name="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2Ftag%2F%23kotlin.reflect.KClass%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" anchor-label="tag" id="%5Bio.outfoxx.swiftpoet%2FTaggable.Builder%2Ftag%2F%23kotlin.reflect.KClass%5BTypeParam%28bounds%3D%5Bkotlin.Any%5D%29%5D%23TypeParam%28bounds%3D%5Bkotlin.Any%5D%29%3F%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>Attaches <a href="../../-taggable/-builder/tag.html">tag</a> to the request using <a href="../../-taggable/-builder/tag.html">type</a> as a key.</div></div>
-</div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fthrows%2F%23kotlin.Boolean%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" anchor-label="throws" id="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fthrows%2F%23kotlin.Boolean%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="throws.html">throws</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fthrows%2F%23kotlin.Boolean%2FPointingToDeclaration%2F%5D%2FFunctions%2F-1315411364"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title"><div class="divergent-group" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main"><div class="with-platform-tags"><span class="pull-right"></span></div>
-
-  <div>
-    <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace">fun <a href="throws.html">throws</a>(value: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a>): <a href="index.html">FunctionSignatureSpec.Builder</a><span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div></div></div>
-  </div>
-</div>
-</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <h2 class="">Properties</h2>
-              <div class="table" data-togglable="Properties"><a data-name="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fattributes%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364" anchor-label="attributes" id="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fattributes%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fattributes%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364">attributes</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fattributes%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fattributes%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364" anchor-label="attributes" id="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fattributes%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace">val <a href="index.html#%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fattributes%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364">attributes</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a>&lt;<a href="../../-attribute-spec/index.html">AttributeSpec</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fattributes%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364" anchor-label="attributes" id="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Fattributes%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>Mutable list of the current attributes this builder contains.</div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-<a data-name="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Ftags%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364" anchor-label="tags" id="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Ftags%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>
-                <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
-                  <div class="main-subrow keyValue ">
-                    <div class=""><span class="inline-flex"><a href="index.html#%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Ftags%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364">tags</a><span class="anchor-wrapper"><span class="anchor-icon" pointing-to="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Ftags%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364"></span>
-                          <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
-                        </span></span></div>
-                    <div>
-                      <div class="title">
-                        <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-depenent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Ftags%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364" anchor-label="tags" id="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Ftags%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace">val <a href="index.html#%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Ftags%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364">tags</a>: <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/index.html">MutableMap</a>&lt;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html">KClass</a>&lt;*&gt;, <a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a>&gt;<span class="top-right-position"><span class="copy-icon"></span><div class="copy-popup-wrapper popup-to-left"><span class="copy-popup-icon"></span><span>Content copied to clipboard</span></div></span></div><div class="brief "><a data-name="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Ftags%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364" anchor-label="tags" id="%5Bio.outfoxx.swiftpoet%2FFunctionSignatureSpec.Builder%2Ftags%2F%23%2FPointingToDeclaration%2F%5D%2FProperties%2F-1315411364" data-filterable-set=":dokkaHtml/main"></a>Mutable map of the current tags this builder contains.</div></div></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+  <div class="tabbedcontent">
+    <div class="tabs-section" tabs-section="tabs-section"><button class="section-tab" data-active="" data-togglable="Functions">Functions</button><button class="section-tab" data-togglable="Properties">Properties</button></div>
+    <div class="tabs-section-body">
+      <h2 class="">Functions</h2>
+      <div class="table" data-togglable="Functions"><a data-name="-2014104254%2FFunctions%2F769193423" anchor-label="addAttribute" id="-2014104254%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../-attributed-spec/-builder/add-attribute.html"><span>add</span><wbr></wbr><span><span>Attribute</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-2014104254%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../-attributed-spec/-builder/add-attribute.html"><span class="token function">addAttribute</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">attribute<span class="token operator">: </span><a href="../../-attribute-spec/index.html">AttributeSpec</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FunctionSignatureSpec.Builder</a></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="../../-attributed-spec/-builder/add-attribute.html"><span class="token function">addAttribute</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>arguments<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FunctionSignatureSpec.Builder</a></div></div></div>
               </div>
             </div>
           </div>
         </div>
-        <div class="footer"><span class="go-to-top-icon"><a href="#content"></a></span><span>© 2023 Copyright</span><span class="pull-right"><span>Generated by </span><a href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span></div>
+<a data-name="-1814332689%2FFunctions%2F769193423" anchor-label="addCode" id="-1814332689%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="add-code.html"><span>add</span><wbr></wbr><span><span>Code</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1814332689%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="add-code.html"><span class="token function">addCode</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">format<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>args<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FunctionSignatureSpec.Builder</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="996038254%2FFunctions%2F769193423" anchor-label="addParameter" id="996038254%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="add-parameter.html"><span>add</span><wbr></wbr><span><span>Parameter</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="996038254%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="add-parameter.html"><span class="token function">addParameter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">parameterSpec<span class="token operator">: </span><a href="../../-parameter-spec/index.html">ParameterSpec</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FunctionSignatureSpec.Builder</a></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="add-parameter.html"><span class="token function">addParameter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">type<span class="token operator">: </span><a href="../../-type-name/index.html">TypeName</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>modifiers<span class="token operator">: </span><a href="../../-modifier/index.html">Modifier</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FunctionSignatureSpec.Builder</a></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="add-parameter.html"><span class="token function">addParameter</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">label<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">name<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html">String</a><span class="token punctuation">, </span></span><span class="parameter ">type<span class="token operator">: </span><a href="../../-type-name/index.html">TypeName</a><span class="token punctuation">, </span></span><span class="parameter "><span class="token keyword">vararg </span>modifiers<span class="token operator">: </span><a href="../../-modifier/index.html">Modifier</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FunctionSignatureSpec.Builder</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1119416134%2FFunctions%2F769193423" anchor-label="addParameters" id="-1119416134%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="add-parameters.html"><span>add</span><wbr></wbr><span><span>Parameters</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1119416134%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="add-parameters.html"><span class="token function">addParameters</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">parameterSpecs<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-parameter-spec/index.html">ParameterSpec</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FunctionSignatureSpec.Builder</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-961401733%2FFunctions%2F769193423" anchor-label="addTypeVariable" id="-961401733%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="add-type-variable.html"><span>add</span><wbr></wbr><span>Type</span><wbr></wbr><span><span>Variable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-961401733%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="add-type-variable.html"><span class="token function">addTypeVariable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">typeVariable<span class="token operator">: </span><a href="../../-type-variable-name/index.html">TypeVariableName</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FunctionSignatureSpec.Builder</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1994990374%2FFunctions%2F769193423" anchor-label="addTypeVariables" id="-1994990374%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="add-type-variables.html"><span>add</span><wbr></wbr><span>Type</span><wbr></wbr><span><span>Variables</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1994990374%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="add-type-variables.html"><span class="token function">addTypeVariables</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">typeVariables<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-iterable/index.html">Iterable</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-type-variable-name/index.html">TypeVariableName</a><span class="token operator">&gt;</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FunctionSignatureSpec.Builder</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-785882182%2FFunctions%2F769193423" anchor-label="async" id="-785882182%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="async.html"><span><span>async</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-785882182%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="async.html"><span class="token function">async</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FunctionSignatureSpec.Builder</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="879848835%2FFunctions%2F769193423" anchor-label="build" id="879848835%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="build.html"><span><span>build</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="879848835%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="build.html"><span class="token function">build</span></a><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">: </span><a href="../index.html">FunctionSignatureSpec</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-486820394%2FFunctions%2F769193423" anchor-label="failable" id="-486820394%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="failable.html"><span><span>failable</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-486820394%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="failable.html"><span class="token function">failable</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FunctionSignatureSpec.Builder</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="971526851%2FFunctions%2F769193423" anchor-label="returns" id="971526851%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="returns.html"><span><span>returns</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="971526851%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="returns.html"><span class="token function">returns</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">returnType<span class="token operator">: </span><a href="../../-type-name/index.html">TypeName</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FunctionSignatureSpec.Builder</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-1406638683%2FFunctions%2F769193423" anchor-label="tag" id="-1406638683%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../-taggable/-builder/tag.html"><span><span>tag</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-1406638683%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-taggable/-builder/tag.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="../../-taggable/-builder/tag.html"><span class="token function">tag</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">type<span class="token operator">: </span><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Class.html">Class</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-taggable/-builder/tag.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">tag<span class="token operator">: </span><a href="../../-taggable/-builder/tag.html">T</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FunctionSignatureSpec.Builder</a></div><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-taggable/-builder/tag.html">T</a><span class="token operator"> : </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt; </span><a href="../../-taggable/-builder/tag.html"><span class="token function">tag</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">type<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html">KClass</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-taggable/-builder/tag.html">T</a><span class="token operator">&gt;</span><span class="token punctuation">, </span></span><span class="parameter ">tag<span class="token operator">: </span><a href="../../-taggable/-builder/tag.html">T</a><span class="token operator">?</span></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FunctionSignatureSpec.Builder</a></div><div class="brief "><p class="paragraph">Attaches <a href="../../-taggable/-builder/tag.html">tag</a> to the request using <a href="../../-taggable/-builder/tag.html">type</a> as a key. Tags can be read from a request using <a href="../../-taggable/tag.html">Taggable.tag</a>. Use <code class="lang-kotlin">null</code> to remove any existing tag assigned for <a href="../../-taggable/-builder/tag.html">type</a>.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="-996955551%2FFunctions%2F769193423" anchor-label="throws" id="-996955551%2FFunctions%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="throws.html"><span><span>throws</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="-996955551%2FFunctions%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">fun </span><a href="throws.html"><span class="token function">throws</span></a><span class="token punctuation">(</span><span class="parameters "><span class="parameter ">value<span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html">Boolean</a></span></span><span class="token punctuation">)</span><span class="token operator">: </span><a href="index.html">FunctionSignatureSpec.Builder</a></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <h2 class="">Properties</h2>
+      <div class="table" data-togglable="Properties"><a data-name="903209556%2FProperties%2F769193423" anchor-label="attributes" id="903209556%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../-attributed-spec/-builder/attributes.html"><span><span>attributes</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="903209556%2FProperties%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="903209556%2FProperties%2F769193423" anchor-label="attributes" id="903209556%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../../-attributed-spec/-builder/attributes.html">attributes</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-list/index.html">MutableList</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="../../-attribute-spec/index.html">AttributeSpec</a><span class="token operator">&gt;</span></div><div class="brief "><a data-name="903209556%2FProperties%2F769193423" anchor-label="attributes" id="903209556%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><p class="paragraph">Mutable list of the current attributes this builder contains.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+<a data-name="1759663318%2FProperties%2F769193423" anchor-label="tags" id="1759663318%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a>
+        <div class="table-row" data-filterable-current=":dokkaHtml/main" data-filterable-set=":dokkaHtml/main">
+          <div class="main-subrow keyValue ">
+            <div class=""><span class="inline-flex">
+                <div><a href="../../-taggable/-builder/tags.html"><span><span>tags</span></span></a></div>
+<span class="anchor-wrapper"><span class="anchor-icon" pointing-to="1759663318%2FProperties%2F769193423"></span>
+                  <div class="copy-popup-wrapper "><span class="copy-popup-icon"></span><span>Link copied to clipboard</span></div>
+                </span></span></div>
+            <div>
+              <div class="title">
+                <div class="platform-hinted " data-platform-hinted="data-platform-hinted" data-togglable="Properties"><div class="content sourceset-dependent-content" data-active="" data-togglable=":dokkaHtml/main"><a data-name="1759663318%2FProperties%2F769193423" anchor-label="tags" id="1759663318%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><div class="symbol monospace"><span class="token keyword"></span><span class="token keyword">val </span><a href="../../-taggable/-builder/tags.html">tags</a><span class="token operator">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-mutable-map/index.html">MutableMap</a><span class="token operator">&lt;</span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.reflect/-k-class/index.html">KClass</a><span class="token operator">&lt;</span><span class="token operator">*</span><span class="token operator">&gt;</span><span class="token punctuation">, </span><span class="token keyword"></span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html">Any</a><span class="token operator">&gt;</span></div><div class="brief "><a data-name="1759663318%2FProperties%2F769193423" anchor-label="tags" id="1759663318%2FProperties%2F769193423" data-filterable-set=":dokkaHtml/main"></a><p class="paragraph">Mutable map of the current tags this builder contains.</p></div></div></div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-  </body>
+  </div>
+</div>
+      <div class="footer">
+        <span class="go-to-top-icon"><a href="#content" id="go-to-top-link"></a></span><span>© 2023 Copyright</span><span
+                class="pull-right"><span>Generated by </span><a
+                href="https://github.com/Kotlin/dokka"><span>dokka</span><span class="padded-icon"></span></a></span>
+      </div>
+    </div>
+</div>
+</body>
 </html>
-
