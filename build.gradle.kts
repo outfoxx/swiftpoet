@@ -6,19 +6,22 @@ plugins {
   `maven-publish`
   signing
 
-  kotlin("jvm") version "1.5.31"
-  id("org.jetbrains.dokka") version "1.4.30"
+  kotlin("jvm") version "1.7.21"
+  id("org.jetbrains.dokka") version "1.7.20"
 
   id("org.cadixdev.licenser") version "0.6.1"
   id("org.jmailen.kotlinter") version "3.6.0"
+
+  id("com.github.breadmoirai.github-release") version "2.4.1"
+  id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
 }
 
+val releaseVersion: String by project
+val isSnapshot = releaseVersion.endsWith("SNAPSHOT")
 
 group = "io.outfoxx"
-version = "1.5.0-SNAPSHOT"
+version = releaseVersion
 description = "A Kotlin/Java API for generating .swift source files."
-
-val isSnapshot = "$version".endsWith("SNAPSHOT")
 
 
 //
@@ -32,7 +35,6 @@ val hamcrestVersion = "1.3"
 
 repositories {
   mavenCentral()
-  jcenter()
 }
 
 dependencies {
@@ -183,27 +185,48 @@ publishing {
 
   }
 
-  repositories {
-
-    maven {
-      val snapshotUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
-      val releaseUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
-      url = uri(if (isSnapshot) snapshotUrl else releaseUrl)
-
-      credentials {
-        username = project.findProperty("ossrhUsername")?.toString()
-        password = project.findProperty("ossrhPassword")?.toString()
-      }
-    }
-
-  }
-
 }
 
 
 signing {
-  gradle.taskGraph.whenReady {
-    isRequired = hasTask("publishMavenJavaPublicationToMavenRepository")
+  val signingKeyId: String? by project
+  val signingKey: String? by project
+  val signingPassword: String? by project
+  useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
+}
+
+tasks.withType<Sign>().configureEach {
+  onlyIf { !isSnapshot }
+}
+
+
+//
+// RELEASING
+//
+
+githubRelease {
+  owner("outfoxx")
+  repo("sunday-generator")
+  tagName(releaseVersion)
+  targetCommitish("main")
+  releaseName("🚀 v$releaseVersion")
+  generateReleaseNotes(true)
+  draft(false)
+  prerelease(!releaseVersion.matches("""^\d+\.\d+\.\d+$""".toRegex()))
+  dryRun(false)
+  releaseAssets(
+      listOf("", "-javadoc", "-sources").map { suffix ->
+        project.layout.buildDirectory.get().dir("libs").file("$name-$releaseVersion$suffix.jar")
+      }
+  )
+  overwrite(true)
+  authorization(
+    "Token " + (project.findProperty("github.token") as String? ?: System.getenv("GITHUB_TOKEN"))
+  )
+}
+
+nexusPublishing {
+  repositories {
+    sonatype()
   }
-  sign(publishing.publications["mavenJava"])
 }

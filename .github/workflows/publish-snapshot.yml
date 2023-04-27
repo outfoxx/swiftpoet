@@ -1,0 +1,45 @@
+name: Publish Snapshot
+
+on:
+  push:
+    branches: [ main ]
+
+permissions:
+  contents: write
+
+concurrency:
+  group: publish-snapshot-${{github.ref_name}}
+  cancel-in-progress: true
+
+jobs:
+
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - uses: actions/setup-java@v3
+      with:
+        java-version: '11'
+        distribution: adopt
+
+    - name: Build Artifacts & Documentation
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: build -x test
+
+    - name: Publish Maven Artifacts (Snapshot)
+      uses: gradle/gradle-build-action@v2
+      with:
+        arguments: publish -x test
+        properties: |
+          sonatypeUsername=${{ secrets.OSSRH_USER }}
+          sonatypePassword=${{ secrets.OSSRH_PASS }}
+
+    - name: Publish Documentation
+      uses: JamesIves/github-pages-deploy-action@v4
+      with:
+        branch: gh-pages
+        clean: false
+        folder: build/dokka
