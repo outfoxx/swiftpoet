@@ -42,4 +42,4 @@ jobs:
       with:
         branch: gh-pages
         clean: false
-        folder: build/dokka
+        folder: build/javadoc

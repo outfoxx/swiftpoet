@@ -51,7 +51,7 @@ jobs:
       with:
         branch: gh-pages
         clean: false
-        folder: build/dokka
+        folder: build/javadoc
 
     - name: Publish GitHub Release
       uses: gradle/gradle-build-action@v2
