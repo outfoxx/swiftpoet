@@ -67,7 +67,12 @@ class FunctionSpec private constructor(
         name.removePrefix(OPERATOR)
       else
         escapeIfNecessary(name)
-    signature.emit(codeWriter, name, includeEmptyParameters = !isDeinitializer && !isAccessor && !isObserver)
+    signature.emit(
+      codeWriter = codeWriter,
+      name = name,
+      isAccessor = isAccessor,
+      includeEmptyParameters = !isDeinitializer && !isAccessor && !isObserver
+    )
 
     if (body !== CodeBlock.ABSTRACT) {
       codeWriter.emit(" {\n")
@@ -96,7 +101,7 @@ class FunctionSpec private constructor(
 
   val isDeinitializer get() = name.isDeinitializer
 
-  val isAccessor get() = name.isAccessor
+  val isAccessor = builder.isAccessor
 
   val isObserver get() = name.isObserver
 
@@ -132,6 +137,11 @@ class FunctionSpec private constructor(
     internal val localTypeSpecs = mutableListOf<AnyTypeSpec>()
     internal val body: CodeBlock.Builder = CodeBlock.builder()
     internal var abstract = false
+    internal var isAccessor = false
+
+    internal fun accessor() = apply {
+      isAccessor = true
+    }
 
     fun addDoc(format: String, vararg args: Any) = apply {
       doc.add(format, *args)
@@ -281,9 +291,9 @@ class FunctionSpec private constructor(
 
     @JvmStatic fun deinitializerBuilder() = Builder(DEINITIALIZER)
 
-    @JvmStatic fun getterBuilder() = Builder(GETTER)
+    @JvmStatic fun getterBuilder() = Builder(GETTER).accessor()
 
-    @JvmStatic fun setterBuilder() = Builder(SETTER)
+    @JvmStatic fun setterBuilder() = Builder(SETTER).accessor()
 
     @JvmStatic fun willSetBuilder() = Builder(WILL_SET)
 

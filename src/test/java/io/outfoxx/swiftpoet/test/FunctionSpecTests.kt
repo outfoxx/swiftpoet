@@ -27,6 +27,7 @@ import io.outfoxx.swiftpoet.FunctionTypeName
 import io.outfoxx.swiftpoet.INT
 import io.outfoxx.swiftpoet.Modifier
 import io.outfoxx.swiftpoet.ParameterSpec
+import io.outfoxx.swiftpoet.PropertySpec
 import io.outfoxx.swiftpoet.STRING
 import io.outfoxx.swiftpoet.SelfTypeName
 import io.outfoxx.swiftpoet.TypeAliasSpec
@@ -795,5 +796,49 @@ class FunctionSpecTests {
     assertThat(testFuncBlder.signature.returnType, equalTo<TypeName>(STRING))
     assertThat(testFuncBlder.signature.parameters, hasItems(ParameterSpec.builder("a", STRING).build()))
     assertThat(testFuncBlder.body.formatParts, hasItems("val;\n"))
+  }
+
+  @Test
+  @DisplayName("Generate property with setter and getter")
+  fun testGenAccessors() {
+    val propertySpec = PropertySpec.builder("property", STRING)
+      .setter(
+        FunctionSpec.setterBuilder()
+          .addParameter("newValue", STRING)
+          .addCode("// This is setter\n")
+          .build()
+      )
+      .getter(
+        FunctionSpec.getterBuilder()
+          .addCode("// This is getter\n")
+          .build()
+      )
+      .build()
+
+    assertThat(
+      propertySpec.toString(),
+      equalTo(
+        """
+        var property: Swift.String {
+          get {
+            // This is getter
+          }
+          set(newValue) {
+            // This is setter
+          }
+        }
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generate function with 'set' name")
+  fun testGenSetFunction() {
+    val functionSpec = FunctionSpec.abstractBuilder("set")
+      .addParameter("property", STRING)
+      .build()
+
+    assertThat(functionSpec.toString(), equalTo("func set(property: Swift.String)"))
   }
 }
