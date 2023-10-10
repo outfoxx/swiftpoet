@@ -80,8 +80,12 @@ private val Char.isIsoControl: Boolean
   }
 
 /** Returns the string literal representing `value`, including wrapping double quotes.  */
-internal fun stringLiteralWithQuotes(value: String): String {
-  if (value.contains("\n")) {
+internal fun stringLiteralWithQuotes(
+  value: String,
+  isInsideRawString: Boolean = false,
+  isConstantContext: Boolean = false,
+): String {
+  if (!isConstantContext && '\n' in value) {
     val result = StringBuilder(value.length + 32)
     result.append("\"\"\"\n|")
     var i = 0
@@ -94,6 +98,9 @@ internal fun stringLiteralWithQuotes(value: String): String {
       } else if (c == '\n') {
         // Add a '|' after newlines. This pipe will be removed by trimMargin().
         result.append("\n|")
+      } else if (c == '$' && !isInsideRawString) {
+        // Escape '$' symbols with ${'$'}.
+        result.append("\${\'\$\'}")
       } else {
         result.append(c)
       }
@@ -106,24 +113,28 @@ internal fun stringLiteralWithQuotes(value: String): String {
     return result.toString()
   } else {
     val result = StringBuilder(value.length + 32)
-    result.append('"')
-    for (i in 0 until value.length) {
-      val c = value[i]
+    if (isInsideRawString) result.append("\"\"\"") else result.append('"')
+    for (c in value) {
       // Trivial case: single quote must not be escaped.
       if (c == '\'') {
         result.append("'")
         continue
       }
       // Trivial case: double quotes must be escaped.
-      if (c == '\"') {
+      if (c == '\"' && !isInsideRawString) {
         result.append("\\\"")
         continue
       }
+      // Trivial case: $ signs must be escaped.
+      if (c == '$' && !isInsideRawString) {
+        result.append("\${\'\$\'}")
+        continue
+      }
       // Default case: just let character literal do its work.
-      result.append(characterLiteralWithoutSingleQuotes(c))
+      result.append(if (isInsideRawString) c else characterLiteralWithoutSingleQuotes(c))
       // Need to append indent after linefeed?
     }
-    result.append('"')
+    if (isInsideRawString) result.append("\"\"\"") else result.append('"')
     return result.toString()
   }
 }

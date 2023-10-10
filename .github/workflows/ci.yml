@@ -27,10 +27,10 @@ jobs:
       with:
         arguments: check
 
-    - name: Report Tests
-      uses: dorny/test-reporter@v1
-      if: success() || failure()
-      with:
-        name: Tests Results
-        path: "**/build/test-results/*/*.xml"
-        reporter: java-junit
+#    - name: Report Tests
+#      uses: dorny/test-reporter@v1
+#      if: success() || failure()
+#      with:
+#        name: Tests Results
+#        path: "**/build/test-results/*/*.xml"
+#        reporter: java-junit
