@@ -17,6 +17,7 @@
 package io.outfoxx.swiftpoet
 
 import io.outfoxx.swiftpoet.TypeVariableName.Bound.Constraint.SAME_TYPE
+import java.io.Closeable
 
 /** Sentinel value that indicates that no user-provided package has been set.  */
 private val NO_MODULE = String()
@@ -30,7 +31,7 @@ internal class CodeWriter constructor(
   private val indent: String = DEFAULT_INDENT,
   internal val importedTypes: Map<String, DeclaredTypeName> = emptyMap(),
   private val importedModules: Set<String> = emptySet()
-) {
+) : Closeable {
   private val out = LineWrapper(out, indent, 100)
   private var indentLevel = 0
 
@@ -406,10 +407,59 @@ internal class CodeWriter constructor(
     }
   }
 
+  override fun close() {
+    out.close()
+  }
+
   /**
    * Returns the modules that should have been imported for this code.
    */
-  fun suggestedImports(): Map<String, DeclaredTypeName> {
+  private fun suggestedImports(): Map<String, DeclaredTypeName> {
     return importableTypes
+  }
+
+  companion object {
+    /**
+     * Makes a pass to collect imports by executing [emitStep], and returns an instance of
+     * [CodeWriter] pre-initialized with collected imports.
+     */
+    fun withCollectedImports(
+      out: Appendable,
+      indent: String,
+      emitStep: (importsCollector: CodeWriter) -> Unit,
+    ): CodeWriter {
+      // First pass: emit the entire class, just to collect the types we'll need to import.
+      val importsCollector = CodeWriter(
+        NullAppendable,
+        indent,
+      )
+      emitStep(importsCollector)
+      val generatedImports = mutableMapOf<String, String>()
+      val suggestedImports = importsCollector.suggestedImports()
+        .generateImports(
+          generatedImports,
+          canonicalName = DeclaredTypeName::canonicalName,
+        )
+
+      importsCollector.close()
+
+      return CodeWriter(
+        out,
+        indent,
+        suggestedImports,
+      )
+    }
+
+    private fun <T> Map<String, T>.generateImports(
+      generatedImports: MutableMap<String, String>,
+      canonicalName: T.() -> String,
+    ): Map<String, T> {
+      return flatMap { (simpleName, qualifiedName) ->
+        listOf(simpleName to qualifiedName).also {
+          val canonicalName = qualifiedName.canonicalName()
+          generatedImports[canonicalName] = canonicalName
+        }
+      }.toMap()
+    }
   }
 }
