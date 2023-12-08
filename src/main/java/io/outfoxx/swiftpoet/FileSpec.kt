@@ -47,14 +47,12 @@ class FileSpec private constructor(
 
   @Throws(IOException::class)
   fun writeTo(out: Appendable) {
-    // First pass: emit the entire class, just to collect the modules we'll need to import.
-    val importsCollector = CodeWriter(NullAppendable, indent)
-    emit(importsCollector)
-    val suggestedImports = importsCollector.suggestedImports()
-
-    // Second pass: write the code, taking advantage of the imports.
-    val codeWriter = CodeWriter(out, indent, suggestedImports, moduleImports.map { it.name }.toSet())
-    emit(codeWriter)
+    val codeWriter = CodeWriter.withCollectedImports(
+      out = out,
+      indent = indent,
+      emitStep = { importsCollector -> emit(importsCollector) },
+    )
+    codeWriter.use(::emit)
   }
 
   /** Writes this to `directory` as UTF-8 using the standard directory structure.  */

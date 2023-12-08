@@ -40,8 +40,7 @@ abstract class TypeName internal constructor() {
   /** Lazily-initialized toString of this type name.  */
   private val cachedString: String by lazy {
     buildString {
-      val codeWriter = CodeWriter(this)
-      emit(codeWriter)
+      CodeWriter(this).use(::emit)
     }
   }
 
@@ -62,7 +61,7 @@ abstract class TypeName internal constructor() {
   open val name: String
     get() {
       val out = StringWriter()
-      emit(CodeWriter(out))
+      CodeWriter(out).use(::emit)
       return out.toString()
     }
 

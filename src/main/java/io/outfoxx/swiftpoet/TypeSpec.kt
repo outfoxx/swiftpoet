@@ -167,7 +167,7 @@ class TypeSpec private constructor(
 
   override fun hashCode() = toString().hashCode()
 
-  override fun toString() = buildString { emit(CodeWriter(this)) }
+  override fun toString() = buildString { CodeWriter(this).use(::emit) }
 
   sealed class Kind(
     internal val declarationKeyword: String,

@@ -49,7 +49,7 @@ class TypeAliasSpec private constructor(
 
   override fun hashCode() = toString().hashCode()
 
-  override fun toString() = buildString { emit(CodeWriter(this)) }
+  override fun toString() = buildString { CodeWriter(this).use(::emit) }
 
   fun toBuilder(): Builder {
     val builder = Builder(name, type)

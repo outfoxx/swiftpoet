@@ -110,7 +110,7 @@ class FunctionSpec private constructor(
   override fun hashCode() = toString().hashCode()
 
   override fun toString() = buildString {
-    emit(CodeWriter(this), TypeSpec.Kind.Class().implicitFunctionModifiers)
+    CodeWriter(this).use { emit(it, TypeSpec.Kind.Class().implicitFunctionModifiers) }
   }
 
   fun toBuilder(): Builder {

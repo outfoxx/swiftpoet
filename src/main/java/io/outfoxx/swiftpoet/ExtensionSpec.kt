@@ -125,7 +125,7 @@ class ExtensionSpec private constructor(
 
   override fun hashCode() = toString().hashCode()
 
-  override fun toString() = buildString { emit(CodeWriter(this)) }
+  override fun toString() = buildString { CodeWriter(this).use(::emit) }
 
   class Builder internal constructor(
     internal val extendedTypeOrName: Any
