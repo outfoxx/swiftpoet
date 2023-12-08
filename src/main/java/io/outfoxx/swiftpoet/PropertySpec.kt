@@ -130,7 +130,7 @@ class PropertySpec private constructor(
 
   override fun hashCode() = toString().hashCode()
 
-  override fun toString() = buildString { emit(CodeWriter(this), emptySet()) }
+  override fun toString() = buildString { CodeWriter(this).use { emit(it, emptySet()) } }
 
   fun toBuilder(): Builder {
     val builder = Builder()
@@ -171,7 +171,15 @@ class PropertySpec private constructor(
     }
 
     fun mutableVisibility(modifier: Modifier) = apply {
-      check(modifier.isOneOf(OPEN, PUBLIC, INTERNAL, FILEPRIVATE, PRIVATE)) { "mutable visibility must be open, public, internal, or private" }
+      check(
+        modifier.isOneOf(
+          OPEN,
+          PUBLIC,
+          INTERNAL,
+          FILEPRIVATE,
+          PRIVATE
+        )
+      ) { "mutable visibility must be open, public, internal, or private" }
       this.mutableVisibility = modifier
     }
 
@@ -247,13 +255,20 @@ class PropertySpec private constructor(
         .addModifiers(*modifiers)
     }
 
-    @JvmStatic fun abstractBuilder(name: String, type: TypeName, vararg modifiers: Modifier): Builder {
+    @JvmStatic fun abstractBuilder(
+      name: String,
+      type: TypeName,
+      vararg modifiers: Modifier
+    ): Builder {
       return Builder(name, type)
         .mutable(true)
         .addModifiers(*modifiers)
     }
 
-    @JvmStatic fun subscriptBuilder(signature: FunctionSignatureSpec, vararg modifiers: Modifier): Builder {
+    @JvmStatic fun subscriptBuilder(
+      signature: FunctionSignatureSpec,
+      vararg modifiers: Modifier
+    ): Builder {
       return Builder(signature)
         .addModifiers(*modifiers)
     }

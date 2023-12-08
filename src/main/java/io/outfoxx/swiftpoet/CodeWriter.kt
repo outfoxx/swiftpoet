@@ -279,7 +279,8 @@ internal class CodeWriter constructor(
 
       if (resolved == c.unwrapOptional()) {
         val suffixOffset = c.simpleNames.size - 1
-        return typeName.simpleNames.subList(suffixOffset, typeName.simpleNames.size).joinToString(".")
+        return typeName.simpleNames.subList(suffixOffset, typeName.simpleNames.size)
+          .joinToString(".")
       }
 
       c = c.enclosingTypeName()
@@ -429,19 +430,19 @@ internal class CodeWriter constructor(
       emitStep: (importsCollector: CodeWriter) -> Unit,
     ): CodeWriter {
       // First pass: emit the entire class, just to collect the types we'll need to import.
-      val importsCollector = CodeWriter(
+      val suggestedImports = CodeWriter(
         NullAppendable,
         indent,
-      )
-      emitStep(importsCollector)
-      val generatedImports = mutableMapOf<String, String>()
-      val suggestedImports = importsCollector.suggestedImports()
-        .generateImports(
-          generatedImports,
-          canonicalName = DeclaredTypeName::canonicalName,
-        )
+      ).use { importsCollector ->
+        emitStep(importsCollector)
 
-      importsCollector.close()
+        val generatedImports = mutableMapOf<String, String>()
+        importsCollector.suggestedImports()
+          .generateImports(
+            generatedImports,
+            canonicalName = DeclaredTypeName::canonicalName,
+          )
+      }
 
       return CodeWriter(
         out,

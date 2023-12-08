@@ -52,8 +52,7 @@ class FileSpec private constructor(
       indent = indent,
       emitStep = { importsCollector -> emit(importsCollector) },
     )
-    emit(codeWriter)
-    codeWriter.close()
+    codeWriter.use(::emit)
   }
 
   /** Writes this to `directory` as UTF-8 using the standard directory structure.  */
