@@ -63,14 +63,14 @@ internal fun <T> Collection<T>.containsAnyOf(vararg t: T) = t.any(this::contains
 
 // see https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.10.6
 internal fun characterLiteralWithoutSingleQuotes(c: Char) = when {
-  c == '\b' -> "\\b" // \u0008: backspace (BS)
-  c == '\t' -> "\\t" // \u0009: horizontal tab (HT)
-  c == '\n' -> "\\n" // \u000a: linefeed (LF)
-  c == '\r' -> "\\r" // \u000d: carriage return (CR)
-  c == '\"' -> "\"" // \u0022: double quote (")
-  c == '\'' -> "\\'" // \u0027: single quote (')
-  c == '\\' -> "\\\\" // \u005c: backslash (\)
-  c.isIsoControl -> String.format("\\u%04x", c.code)
+  c == '\b' -> "\\u{8}" // \u{0008}: backspace (BS)
+  c == '\t' -> "\\t" // \u{0009}: horizontal tab (HT)
+  c == '\n' -> "\\n" // \u{000a}: linefeed (LF)
+  c == '\r' -> "\\r" // \u{000d}: carriage return (CR)
+  c == '\"' -> "\\\"" // \u{0022}: double quote (")
+  c == '\'' -> "\\'" // \u{0027}: single quote (')
+  c == '\\' -> "\\\\" // \u{005c}: backslash (\)
+  c.isIsoControl -> String.format("\\u{%x}", c.code)
   else -> Character.toString(c)
 }
 
@@ -113,6 +113,8 @@ internal fun stringLiteralWithQuotes(
     return result.toString()
   } else {
     val result = StringBuilder(value.length + 32)
+    // Using pre-formatted strings allows us to get away with not escaping symbols that would
+    // normally require escaping, e.g. "foo ${"bar"} baz".
     if (isInsideRawString) result.append("\"\"\"") else result.append('"')
     for (c in value) {
       // Trivial case: single quote must not be escaped.
