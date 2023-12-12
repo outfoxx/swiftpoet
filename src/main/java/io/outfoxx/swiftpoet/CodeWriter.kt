@@ -198,13 +198,16 @@ internal class CodeWriter constructor(
 
   fun emitCode(format: String, vararg args: Any?) = emitCode(CodeBlock.of(format, *args))
 
-  fun emitCode(codeBlock: CodeBlock) = apply {
+  fun emitCode(
+    codeBlock: CodeBlock,
+    isConstantContext: Boolean = false,
+  ) = apply {
     var a = 0
     val partIterator = codeBlock.formatParts.listIterator()
     while (partIterator.hasNext()) {
       val part = partIterator.next()
       when (part) {
-        "%L" -> emitLiteral(codeBlock.args[a++])
+        "%L" -> emitLiteral(codeBlock.args[a++], isConstantContext)
 
         "%N" -> emit(codeBlock.args[a++] as String)
 
@@ -213,7 +216,11 @@ internal class CodeWriter constructor(
           // Emit null as a literal null: no quotes.
           emit(
             if (string != null)
-              stringLiteralWithQuotes(string) else
+              stringLiteralWithQuotes(
+                string,
+                isInsideRawString = false,
+                isConstantContext = isConstantContext,
+              ) else
               "null"
           )
         }
@@ -253,11 +260,11 @@ internal class CodeWriter constructor(
     out.wrappingSpace(indentLevel + 2)
   }
 
-  private fun emitLiteral(o: Any?) {
+  private fun emitLiteral(o: Any?, isConstantContext: Boolean) {
     when (o) {
       is AnyTypeSpec -> o.emit(this)
       is PropertySpec -> o.emit(this, emptySet())
-      is CodeBlock -> emitCode(o)
+      is CodeBlock -> emitCode(o, isConstantContext = isConstantContext)
       else -> emit(o.toString())
     }
   }

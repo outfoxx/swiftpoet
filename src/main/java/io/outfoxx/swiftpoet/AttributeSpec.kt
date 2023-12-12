@@ -28,7 +28,10 @@ class AttributeSpec internal constructor(
     out.emitCode(identifier)
     if (arguments.isNotEmpty()) {
       out.emit("(")
-      out.emit(arguments.joinToString())
+      out.emitCode(
+        codeBlock = arguments.joinToCode(),
+        isConstantContext = true,
+      )
       out.emit(")")
     }
     return out
@@ -37,18 +40,22 @@ class AttributeSpec internal constructor(
   class Builder internal constructor(
     val identifier: CodeBlock
   ) : Taggable.Builder<Builder>() {
-    internal val arguments = mutableListOf<String>()
+    internal val arguments = mutableListOf<CodeBlock>()
 
     fun addArgument(code: String): Builder = apply {
+      arguments += CodeBlock.of(code)
+    }
+
+    fun addArgument(code: CodeBlock): Builder = apply {
       arguments += code
     }
 
     fun addArguments(codes: List<String>): Builder = apply {
-      arguments += codes
+      arguments += codes.map(CodeBlock.Companion::of)
     }
 
     fun addArguments(vararg codes: String): Builder = apply {
-      arguments += codes
+      arguments += codes.map(CodeBlock.Companion::of)
     }
 
     fun build(): AttributeSpec =
