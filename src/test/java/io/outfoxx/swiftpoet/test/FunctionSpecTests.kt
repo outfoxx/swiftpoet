@@ -431,6 +431,28 @@ class FunctionSpecTests {
   }
 
   @Test
+  @DisplayName("Generates constructor with convenience modifier")
+  fun testConvenienceModifier() {
+    val testFunc = FunctionSpec.constructorBuilder()
+      .addModifiers(Modifier.PUBLIC, Modifier.CONVENIENCE)
+      .build()
+
+    val out = StringWriter()
+    testFunc.emit(CodeWriter(out), setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            public convenience init() {
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
   @DisplayName("Generates decorators formatted")
   fun testGenDecorators() {
     val testFunc = FunctionSpec.builder("test")
