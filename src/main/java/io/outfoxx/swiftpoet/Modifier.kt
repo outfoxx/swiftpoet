@@ -38,6 +38,8 @@ enum class Modifier(
 
   REQUIRED("required", Target.FUNCTION),
 
+  CONVENIENCE("convenience", Target.FUNCTION),
+
   INOUT("inout", Target.PARAMETER),
 
   WEAK("weak", Target.PROPERTY),
