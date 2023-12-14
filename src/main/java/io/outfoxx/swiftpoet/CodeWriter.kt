@@ -336,7 +336,9 @@ internal class CodeWriter constructor(
     for (i in typeSpecStack.indices.reversed()) {
       val typeSpec = typeSpecStack[i]
       if (typeSpec is ExternalTypeSpec) {
-        return stackTypeName(i, simpleName)
+        if (typeSpec.name == simpleName) {
+          return stackTypeName(i, simpleName)
+        }
       }
       for (visibleChild in typeSpec.typeSpecs) {
         if (visibleChild.name == simpleName) {
