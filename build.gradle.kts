@@ -14,6 +14,8 @@ plugins {
 
   id("com.github.breadmoirai.github-release") version "2.4.1"
   id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
+  
+  id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.2"
 }
 
 val releaseVersion: String by project
