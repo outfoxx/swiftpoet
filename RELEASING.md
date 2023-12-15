@@ -44,7 +44,7 @@ Cutting a Release
 
     ```
     sed -i "" \
-      "s/VERSION_NAME=.*/VERSION_NAME=$NEXT_VERSION/g" \
+      "s/releaseVersion=.*/releaseVersion=$NEXT_VERSION/g" \
       `find . -name "gradle.properties"`
     git commit -am "Prepare next development version."
     git push
