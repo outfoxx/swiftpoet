@@ -277,25 +277,23 @@ internal class CodeWriter constructor(
   fun lookupName(typeName: DeclaredTypeName): String {
     // Find the shortest suffix of typeName that resolves to typeName. This uses both local type
     // names (so `Entry` in `Map` refers to `Map.Entry`). Also uses imports.
-    var nameResolved = false
-    var c: DeclaredTypeName? = typeName
-    while (c != null) {
-      val simpleName = c.simpleName
-      val resolved = resolve(simpleName)
-      nameResolved = resolved != null
+    var currentTypeName: DeclaredTypeName? = typeName
+    val currentNestedSimpleNames = mutableListOf<String>()
+    while (currentTypeName != null) {
+      val simpleName = currentTypeName.simpleName
+      val resolved = resolve(simpleName)?.nestedType(currentNestedSimpleNames)
 
-      if (resolved == c.unwrapOptional()) {
-        val suffixOffset = c.simpleNames.size - 1
-        return typeName.simpleNames.subList(suffixOffset, typeName.simpleNames.size)
-          .joinToString(".")
+      if (resolved == typeName.unwrapOptional()) {
+        // If the type is the same as the type we're resolving for, we must use at least that name.
+        if (currentNestedSimpleNames.isEmpty()) {
+          return simpleName
+        }
+        // Otherwise, we need to use all the nested names that didn't match
+        return currentNestedSimpleNames.joinToString(".")
       }
 
-      c = c.enclosingTypeName()
-    }
-
-    // If the name resolved but wasn't a match, we're stuck with the fully qualified name.
-    if (nameResolved) {
-      return typeName.canonicalName
+      currentNestedSimpleNames.add(0, simpleName)
+      currentTypeName = currentTypeName.enclosingTypeName()
     }
 
     // If the type is in the same module, we're done.
@@ -313,7 +311,7 @@ internal class CodeWriter constructor(
       importableType(typeName)
     }
 
-    return typeName.canonicalName
+    return resolveImport(typeName)
   }
 
   private fun importableType(typeName: DeclaredTypeName) {
@@ -322,10 +320,7 @@ internal class CodeWriter constructor(
     }
     val topLevelTypeName = typeName.topLevelTypeName()
     val simpleName = topLevelTypeName.simpleName
-    val replaced = importableTypes.put(simpleName, topLevelTypeName)
-    if (replaced != null) {
-      importableTypes[simpleName] = replaced // On collision, prefer the first inserted.
-    }
+    importableTypes.putIfAbsent(simpleName, topLevelTypeName)
   }
 
   /**
@@ -337,12 +332,12 @@ internal class CodeWriter constructor(
       val typeSpec = typeSpecStack[i]
       if (typeSpec is ExternalTypeSpec) {
         if (typeSpec.name == simpleName) {
-          return stackTypeName(i, simpleName)
+          return stackTypeName(i)
         }
       }
       for (visibleChild in typeSpec.typeSpecs) {
         if (visibleChild.name == simpleName) {
-          return stackTypeName(i, simpleName)
+          return stackTypeName(i).nestedType(simpleName)
         }
       }
     }
@@ -352,21 +347,29 @@ internal class CodeWriter constructor(
       return DeclaredTypeName(moduleStack.last(), simpleName)
     }
 
-    // Match an imported type.
-    val importedType = importedTypes[simpleName]
-    if (importedType != null) return importedType
-
     // No match.
     return null
   }
 
+  /**
+   * Looks up `typeName` in the imports and returns the shortest name possible for that type name.
+   */
+  private fun resolveImport(typeName: DeclaredTypeName): String {
+    val topLevelTypeName = typeName.topLevelTypeName()
+    return if (importedTypes.entries.any { it.value == topLevelTypeName }) {
+      typeName.simpleNames.joinToString(".")
+    } else {
+      typeName.canonicalName
+    }
+  }
+
   /** Returns the type named `simpleName` when nested in the type at `stackDepth`.  */
-  private fun stackTypeName(stackDepth: Int, simpleName: String): DeclaredTypeName {
+  private fun stackTypeName(stackDepth: Int): DeclaredTypeName {
     var typeName = DeclaredTypeName(moduleStack.last(), typeSpecStack[0].name)
     for (i in 1..stackDepth) {
       typeName = typeName.nestedType(typeSpecStack[i].name)
     }
-    return typeName.nestedType(simpleName)
+    return typeName
   }
 
   /**

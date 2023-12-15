@@ -69,6 +69,13 @@ class DeclaredTypeName internal constructor(
     DeclaredTypeName(names + name, alwaysQualify)
 
   /**
+   * Returns a new [DeclaredTypeName] instance for the specified `names` as nested inside this
+   * type.
+   */
+  fun nestedType(names: List<String>, alwaysQualify: Boolean = this.alwaysQualify) =
+    DeclaredTypeName(this.names + names, alwaysQualify)
+
+  /**
    * Returns a type that shares the same enclosing package or type. If this type is enclosed by
    * another type, this is equivalent to `enclosingTypeName().nestedType(name)`. Otherwise
    * it is equivalent to `get(packageName(), name)`.

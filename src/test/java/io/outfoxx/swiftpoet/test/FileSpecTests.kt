@@ -80,7 +80,7 @@ class FileSpecTests {
   }
 
   @Test
-  @DisplayName("Generates correct imports when extending different types")
+  @DisplayName("Generates correct imports when extending different type names")
   fun testImportsForDifferentExtensionTypes() {
     val parentElement = typeName("Foundation.Data")
     val obsElement = typeName("RxSwift.Observable.Element")
@@ -121,16 +121,28 @@ class FileSpecTests {
   }
 
   @Test
-  @DisplayName("Generates correct imports for extension types")
+  @DisplayName("Generates correct imports for extension type names")
   fun testImportsForSameExtensionTypes() {
 
+    val obs = typeName("RxSwift.Observable")
     val obsElement = typeName("RxSwift.Observable.Element")
+    val obsElementSub = typeName("RxSwift.Observable.Element.SubSequence")
 
     val extension =
       ExtensionSpec.builder(obsElement.enclosingTypeName()!!)
         .addFunction(
           FunctionSpec.builder("test")
+            .returns(obs)
+            .build()
+        )
+        .addFunction(
+          FunctionSpec.builder("test2")
             .returns(obsElement)
+            .build()
+        )
+        .addFunction(
+          FunctionSpec.builder("test3")
+            .returns(obsElementSub)
             .build()
         )
         .build()
@@ -150,7 +162,13 @@ class FileSpecTests {
 
             extension Observable {
             
-              func test() -> RxSwift.Observable.Element {
+              func test() -> Observable {
+              }
+            
+              func test2() -> Element {
+              }
+            
+              func test3() -> Element.SubSequence {
               }
             
             }
