@@ -12,7 +12,8 @@
 ### Fixed
 
 - No more errors when formatting strings (#85).
-- Imports are now correctly emitted for sub types within external extensions (#88).
+- Imports are now correctly emitted for subtypes within external extensions (#88).
+- Fix generation functions with `set` and `get` names (#82).
 
 ### Changed
 
