@@ -26,12 +26,13 @@ private val NO_MODULE = String()
  * Converts a [FileSpec] to a string suitable to both human- and swiftc-consumption. This honors
  * imports, indentation, and variable names.
  */
-internal class CodeWriter constructor(
+internal class CodeWriter(
   out: Appendable,
   private val indent: String = DEFAULT_INDENT,
   internal val importedTypes: Map<String, DeclaredTypeName> = emptyMap(),
   private val importedModules: Set<String> = emptySet()
 ) : Closeable {
+
   private val out = LineWrapper(out, indent, 100)
   private var indentLevel = 0
 
@@ -40,6 +41,7 @@ internal class CodeWriter constructor(
   private var moduleStack = mutableListOf(NO_MODULE)
   private val typeSpecStack = mutableListOf<AnyTypeSpec>()
   private val importableTypes = mutableMapOf<String, DeclaredTypeName>()
+  private val referencedTypes = mutableMapOf<String, DeclaredTypeName>()
   private var trailingNewline = false
 
   /**
@@ -274,6 +276,10 @@ internal class CodeWriter constructor(
    * names visible due to inheritance.
    */
   fun lookupName(typeName: DeclaredTypeName): String {
+
+    // Track all referenced type names, Swift needs to import the module for each type
+    referencedTypes[typeName.canonicalName] = typeName
+
     // Find the shortest suffix of typeName that resolves to typeName. This uses both local type
     // names (so `Entry` in `Map` refers to `Map.Entry`). Also uses imports.
     var currentTypeName: DeclaredTypeName? = typeName
@@ -301,7 +307,7 @@ internal class CodeWriter constructor(
     }
 
     // If the type is in a manually imported module and doesn't clash, use an unqualified type
-    if (importedModules.contains(typeName.moduleName) && !importableTypes.containsKey(typeName.simpleName)) {
+    if (importedModules.contains(typeName.moduleName) && !importedTypes.containsKey(typeName.simpleName)) {
       return typeName.simpleName
     }
 
@@ -355,7 +361,7 @@ internal class CodeWriter constructor(
    */
   private fun resolveImport(typeName: DeclaredTypeName): String {
     val topLevelTypeName = typeName.topLevelTypeName()
-    return if (importedTypes.entries.any { it.value == topLevelTypeName }) {
+    return if (importedTypes.values.any { it == topLevelTypeName }) {
       typeName.simpleNames.joinToString(".")
     } else {
       typeName.canonicalName
@@ -424,54 +430,28 @@ internal class CodeWriter constructor(
   }
 
   /**
-   * Returns the modules that should have been imported for this code.
+   * Returns the non-colliding importable types and module names for all referenced types.
    */
-  private fun suggestedImports(): Map<String, DeclaredTypeName> {
-    return importableTypes
+  private fun generateImports(): Pair<Map<String, DeclaredTypeName>, Set<String>> {
+    return importableTypes to referencedTypes.values.map { it.moduleName }.toSet()
   }
 
   companion object {
+
     /**
-     * Makes a pass to collect imports by executing [emitStep], and returns an instance of
-     * [CodeWriter] pre-initialized with collected imports.
+     * Collect imports by executing [emitStep], and returns the non-colliding imported types
+     * and referenced modules.
      */
-    fun withCollectedImports(
-      out: Appendable,
+    fun collectImports(
       indent: String,
       emitStep: (importsCollector: CodeWriter) -> Unit,
-    ): CodeWriter {
-      // First pass: emit the entire class, just to collect the types we'll need to import.
-      val suggestedImports = CodeWriter(
-        NullAppendable,
-        indent,
-      ).use { importsCollector ->
-        emitStep(importsCollector)
+    ): Pair<Map<String, DeclaredTypeName>, Set<String>> =
+      CodeWriter(NullAppendable, indent)
+        .use { importsCollector ->
 
-        val generatedImports = mutableMapOf<String, String>()
-        importsCollector.suggestedImports()
-          .generateImports(
-            generatedImports,
-            DeclaredTypeName::canonicalName,
-          )
-      }
+          emitStep(importsCollector)
 
-      return CodeWriter(
-        out,
-        indent,
-        suggestedImports,
-      )
-    }
-
-    private fun <T> Map<String, T>.generateImports(
-      generatedImports: MutableMap<String, String>,
-      canonicalNameAccessor: T.() -> String,
-    ): Map<String, T> {
-      return flatMap { (simpleName, qualifiedName) ->
-        listOf(simpleName to qualifiedName).also {
-          val canonicalName = qualifiedName.canonicalNameAccessor()
-          generatedImports[canonicalName] = canonicalName
+          importsCollector.generateImports()
         }
-      }.toMap()
-    }
   }
 }

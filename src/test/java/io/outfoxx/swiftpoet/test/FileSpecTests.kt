@@ -262,10 +262,58 @@ class FileSpecTests {
       out.toString(),
       equalTo(
         """
-            class Test {
+          import Foundation
+          
+          class Test {
 
-              let a: Array
-              let b: Foundation.Array
+            let a: Array
+            let b: Foundation.Array
+
+          }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates all required imports with conflicts")
+  fun testGeneratesAllRequiredImportsWithConflicts() {
+    val type =
+      TypeSpec.structBuilder("SomeType")
+        .addProperty(
+          PropertySpec.varBuilder(
+            "foundation_order",
+            typeName("Foundation.SortOrder")
+          ).build()
+        )
+        .addProperty(
+          PropertySpec.varBuilder(
+            "order",
+            typeName("some_other_module.SortOrder")
+          ).build()
+        )
+        .build()
+
+    val testFile = FileSpec.builder("Test", "Test")
+      .addImport("Foundation")
+      .addType(type)
+      .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            import Foundation
+            import some_other_module
+
+            struct SomeType {
+
+              var foundation_order: SortOrder
+              var order: some_other_module.SortOrder
 
             }
 
