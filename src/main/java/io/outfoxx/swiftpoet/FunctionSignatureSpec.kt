@@ -16,7 +16,6 @@
 
 package io.outfoxx.swiftpoet
 
-import io.outfoxx.swiftpoet.FunctionSpec.Companion.isAccessor
 import io.outfoxx.swiftpoet.FunctionSpec.Companion.isObserver
 
 class FunctionSignatureSpec(builder: Builder) {
@@ -28,7 +27,7 @@ class FunctionSignatureSpec(builder: Builder) {
   val async = builder.async
   val failable = builder.failable
 
-  internal fun emit(codeWriter: CodeWriter, name: String, includeEmptyParameters: Boolean = true) {
+  internal fun emit(codeWriter: CodeWriter, name: String, isAccessor: Boolean, includeEmptyParameters: Boolean = true) {
     codeWriter.emit(name)
     if (failable) {
       codeWriter.emit("?")
@@ -40,7 +39,7 @@ class FunctionSignatureSpec(builder: Builder) {
 
     if (parameters.isNotEmpty() || includeEmptyParameters) {
       parameters.emit(codeWriter) { param ->
-        param.emit(codeWriter, includeType = !name.isAccessor && !name.isObserver)
+        param.emit(codeWriter, includeType = !isAccessor && !name.isObserver)
       }
     }
 

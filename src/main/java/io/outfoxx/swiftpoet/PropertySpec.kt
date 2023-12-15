@@ -63,7 +63,7 @@ class PropertySpec private constructor(
     codeWriter.emitModifiers(modifiers, implicitModifiers)
 
     if (subscriptSpec != null) {
-      subscriptSpec.emit(codeWriter, "subscript")
+      subscriptSpec.emit(codeWriter, "subscript", isAccessor = false)
     } else if (simpleSpec != null) {
 
       if (mutable && mutableVisibility != null) {
