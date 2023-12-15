@@ -1,8 +1,8 @@
-# Changelog
+# Change log
 
 ## [Unreleased]
 
-## [1.6.0] - 2023-12-14
+## [1.6.0] - 2023-12-15
 
 ### Added
 
@@ -24,3 +24,7 @@
 ### Remark
 
 There are no changelog for versions 1.5.0 and before. 
+
+[Unreleased]: https://github.com/outfoxx/swiftpoet/compare/1.6.0...HEAD
+[1.6.0]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.0
+[1.5.0]: https://github.com/outfoxx/swiftpoet/releases/tag/1.5.0
