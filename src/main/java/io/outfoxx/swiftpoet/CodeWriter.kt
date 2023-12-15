@@ -205,8 +205,7 @@ internal class CodeWriter constructor(
     var a = 0
     val partIterator = codeBlock.formatParts.listIterator()
     while (partIterator.hasNext()) {
-      val part = partIterator.next()
-      when (part) {
+      when (val part = partIterator.next()) {
         "%L" -> emitLiteral(codeBlock.args[a++], isConstantContext)
 
         "%N" -> emit(codeBlock.args[a++] as String)
@@ -452,7 +451,7 @@ internal class CodeWriter constructor(
         importsCollector.suggestedImports()
           .generateImports(
             generatedImports,
-            canonicalName = DeclaredTypeName::canonicalName,
+            DeclaredTypeName::canonicalName,
           )
       }
 
@@ -465,11 +464,11 @@ internal class CodeWriter constructor(
 
     private fun <T> Map<String, T>.generateImports(
       generatedImports: MutableMap<String, String>,
-      canonicalName: T.() -> String,
+      canonicalNameAccessor: T.() -> String,
     ): Map<String, T> {
       return flatMap { (simpleName, qualifiedName) ->
         listOf(simpleName to qualifiedName).also {
-          val canonicalName = qualifiedName.canonicalName()
+          val canonicalName = qualifiedName.canonicalNameAccessor()
           generatedImports[canonicalName] = canonicalName
         }
       }.toMap()
