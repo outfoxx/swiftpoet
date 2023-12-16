@@ -342,7 +342,6 @@ class FileSpecTests {
         .build()
 
     val testFile = FileSpec.builder("Test", "Test")
-      .addImport("Foundation")
       .addType(type)
       .build()
 
