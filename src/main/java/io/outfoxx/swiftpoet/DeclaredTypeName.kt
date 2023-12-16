@@ -89,7 +89,7 @@ class DeclaredTypeName internal constructor(
   override fun compareTo(other: DeclaredTypeName) = canonicalName.compareTo(other.canonicalName)
 
   override fun emit(out: CodeWriter) =
-    out.emit(escapeKeywords(if (alwaysQualify) canonicalName else out.lookupName(this)))
+    out.emit(escapeKeywords(out.lookupName(this)))
 
   companion object {
     @JvmStatic fun typeName(qualifiedTypeName: String, alwaysQualify: Boolean = false): DeclaredTypeName {

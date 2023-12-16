@@ -270,6 +270,10 @@ internal class CodeWriter(
     }
   }
 
+  private fun referenceTypeName(typeName: DeclaredTypeName) {
+    referencedTypes[typeName.canonicalName] = typeName
+  }
+
   /**
    * Returns the best name to identify `typeName` with in the current context. This uses the
    * available imports and the current scope to find the shortest name available. It does not honor
@@ -278,7 +282,11 @@ internal class CodeWriter(
   fun lookupName(typeName: DeclaredTypeName): String {
 
     // Track all referenced type names, Swift needs to import the module for each type
-    referencedTypes[typeName.canonicalName] = typeName
+    referenceTypeName(typeName)
+
+    if (typeName.alwaysQualify) {
+      return typeName.canonicalName
+    }
 
     // Find the shortest suffix of typeName that resolves to typeName. This uses both local type
     // names (so `Entry` in `Map` refers to `Map.Entry`). Also uses imports.
