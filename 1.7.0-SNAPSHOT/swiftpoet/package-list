@@ -111,6 +111,7 @@ $dokka.location:io.outfoxx.swiftpoet/DeclaredTypeName/compoundName/#/PointingToD
 $dokka.location:io.outfoxx.swiftpoet/DeclaredTypeName/enclosingTypeName/#kotlin.Boolean/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-declared-type-name/enclosing-type-name.html
 $dokka.location:io.outfoxx.swiftpoet/DeclaredTypeName/moduleName/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-declared-type-name/module-name.html
 $dokka.location:io.outfoxx.swiftpoet/DeclaredTypeName/nestedType/#kotlin.String#kotlin.Boolean/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-declared-type-name/nested-type.html
+$dokka.location:io.outfoxx.swiftpoet/DeclaredTypeName/nestedType/#kotlin.collections.List[kotlin.String]#kotlin.Boolean/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-declared-type-name/nested-type.html
 $dokka.location:io.outfoxx.swiftpoet/DeclaredTypeName/peerType/#kotlin.String#kotlin.Boolean/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-declared-type-name/peer-type.html
 $dokka.location:io.outfoxx.swiftpoet/DeclaredTypeName/simpleName/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-declared-type-name/simple-name.html
 $dokka.location:io.outfoxx.swiftpoet/DeclaredTypeName/simpleNames/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-declared-type-name/simple-names.html
