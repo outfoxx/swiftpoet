@@ -107,7 +107,9 @@ public final class io/outfoxx/swiftpoet/DeclaredTypeName : io/outfoxx/swiftpoet/
 	public final fun getSimpleName ()Ljava/lang/String;
 	public final fun getSimpleNames ()Ljava/util/List;
 	public final fun nestedType (Ljava/lang/String;Z)Lio/outfoxx/swiftpoet/DeclaredTypeName;
+	public final fun nestedType (Ljava/util/List;Z)Lio/outfoxx/swiftpoet/DeclaredTypeName;
 	public static synthetic fun nestedType$default (Lio/outfoxx/swiftpoet/DeclaredTypeName;Ljava/lang/String;ZILjava/lang/Object;)Lio/outfoxx/swiftpoet/DeclaredTypeName;
+	public static synthetic fun nestedType$default (Lio/outfoxx/swiftpoet/DeclaredTypeName;Ljava/util/List;ZILjava/lang/Object;)Lio/outfoxx/swiftpoet/DeclaredTypeName;
 	public final fun peerType (Ljava/lang/String;Z)Lio/outfoxx/swiftpoet/DeclaredTypeName;
 	public static synthetic fun peerType$default (Lio/outfoxx/swiftpoet/DeclaredTypeName;Ljava/lang/String;ZILjava/lang/Object;)Lio/outfoxx/swiftpoet/DeclaredTypeName;
 	public static final fun qualifiedTypeName (Ljava/lang/String;)Lio/outfoxx/swiftpoet/DeclaredTypeName;

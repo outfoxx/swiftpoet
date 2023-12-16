@@ -47,12 +47,15 @@ class FileSpec private constructor(
 
   @Throws(IOException::class)
   fun writeTo(out: Appendable) {
-    val codeWriter = CodeWriter.withCollectedImports(
-      out = out,
-      indent = indent,
-      emitStep = { importsCollector -> emit(importsCollector) },
-    )
-    codeWriter.use(::emit)
+
+    val (importedTypes, referencedModules) =
+      CodeWriter.collectImports(
+        indent = indent,
+        emitStep = { importsCollector -> emit(importsCollector) },
+      )
+
+    val codeWriter = CodeWriter(out, indent = indent, importedTypes = importedTypes)
+    emit(codeWriter, referencedModules = referencedModules)
   }
 
   /** Writes this to `directory` as UTF-8 using the standard directory structure.  */
@@ -70,19 +73,20 @@ class FileSpec private constructor(
   @Throws(IOException::class)
   fun writeTo(directory: File) = writeTo(directory.toPath())
 
-  private fun emit(codeWriter: CodeWriter) {
+  private fun emit(codeWriter: CodeWriter, referencedModules: Set<String> = setOf()) {
     if (comment.isNotEmpty()) {
       codeWriter.emitComment(comment)
     }
 
     codeWriter.pushModule(moduleName)
 
-    val importedTypeImports = codeWriter.importedTypes.map { ImportSpec.builder(it.value.moduleName).build() }
-    val allImports = moduleImports + importedTypeImports
-    val imports = allImports.filter { it.name != "Swift" }
+    val implicitModuleImports = referencedModules.map { ImportSpec.builder(it).build() }
+    val allModuleImports = moduleImports + implicitModuleImports
+    val nonImportedModules = NON_IMPORTED_MODULES + moduleName
+    val moduleImports = allModuleImports.filterNot { nonImportedModules.contains(it.name) }
 
-    if (imports.isNotEmpty()) {
-      for (import in imports.toSortedSet()) {
+    if (moduleImports.isNotEmpty()) {
+      for (import in moduleImports.toSortedSet()) {
         import.emit(codeWriter)
         codeWriter.emit("\n")
       }
@@ -173,6 +177,9 @@ class FileSpec private constructor(
   }
 
   companion object {
+
+    private val NON_IMPORTED_MODULES = setOf("Swift")
+
     @JvmStatic fun get(moduleName: String, typeSpec: AnyTypeSpec): FileSpec {
       return builder(moduleName, typeSpec.name).addType(typeSpec).build()
     }

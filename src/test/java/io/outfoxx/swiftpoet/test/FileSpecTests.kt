@@ -73,6 +73,8 @@ class FileSpecTests {
       out.toString(),
       equalTo(
         """
+            import Special
+
             let value: Special.Array
         """.trimIndent()
       )
@@ -80,7 +82,7 @@ class FileSpecTests {
   }
 
   @Test
-  @DisplayName("Generates correct imports when extending different types")
+  @DisplayName("Generates correct imports when extending different type names")
   fun testImportsForDifferentExtensionTypes() {
     val parentElement = typeName("Foundation.Data")
     val obsElement = typeName("RxSwift.Observable.Element")
@@ -121,16 +123,28 @@ class FileSpecTests {
   }
 
   @Test
-  @DisplayName("Generates correct imports for extension types")
+  @DisplayName("Generates correct imports for extension type names")
   fun testImportsForSameExtensionTypes() {
 
+    val obs = typeName("RxSwift.Observable")
     val obsElement = typeName("RxSwift.Observable.Element")
+    val obsElementSub = typeName("RxSwift.Observable.Element.SubSequence")
 
     val extension =
       ExtensionSpec.builder(obsElement.enclosingTypeName()!!)
         .addFunction(
           FunctionSpec.builder("test")
+            .returns(obs)
+            .build()
+        )
+        .addFunction(
+          FunctionSpec.builder("test2")
             .returns(obsElement)
+            .build()
+        )
+        .addFunction(
+          FunctionSpec.builder("test3")
+            .returns(obsElementSub)
             .build()
         )
         .build()
@@ -150,7 +164,13 @@ class FileSpecTests {
 
             extension Observable {
             
-              func test() -> RxSwift.Observable.Element {
+              func test() -> Observable {
+              }
+            
+              func test2() -> Element {
+              }
+            
+              func test3() -> Element.SubSequence {
               }
             
             }
@@ -244,10 +264,101 @@ class FileSpecTests {
       out.toString(),
       equalTo(
         """
-            class Test {
+          import Foundation
+          
+          class Test {
 
-              let a: Array
-              let b: Foundation.Array
+            let a: Array
+            let b: Foundation.Array
+
+          }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates all required imports with conflicts (alwaysQualify)")
+  fun testGeneratesAllRequiredImportsWithConflictsUsingAlwaysQualify() {
+    val type = TypeSpec.structBuilder("SomeType")
+      .addProperty(
+        PropertySpec.varBuilder(
+          "foundation_order",
+          typeName("Foundation.SortOrder", alwaysQualify = true)
+        ).build()
+      )
+      .addProperty(
+        PropertySpec.varBuilder(
+          "order",
+          typeName("some_other_module.SortOrder")
+        ).build()
+      )
+      .build()
+
+    val testFile = FileSpec.builder("Test", "Test")
+      .addType(type)
+      .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            import Foundation
+            import some_other_module
+
+            struct SomeType {
+
+              var foundation_order: Foundation.SortOrder
+              var order: SortOrder
+
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates all required imports with conflicts")
+  fun testGeneratesAllRequiredImportsWithConflicts() {
+    val type =
+      TypeSpec.structBuilder("SomeType")
+        .addProperty(
+          PropertySpec.varBuilder(
+            "foundation_order",
+            typeName("Foundation.SortOrder")
+          ).build()
+        )
+        .addProperty(
+          PropertySpec.varBuilder(
+            "order",
+            typeName("some_other_module.SortOrder")
+          ).build()
+        )
+        .build()
+
+    val testFile = FileSpec.builder("Test", "Test")
+      .addType(type)
+      .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            import Foundation
+            import some_other_module
+
+            struct SomeType {
+
+              var foundation_order: SortOrder
+              var order: some_other_module.SortOrder
 
             }
 
