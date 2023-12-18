@@ -131,9 +131,11 @@ public final class io/outfoxx/swiftpoet/DeclaredTypeNameKt {
 	public static final field ARRAY Lio/outfoxx/swiftpoet/DeclaredTypeName;
 	public static final field BOOL Lio/outfoxx/swiftpoet/DeclaredTypeName;
 	public static final field CASE_ITERABLE Lio/outfoxx/swiftpoet/DeclaredTypeName;
+	public static final field CODABLE Lio/outfoxx/swiftpoet/DeclaredTypeName;
 	public static final field DATA Lio/outfoxx/swiftpoet/DeclaredTypeName;
 	public static final field DICTIONARY Lio/outfoxx/swiftpoet/DeclaredTypeName;
 	public static final field DOUBLE Lio/outfoxx/swiftpoet/DeclaredTypeName;
+	public static final field EQUATABLE Lio/outfoxx/swiftpoet/DeclaredTypeName;
 	public static final field FLOAT Lio/outfoxx/swiftpoet/DeclaredTypeName;
 	public static final field FLOAT32 Lio/outfoxx/swiftpoet/DeclaredTypeName;
 	public static final field FLOAT64 Lio/outfoxx/swiftpoet/DeclaredTypeName;
@@ -145,6 +147,7 @@ public final class io/outfoxx/swiftpoet/DeclaredTypeNameKt {
 	public static final field INT64 Lio/outfoxx/swiftpoet/DeclaredTypeName;
 	public static final field INT8 Lio/outfoxx/swiftpoet/DeclaredTypeName;
 	public static final field OPTIONAL Lio/outfoxx/swiftpoet/DeclaredTypeName;
+	public static final field SENDABLE Lio/outfoxx/swiftpoet/DeclaredTypeName;
 	public static final field SET Lio/outfoxx/swiftpoet/DeclaredTypeName;
 	public static final field STRING Lio/outfoxx/swiftpoet/DeclaredTypeName;
 	public static final field UINT16 Lio/outfoxx/swiftpoet/DeclaredTypeName;

@@ -135,5 +135,8 @@ class DeclaredTypeName internal constructor(
 @JvmField val DICTIONARY = DeclaredTypeName.typeName("Swift.Dictionary")
 
 @JvmField val CASE_ITERABLE = DeclaredTypeName.typeName("Swift.CaseIterable")
+@JvmField val CODABLE = DeclaredTypeName.typeName("Swift.Codable")
+@JvmField val EQUATABLE = DeclaredTypeName.typeName("Swift.Equatable")
+@JvmField val SENDABLE = DeclaredTypeName.typeName("Swift.Sendable")
 
 @JvmField val DATA = DeclaredTypeName.typeName("Foundation.Data")
