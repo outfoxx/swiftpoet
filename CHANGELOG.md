@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.6.2] - 2023-12-19
+
+### Added
+
+- Add codable, equatable and sendable Swift declared type names (#103)
+
 ## [1.6.1] - 2023-12-18
 
 ### Fixed
@@ -29,9 +35,10 @@
 
 ### Remark
 
-There are no changelog for versions 1.5.0 and before. 
+There are no changelog for versions 1.5.0 and before.
 
-[Unreleased]: https://github.com/outfoxx/swiftpoet/compare/1.6.1...HEAD
+[Unreleased]: https://github.com/outfoxx/swiftpoet/compare/1.6.2...HEAD
+[1.6.2]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.2
 [1.6.1]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.1
 [1.6.0]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.0
 [1.5.0]: https://github.com/outfoxx/swiftpoet/releases/tag/1.5.0
