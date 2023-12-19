@@ -7,9 +7,11 @@ $dokka.location:io.outfoxx.swiftpoet//ANY_OBJECT/#/PointingToDeclaration/swiftp
 $dokka.location:io.outfoxx.swiftpoet//ARRAY/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-a-r-r-a-y.html
 $dokka.location:io.outfoxx.swiftpoet//BOOL/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-b-o-o-l.html
 $dokka.location:io.outfoxx.swiftpoet//CASE_ITERABLE/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-c-a-s-e_-i-t-e-r-a-b-l-e.html
+$dokka.location:io.outfoxx.swiftpoet//CODABLE/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-c-o-d-a-b-l-e.html
 $dokka.location:io.outfoxx.swiftpoet//DATA/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-d-a-t-a.html
 $dokka.location:io.outfoxx.swiftpoet//DICTIONARY/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-d-i-c-t-i-o-n-a-r-y.html
 $dokka.location:io.outfoxx.swiftpoet//DOUBLE/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-d-o-u-b-l-e.html
+$dokka.location:io.outfoxx.swiftpoet//EQUATABLE/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-e-q-u-a-t-a-b-l-e.html
 $dokka.location:io.outfoxx.swiftpoet//FLOAT/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-f-l-o-a-t.html
 $dokka.location:io.outfoxx.swiftpoet//FLOAT32/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-f-l-o-a-t32.html
 $dokka.location:io.outfoxx.swiftpoet//FLOAT64/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-f-l-o-a-t64.html
@@ -21,6 +23,7 @@ $dokka.location:io.outfoxx.swiftpoet//INT32/#/PointingToDeclaration/swiftpoet/i
 $dokka.location:io.outfoxx.swiftpoet//INT64/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-i-n-t64.html
 $dokka.location:io.outfoxx.swiftpoet//INT8/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-i-n-t8.html
 $dokka.location:io.outfoxx.swiftpoet//OPTIONAL/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-o-p-t-i-o-n-a-l.html
+$dokka.location:io.outfoxx.swiftpoet//SENDABLE/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-s-e-n-d-a-b-l-e.html
 $dokka.location:io.outfoxx.swiftpoet//SET/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-s-e-t.html
 $dokka.location:io.outfoxx.swiftpoet//STRING/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-s-t-r-i-n-g.html
 $dokka.location:io.outfoxx.swiftpoet//UINT16/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-u-i-n-t16.html
