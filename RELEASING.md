@@ -17,9 +17,6 @@ Cutting a Release
 
     ```
     sed -i "" \
-      "s/releaseVersion=.*/releaseVersion=$RELEASE_VERSION/g" \
-      `find . -name "gradle.properties"`
-    sed -i "" \
       "s/'io.outfoxx:\([^\:]*\):[^']*'/'io.outfoxx:\1:$RELEASE_VERSION'/g" \
       `find . -name "README.md"`
     sed -i "" \
@@ -33,16 +30,18 @@ Cutting a Release
 4. Tag the release and push to GitHub.
 
     ```
+    git checkout -b release.$RELEASE_VERSION
     git commit -am "Prepare for release $RELEASE_VERSION."
     git tag -a $RELEASE_VERSION -m "Version $RELEASE_VERSION"
     git push && git push --tags
     ```
 
-5. Wait for [GitHub Actions][github_actions] to start building the release.
+5. Tag your buddies and merge when CI goes green. Once merged, CI will automatically release the artifacts.
 
 6. Prepare for ongoing development and push to GitHub.
 
     ```
+    git checkout -b dev.$NEXT_VERSION
     sed -i "" \
       "s/releaseVersion=.*/releaseVersion=$NEXT_VERSION/g" \
       `find . -name "gradle.properties"`
