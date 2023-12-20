@@ -366,6 +366,7 @@ class FileSpecTests {
       )
     )
   }
+
   @Test
   @DisplayName("Emits local module types without import")
   fun testLocalTypesAreNotImported() {
@@ -400,6 +401,7 @@ class FileSpecTests {
       )
     )
   }
+
   @Test
   @DisplayName("Generates guarded imports")
   fun testGenGuardedImports() {
