@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.6.3] - 2023-12-20
+
+### Fixed
+
+- Fix incorrect importing of local types (#105)
+
 ## [1.6.2] - 2023-12-19
 
 ### Added
@@ -37,7 +43,8 @@
 
 There are no changelog for versions 1.5.0 and before.
 
-[Unreleased]: https://github.com/outfoxx/swiftpoet/compare/1.6.2...HEAD
+[Unreleased]: https://github.com/outfoxx/swiftpoet/compare/1.6.3...HEAD
+[1.6.3]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.3
 [1.6.2]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.2
 [1.6.1]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.1
 [1.6.0]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.0
