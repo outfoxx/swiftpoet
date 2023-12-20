@@ -366,7 +366,40 @@ class FileSpecTests {
       )
     )
   }
+  @Test
+  @DisplayName("Emits local module types without import")
+  fun testLocalTypesAreNotImported() {
+    val type =
+      TypeSpec.structBuilder("SomeType")
+        .addProperty(
+          PropertySpec.varBuilder(
+            "myStuff",
+            typeName(".MyStuff")
+          ).build()
+        )
+        .build()
 
+    val testFile = FileSpec.builder("Test", "Test")
+      .addType(type)
+      .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            struct SomeType {
+
+              var myStuff: MyStuff
+
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
   @Test
   @DisplayName("Generates guarded imports")
   fun testGenGuardedImports() {

@@ -59,6 +59,10 @@ class ImportSpec internal constructor(
     internal val doc = CodeBlock.builder()
     internal val guardTest = CodeBlock.builder()
 
+    init {
+      require(name.isNotBlank()) { "name is empty" }
+    }
+
     fun addDoc(format: String, vararg args: Any) = apply {
       doc.add(format, *args)
     }

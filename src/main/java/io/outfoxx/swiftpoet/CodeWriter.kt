@@ -271,6 +271,9 @@ internal class CodeWriter(
   }
 
   private fun referenceTypeName(typeName: DeclaredTypeName) {
+    if (typeName.moduleName.isEmpty()) {
+      return
+    }
     referencedTypes[typeName.canonicalName] = typeName
   }
 
