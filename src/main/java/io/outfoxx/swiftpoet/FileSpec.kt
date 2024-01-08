@@ -48,14 +48,22 @@ class FileSpec private constructor(
   @Throws(IOException::class)
   fun writeTo(out: Appendable) {
 
-    val (importedTypes, referencedModules) =
-      CodeWriter.collectImports(
-        indent = indent,
-        emitStep = { importsCollector -> emit(importsCollector) },
-      )
+    val importsCollector = CodeWriter(NullAppendable, indent)
+    importsCollector.use {
+      emit(importsCollector)
+    }
+    val (importedTypes, referencedModules) = importsCollector.generateImports()
+    val sameModuleReferencedTypes = importsCollector.generateSameModuleReferencedTypes()
 
-    val codeWriter = CodeWriter(out, indent = indent, importedTypes = importedTypes)
-    emit(codeWriter, referencedModules = referencedModules)
+    val codeWriter = CodeWriter(
+      out,
+      indent = indent,
+      importedTypes = importedTypes,
+      sameModuleReferencedTypes = sameModuleReferencedTypes
+    )
+    codeWriter.use {
+      emit(codeWriter, referencedModules = referencedModules)
+    }
   }
 
   /** Writes this to `directory` as UTF-8 using the standard directory structure.  */
@@ -180,13 +188,16 @@ class FileSpec private constructor(
 
     private val NON_IMPORTED_MODULES = setOf("Swift")
 
-    @JvmStatic fun get(moduleName: String, typeSpec: AnyTypeSpec): FileSpec {
+    @JvmStatic
+    fun get(moduleName: String, typeSpec: AnyTypeSpec): FileSpec {
       return builder(moduleName, typeSpec.name).addType(typeSpec).build()
     }
 
-    @JvmStatic fun builder(moduleName: String, fileName: String) = Builder(moduleName, fileName)
+    @JvmStatic
+    fun builder(moduleName: String, fileName: String) = Builder(moduleName, fileName)
 
-    @JvmStatic fun builder(fileName: String) = Builder("", fileName)
+    @JvmStatic
+    fun builder(fileName: String) = Builder("", fileName)
   }
 }
 
