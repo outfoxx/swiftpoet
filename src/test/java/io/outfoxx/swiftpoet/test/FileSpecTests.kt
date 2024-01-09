@@ -268,7 +268,7 @@ class FileSpecTests {
           
           class Test {
 
-            let a: Array
+            let a: Swift.Array
             let b: Foundation.Array
 
           }
@@ -290,7 +290,13 @@ class FileSpecTests {
       )
       .addProperty(
         PropertySpec.varBuilder(
-          "order",
+          "some_module_order",
+          typeName("some_module.SortOrder")
+        ).build()
+      )
+      .addProperty(
+        PropertySpec.varBuilder(
+          "some_other_module_order",
           typeName("some_other_module.SortOrder")
         ).build()
       )
@@ -308,12 +314,14 @@ class FileSpecTests {
       equalTo(
         """
             import Foundation
+            import some_module
             import some_other_module
 
             struct SomeType {
 
               var foundation_order: Foundation.SortOrder
-              var order: SortOrder
+              var some_module_order: some_module.SortOrder
+              var some_other_module_order: some_other_module.SortOrder
 
             }
 
@@ -357,7 +365,7 @@ class FileSpecTests {
 
             struct SomeType {
 
-              var foundation_order: SortOrder
+              var foundation_order: Foundation.SortOrder
               var order: some_other_module.SortOrder
 
             }
