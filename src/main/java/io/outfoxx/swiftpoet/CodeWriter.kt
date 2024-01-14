@@ -29,7 +29,8 @@ private val NO_MODULE = String()
 internal class CodeWriter(
   out: Appendable,
   private val indent: String = DEFAULT_INDENT,
-  internal val importedTypes: Map<String, List<DeclaredTypeName>> = emptyMap(),
+  private val importedTypes: Map<String, List<DeclaredTypeName>> = emptyMap(),
+  private val sameModuleReferencedTypes: Set<String> = emptySet(),
   private val importedModules: Set<String> = emptySet()
 ) : Closeable {
 
@@ -42,6 +43,7 @@ internal class CodeWriter(
   private val typeSpecStack = mutableListOf<AnyTypeSpec>()
   private val importableTypes = mutableMapOf<String, List<DeclaredTypeName>>()
   private val referencedTypes = mutableMapOf<String, DeclaredTypeName>()
+  private val noModuleReferencedTypes = mutableSetOf<String>()
   private var trailingNewline = false
 
   /**
@@ -272,6 +274,7 @@ internal class CodeWriter(
 
   private fun referenceTypeName(typeName: DeclaredTypeName) {
     if (typeName.moduleName.isEmpty()) {
+      noModuleReferencedTypes.add(typeName.simpleName)
       return
     }
     referencedTypes[typeName.canonicalName] = typeName
@@ -376,7 +379,9 @@ internal class CodeWriter(
    */
   private fun resolveImport(typeName: DeclaredTypeName): String {
     val topLevelTypeName = typeName.topLevelTypeName()
-    return if (importedTypes[typeName.topLevelTypeName().simpleName]?.count() == 1 && importedTypes.values.flatMap { it }.any { it == topLevelTypeName }) {
+    return if (topLevelTypeName.moduleName.isNotEmpty() && sameModuleReferencedTypes.contains(topLevelTypeName.simpleName)) {
+      typeName.canonicalName
+    } else if (importedTypes[topLevelTypeName.simpleName]?.count() == 1 && importedTypes.values.flatten().any { it == topLevelTypeName }) {
       typeName.simpleNames.joinToString(".")
     } else {
       typeName.canonicalName
@@ -447,26 +452,11 @@ internal class CodeWriter(
   /**
    * Returns the non-colliding importable types and module names for all referenced types.
    */
-  private fun generateImports(): Pair<Map<String, List<DeclaredTypeName>>, Set<String>> {
+  fun generateImports(): Pair<Map<String, List<DeclaredTypeName>>, Set<String>> {
     return importableTypes to referencedTypes.values.map { it.moduleName }.toSet()
   }
 
-  companion object {
-
-    /**
-     * Collect imports by executing [emitStep], and returns the non-colliding imported types
-     * and referenced modules.
-     */
-    fun collectImports(
-      indent: String,
-      emitStep: (importsCollector: CodeWriter) -> Unit,
-    ): Pair<Map<String, List<DeclaredTypeName>>, Set<String>> =
-      CodeWriter(NullAppendable, indent)
-        .use { importsCollector ->
-
-          emitStep(importsCollector)
-
-          importsCollector.generateImports()
-        }
+  fun generateSameModuleReferencedTypes(): Set<String> {
+    return noModuleReferencedTypes
   }
 }

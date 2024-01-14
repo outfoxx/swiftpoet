@@ -32,6 +32,7 @@ import io.outfoxx.swiftpoet.STRING
 import io.outfoxx.swiftpoet.TupleTypeName
 import io.outfoxx.swiftpoet.TypeSpec
 import io.outfoxx.swiftpoet.TypeVariableName
+import io.outfoxx.swiftpoet.parameterizedBy
 import io.outfoxx.swiftpoet.tag
 import org.hamcrest.CoreMatchers.equalTo
 import org.hamcrest.MatcherAssert.assertThat
@@ -284,6 +285,19 @@ class FileSpecTests {
     val type = TypeSpec.structBuilder("SomeType")
       .addProperty(
         PropertySpec.varBuilder(
+          "yet_another_module_order",
+          typeName("Swift.Array")
+            .parameterizedBy(typeName("yet_another_module.SortOrder"))
+        ).build()
+      )
+      .addProperty(
+        PropertySpec.varBuilder(
+          "order",
+          typeName(".SortOrder")
+        ).build()
+      )
+      .addProperty(
+        PropertySpec.varBuilder(
           "foundation_order",
           typeName("Foundation.SortOrder", alwaysQualify = true)
         ).build()
@@ -316,12 +330,97 @@ class FileSpecTests {
             import Foundation
             import some_module
             import some_other_module
+            import yet_another_module
 
             struct SomeType {
 
+              var yet_another_module_order: [yet_another_module.SortOrder]
+              var order: SortOrder
               var foundation_order: Foundation.SortOrder
               var some_module_order: some_module.SortOrder
               var some_other_module_order: some_other_module.SortOrder
+
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates all required imports without conflicts")
+  fun testGeneratesAllRequiredImportsWithoutConflicts() {
+    val type = TypeSpec.structBuilder("SomeType")
+      .addProperty(
+        PropertySpec.varBuilder(
+          "yet_another_module_order",
+          typeName("Swift.Array")
+            .parameterizedBy(typeName("yet_another_module.SortOrder"))
+        ).build()
+      )
+      .build()
+
+    val testFile = FileSpec.builder("Test", "Test")
+      .addType(type)
+      .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            import yet_another_module
+
+            struct SomeType {
+
+              var yet_another_module_order: [SortOrder]
+
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates all required imports with same module conflict")
+  fun testGeneratesAllRequiredImportsWithSameModuleConflict() {
+    val type =
+      TypeSpec.structBuilder("SomeType")
+        .addProperty(
+          PropertySpec.varBuilder(
+            "order",
+            typeName(".SortOrder")
+          ).build()
+        )
+        .addProperty(
+          PropertySpec.varBuilder(
+            "yet_another_module_order",
+            typeName("Swift.Array")
+              .parameterizedBy(typeName("yet_another_module.SortOrder"))
+          ).build()
+        )
+        .build()
+
+    val testFile = FileSpec.builder("Test", "Test")
+      .addType(type)
+      .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            import yet_another_module
+
+            struct SomeType {
+
+              var order: SortOrder
+              var yet_another_module_order: [yet_another_module.SortOrder]
 
             }
 
@@ -347,6 +446,13 @@ class FileSpecTests {
             typeName("some_other_module.SortOrder")
           ).build()
         )
+        .addProperty(
+          PropertySpec.varBuilder(
+            "yet_another_module_order",
+            typeName("Swift.Array")
+              .parameterizedBy(typeName("yet_another_module.SortOrder"))
+          ).build()
+        )
         .build()
 
     val testFile = FileSpec.builder("Test", "Test")
@@ -362,11 +468,13 @@ class FileSpecTests {
         """
             import Foundation
             import some_other_module
+            import yet_another_module
 
             struct SomeType {
 
               var foundation_order: Foundation.SortOrder
               var order: some_other_module.SortOrder
+              var yet_another_module_order: [yet_another_module.SortOrder]
 
             }
 
