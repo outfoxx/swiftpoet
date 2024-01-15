@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [1.6.4] - 2024-01-15
+
+### Fixed
+
+- Correctly disambiguate conflicting type names between the module itself and external modules (#111)
+- Always qualify ambiguous types (#110)
+
 ## [1.6.3] - 2023-12-20
 
 ### Fixed
@@ -43,7 +50,8 @@
 
 There are no changelog for versions 1.5.0 and before.
 
-[Unreleased]: https://github.com/outfoxx/swiftpoet/compare/1.6.3...HEAD
+[Unreleased]: https://github.com/outfoxx/swiftpoet/compare/1.6.4...HEAD
+[1.6.4]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.4
 [1.6.3]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.3
 [1.6.2]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.2
 [1.6.1]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.1
