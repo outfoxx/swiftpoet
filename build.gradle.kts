@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.time.Duration
 
 plugins {
   `java-library`
@@ -229,6 +230,10 @@ githubRelease {
 }
 
 nexusPublishing {
+  transitionCheckOptions {
+    // Default is set at 10 seconds.
+    delayBetween.set(Duration.ofSeconds(60))
+  }
   repositories {
     sonatype()
   }
