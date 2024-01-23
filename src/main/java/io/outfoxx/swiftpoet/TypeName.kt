@@ -58,6 +58,9 @@ abstract class TypeName internal constructor() {
 
   open fun makeNonImplicit(): TypeName = this
 
+  open fun qualify(qualifier: GenericQualifier): GenericQualifiedTypeName =
+    GenericQualifiedTypeName.of(this, qualifier)
+
   open val name: String
     get() {
       val out = StringWriter()
