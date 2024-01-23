@@ -301,6 +301,18 @@ $dokka.location:io.outfoxx.swiftpoet/FunctionTypeName.Companion/get/#kotlin.coll
 $dokka.location:io.outfoxx.swiftpoet/FunctionTypeName///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-function-type-name/index.html
 $dokka.location:io.outfoxx.swiftpoet/FunctionTypeName/parameters/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-function-type-name/parameters.html
 $dokka.location:io.outfoxx.swiftpoet/FunctionTypeName/returnType/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-function-type-name/return-type.html
+$dokka.location:io.outfoxx.swiftpoet/GenericQualifiedTypeName.Companion///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-generic-qualified-type-name/-companion/index.html
+$dokka.location:io.outfoxx.swiftpoet/GenericQualifiedTypeName.Companion/any/#io.outfoxx.swiftpoet.TypeName/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-generic-qualified-type-name/-companion/any.html
+$dokka.location:io.outfoxx.swiftpoet/GenericQualifiedTypeName.Companion/of/#io.outfoxx.swiftpoet.TypeName#io.outfoxx.swiftpoet.GenericQualifier/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-generic-qualified-type-name/-companion/of.html
+$dokka.location:io.outfoxx.swiftpoet/GenericQualifiedTypeName.Companion/some/#io.outfoxx.swiftpoet.TypeName/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-generic-qualified-type-name/-companion/some.html
+$dokka.location:io.outfoxx.swiftpoet/GenericQualifiedTypeName///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-generic-qualified-type-name/index.html
+$dokka.location:io.outfoxx.swiftpoet/GenericQualifiedTypeName/qualifier/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-generic-qualified-type-name/qualifier.html
+$dokka.location:io.outfoxx.swiftpoet/GenericQualifiedTypeName/type/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-generic-qualified-type-name/type.html
+$dokka.location:io.outfoxx.swiftpoet/GenericQualifier.ANY///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}swiftpoet/io.outfoxx.swiftpoet/-generic-qualifier/-a-n-y/index.html
+$dokka.location:io.outfoxx.swiftpoet/GenericQualifier.SOME///PointingToDeclaration/{"org.jetbrains.dokka.links.EnumEntryDRIExtra":{"key":"org.jetbrains.dokka.links.EnumEntryDRIExtra"}}swiftpoet/io.outfoxx.swiftpoet/-generic-qualifier/-s-o-m-e/index.html
+$dokka.location:io.outfoxx.swiftpoet/GenericQualifier///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-generic-qualifier/index.html
+$dokka.location:io.outfoxx.swiftpoet/GenericQualifier/valueOf/#kotlin.String/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-generic-qualifier/value-of.html
+$dokka.location:io.outfoxx.swiftpoet/GenericQualifier/values/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-generic-qualifier/values.html
 $dokka.location:io.outfoxx.swiftpoet/ImportSpec.Builder///PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-import-spec/-builder/index.html
 $dokka.location:io.outfoxx.swiftpoet/ImportSpec.Builder/addDoc/#io.outfoxx.swiftpoet.CodeBlock/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-import-spec/-builder/add-doc.html
 $dokka.location:io.outfoxx.swiftpoet/ImportSpec.Builder/addDoc/#kotlin.String#kotlin.Array[kotlin.Any]/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-import-spec/-builder/add-doc.html
@@ -458,6 +470,7 @@ $dokka.location:io.outfoxx.swiftpoet/TypeName/makeNonOptional/#/PointingToDeclar
 $dokka.location:io.outfoxx.swiftpoet/TypeName/makeOptional/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-type-name/make-optional.html
 $dokka.location:io.outfoxx.swiftpoet/TypeName/name/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-type-name/name.html
 $dokka.location:io.outfoxx.swiftpoet/TypeName/optional/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-type-name/optional.html
+$dokka.location:io.outfoxx.swiftpoet/TypeName/qualify/#io.outfoxx.swiftpoet.GenericQualifier/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-type-name/qualify.html
 $dokka.location:io.outfoxx.swiftpoet/TypeName/toString/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-type-name/to-string.html
 $dokka.location:io.outfoxx.swiftpoet/TypeName/unwrapOptional/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-type-name/unwrap-optional.html
 $dokka.location:io.outfoxx.swiftpoet/TypeName/wrapOptional/#/PointingToDeclaration/swiftpoet/io.outfoxx.swiftpoet/-type-name/wrap-optional.html
