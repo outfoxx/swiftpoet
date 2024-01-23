@@ -424,6 +424,25 @@ public final class io/outfoxx/swiftpoet/FunctionTypeName$Companion {
 	public static synthetic fun get$default (Lio/outfoxx/swiftpoet/FunctionTypeName$Companion;[Lio/outfoxx/swiftpoet/TypeName;Lio/outfoxx/swiftpoet/TypeName;ILjava/lang/Object;)Lio/outfoxx/swiftpoet/FunctionTypeName;
 }
 
+public final class io/outfoxx/swiftpoet/GenericQualifiedTypeName : io/outfoxx/swiftpoet/TypeName {
+	public static final field Companion Lio/outfoxx/swiftpoet/GenericQualifiedTypeName$Companion;
+	public final fun getQualifier ()Lio/outfoxx/swiftpoet/GenericQualifier;
+	public final fun getType ()Lio/outfoxx/swiftpoet/TypeName;
+}
+
+public final class io/outfoxx/swiftpoet/GenericQualifiedTypeName$Companion {
+	public final fun any (Lio/outfoxx/swiftpoet/TypeName;)Lio/outfoxx/swiftpoet/GenericQualifiedTypeName;
+	public final fun of (Lio/outfoxx/swiftpoet/TypeName;Lio/outfoxx/swiftpoet/GenericQualifier;)Lio/outfoxx/swiftpoet/GenericQualifiedTypeName;
+	public final fun some (Lio/outfoxx/swiftpoet/TypeName;)Lio/outfoxx/swiftpoet/GenericQualifiedTypeName;
+}
+
+public final class io/outfoxx/swiftpoet/GenericQualifier : java/lang/Enum {
+	public static final field ANY Lio/outfoxx/swiftpoet/GenericQualifier;
+	public static final field SOME Lio/outfoxx/swiftpoet/GenericQualifier;
+	public static fun valueOf (Ljava/lang/String;)Lio/outfoxx/swiftpoet/GenericQualifier;
+	public static fun values ()[Lio/outfoxx/swiftpoet/GenericQualifier;
+}
+
 public final class io/outfoxx/swiftpoet/ImportSpec : io/outfoxx/swiftpoet/AttributedSpec, java/lang/Comparable {
 	public static final field Companion Lio/outfoxx/swiftpoet/ImportSpec$Companion;
 	public static final fun builder (Ljava/lang/String;)Lio/outfoxx/swiftpoet/ImportSpec$Builder;
@@ -649,6 +668,7 @@ public abstract class io/outfoxx/swiftpoet/TypeName {
 	public fun makeNonImplicit ()Lio/outfoxx/swiftpoet/TypeName;
 	public fun makeNonOptional ()Lio/outfoxx/swiftpoet/TypeName;
 	public fun makeOptional ()Lio/outfoxx/swiftpoet/ParameterizedTypeName;
+	public fun qualify (Lio/outfoxx/swiftpoet/GenericQualifier;)Lio/outfoxx/swiftpoet/GenericQualifiedTypeName;
 	public fun toString ()Ljava/lang/String;
 	public fun unwrapOptional ()Lio/outfoxx/swiftpoet/TypeName;
 	public fun wrapOptional ()Lio/outfoxx/swiftpoet/ParameterizedTypeName;
