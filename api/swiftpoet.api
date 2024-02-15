@@ -454,6 +454,7 @@ public final class io/outfoxx/swiftpoet/Modifier : java/lang/Enum {
 	public static final field FINAL Lio/outfoxx/swiftpoet/Modifier;
 	public static final field INOUT Lio/outfoxx/swiftpoet/Modifier;
 	public static final field INTERNAL Lio/outfoxx/swiftpoet/Modifier;
+	public static final field LAZY Lio/outfoxx/swiftpoet/Modifier;
 	public static final field MUTATING Lio/outfoxx/swiftpoet/Modifier;
 	public static final field NONMUTATING Lio/outfoxx/swiftpoet/Modifier;
 	public static final field OPEN Lio/outfoxx/swiftpoet/Modifier;

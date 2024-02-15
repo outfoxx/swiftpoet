@@ -22,6 +22,7 @@ import io.outfoxx.swiftpoet.DeclaredTypeName.Companion.typeName
 import io.outfoxx.swiftpoet.FunctionSignatureSpec
 import io.outfoxx.swiftpoet.FunctionSpec
 import io.outfoxx.swiftpoet.INT
+import io.outfoxx.swiftpoet.Modifier.LAZY
 import io.outfoxx.swiftpoet.Modifier.PRIVATE
 import io.outfoxx.swiftpoet.Modifier.PUBLIC
 import io.outfoxx.swiftpoet.Modifier.UNOWNED
@@ -82,6 +83,26 @@ class PropertySpecTests {
       equalTo(
         """
           weak var test: Swift.String
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Adds lazy modifier")
+  fun lazyProperty() {
+    val testProperty =
+      PropertySpec.varBuilder("test", STRING, LAZY)
+        .build()
+
+    val out = StringWriter()
+    testProperty.emit(CodeWriter(out), setOf())
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+          lazy var test: Swift.String
         """.trimIndent()
       )
     )
