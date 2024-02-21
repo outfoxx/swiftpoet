@@ -78,14 +78,14 @@ Download [the latest .jar][dl] or depend via Maven:
 <dependency>
   <groupId>io.outfoxx</groupId>
   <artifactId>swiftpoet</artifactId>
-  <version>1.6.4</version>
+  <version>1.6.5</version>
 </dependency>
 ```
 
 or Gradle:
 
 ```groovy
-implementation 'io.outfoxx:swiftpoet:1.6.4'
+implementation 'io.outfoxx:swiftpoet:1.6.5'
 ```
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
@@ -112,5 +112,5 @@ License
  [action]: https://github.com/outfoxx/swiftpoet/actions?query=branch%3Adevelop
  [dl]: https://search.maven.org/remote_content?g=io.outfoxx&a=swiftpoet&v=LATEST
  [snap]: https://oss.sonatype.org/content/repositories/snapshots/io/outfoxx/swiftpoet/
- [kdoc]: https://outfoxx.github.io/swiftpoet/1.6.4/swiftpoet/io.outfoxx.swiftpoet/
+ [kdoc]: https://outfoxx.github.io/swiftpoet/1.6.5/swiftpoet/io.outfoxx.swiftpoet/
  [javapoet]: https://github.com/square/javapoet/

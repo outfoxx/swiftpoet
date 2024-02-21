@@ -2,6 +2,13 @@
 
 ## [Unreleased]
 
+## [1.6.5] - 2024-02-21
+
+### Added
+
+- Add lazy modifier (#116)
+- Support generic qualifiers for `TypeName` (#115)
+
 ## [1.6.4] - 2024-01-15
 
 ### Fixed
@@ -50,7 +57,8 @@
 
 There are no changelog for versions 1.5.0 and before.
 
-[Unreleased]: https://github.com/outfoxx/swiftpoet/compare/1.6.4...HEAD
+[Unreleased]: https://github.com/outfoxx/swiftpoet/compare/1.6.5...HEAD
+[1.6.5]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.5
 [1.6.4]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.4
 [1.6.3]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.3
 [1.6.2]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.2
