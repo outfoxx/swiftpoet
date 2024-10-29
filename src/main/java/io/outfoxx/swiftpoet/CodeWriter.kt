@@ -69,7 +69,7 @@ internal class CodeWriter(
   }
 
   fun popModule() = apply {
-    val lastModuleName = this.moduleStack.removeLast()
+    val lastModuleName = this.moduleStack.removeLastOrNull()
     require(lastModuleName !== NO_MODULE) { "module stack imbalance" }
   }
 
@@ -299,6 +299,17 @@ internal class CodeWriter(
     var currentTypeName: DeclaredTypeName? = typeName
     val currentNestedSimpleNames = mutableListOf<String>()
     while (currentTypeName != null) {
+
+      // Check if the type stack is in an external type that matches what we're looking
+      // for. This cannot be done using `resolve` because we do not know the contents of
+      // external types, and assume that any type given is nested in an external type.
+      typeSpecStack.filterIsInstance<ExternalTypeSpec>().forEach {
+        val external = listOf(it.name)
+        if ((external + currentNestedSimpleNames) == typeName.simpleNames) {
+          return currentNestedSimpleNames.ifEmpty { external }.joinToString(".")
+        }
+      }
+
       val simpleName = currentTypeName.simpleName
       val resolved = resolve(simpleName)?.nestedType(currentNestedSimpleNames)
 
@@ -307,8 +318,9 @@ internal class CodeWriter(
         if (currentNestedSimpleNames.isEmpty()) {
           return simpleName
         }
-        // Otherwise, we need to use all the nested names that didn't match
-        return currentNestedSimpleNames.joinToString(".")
+        // Otherwise, we need to use the current matching name as the resolved base,
+        // and all the nested names that didn't match.
+        return (listOf(simpleName) + currentNestedSimpleNames).joinToString(".")
       }
 
       currentNestedSimpleNames.add(0, simpleName)
@@ -353,11 +365,6 @@ internal class CodeWriter(
     // Match a child of the current (potentially nested) type.
     for (i in typeSpecStack.indices.reversed()) {
       val typeSpec = typeSpecStack[i]
-      if (typeSpec is ExternalTypeSpec) {
-        if (typeSpec.name == simpleName) {
-          return stackTypeName(i)
-        }
-      }
       for (visibleChild in typeSpec.typeSpecs) {
         if (visibleChild.name == simpleName) {
           return stackTypeName(i).nestedType(simpleName)
