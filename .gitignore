@@ -138,3 +138,4 @@ gradle-app.setting
 
 run
 /.idea
+.mise.toml

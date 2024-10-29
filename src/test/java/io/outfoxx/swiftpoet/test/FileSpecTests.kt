@@ -124,8 +124,92 @@ class FileSpecTests {
   }
 
   @Test
-  @DisplayName("Generates correct imports for extension type names")
-  fun testImportsForSameExtensionTypes() {
+  @DisplayName("Generates correct names for generated nested type names")
+  fun testGeneratesCorrectNamesForGeneratedNestedTypeNames() {
+
+    val typeSpec =
+      TypeSpec.classBuilder("Root")
+        .addType(
+          TypeSpec.classBuilder("Node")
+            .addType(
+              TypeSpec.classBuilder("Leaf")
+                .addType(
+                  TypeSpec.classBuilder("Iterator")
+                    .build()
+                )
+                .addFunction(
+                  FunctionSpec.builder("test")
+                    .addStatement("let iter = %T()", typeName(".Root.Node.Leaf.Iterator"))
+                    .build()
+                )
+                .build()
+            )
+            .addFunction(
+              FunctionSpec.builder("test")
+                .addStatement("let leaf = %T()", typeName(".Root.Node.Leaf"))
+                .addStatement("let leafIter = %T()", typeName(".Root.Node.Leaf.Iterator"))
+                .build()
+            )
+            .build()
+        )
+        .addFunction(
+          FunctionSpec.builder("test")
+            .addStatement("let node = %T()", typeName(".Root.Node"))
+            .addStatement("let leaf = %T()", typeName(".Root.Node.Leaf"))
+            .addStatement("let leafIter = %T()", typeName(".Root.Node.Leaf.Iterator"))
+            .build()
+        )
+        .build()
+
+    val testFile = FileSpec.builder("", "Root")
+      .addType(typeSpec)
+      .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            class Root {
+
+              func test() {
+                let node = Node()
+                let leaf = Node.Leaf()
+                let leafIter = Node.Leaf.Iterator()
+              }
+
+              class Node {
+
+                func test() {
+                  let leaf = Leaf()
+                  let leafIter = Leaf.Iterator()
+                }
+
+                class Leaf {
+
+                  func test() {
+                    let iter = Iterator()
+                  }
+
+                  class Iterator {
+                  }
+
+                }
+
+              }
+
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates correct imports for extensions on declared type names")
+  fun testImportsForSameExtensionDeclaredTypes() {
 
     val obs = typeName("RxSwift.Observable")
     val obsElement = typeName("RxSwift.Observable.Element")
@@ -133,6 +217,17 @@ class FileSpecTests {
 
     val extension =
       ExtensionSpec.builder(obsElement.enclosingTypeName()!!)
+        .addType(
+          TypeSpec.classBuilder("Sub")
+            .addFunction(
+              FunctionSpec.builder("test")
+                .addStatement("let obs = %T()", obs)
+                .addStatement("let obsElement = %T()", obsElement)
+                .addStatement("let obsElementSub = %T()", obsElementSub)
+                .build()
+            )
+            .build()
+        )
         .addFunction(
           FunctionSpec.builder("test")
             .returns(obs)
@@ -165,6 +260,105 @@ class FileSpecTests {
 
             extension Observable {
             
+              class Sub {
+
+                func test() {
+                  let obs = Observable()
+                  let obsElement = Element()
+                  let obsElementSub = Element.SubSequence()
+                }
+
+              }
+
+              func test() -> Observable {
+              }
+            
+              func test2() -> Element {
+              }
+            
+              func test3() -> Element.SubSequence {
+              }
+            
+            }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Generates correct imports for extensions on type specs")
+  fun testImportsForSameExtensionTypeSpecs() {
+
+    val typeSpec =
+      TypeSpec.classBuilder("Observable")
+        .addType(
+          TypeSpec.classBuilder("Element")
+            .addType(
+              TypeSpec.classBuilder("SubSequence")
+                .build()
+            )
+            .build()
+        )
+        .build()
+
+    val obs = typeName(".Observable")
+    val obsElement = typeName(".Observable.Element")
+    val obsElementSub = typeName(".Observable.Element.SubSequence")
+
+    val extension =
+      ExtensionSpec.builder(typeSpec)
+        .addType(
+          TypeSpec.classBuilder("Sub")
+            .addFunction(
+              FunctionSpec.builder("test")
+                .addStatement("let obs = %T()", obs)
+                .addStatement("let obsElement = %T()", obsElement)
+                .addStatement("let obsElementSub = %T()", obsElementSub)
+                .build()
+            )
+            .build()
+        )
+        .addFunction(
+          FunctionSpec.builder("test")
+            .returns(obs)
+            .build()
+        )
+        .addFunction(
+          FunctionSpec.builder("test2")
+            .returns(obsElement)
+            .build()
+        )
+        .addFunction(
+          FunctionSpec.builder("test3")
+            .returns(obsElementSub)
+            .build()
+        )
+        .build()
+
+    val testFile = FileSpec.builder("Test", "Test")
+      .addExtension(extension)
+      .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+            extension Observable {
+            
+              class Sub {
+
+                func test() {
+                  let obs = Observable()
+                  let obsElement = Element()
+                  let obsElementSub = Element.SubSequence()
+                }
+
+              }
+
               func test() -> Observable {
               }
             
