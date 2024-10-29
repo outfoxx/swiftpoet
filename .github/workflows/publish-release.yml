@@ -40,8 +40,8 @@ jobs:
       with:
         arguments: |
           -PreleaseVersion=${{ github.ref_name }}
-          -PsonatypeUsername=${{ secrets.OSSRH_USER }}
-          -PsonatypePassword=${{ secrets.OSSRH_PASS }}
+          -PsonatypeUsername=${{ secrets.OSSRH_TOKEN_USER }}
+          -PsonatypePassword=${{ secrets.OSSRH_TOKEN_PASS }}
           publishToSonatype
           closeAndReleaseSonatypeStagingRepository
           -x test

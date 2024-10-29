@@ -33,8 +33,8 @@ jobs:
       uses: gradle/gradle-build-action@v2
       with:
         arguments: |
-          -PsonatypeUsername=${{ secrets.OSSRH_USER }}
-          -PsonatypePassword=${{ secrets.OSSRH_PASS }}
+          -PsonatypeUsername=${{ secrets.OSSRH_TOKEN_USER }}
+          -PsonatypePassword=${{ secrets.OSSRH_TOKEN_PASS }}
           publish -x test
 
     - name: Publish Documentation
