@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+## [1.6.6] - 2024-10-29
+
+### Fixed
+
+- Fix shortening of nested names in generated hierarchies (#118)
+
 ## [1.6.5] - 2024-02-21
 
 ### Added

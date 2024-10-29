@@ -78,14 +78,14 @@ Download [the latest .jar][dl] or depend via Maven:
 <dependency>
   <groupId>io.outfoxx</groupId>
   <artifactId>swiftpoet</artifactId>
-  <version>1.6.5</version>
+  <version>1.6.6</version>
 </dependency>
 ```
 
 or Gradle:
 
 ```groovy
-implementation 'io.outfoxx:swiftpoet:1.6.5'
+implementation 'io.outfoxx:swiftpoet:1.6.6'
 ```
 
 Snapshots of the development version are available in [Sonatype's `snapshots` repository][snap].
