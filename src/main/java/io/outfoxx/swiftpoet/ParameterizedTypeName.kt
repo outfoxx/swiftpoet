@@ -65,7 +65,7 @@ class ParameterizedTypeName internal constructor(
   private fun emitShorthand(suffix: String, out: CodeWriter) {
     typeArguments[0].let {
       when (it) {
-        is FunctionTypeName, is ComposedTypeName -> {
+        is FunctionTypeName, is ComposedTypeName, is GenericQualifiedTypeName -> {
           out.emitCode("(%T)%L", it, suffix)
         }
         else -> {
