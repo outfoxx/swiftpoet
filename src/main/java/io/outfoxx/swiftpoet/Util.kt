@@ -87,32 +87,17 @@ internal fun stringLiteralWithQuotes(
 ): String {
   if (!isConstantContext && '\n' in value) {
     val result = StringBuilder(value.length + 32)
-    result.append("\"\"\"\n|")
-    var i = 0
-    while (i < value.length) {
-      val c = value[i]
-      if (value.regionMatches(i, "\"\"\"", 0, 3)) {
-        // Don't inadvertently end the raw string too early
-        result.append("\"\"\${'\"'}")
-        i += 2
-      } else if (c == '\n') {
-        // Add a '|' after newlines. This pipe will be removed by trimMargin().
-        result.append("\n|")
-      } else {
-        result.append(c)
-      }
-      i++
-    }
-    // If the last-emitted character wasn't a margin '|', add a blank line. This will get removed
-    // by trimMargin().
-    if (!value.endsWith("\n")) result.append("\n")
-    result.append("\"\"\".trimMargin()")
+    // Start Swift multiline string
+    result.append("\"\"\"\n")
+    val escaped = value.replace("\"\"\"", "\\\"\"\"")
+    result.append(escaped)// End Swift multiline string
+    result.append("\n\"\"\"")
     return result.toString()
   } else {
     val result = StringBuilder(value.length + 32)
     // Using pre-formatted strings allows us to get away with not escaping symbols that would
     // normally require escaping, e.g. "foo ${"bar"} baz".
-    if (isInsideRawString) result.append("\"\"\"") else result.append('"')
+    if (isInsideRawString) result.append("\"\"\"\n") else result.append('"')
     for (c in value) {
       // Trivial case: single quote must not be escaped.
       if (c == '\'') {
@@ -128,7 +113,7 @@ internal fun stringLiteralWithQuotes(
       result.append(if (isInsideRawString) c else characterLiteralWithoutSingleQuotes(c))
       // Need to append indent after linefeed?
     }
-    if (isInsideRawString) result.append("\"\"\"") else result.append('"')
+    if (isInsideRawString) result.append("\n\"\"\"") else result.append('"')
     return result.toString()
   }
 }

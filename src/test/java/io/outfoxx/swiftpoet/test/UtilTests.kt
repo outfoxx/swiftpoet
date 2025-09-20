@@ -65,10 +65,17 @@ class UtilTests {
     stringLiteral("abc")
     stringLiteral("♦♥♠♣")
     stringLiteral("€\\t@\\t$", "€\t@\t$")
-    assertThat(stringLiteralWithQuotes("abc();\ndef();"), equalTo("\"\"\"\n|abc();\n|def();\n\"\"\".trimMargin()"))
+    assertThat(stringLiteralWithQuotes("abc();\ndef();"), equalTo("\"\"\"\nabc();\ndef();\n\"\"\""))
     stringLiteral("This is \\\"quoted\\\"!", "This is \"quoted\"!")
     stringLiteral("😀", "😀")
     stringLiteral("e^{i\\\\pi}+1=0", "e^{i\\pi}+1=0")
+    assertThat(
+      stringLiteralWithQuotes("a \"\"\" b\nc"),
+      equalTo("\"\"\"\n" +
+              "a \\\"\"\" b\n" +
+              "c\n" +
+              "\"\"\"")
+    )
     assertThat(stringLiteralWithQuotes("abc();\ndef();", isConstantContext = true), equalTo("\"abc();\\ndef();\""))
   }
 
