@@ -27,6 +27,7 @@ import io.outfoxx.swiftpoet.FunctionSpec
 import io.outfoxx.swiftpoet.INT
 import io.outfoxx.swiftpoet.ImportSpec
 import io.outfoxx.swiftpoet.Modifier
+import io.outfoxx.swiftpoet.Modifier.PUBLIC
 import io.outfoxx.swiftpoet.PropertySpec
 import io.outfoxx.swiftpoet.STRING
 import io.outfoxx.swiftpoet.TupleTypeName
@@ -280,6 +281,64 @@ class FileSpecTests {
               }
             
             }
+
+        """.trimIndent()
+      )
+    )
+  }
+
+  @Test
+  @DisplayName("Disambiguates type names with the same simple name but different modules")
+  fun testCorreclyDisambiguatesTypeNamesThatMatchConext() {
+
+    val dateTimeType = typeName("Test.DateTime")
+    val commonDateTimeType = typeName("some_module.DateTime").makeOptional()
+
+    val typeSpec =
+      TypeSpec.structBuilder(dateTimeType)
+        .addProperty(
+          PropertySpec.builder("value", commonDateTimeType).build()
+        )
+        .build()
+
+    val extensionSpec =
+      ExtensionSpec.builder(dateTimeType)
+        .addFunction(
+          FunctionSpec.constructorBuilder()
+            .addModifiers(PUBLIC)
+            .throws(true)
+            .addStatement("var %N: %T = %L", "field", commonDateTimeType, "nil")
+            .build()
+        )
+        .build()
+
+    val testFile = FileSpec.builder("Test", "DateTime")
+      .addType(typeSpec)
+      .addExtension(extensionSpec)
+      .build()
+
+    val out = StringWriter()
+    testFile.writeTo(out)
+
+    assertThat(
+      out.toString(),
+      equalTo(
+        """
+          import some_module
+
+          struct DateTime {
+
+            let value: some_module.DateTime?
+
+          }
+
+          extension DateTime {
+
+            public init() throws {
+              var field: some_module.DateTime? = nil
+            }
+
+          }
 
         """.trimIndent()
       )

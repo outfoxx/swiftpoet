@@ -299,6 +299,14 @@ internal class CodeWriter(
     var currentTypeName: DeclaredTypeName? = typeName
     val currentNestedSimpleNames = mutableListOf<String>()
     while (currentTypeName != null) {
+      val simpleName = currentTypeName.simpleName
+      val resolved = resolve(simpleName)
+      val resolvedNestedType = resolved?.nestedType(currentNestedSimpleNames)
+
+      // Check if the simple name conflicts with a local type in a different module.
+      if (resolved != null && resolved.simpleName == typeName.simpleName && resolved.moduleName != typeName.moduleName) {
+        return typeName.canonicalName
+      }
 
       // Check if the type stack is in an external type that matches what we're looking
       // for. This cannot be done using `resolve` because we do not know the contents of
@@ -310,10 +318,7 @@ internal class CodeWriter(
         }
       }
 
-      val simpleName = currentTypeName.simpleName
-      val resolved = resolve(simpleName)?.nestedType(currentNestedSimpleNames)
-
-      if (resolved == typeName.unwrapOptional()) {
+      if (resolvedNestedType == typeName.unwrapOptional()) {
         // If the type is the same as the type we're resolving for, we must use at least that name.
         if (currentNestedSimpleNames.isEmpty()) {
           return simpleName
