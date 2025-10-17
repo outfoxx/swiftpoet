@@ -71,10 +71,12 @@ class UtilTests {
     stringLiteral("e^{i\\\\pi}+1=0", "e^{i\\pi}+1=0")
     assertThat(
       stringLiteralWithQuotes("a \"\"\" b\nc"),
-      equalTo("\"\"\"\n" +
-              "a \\\"\"\" b\n" +
-              "c\n" +
-              "\"\"\"")
+      equalTo(
+        "\"\"\"\n" +
+          "a \\\"\"\" b\n" +
+          "c\n" +
+          "\"\"\""
+      )
     )
     assertThat(stringLiteralWithQuotes("abc();\ndef();", isConstantContext = true), equalTo("\"abc();\\ndef();\""))
   }

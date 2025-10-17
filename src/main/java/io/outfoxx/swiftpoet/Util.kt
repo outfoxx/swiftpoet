@@ -90,7 +90,7 @@ internal fun stringLiteralWithQuotes(
     // Start Swift multiline string
     result.append("\"\"\"\n")
     val escaped = value.replace("\"\"\"", "\\\"\"\"")
-    result.append(escaped)// End Swift multiline string
+    result.append(escaped) // End Swift multiline string
     result.append("\n\"\"\"")
     return result.toString()
   } else {
