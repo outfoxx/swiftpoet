@@ -56,4 +56,13 @@ class GenericQualifiedTypeNameTests {
     assertThat(composed.qualify(GenericQualifier.ANY).name, equalTo("any (A & B & C)"))
     assertThat(composed.qualify(GenericQualifier.SOME).name, equalTo("some (A & B & C)"))
   }
+
+  @Test
+  @DisplayName("Generates optional generic qualified declared type names")
+  fun optionalGenericQualifiedDeclaredTypeName() {
+    val type = DeclaredTypeName.typeName(".GenericType")
+
+    assertThat(type.qualify(GenericQualifier.ANY).makeOptional().name, equalTo("(any GenericType)?"))
+    assertThat(type.qualify(GenericQualifier.SOME).makeOptional().name, equalTo("(some GenericType)?"))
+  }
 }
