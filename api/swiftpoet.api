@@ -439,6 +439,7 @@ public final class io/outfoxx/swiftpoet/GenericQualifiedTypeName$Companion {
 public final class io/outfoxx/swiftpoet/GenericQualifier : java/lang/Enum {
 	public static final field ANY Lio/outfoxx/swiftpoet/GenericQualifier;
 	public static final field SOME Lio/outfoxx/swiftpoet/GenericQualifier;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lio/outfoxx/swiftpoet/GenericQualifier;
 	public static fun values ()[Lio/outfoxx/swiftpoet/GenericQualifier;
 }
@@ -484,6 +485,7 @@ public final class io/outfoxx/swiftpoet/Modifier : java/lang/Enum {
 	public static final field STATIC Lio/outfoxx/swiftpoet/Modifier;
 	public static final field UNOWNED Lio/outfoxx/swiftpoet/Modifier;
 	public static final field WEAK Lio/outfoxx/swiftpoet/Modifier;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lio/outfoxx/swiftpoet/Modifier;
 	public static fun values ()[Lio/outfoxx/swiftpoet/Modifier;
 }
@@ -804,6 +806,7 @@ public final class io/outfoxx/swiftpoet/TypeVariableName$Bound {
 public final class io/outfoxx/swiftpoet/TypeVariableName$Bound$Constraint : java/lang/Enum {
 	public static final field CONFORMS_TO Lio/outfoxx/swiftpoet/TypeVariableName$Bound$Constraint;
 	public static final field SAME_TYPE Lio/outfoxx/swiftpoet/TypeVariableName$Bound$Constraint;
+	public static fun getEntries ()Lkotlin/enums/EnumEntries;
 	public static fun valueOf (Ljava/lang/String;)Lio/outfoxx/swiftpoet/TypeVariableName$Bound$Constraint;
 	public static fun values ()[Lio/outfoxx/swiftpoet/TypeVariableName$Bound$Constraint;
 }

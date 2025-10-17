@@ -7,14 +7,14 @@ plugins {
   `maven-publish`
   signing
 
-  kotlin("jvm") version "1.7.21"
-  id("org.jetbrains.dokka") version "1.7.20"
+  kotlin("jvm") version "1.9.20"
+  id("org.jetbrains.dokka") version "1.9.10"
 
   id("org.cadixdev.licenser") version "0.6.1"
   id("org.jmailen.kotlinter") version "3.6.0"
 
   id("com.github.breadmoirai.github-release") version "2.4.1"
-  id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
+  id("io.github.gradle-nexus.publish-plugin") version "2.0.0-rc-1"
   
   id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.2"
 }
@@ -88,7 +88,7 @@ tasks {
 //
 
 jacoco {
-  toolVersion = "0.8.7"
+  toolVersion = "0.8.11"
 }
 
 tasks {
