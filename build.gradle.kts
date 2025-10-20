@@ -139,14 +139,11 @@ license {
 //
 
 publishing {
-
   publications {
-
     create<MavenPublication>("mavenJava") {
       from(components["java"])
 
       pom {
-
         name.set("Swift Poet")
         description.set("SwiftPoet is a Kotlin and Java API for generating .swift source files.")
         url.set("https://github.com/outfoxx/swiftpoet")
@@ -182,12 +179,9 @@ publishing {
             email.set("kevin@outfoxx.io")
           }
         }
-
       }
     }
-
   }
-
 }
 
 
@@ -235,6 +229,9 @@ nexusPublishing {
     delayBetween.set(Duration.ofSeconds(60))
   }
   repositories {
-    sonatype()
+    sonatype {
+      nexusUrl.set(uri("https://ossrh-staging-api.central.sonatype.com/service/local/"))
+      snapshotRepositoryUrl.set(uri("https://central.sonatype.com/repository/maven-snapshots/"))
+    }
   }
 }
