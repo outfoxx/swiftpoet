@@ -2,7 +2,7 @@ name: Publish Snapshot
 
 on:
   push:
-    branches: [ main ]
+    branches: [ bquenaudon.2025-10-20.migratetovanniktech ]
 
 permissions:
   contents: write
@@ -31,6 +31,9 @@ jobs:
 
     - name: Publish Maven Artifacts (Snapshot)
       uses: gradle/gradle-build-action@v2
+      env:
+        ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_CENTRAL_USERNAME }}
+        ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_CENTRAL_PASSWORD }}
       with:
         arguments: |
           -PsonatypeUsername=${{ secrets.OSSRH_TOKEN_USER }}
