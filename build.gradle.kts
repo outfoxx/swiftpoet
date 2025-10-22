@@ -1,5 +1,4 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.time.Duration
 
 plugins {
   `java-library`
@@ -7,15 +6,15 @@ plugins {
   `maven-publish`
   signing
 
-  kotlin("jvm") version "1.7.21"
-  id("org.jetbrains.dokka") version "1.7.20"
+  kotlin("jvm") version "1.9.20"
+  id("org.jetbrains.dokka") version "1.9.10"
 
   id("org.cadixdev.licenser") version "0.6.1"
   id("org.jmailen.kotlinter") version "3.6.0"
 
   id("com.github.breadmoirai.github-release") version "2.4.1"
-  id("io.github.gradle-nexus.publish-plugin") version "1.3.0"
-  
+  id("com.vanniktech.maven.publish") version "0.34.0"
+
   id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.2"
 }
 
@@ -25,7 +24,6 @@ val isSnapshot = releaseVersion.endsWith("SNAPSHOT")
 group = "io.outfoxx"
 version = releaseVersion
 description = "A Kotlin/Java API for generating .swift source files."
-
 
 //
 // DEPENDENCIES
@@ -71,7 +69,6 @@ java {
   targetCompatibility = JavaVersion.VERSION_1_8
 
   withSourcesJar()
-  withJavadocJar()
 }
 
 tasks {
@@ -88,7 +85,7 @@ tasks {
 //
 
 jacoco {
-  toolVersion = "0.8.7"
+  toolVersion = "0.8.11"
 }
 
 tasks {
@@ -111,7 +108,7 @@ tasks {
 
 tasks {
   dokkaHtml {
-    outputDirectory.set(file("$buildDir/javadoc/${project.version}"))
+    outputDirectory.set(file("${layout.buildDirectory}/javadoc/${project.version}"))
   }
 
   javadoc {
@@ -138,71 +135,49 @@ license {
 // PUBLISHING
 //
 
-publishing {
+mavenPublishing {
+  publishToMavenCentral(automaticRelease = true)
+  signAllPublications()
 
-  publications {
+  coordinates(
+    groupId = "io.outfoxx",
+    artifactId = "swiftpoet",
+    version = releaseVersion
+  )
 
-    create<MavenPublication>("mavenJava") {
-      from(components["java"])
+  pom {
+    name.set("Swift Poet")
+    description.set("SwiftPoet is a Kotlin and Java API for generating .swift source files.")
+    url.set("https://github.com/outfoxx/swiftpoet")
 
-      pom {
+    organization {
+      name.set("Outfox, Inc.")
+      url.set("https://outfoxx.io")
+    }
 
-        name.set("Swift Poet")
-        description.set("SwiftPoet is a Kotlin and Java API for generating .swift source files.")
-        url.set("https://github.com/outfoxx/swiftpoet")
-
-        organization {
-          name.set("Outfox, Inc.")
-          url.set("https://outfoxx.io")
-        }
-
-        issueManagement {
-          system.set("GitHub")
-          url.set("https://github.com/outfoxx/swiftpoet/issues")
-        }
-
-        licenses {
-          license {
-            name.set("Apache License 2.0")
-            url.set("https://raw.githubusercontent.com/outfoxx/swiftpoet/master/LICENSE.txt")
-            distribution.set("repo")
-          }
-        }
-
-        scm {
-          url.set("https://github.com/outfoxx/swiftpoet")
-          connection.set("scm:https://github.com/outfoxx/swiftpoet.git")
-          developerConnection.set("scm:git@github.com:outfoxx/swiftpoet.git")
-        }
-
-        developers {
-          developer {
-            id.set("kdubb")
-            name.set("Kevin Wooten")
-            email.set("kevin@outfoxx.io")
-          }
-        }
-
+    licenses {
+      license {
+        name.set("Apache License 2.0")
+        url.set("https://raw.githubusercontent.com/outfoxx/swiftpoet/master/LICENSE.txt")
+        distribution.set("repo")
       }
     }
 
+    scm {
+      url.set("https://github.com/outfoxx/swiftpoet")
+      connection.set("scm:https://github.com/outfoxx/swiftpoet.git")
+      developerConnection.set("scm:git@github.com:outfoxx/swiftpoet.git")
+    }
+
+    developers {
+      developer {
+        id.set("kdubb")
+        name.set("Kevin Wooten")
+        email.set("kevin@outfoxx.io")
+      }
+    }
   }
-
 }
-
-
-signing {
-  val signingKeyId: String? by project
-  val signingKey: String? by project
-  val signingPassword: String? by project
-  useInMemoryPgpKeys(signingKeyId, signingKey, signingPassword)
-  sign(publishing.publications["mavenJava"])
-}
-
-tasks.withType<Sign>().configureEach {
-  onlyIf { !isSnapshot }
-}
-
 
 //
 // RELEASING
@@ -227,14 +202,4 @@ githubRelease {
   authorization(
     "Token " + (project.findProperty("github.token") as String? ?: System.getenv("GITHUB_TOKEN"))
   )
-}
-
-nexusPublishing {
-  transitionCheckOptions {
-    // Default is set at 10 seconds.
-    delayBetween.set(Duration.ofSeconds(60))
-  }
-  repositories {
-    sonatype()
-  }
 }
