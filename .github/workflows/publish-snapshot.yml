@@ -27,19 +27,20 @@ jobs:
     - name: Build Artifacts & Documentation
       uses: gradle/gradle-build-action@v2
       with:
-        arguments: build -x test
+        arguments: build dokkaJavadoc -x test
 
     - name: Publish Maven Artifacts (Snapshot)
       uses: gradle/gradle-build-action@v2
+      env:
+        ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_CENTRAL_USERNAME }}
+        ORG_GRADLE_PROJECT_mavenCentralPassword: ${{ secrets.SONATYPE_CENTRAL_PASSWORD }}
       with:
         arguments: |
-          -PsonatypeUsername=${{ secrets.OSSRH_TOKEN_USER }}
-          -PsonatypePassword=${{ secrets.OSSRH_TOKEN_PASS }}
-          publish -x test
+          publishToMavenCentral -x test
 
     - name: Publish Documentation
       uses: JamesIves/github-pages-deploy-action@v4
       with:
         branch: gh-pages
         clean: false
-        folder: build/javadoc
+        folder: build/dokka/javadoc
