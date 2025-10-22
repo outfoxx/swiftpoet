@@ -1,0 +1,34 @@
+$dokka.format:javadoc-v1
+$dokka.linkExtension:html
+$dokka.location:io.outfoxx.swiftpoet/AttributeSpec.Builder///PointingToDeclaration/io/outfoxx/swiftpoet/AttributeSpec.Builder.html
+$dokka.location:io.outfoxx.swiftpoet/AttributeSpec.Companion///PointingToDeclaration/io/outfoxx/swiftpoet/AttributeSpec.Companion.html
+$dokka.location:io.outfoxx.swiftpoet/AttributedSpec.Builder///PointingToDeclaration/io/outfoxx/swiftpoet/AttributedSpec.Builder.html
+$dokka.location:io.outfoxx.swiftpoet/CodeBlock.Builder///PointingToDeclaration/io/outfoxx/swiftpoet/CodeBlock.Builder.html
+$dokka.location:io.outfoxx.swiftpoet/CodeBlock.Companion///PointingToDeclaration/io/outfoxx/swiftpoet/CodeBlock.Companion.html
+$dokka.location:io.outfoxx.swiftpoet/ComposedTypeName.Companion///PointingToDeclaration/io/outfoxx/swiftpoet/ComposedTypeName.Companion.html
+$dokka.location:io.outfoxx.swiftpoet/EnumerationCaseSpec.Builder///PointingToDeclaration/io/outfoxx/swiftpoet/EnumerationCaseSpec.Builder.html
+$dokka.location:io.outfoxx.swiftpoet/ExtensionSpec.Builder///PointingToDeclaration/io/outfoxx/swiftpoet/ExtensionSpec.Builder.html
+$dokka.location:io.outfoxx.swiftpoet/FileMemberSpec.Builder///PointingToDeclaration/io/outfoxx/swiftpoet/FileMemberSpec.Builder.html
+$dokka.location:io.outfoxx.swiftpoet/FileSpec.Builder///PointingToDeclaration/io/outfoxx/swiftpoet/FileSpec.Builder.html
+$dokka.location:io.outfoxx.swiftpoet/FunctionSignatureSpec.Builder///PointingToDeclaration/io/outfoxx/swiftpoet/FunctionSignatureSpec.Builder.html
+$dokka.location:io.outfoxx.swiftpoet/FunctionSpec.Builder///PointingToDeclaration/io/outfoxx/swiftpoet/FunctionSpec.Builder.html
+$dokka.location:io.outfoxx.swiftpoet/GenericQualifiedTypeName.Companion///PointingToDeclaration/io/outfoxx/swiftpoet/GenericQualifiedTypeName.Companion.html
+$dokka.location:io.outfoxx.swiftpoet/ImportSpec.Builder///PointingToDeclaration/io/outfoxx/swiftpoet/ImportSpec.Builder.html
+$dokka.location:io.outfoxx.swiftpoet/ParameterSpec.Builder///PointingToDeclaration/io/outfoxx/swiftpoet/ParameterSpec.Builder.html
+$dokka.location:io.outfoxx.swiftpoet/PropertySpec.Builder///PointingToDeclaration/io/outfoxx/swiftpoet/PropertySpec.Builder.html
+$dokka.location:io.outfoxx.swiftpoet/SelfTypeName.Companion///PointingToDeclaration/io/outfoxx/swiftpoet/SelfTypeName.Companion.html
+$dokka.location:io.outfoxx.swiftpoet/Taggable.Builder///PointingToDeclaration/io/outfoxx/swiftpoet/Taggable.Builder.html
+$dokka.location:io.outfoxx.swiftpoet/TupleTypeName.Companion///PointingToDeclaration/io/outfoxx/swiftpoet/TupleTypeName.Companion.html
+$dokka.location:io.outfoxx.swiftpoet/TypeAliasSpec.Builder///PointingToDeclaration/io/outfoxx/swiftpoet/TypeAliasSpec.Builder.html
+$dokka.location:io.outfoxx.swiftpoet/TypeSpec.Builder///PointingToDeclaration/io/outfoxx/swiftpoet/TypeSpec.Builder.html
+$dokka.location:io.outfoxx.swiftpoet/TypeSpec.Kind.Actor///PointingToDeclaration/io/outfoxx/swiftpoet/TypeSpec.Kind.Actor.html
+$dokka.location:io.outfoxx.swiftpoet/TypeSpec.Kind.Class///PointingToDeclaration/io/outfoxx/swiftpoet/TypeSpec.Kind.Class.html
+$dokka.location:io.outfoxx.swiftpoet/TypeSpec.Kind.Enum///PointingToDeclaration/io/outfoxx/swiftpoet/TypeSpec.Kind.Enum.html
+$dokka.location:io.outfoxx.swiftpoet/TypeSpec.Kind.Protocol///PointingToDeclaration/io/outfoxx/swiftpoet/TypeSpec.Kind.Protocol.html
+$dokka.location:io.outfoxx.swiftpoet/TypeSpec.Kind.Struct///PointingToDeclaration/io/outfoxx/swiftpoet/TypeSpec.Kind.Struct.html
+$dokka.location:io.outfoxx.swiftpoet/TypeSpec.Kind///PointingToDeclaration/io/outfoxx/swiftpoet/TypeSpec.Kind.html
+$dokka.location:io.outfoxx.swiftpoet/TypeVariableName.Bound.Constraint///PointingToDeclaration/io/outfoxx/swiftpoet/TypeVariableName.Bound.Constraint.html
+$dokka.location:io.outfoxx.swiftpoet/TypeVariableName.Bound///PointingToDeclaration/io/outfoxx/swiftpoet/TypeVariableName.Bound.html
+$dokka.location:io.outfoxx.swiftpoet/TypeVariableName.Companion///PointingToDeclaration/io/outfoxx/swiftpoet/TypeVariableName.Companion.html
+io.outfoxx.swiftpoet
+
