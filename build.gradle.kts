@@ -18,8 +18,7 @@ plugins {
   id("org.jetbrains.kotlinx.binary-compatibility-validator") version "0.13.2"
 }
 
-val releaseVersion: String by project
-val isSnapshot = releaseVersion.endsWith("SNAPSHOT")
+val releaseVersion = project.property("releaseVersion") as String
 
 group = "io.outfoxx"
 version = releaseVersion
