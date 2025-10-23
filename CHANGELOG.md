@@ -2,7 +2,7 @@
 
 ## [Unreleased]
 
-## [1.6.10] - 2025-10-23
+## [1.6.11] - 2025-10-23
 
 ### Fixed
 
@@ -10,7 +10,7 @@
 - Fix optional generic qualified declared types generation (#121)
 - Fix disambiguating different types with the same simple name (#123)
 
-Note that `1.6.7` to `1.6.9` have been skipped.
+Note that `1.6.7` to `1.6.10` have been skipped.
 
 ## [1.6.6] - 2024-10-29
 
@@ -73,8 +73,8 @@ Note that `1.6.7` to `1.6.9` have been skipped.
 
 There are no changelog for versions 1.5.0 and before.
 
-[Unreleased]: https://github.com/outfoxx/swiftpoet/compare/1.6.10...HEAD
-[1.6.10]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.10
+[Unreleased]: https://github.com/outfoxx/swiftpoet/compare/1.6.11...HEAD
+[1.6.11]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.11
 [1.6.6]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.6
 [1.6.5]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.5
 [1.6.4]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.4
