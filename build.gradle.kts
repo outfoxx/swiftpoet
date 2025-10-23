@@ -19,6 +19,7 @@ plugins {
 }
 
 val releaseVersion = project.property("releaseVersion") as String
+val isSnapshot = releaseVersion.endsWith("SNAPSHOT")
 
 group = "io.outfoxx"
 version = releaseVersion
@@ -136,8 +137,7 @@ license {
 
 mavenPublishing {
   publishToMavenCentral(automaticRelease = true)
-  val inMemoryKey = project.findProperty("signingInMemoryKey") as String?
-  if (!inMemoryKey.isNullOrEmpty()) {
+  if (!isSnapshot) {
     signAllPublications()
   }
 
