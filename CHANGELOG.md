@@ -2,13 +2,15 @@
 
 ## [Unreleased]
 
-## [1.6.7] - 2025-10-23
+## [1.6.8] - 2025-10-23
 
 ### Fixed
 
 - Fix import generation with attributes (#119)
 - Fix optional generic qualified declared types generation (#121)
 - Fix disambiguating different types with the same simple name (#123)
+
+Note that `1.6.7` has been skipped.
 
 ## [1.6.6] - 2024-10-29
 
@@ -71,7 +73,8 @@
 
 There are no changelog for versions 1.5.0 and before.
 
-[Unreleased]: https://github.com/outfoxx/swiftpoet/compare/1.6.6...HEAD
+[Unreleased]: https://github.com/outfoxx/swiftpoet/compare/1.6.8...HEAD
+[1.6.8]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.8
 [1.6.6]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.6
 [1.6.5]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.5
 [1.6.4]: https://github.com/outfoxx/swiftpoet/releases/tag/1.6.4
