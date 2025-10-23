@@ -25,6 +25,9 @@ Cutting a Release
     sed -i "" \
       "s/\<version\>\([^<]*\)\<\/version\>/\<version\>$RELEASE_VERSION\<\/version\>/g" \
       `find . -name "README.md"`
+    sed -i "" \
+      "s/releaseVersion=.*/releaseVersion=$RELEASE_VERSION/g" \
+      `find . -name "gradle.properties"`
     ```
 
 4. Tag the release and push to GitHub.
