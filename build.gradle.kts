@@ -137,7 +137,10 @@ license {
 
 mavenPublishing {
   publishToMavenCentral(automaticRelease = true)
-  signAllPublications()
+  val inMemoryKey = project.findProperty("signingInMemoryKey") as String?
+  if (!inMemoryKey.isNullOrEmpty()) {
+    signAllPublications()
+  }
 
   coordinates(
     groupId = "io.outfoxx",
