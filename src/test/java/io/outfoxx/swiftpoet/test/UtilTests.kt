@@ -62,23 +62,75 @@ class UtilTests {
   }
 
   @Test fun stringLiteral() {
-    stringLiteral("abc")
-    stringLiteral("♦♥♠♣")
-    stringLiteral("€\\t@\\t$", "€\t@\t$")
+    assertLiteral("\"abc\"", "abc")
+    assertLiteral("\"♦♥♠♣\"", "♦♥♠♣")
+    assertLiteral("\"€\\t@\\t$\"", "€\t@\t$")
     assertThat(stringLiteralWithQuotes("abc();\ndef();"), equalTo("\"\"\"\nabc();\ndef();\n\"\"\""))
-    stringLiteral("This is \\\"quoted\\\"!", "This is \"quoted\"!")
-    stringLiteral("😀", "😀")
-    stringLiteral("e^{i\\\\pi}+1=0", "e^{i\\pi}+1=0")
+    assertLiteral("#\"This is \"quoted\"!\"#", "This is \"quoted\"!")
+    assertLiteral("\"😀\"", "😀")
+    assertLiteral("#\"e^{i\\pi}+1=0\"#", "e^{i\\pi}+1=0")
     assertThat(
       stringLiteralWithQuotes("a \"\"\" b\nc"),
       equalTo(
-        "\"\"\"\n" +
-          "a \\\"\"\" b\n" +
+        "#\"\"\"\n" +
+          "a \"\"\" b\n" +
           "c\n" +
-          "\"\"\""
+          "\"\"\"#"
       )
     )
+    assertEquals("##\"\\#(name)\"##", stringLiteralWithQuotes("\\#(name)"))
+    assertEquals("##\"\"#\"##", stringLiteralWithQuotes("\"#"))
     assertThat(stringLiteralWithQuotes("abc();\ndef();", isConstantContext = true), equalTo("\"abc();\\ndef();\""))
+    assertLiteral("#\"foo\"bar${'$'}baz\"#", "foo\"bar${'$'}baz")
+    assertLiteral("###\"one\"##two\"###", "one\"##two")
+  }
+
+  @Test fun stringLiteralRawMultilineWithHashes() {
+    val value = "alpha\n\"\"\"##beta\nomega"
+    val expected = "###\"\"\"\nalpha\n\"\"\"##beta\nomega\n\"\"\"###"
+    assertEquals(expected, stringLiteralWithQuotes(value))
+  }
+
+  @Test fun stringLiteralRawMultilineWithInterpolation() {
+    val value = "foo\n\\(name)\nbar"
+    val expected = "#\"\"\"\nfoo\n\\(name)\nbar\n\"\"\"#"
+    assertEquals(expected, stringLiteralWithQuotes(value))
+  }
+
+  @Test fun stringLiteralInsideRawStringUsesEmbeddedMultiline() {
+    val value = "foo\\bar"
+    val expected = "\"\"\"\nfoo\\bar\n\"\"\""
+    assertEquals(expected, stringLiteralWithQuotes(value, isInsideRawString = true))
+  }
+
+  @Test fun stringLiteralInsideRawStringAndConstantContextUsesEmbeddedMultiline() {
+    val value = "line1\nline2"
+    val expected = "\"\"\"\nline1\nline2\n\"\"\""
+    assertEquals(expected, stringLiteralWithQuotes(value, isInsideRawString = true, isConstantContext = true))
+  }
+
+  @Test fun stringLiteralContainingStringLiteralUsesRawSingleLine() {
+    val value = "let msg = \"hi\""
+    val expected = "#\"let msg = \"hi\"\"#"
+    assertEquals(expected, stringLiteralWithQuotes(value))
+  }
+
+  @Test fun stringLiteralContainingRawLiteralIncreasesHashCount() {
+    val value = "let raw = #\"foo\"#"
+    val expected = "##\"let raw = #\"foo\"#\"##"
+    assertEquals(expected, stringLiteralWithQuotes(value))
+  }
+
+  @Test fun stringLiteralWithInterpolationContainingStringLiteralUsesRaw() {
+    val value = "result: \\\"hi\\\""
+    val expected = "#\"result: \\\"hi\\\"\"#"
+    assertEquals(expected, stringLiteralWithQuotes(value))
+  }
+
+  @Test fun stringLiteralContainingFormatMarkersIsPreserved() {
+    val value = "format %S %L %%"
+    val expected = "\"format %S %L %%\""
+    assertEquals(expected, stringLiteralWithQuotes(value))
   }
 
   @Test fun escapeNonJavaIdentifiers() {
@@ -88,7 +140,6 @@ class UtilTests {
     assertThat(escapeIfNecessary("with_unicode_punctuation\\u2026"), equalTo("`with_unicode_punctuation\\u2026`"))
   }
 
-  private fun stringLiteral(string: String) = stringLiteral(string, string)
-  private fun stringLiteral(expected: String, value: String) =
-    assertEquals("\"$expected\"", stringLiteralWithQuotes(value))
+  private fun assertLiteral(expectedLiteral: String, value: String) =
+    assertEquals(expectedLiteral, stringLiteralWithQuotes(value))
 }

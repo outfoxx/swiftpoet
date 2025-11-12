@@ -79,43 +79,165 @@ private val Char.isIsoControl: Boolean
     return this in '\u0000'..'\u001F' || this in '\u007F'..'\u009F'
   }
 
-/** Returns the string literal representing `value`, including wrapping double quotes.  */
+/**
+ * Returns the Swift string literal for `value`, choosing the simplest valid form:
+ * standard single-line, raw single-line (when escapes would be needed), standard multiline,
+ * or raw multiline (when triple-quotes/backslashes appear). When emitting inside an existing
+ * raw string, falls back to an embedded multiline literal. Constant contexts keep multiline
+ * values in standard form to avoid invalid raw usage.
+ */
 internal fun stringLiteralWithQuotes(
   value: String,
   isInsideRawString: Boolean = false,
   isConstantContext: Boolean = false,
 ): String {
   if (!isConstantContext && '\n' in value) {
-    val result = StringBuilder(value.length + 32)
-    // Start Swift multiline string
-    result.append("\"\"\"\n")
-    val escaped = value.replace("\"\"\"", "\\\"\"\"")
-    result.append(escaped) // End Swift multiline string
-    result.append("\n\"\"\"")
-    return result.toString()
-  } else {
-    val result = StringBuilder(value.length + 32)
-    // Using pre-formatted strings allows us to get away with not escaping symbols that would
-    // normally require escaping, e.g. "foo ${"bar"} baz".
-    if (isInsideRawString) result.append("\"\"\"\n") else result.append('"')
-    for (c in value) {
-      // Trivial case: single quote must not be escaped.
-      if (c == '\'') {
-        result.append("'")
-        continue
-      }
-      // Trivial case: double quotes must be escaped.
-      if (c == '\"' && !isInsideRawString) {
-        result.append("\\\"")
-        continue
-      }
-      // Default case: just let character literal do its work.
-      result.append(if (isInsideRawString) c else characterLiteralWithoutSingleQuotes(c))
-      // Need to append indent after linefeed?
+    return if (shouldUseRawMultiline(value)) {
+      buildRawMultilineLiteral(value)
+    } else {
+      buildStandardMultilineLiteral(value)
     }
-    if (isInsideRawString) result.append("\n\"\"\"") else result.append('"')
-    return result.toString()
   }
+
+  if (isInsideRawString) {
+    return buildEmbeddedLiteral(value)
+  }
+
+  val standard = buildStandardSingleLineLiteral(value)
+  return if (shouldUseRawSingleLine(value)) {
+    buildRawSingleLineLiteral(value) ?: standard
+  } else {
+    standard
+  }
+}
+
+private fun buildStandardSingleLineLiteral(value: String): String {
+  val result = StringBuilder(value.length + 32)
+  result.append('\"')
+  for (c in value) {
+    result.append(characterLiteralWithoutSingleQuotes(c))
+  }
+  result.append('\"')
+  return result.toString()
+}
+
+private fun buildRawSingleLineLiteral(value: String): String? {
+  // Raw single-line literals can’t span lines; we also skip them when control chars are present
+  // so we emit a standard escaped literal instead.
+  if (value.any(Char::isIsoControl)) return null
+  val hashes = "#".repeat(requiredHashCountForRaw(value, multiline = false))
+  return buildString(value.length + hashes.length * 2 + 2) {
+    append(hashes)
+    append('\"')
+    append(value)
+    append('\"')
+    append(hashes)
+  }
+}
+
+private fun buildStandardMultilineLiteral(value: String): String {
+  val result = StringBuilder(value.length + 32)
+  result.append("\"\"\"\n")
+  var index = 0
+  while (index < value.length) {
+    val remaining = value.length - index
+    if (remaining >= 3 && value[index] == '"' && value[index + 1] == '"' && value[index + 2] == '"') {
+      result.append("\\\"\"\"")
+      index += 3
+      continue
+    }
+
+    val c = value[index]
+    if (c == '\\') {
+      result.append("\\\\")
+    } else {
+      result.append(c)
+    }
+    index++
+  }
+  result.append("\n\"\"\"")
+  return result.toString()
+}
+
+private fun buildRawMultilineLiteral(value: String): String {
+  val hashes = "#".repeat(requiredHashCountForRaw(value, multiline = true))
+  return buildString(value.length + hashes.length * 2 + 32) {
+    append(hashes)
+    append("\"\"\"\n")
+    append(value)
+    append("\n\"\"\"")
+    append(hashes)
+  }
+}
+
+private fun buildEmbeddedLiteral(value: String): String {
+  val result = StringBuilder(value.length + 32)
+  result.append("\"\"\"\n")
+  result.append(value)
+  result.append("\n\"\"\"")
+  return result.toString()
+}
+
+private fun shouldUseRawMultiline(value: String): Boolean {
+  // Prefer raw multiline when triple quotes appear or when backslashes would otherwise need escaping.
+  if (value.contains("\"\"\"")) return true
+  return value.contains('\\')
+}
+
+private fun shouldUseRawSingleLine(value: String): Boolean {
+  // Avoid raw when empty or containing control chars; prefer it when quotes or backslashes exist.
+  if (value.isEmpty()) return false
+  if (value.any(Char::isIsoControl)) return false
+  return value.any { it == '\"' || it == '\\' }
+}
+
+private fun requiredHashCountForRaw(value: String, multiline: Boolean): Int {
+  val closingHashes = if (multiline) {
+    maxHashesFollowing(value, "\"\"\"")
+  } else {
+    maxHashesFollowing(value, "\"")
+  }
+  val interpolationHashes = maxInterpolationHashes(value)
+  // +1 guarantees the chosen delimiter is unique versus content and interpolation markers.
+  return maxOf(closingHashes, interpolationHashes) + 1
+}
+
+private fun maxHashesFollowing(value: String, pattern: String): Int {
+  var maxHashes = 0
+  var searchIndex = value.indexOf(pattern)
+  while (searchIndex != -1) {
+    var current = 0
+    var position = searchIndex + pattern.length
+    while (position < value.length && value[position] == '#') {
+      current++
+      position++
+    }
+    if (current > maxHashes) {
+      maxHashes = current
+    }
+    searchIndex = value.indexOf(pattern, searchIndex + 1)
+  }
+  return maxHashes
+}
+
+private fun maxInterpolationHashes(value: String): Int {
+  var maxHashes = 0
+  var index = value.indexOf('\\')
+  while (index != -1) {
+    var position = index + 1
+    var current = 0
+    while (position < value.length && value[position] == '#') {
+      current++
+      position++
+    }
+    if (position < value.length && value[position] == '(') {
+      if (current > maxHashes) {
+        maxHashes = current
+      }
+    }
+    index = value.indexOf('\\', index + 1)
+  }
+  return maxHashes
 }
 
 internal fun escapeKeywords(canonicalName: String) =
