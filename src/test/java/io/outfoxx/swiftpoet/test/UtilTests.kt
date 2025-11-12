@@ -62,14 +62,39 @@ class UtilTests {
   }
 
   @Test fun stringLiteral() {
-    stringLiteral("abc")
-    stringLiteral("♦♥♠♣")
-    stringLiteral("€\\t@\\t\${\'\$\'}", "€\t@\t$")
-    assertThat(stringLiteralWithQuotes("abc();\ndef();"), equalTo("\"\"\"\n|abc();\n|def();\n\"\"\".trimMargin()"))
-    stringLiteral("This is \\\"quoted\\\"!", "This is \"quoted\"!")
-    stringLiteral("😀", "😀")
-    stringLiteral("e^{i\\\\pi}+1=0", "e^{i\\pi}+1=0")
+    assertLiteral("\"abc\"", "abc")
+    assertLiteral("\"♦♥♠♣\"", "♦♥♠♣")
+    assertLiteral("\"€\\t@\\t$\"", "€\t@\t$")
+    assertThat(stringLiteralWithQuotes("abc();\ndef();"), equalTo("\"\"\"\nabc();\ndef();\n\"\"\""))
+    assertLiteral("#\"This is \"quoted\"!\"#", "This is \"quoted\"!")
+    assertLiteral("\"😀\"", "😀")
+    assertLiteral("#\"e^{i\\pi}+1=0\"#", "e^{i\\pi}+1=0")
+    assertThat(
+      stringLiteralWithQuotes("a \"\"\" b\nc"),
+      equalTo(
+        "#\"\"\"\n" +
+          "a \"\"\" b\n" +
+          "c\n" +
+          "\"\"\"#"
+      )
+    )
+    assertEquals("##\"\\#(name)\"##", stringLiteralWithQuotes("\\#(name)"))
+    assertEquals("##\"\"#\"##", stringLiteralWithQuotes("\"#"))
     assertThat(stringLiteralWithQuotes("abc();\ndef();", isConstantContext = true), equalTo("\"abc();\\ndef();\""))
+    assertLiteral("#\"foo\"bar${'$'}baz\"#", "foo\"bar${'$'}baz")
+    assertLiteral("###\"one\"##two\"###", "one\"##two")
+  }
+
+  @Test fun stringLiteralRawMultilineWithHashes() {
+    val value = "alpha\n\"\"\"##beta\nomega"
+    val expected = "###\"\"\"\nalpha\n\"\"\"##beta\nomega\n\"\"\"###"
+    assertEquals(expected, stringLiteralWithQuotes(value))
+  }
+
+  @Test fun stringLiteralRawMultilineWithInterpolation() {
+    val value = "foo\n\\(name)\nbar"
+    val expected = "#\"\"\"\nfoo\n\\(name)\nbar\n\"\"\"#"
+    assertEquals(expected, stringLiteralWithQuotes(value))
   }
 
   @Test fun escapeNonJavaIdentifiers() {
@@ -79,7 +104,6 @@ class UtilTests {
     assertThat(escapeIfNecessary("with_unicode_punctuation\\u2026"), equalTo("`with_unicode_punctuation\\u2026`"))
   }
 
-  private fun stringLiteral(string: String) = stringLiteral(string, string)
-  private fun stringLiteral(expected: String, value: String) =
-    assertEquals("\"$expected\"", stringLiteralWithQuotes(value))
+  private fun assertLiteral(expectedLiteral: String, value: String) =
+    assertEquals(expectedLiteral, stringLiteralWithQuotes(value))
 }
