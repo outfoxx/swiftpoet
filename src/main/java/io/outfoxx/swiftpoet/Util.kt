@@ -36,13 +36,6 @@ internal fun <T> Collection<T>.toImmutableSet(): Set<T> =
 internal inline fun <reified T : Enum<T>> Collection<T>.toEnumSet(): Set<T> =
   enumValues<T>().filterTo(mutableSetOf(), this::contains)
 
-internal fun requireExactlyOneOf(modifiers: Set<Modifier>, vararg mutuallyExclusive: Modifier) {
-  val count = mutuallyExclusive.count(modifiers::contains)
-  require(count == 1) {
-    "modifiers $modifiers must contain one of ${mutuallyExclusive.contentToString()}"
-  }
-}
-
 internal fun requireNoneOrOneOf(modifiers: Set<Modifier>, vararg mutuallyExclusive: Modifier) {
   val count = mutuallyExclusive.count(modifiers::contains)
   require(count <= 1) {
@@ -50,16 +43,8 @@ internal fun requireNoneOrOneOf(modifiers: Set<Modifier>, vararg mutuallyExclusi
   }
 }
 
-internal fun requireNoneOf(modifiers: Set<Modifier>, vararg forbidden: Modifier) {
-  require(forbidden.none(modifiers::contains)) {
-    "modifiers $modifiers must contain none of ${forbidden.contentToString()}"
-  }
-}
-
 internal fun <T> T.isOneOf(t1: T, t2: T, t3: T? = null, t4: T? = null, t5: T? = null, t6: T? = null) =
   this == t1 || this == t2 || this == t3 || this == t4 || this == t5 || this == t6
-
-internal fun <T> Collection<T>.containsAnyOf(vararg t: T) = t.any(this::contains)
 
 // see https://docs.oracle.com/javase/specs/jls/se7/html/jls-3.html#jls-3.10.6
 internal fun characterLiteralWithoutSingleQuotes(c: Char) = when {
